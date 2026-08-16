@@ -8,6 +8,7 @@ ES가 있어야만 검증되는 코드는 CI에서 영영 안 돌게 되고, 안
 반드시 썩는다.
 """
 
+import base64
 import json
 
 import pytest
@@ -214,3 +215,58 @@ def test_token_difference_is_recorded_even_without_divergence():
     (row,) = verify(local, es, queries).rows
     assert row.tokens_differ and not row.diverged
     assert row.nori_tokens == ["프라이", "팬"]
+
+
+# --------------------------------------------------------------- 인증
+
+def test_api_key_becomes_authorization_header(monkeypatch):
+    monkeypatch.delenv("ES_API_KEY", raising=False)
+    c = ESClient("http://x", api_key="abc123")
+    assert c.authenticated
+    assert c._auth_header == "ApiKey abc123"
+
+
+def test_basic_auth_is_base64_of_user_colon_password(monkeypatch):
+    for var in ("ES_API_KEY", "ES_USERNAME", "ES_PASSWORD"):
+        monkeypatch.delenv(var, raising=False)
+    expected = base64.b64encode(b"elastic:pw").decode()
+    assert ESClient("http://x", username="elastic", password="pw")._auth_header == f"Basic {expected}"
+
+
+def test_credentials_come_from_environment(monkeypatch):
+    """명령줄에 비밀을 적지 않아도 되게 환경 변수를 읽는다."""
+    monkeypatch.setenv("ES_API_KEY", "from-env")
+    assert ESClient("http://x")._auth_header == "ApiKey from-env"
+
+
+def test_no_credentials_means_no_authorization_header(monkeypatch):
+    for var in ("ES_API_KEY", "ES_USERNAME", "ES_PASSWORD"):
+        monkeypatch.delenv(var, raising=False)
+    c = ESClient("http://x")
+    assert not c.authenticated and c._auth_header is None
+
+
+def test_authorization_header_is_attached_to_requests(monkeypatch):
+    """헤더가 실제 요청에 붙는지 — 만들어만 두고 안 보내면 소용없다."""
+    monkeypatch.delenv("ES_API_KEY", raising=False)
+    seen = {}
+
+    class FakeResponse:
+        def read(self):
+            return b"{}"
+
+        def __enter__(self):
+            return self
+
+        def __exit__(self, *a):
+            return False
+
+    def fake_urlopen(req, timeout=None):
+        seen["auth"] = req.get_header("Authorization")
+        return FakeResponse()
+
+    import searchclinic.es.client as mod
+
+    monkeypatch.setattr(mod.urllib.request, "urlopen", fake_urlopen)
+    ESClient("http://x", api_key="k").ping()
+    assert seen["auth"] == "ApiKey k"

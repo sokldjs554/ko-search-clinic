@@ -13,7 +13,9 @@
 
 from __future__ import annotations
 
+import base64
 import json
+import os
 import urllib.error
 import urllib.request
 from typing import Any
@@ -24,15 +26,49 @@ class ESError(RuntimeError):
 
 
 class ESClient:
-    def __init__(self, url: str = "http://localhost:9200", timeout: float = 30.0):
+    """인증을 지원하는 최소 ES 클라이언트.
+
+    로컬 도커는 보안을 꺼두고 쓰지만, 실제 클러스터와 Elastic Cloud는
+    반드시 인증을 요구한다. 인증이 없으면 이 도구는 장난감 환경에서만
+    도는 셈이고, "실제 ES에서 검증했다"는 주장도 거기까지만 유효해진다.
+
+    자격 증명은 인자보다 환경 변수를 권한다 — 명령줄에 적으면 셸 히스토리와
+    프로세스 목록에 남는다.
+    """
+
+    def __init__(
+        self,
+        url: str = "http://localhost:9200",
+        timeout: float = 30.0,
+        api_key: str | None = None,
+        username: str | None = None,
+        password: str | None = None,
+    ):
         self.url = url.rstrip("/")
         self.timeout = timeout
+        api_key = api_key or os.environ.get("ES_API_KEY")
+        username = username or os.environ.get("ES_USERNAME")
+        password = password or os.environ.get("ES_PASSWORD")
+
+        self._auth_header: str | None = None
+        if api_key:
+            self._auth_header = f"ApiKey {api_key}"
+        elif username and password:
+            token = base64.b64encode(f"{username}:{password}".encode()).decode()
+            self._auth_header = f"Basic {token}"
+
+    @property
+    def authenticated(self) -> bool:
+        """진단·표시용. 자격 증명 자체는 절대 밖으로 내보내지 않는다."""
+        return self._auth_header is not None
 
     # ------------------------------------------------------------ 저수준
 
     def _request(self, method: str, path: str, body: Any = None) -> dict:
         data = None
         headers = {}
+        if self._auth_header:
+            headers["Authorization"] = self._auth_header
         if isinstance(body, str):  # bulk NDJSON
             data = body.encode("utf-8")
             headers["Content-Type"] = "application/x-ndjson"

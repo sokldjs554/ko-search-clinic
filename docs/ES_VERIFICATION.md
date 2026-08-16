@@ -38,6 +38,26 @@
 달라져 점수를 비교할 수 없으므로, 매핑에서 `copy_to`로 두 필드를 합친
 `text` 필드를 만들고 검증은 그 필드로 한다.
 
+## 인증이 걸린 클러스터에 붙일 때
+
+로컬 도커는 보안을 꺼두지만 실제 클러스터와 Elastic Cloud는 인증을 요구한다.
+자격 증명은 **환경 변수로** 넘긴다 — 명령줄 인자로 적으면 셸 히스토리와
+프로세스 목록에 남는다.
+
+```powershell
+# API 키 (Elastic Cloud 권장)
+$env:ES_API_KEY = "..."
+clinic es-verify --url https://내-배포.es.여러분.cloud.es.io:9243
+
+# 또는 사용자명/비밀번호
+$env:ES_USERNAME = "elastic"
+$env:ES_PASSWORD = "..."
+clinic es-verify --url https://...
+```
+
+Elastic Cloud를 쓸 경우 배포 설정에서 **analysis-nori 플러그인을 활성화**해야
+한다. 없으면 인덱스 생성 단계에서 도구가 멈추고 그 사실을 알려준다.
+
 ## 실행 (Windows / Docker Desktop 기준)
 
 Docker Desktop이 WSL2 백엔드로 실행 중이어야 한다. PowerShell에서:

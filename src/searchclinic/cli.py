@@ -194,6 +194,8 @@ def cmd_es_verify(args: argparse.Namespace) -> int:
     )
     from searchclinic.evaluation import run_clinic
 
+    # 자격 증명은 ES_API_KEY / ES_USERNAME+ES_PASSWORD 환경 변수로 받는다.
+    # 명령줄 인자로 두면 셸 히스토리와 프로세스 목록에 남는다.
     client = ESClient(args.url)
     try:
         info = client.ping()
@@ -210,7 +212,11 @@ def cmd_es_verify(args: argparse.Namespace) -> int:
         return 1
 
     version = info.get("version", {}).get("number", "?")
-    print(f"Elasticsearch {version} 연결됨 · analysis-nori 확인", file=sys.stderr)
+    auth = "인증됨" if client.authenticated else "인증 없음(로컬)"
+    print(
+        f"Elasticsearch {version} 연결됨 · analysis-nori 확인 · {auth}",
+        file=sys.stderr,
+    )
 
     print(f"'{args.engine}' 의사로 치유를 실행해 채택 설정을 만듭니다...", file=sys.stderr)
     try:
