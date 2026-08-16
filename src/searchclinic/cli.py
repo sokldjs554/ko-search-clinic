@@ -63,6 +63,12 @@ def cmd_diagnose(args: argparse.Namespace) -> int:
     from searchclinic.doctor import make_doctor, run_doctor_session
 
     executor = _build_executor()
+    known = [q.query for q in executor.evalset]
+    if args.query not in known:
+        print(f"평가셋에 없는 질의입니다: '{args.query}'", file=sys.stderr)
+        print("채점할 정답(qrels)이 없으면 진료 결과를 검증할 수 없습니다.", file=sys.stderr)
+        print("사용 가능한 질의:\n  " + "\n  ".join(known), file=sys.stderr)
+        return 1
     try:
         doctor = make_doctor(args.engine)
     except RuntimeError as e:

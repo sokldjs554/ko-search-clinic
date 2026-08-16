@@ -4,6 +4,8 @@ Claude 없이도 루프의 계약(재시도, 종료 조건, 히스토리 규약)
 있어야 CI가 API 비용 없이 돈다.
 """
 
+import pytest
+
 from searchclinic.corpus import load_catalog, load_evalset
 from searchclinic.doctor import ClinicExecutor
 from searchclinic.doctor.llm import LLMResponse, TextBlock, ToolUseBlock
@@ -118,3 +120,43 @@ def test_accepted_patches_accumulate_across_sessions():
     # 누적: 두 패치가 모두 살아 있는 설정
     assert executor.engine.config.synonym_groups
     assert executor.engine.config.compound_expansions
+
+
+def test_unknown_query_refused_before_any_api_call():
+    """평가셋에 없는 질의는 진료 자체를 거부한다.
+
+    실측 실패: 최신 코드를 pull하기 전에 새 질의를 돌렸더니, 루프는 정상
+    시작했지만 제출마다 게이트가 "평가셋에 없는 표적"으로 거부해 의사가
+    13턴을 헤맸다. 진입점에서 막아야 한다.
+    """
+    doctor = FakeDoctor([])  # 한 번도 호출되면 안 된다
+    with pytest.raises(ValueError, match="평가셋에 없는 질의"):
+        run_doctor_session(_executor(), doctor, "존재하지않는질의")
+    assert doctor.seen_messages == []
+
+
+def test_submission_for_a_different_query_is_refused():
+    """다른 질의를 표적으로 삼은 제출은 거부된다.
+
+    실측 실패: 의사가 표적을 '티슈'로 바꿔 던진 처방이 채택됐고, 세션은
+    그것을 "'백팩'을 치유했다"로 기록했다 — 평가가 통째로 무의미해진다.
+    """
+    wrong = dict(GOOD_RX, target_query="티슈")
+    doctor = FakeDoctor([_submit(wrong, "t1"), _submit(GOOD_RX, "t2")])
+    executor = _executor()
+    result = run_doctor_session(executor, doctor, "후라이팬")
+
+    assert result.healed  # 올바른 표적으로 낸 두 번째는 통과
+    assert result.attempts == 1  # 잘못된 표적 제출은 시도로 세지 않는다
+    assert len(executor.accepted) == 1
+    assert executor.accepted[0].prescription.target_query == "후라이팬"
+    assert any("이 진료의 표적은" in line for line in result.transcript)
+
+
+def test_tool_errors_appear_in_transcript():
+    """도구 오류는 진료 기록에 남아야 한다 — 안 그러면 제출이 증발한 것처럼 보인다."""
+    invalid = {"target_query": "후라이팬", "diagnosis_family": "spelling_variant",
+               "reasoning": "패치 없는 잘못된 처방."}
+    doctor = FakeDoctor([_submit(invalid, "t1"), _submit(GOOD_RX, "t2")])
+    result = run_doctor_session(_executor(), doctor, "후라이팬")
+    assert any(line.startswith("[오류]") for line in result.transcript)

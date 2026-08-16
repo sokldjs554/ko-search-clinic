@@ -38,7 +38,12 @@ def run_doctor_session(
     max_turns: int = MAX_TURNS,
     max_submits: int = MAX_SUBMITS,
 ) -> SessionResult:
-    executor.start_session()
+    if not any(q.query == query for q in executor.evalset):
+        raise ValueError(
+            f"평가셋에 없는 질의: '{query}'. 채점할 정답이 없으므로 진료할 수 없다. "
+            f"사용 가능: {', '.join(q.query for q in executor.evalset)}"
+        )
+    executor.start_session(query)
     tools = build_tool_definitions()
     n_before = executor._tool_search_products(query)["total"]
     messages: list[dict] = [
@@ -97,6 +102,10 @@ def run_doctor_session(
                 result.transcript.append(
                     f"[도구:{tu.name}] {json.dumps(tu.input, ensure_ascii=False)[:200]}"
                 )
+            if is_error:
+                # 도구 오류를 기록에 남기지 않으면, 제출이 증발한 것처럼 보여
+                # 의사가 원인을 못 찾고 헤맨다 (실측으로 확인된 실패 모드).
+                result.transcript.append(f"[오류] {content}")
             if tu.name == SUBMIT_TOOL and not is_error:
                 payload = json.loads(content)
                 result.attempts += 1

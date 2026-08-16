@@ -191,9 +191,12 @@ class ClinicExecutor:
     evalset: list[EvalQuery]
     accepted: list[AcceptedRecord] = field(default_factory=list)
     _attempts_this_session: int = 0
+    _session_query: str | None = None
 
-    def start_session(self) -> None:
+    def start_session(self, query: str | None = None) -> None:
+        """진료 세션을 연다. query를 주면 그 질의로 제출 대상을 못박는다."""
         self._attempts_this_session = 0
+        self._session_query = query
 
     # ------------------------------------------------------------------ 실행
 
@@ -265,8 +268,19 @@ class ClinicExecutor:
         return {"term": term, "similar": scored[: max(1, int(k))]}
 
     def _tool_submit_prescription(self, **kwargs) -> dict:
-        self._attempts_this_session += 1
         prescription = Prescription(**kwargs)
+
+        # 진료 중인 질의가 아닌 다른 질의를 표적으로 삼은 제출은 거부한다.
+        # 이게 없으면 의사가 표적을 바꿔 던진 처방이 채택되고, 세션은 그것을
+        # "원래 질의를 치유했다"로 기록한다 — 평가가 통째로 무의미해진다.
+        if self._session_query and prescription.target_query != self._session_query:
+            raise ValueError(
+                f"이 진료의 표적은 '{self._session_query}'인데 "
+                f"'{prescription.target_query}'를 표적으로 제출했다. "
+                f"target_query를 '{self._session_query}'로 정확히 맞춰 다시 제출하라."
+            )
+
+        self._attempts_this_session += 1
         verdict, sandbox = run_gate(self.engine, self.evalset, prescription)
         if verdict.accepted:
             # 채택: 샌드박스를 현역으로 승격 — 이후 진료는 누적 설정 위에서 돈다
