@@ -162,10 +162,12 @@ def test_docker_files_have_no_crlf(rel: str):
     """
     raw = (ROOT / rel).read_bytes()
     assert b"\r\n" not in raw, (
-        f"{rel}에 CRLF 줄바꿈이 있습니다. .gitattributes가 적용되지 않은 "
-        f"체크아웃입니다 — 아래로 정규화하세요:\n"
-        f"  git add --renormalize .\n"
-        f"  git checkout -- ."
+        f"{rel}에 CRLF 줄바꿈이 있습니다.\n"
+        f".gitattributes가 생기기 전에 체크아웃된 작업 트리입니다. git은 속성이\n"
+        f"바뀌었다고 기존 파일을 다시 꺼내주지 않으므로, 색인을 비우고 다시\n"
+        f"받아야 합니다 (추적되지 않는 파일은 그대로 남습니다):\n"
+        f"  git rm --cached -r .\n"
+        f"  git reset --hard"
     )
 
 
