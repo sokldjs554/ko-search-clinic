@@ -100,6 +100,9 @@ curl "http://localhost:9200/ko-search-clinic/_analyze?pretty" `
 | 로그에 `max virtual memory areas vm.max_map_count [65530] is too low` | ES는 mmap을 많이 쓴다. WSL2 VM의 커널 파라미터를 올린다:<br>`wsl -d docker-desktop sysctl -w vm.max_map_count=262144`<br>재부팅하면 초기화되므로 그때 다시 실행 |
 | `ps`에 계속 `starting`만 | 첫 기동은 40초~1분 걸린다. 그 이상이면 `docker compose -f docker/docker-compose.yml logs elasticsearch`로 원인을 본다 |
 | hosts 파일 변경 경고(AhnLab 등) | Docker Desktop이 `host.docker.internal`을 추가한 것. 이 프로젝트는 `localhost:9200`만 쓰므로 복원해도 검증에 지장 없다 |
+| `unable to get image ... 500 Internal Server Error` | Compose가 빌드 전 이미지 조회에서 500을 받는다. 빌드를 먼저 분리해 본다:<br>`docker compose -f docker/docker-compose.yml build`<br>그래도 나면 Docker Desktop → Settings → General → **Use containerd for pulling and storing images** 체크 해제 후 재시작 |
+| `docker` 명령을 못 찾음 | 설치 전에 열어둔 셸이라 PATH가 갱신되지 않았다. 새 창을 열거나:<br>`$env:Path = [Environment]::GetEnvironmentVariable("Path","Machine")` |
+| `daemon is running?` / `pipe/docker_engine` 없음 | CLI는 설치됐지만 Docker Desktop 앱이 실행되지 않았다. 앱을 켜고 Engine running을 기다린다 |
 | 한글이 깨져 보임 | PowerShell 출력 인코딩 문제. `chcp 65001` 후 재실행 |
 
 ## CI는 Docker 없이 돈다

@@ -7,10 +7,13 @@
 # Windows(Docker Desktop / WSL2)에서도 그대로 동작한다.
 services:
   elasticsearch:
+    # image: 태그는 일부러 두지 않는다. build와 함께 쓰면 Compose가 빌드 전에
+    # 그 이름의 이미지를 조회하는데, Docker Desktop의 containerd 이미지
+    # 저장소에서 그 조회가 404 대신 500을 내는 경우가 있다. 이름을 붙여서
+    # 얻는 것이 없으므로 실패 경로만 하나 줄인다.
     build:
       context: .
       dockerfile: Dockerfile
-    image: ko-search-clinic-es:8.15.0-nori
     container_name: ko-search-clinic-es
     environment:
       - discovery.type=single-node
