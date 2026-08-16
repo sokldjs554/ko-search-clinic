@@ -75,8 +75,21 @@ def to_es_settings(config: AnalyzerConfig, index_name: str = "products") -> dict
         },
         "mappings": {
             "properties": {
-                "name": {"type": "text", "analyzer": "clinic_korean"},
-                "description": {"type": "text", "analyzer": "clinic_korean"},
+                # copy_to로 name·description을 합친 text 필드를 하나 더 만든다.
+                # 로컬 엔진은 Document.text(= name + " " + description)를 통짜로
+                # 색인하므로, ES에서 필드를 나눠 검색하면 필드 길이 정규화가
+                # 달라져 점수를 비교할 수 없다. 검증은 이 통합 필드로 한다.
+                "name": {
+                    "type": "text",
+                    "analyzer": "clinic_korean",
+                    "copy_to": "text",
+                },
+                "description": {
+                    "type": "text",
+                    "analyzer": "clinic_korean",
+                    "copy_to": "text",
+                },
+                "text": {"type": "text", "analyzer": "clinic_korean"},
                 "category": {"type": "keyword"},
             }
         },

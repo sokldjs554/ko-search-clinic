@@ -160,6 +160,67 @@ def cmd_demo_trap(args: argparse.Namespace) -> int:
     return 0
 
 
+def cmd_es_verify(args: argparse.Namespace) -> int:
+    """렌더된 nori 설정을 실제 ES에 물려 로컬 결과와 대조한다.
+
+    "1:1로 대응하도록 설계했다"는 렌더러의 주장을 실측으로 확인하는 자리다.
+    """
+    from searchclinic.corpus import load_catalog, load_evalset
+    from searchclinic.es import (
+        ESClient,
+        ESError,
+        ElasticsearchEngine,
+        render_verification_markdown,
+        verify,
+    )
+    from searchclinic.evaluation import run_clinic
+
+    client = ESClient(args.url)
+    try:
+        info = client.ping()
+        if not client.has_nori():
+            print(
+                "이 Elasticsearch에 analysis-nori 플러그인이 없습니다.\n"
+                "docker/ 아래의 이미지로 띄우세요:\n"
+                "  docker compose -f docker/docker-compose.yml up -d --build",
+                file=sys.stderr,
+            )
+            return 1
+    except ESError as e:
+        print(str(e), file=sys.stderr)
+        return 1
+
+    version = info.get("version", {}).get("number", "?")
+    print(f"Elasticsearch {version} 연결됨 · analysis-nori 확인", file=sys.stderr)
+
+    print(f"'{args.engine}' 의사로 치유를 실행해 채택 설정을 만듭니다...", file=sys.stderr)
+    try:
+        report = run_clinic(doctor_name=args.engine)
+    except RuntimeError as e:
+        print(str(e), file=sys.stderr)
+        return 1
+    local = report.final_executor.engine
+
+    es = ElasticsearchEngine(client, load_catalog(), local.config, index=args.index)
+    print(f"ES 인덱스 '{args.index}' 생성 및 색인...", file=sys.stderr)
+    try:
+        es.reindex()
+    except ESError as e:
+        print(str(e), file=sys.stderr)
+        return 1
+
+    result = verify(local, es, load_evalset(), es_version=version)
+    md = render_verification_markdown(result)
+    print(md)
+    if args.output:
+        with open(args.output, "w", encoding="utf-8") as f:
+            f.write(md + "\n")
+        print(f"\n검증 리포트 저장: {args.output}", file=sys.stderr)
+    if not args.keep:
+        client.delete_index(args.index)
+    return 0
+
+
 def cmd_export_es(args: argparse.Namespace) -> int:
     from searchclinic.evaluation import run_clinic
     from searchclinic.patch.es_render import render_es_json
@@ -212,6 +273,18 @@ def main(argv: list[str] | None = None) -> int:
     p = sub.add_parser("export-es", help="치유 결과를 ES nori 설정으로 렌더링")
     p.add_argument("--output")
     p.set_defaults(func=cmd_export_es)
+
+    p = sub.add_parser(
+        "es-verify", help="렌더된 nori 설정을 실제 Elasticsearch에서 재검증"
+    )
+    p.add_argument("--url", default="http://localhost:9200")
+    p.add_argument("--engine", choices=["scripted", "claude"], default="scripted")
+    p.add_argument("--index", default="ko-search-clinic")
+    p.add_argument("--output", help="검증 리포트(마크다운) 저장 경로")
+    p.add_argument(
+        "--keep", action="store_true", help="검증 후 인덱스를 지우지 않고 남긴다"
+    )
+    p.set_defaults(func=cmd_es_verify)
 
     args = parser.parse_args(argv)
     return args.func(args)

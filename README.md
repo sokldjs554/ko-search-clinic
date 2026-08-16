@@ -155,6 +155,7 @@ $ clinic demo-trap
 | 회귀 게이트 | 전체 평가셋 전수 재실행: 표적 개선 + 질의별 무회귀(nDCG·recall·precision@5) + 전체 평균 보존 |
 | 패치 원장 | 채택된 모든 패치에 표적 질의·진단 근거·전후 지표 기록 — "왜 넣었는지 모르는 사전 항목" 방지 |
 | ES 렌더러 | 채택 설정 → **Elasticsearch nori 설정 JSON** (user_dictionary_rules / synonym_graph / decompound_mode) 1:1 렌더링 |
+| ES 실연결 검증 | 렌더된 설정으로 **실제 ES 인덱스를 만들어 같은 평가셋 재실행** — 로컬 BM25와 질의별 대조 (`clinic es-verify`, docker compose 포함) |
 | 의사 엔진 | ScriptedDoctor(결정적 베이스라인) + Claude(수동 tool-use 루프) — 같은 LLMClient 프로토콜 |
 | 평가 | 치유율 · **진단 정확도**(계열 라벨 대조) · **처방 적합성**(패치 유형 대조) · 건강셋 회귀 감시 |
 
@@ -211,7 +212,12 @@ clinic diagnose "츄리닝" --engine claude       # 진료 기록 한 건을 턴
 clinic heal --engine claude --output docs/CLINIC_REPORT_CLAUDE.md \
     --ledger docs/LEDGER_CLAUDE.json --es-output docs/es_config_claude.json
 
-# 테스트 (81개, 전부 오프라인 — API 키 없이 CI가 돈다)
+# 6) 실제 Elasticsearch(nori)에서 재검증 — 렌더러의 주장을 실측으로 확인
+docker compose -f docker/docker-compose.yml up -d --build
+clinic es-verify --output docs/ES_VERIFICATION_REPORT.md
+docker compose -f docker/docker-compose.yml down -v
+
+# 테스트 (91개, 전부 오프라인 — API 키도 Docker도 없이 CI가 돈다)
 pytest
 ```
 
@@ -229,6 +235,9 @@ pytest
 | BM25·자모 거리 **직접 구현** | 랭킹의 결정성이 곧 채점의 결정성이다. 같은 입력이면 항상 같은 순위·같은 판정 |
 | Kiwi 인스턴스 **캐시** | 초기화가 ~2초라 게이트의 샌드박스 생성마다 새로 만들면 진료가 분 단위가 된다. 등록 단어 집합이 같으면 공유 (동의어·확장은 파이썬 후처리라 안전) |
 | ES 렌더러는 **1:1 대응** | 로컬 패치 의미가 nori 설정(user_dictionary_rules/synonym/decompound_mode)과 정확히 대응하도록 패치 유형 자체를 설계 — 장난감이 아니라 이식 가능한 산출물 |
+| ES 엔진이 **로컬과 같은 인터페이스** | `search(query, k)` 하나만 맞추면 채점 코드(`evaluate_all`)를 양쪽에 그대로 쓴다. 자를 공유해야 차이가 **백엔드의 차이로만** 남는다 — 비교를 위해 채점기를 두 벌 만들면 그 순간 비교가 무의미해진다 |
+| ES 매핑에 **copy_to 통합 필드** | 로컬은 name+description을 통짜로 색인한다. ES에서 필드를 나눠 검색하면 BM25 필드 길이 정규화가 달라져 점수 비교가 성립하지 않는다 |
+| ES 클라이언트를 **직접 구현** | 필요한 것은 인덱스 생성·bulk·search·analyze 넷뿐이고, 클라이언트/서버 버전 협상 실패로 검증이 막히면 안 된다. 무엇보다 오가는 JSON이 추상화 뒤에 숨으면 "패치가 nori 설정으로 옮겨졌는가"를 눈으로 확인할 수 없다 |
 
 ## 프로젝트 구조
 
@@ -240,8 +249,10 @@ src/searchclinic/
 ├── patch/         # 처방 IR(pydantic), 회귀 게이트, ES nori 렌더러
 ├── doctor/        # 진료 도구, 진료 루프, ScriptedDoctor, Claude 클라이언트
 ├── evaluation/    # 지표(nDCG/recall/precision@5), 하니스, 패치 원장
-└── cli.py         # clinic analyze/search/evaluate/diagnose/heal/demo-trap/export-es
-tests/             # 81개 테스트 (전부 오프라인, API 키 불필요)
+├── es/            # ES 클라이언트·엔진·대조 검증 (로컬과 같은 search 인터페이스)
+└── cli.py         # analyze/search/evaluate/diagnose/heal/demo-trap/export-es/es-verify
+tests/             # 91개 테스트 (전부 오프라인 — API 키도 Docker도 불필요)
+docker/            # ES + analysis-nori 이미지와 compose
 docs/              # 설계 문서 + CLI가 생성한 리포트/원장/ES 설정
 ```
 
@@ -249,6 +260,7 @@ docs/              # 설계 문서 + CLI가 생성한 리포트/원장/ES 설정
 
 - [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) — 계층별 설계와 실측 기록
 - [docs/EVALUATION.md](docs/EVALUATION.md) — 평가 방법론: 왜 이렇게 채점하는가
+- [docs/ES_VERIFICATION.md](docs/ES_VERIFICATION.md) — 실제 Elasticsearch에서 재검증하는 절차와 그 근거
 - [docs/CLINIC_REPORT.md](docs/CLINIC_REPORT.md) · [docs/LEDGER.json](docs/LEDGER.json) · [docs/ES_SETTINGS.json](docs/ES_SETTINGS.json) — CLI가 생성한 실측 결과물
 
 ## 한계와 다음 단계
@@ -262,8 +274,10 @@ docs/              # 설계 문서 + CLI가 생성한 리포트/원장/ES 설정
   게이트를 예측해 미리 범위를 좁히기 때문인데, 그것을 확인하려면 도구로
   관측 불가능한 회귀를 심은 함정이 필요하다
   ([분석](docs/EVALUATION.md#정직하게-남기는-세-가지-한계))
-- **ES 실연결**: 렌더링된 설정을 실제 Elasticsearch에 적용하고 같은 평가셋을
-  ES 위에서 재실행하는 어댑터 (렌더러는 완성, 어댑터는 로드맵)
+- **ES 대조 결과 미기재**: 어댑터(`clinic es-verify`)와 docker compose는 완성됐고
+  오프라인 테스트로 고정돼 있지만, **실제 클러스터에서 돌린 대조표는 아직 이
+  저장소에 없다.** Kiwi와 nori는 다른 분석기라 일부 질의는 갈릴 것으로 예상하며,
+  갈리면 그대로 기록할 것이다 ([절차](docs/ES_VERIFICATION.md))
 - **처방 유형 확장**: 오탈자 교정(質의 시점), 불용어, 가중치 필드 부스팅
 
 ## 라이선스

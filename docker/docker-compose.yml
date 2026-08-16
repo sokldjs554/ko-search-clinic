@@ -1,0 +1,32 @@
+# 검증용 단일 노드 Elasticsearch + analysis-nori.
+#
+# 로컬 검증 전용이므로 보안을 끈다 — 인증서·비밀번호 설정이 검증의 본질이
+# 아닌데다, 그것 때문에 재현이 막히면 도구로서 실패다.
+# 공개 네트워크에 이 설정을 그대로 띄우지 말 것.
+#
+# Windows(Docker Desktop / WSL2)에서도 그대로 동작한다.
+services:
+  elasticsearch:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: ko-search-clinic-es:8.15.0-nori
+    container_name: ko-search-clinic-es
+    environment:
+      - discovery.type=single-node
+      - xpack.security.enabled=false
+      - xpack.security.http.ssl.enabled=false
+      # 힙 1GB — 코퍼스가 72건이라 이 이상은 낭비다.
+      # Docker Desktop 기본 메모리(2GB)에서도 뜨도록 낮게 잡았다.
+      - ES_JAVA_OPTS=-Xms1g -Xmx1g
+      - bootstrap.memory_lock=false
+    ports:
+      - "9200:9200"
+    healthcheck:
+      # 노란색(yellow)까지 허용한다 — 단일 노드라 복제본이 배정되지 않아
+      # 정상 상태에서도 green이 되지 않는다.
+      test: ["CMD-SHELL", "curl -fsS 'http://localhost:9200/_cluster/health?wait_for_status=yellow&timeout=5s' || exit 1"]
+      interval: 10s
+      timeout: 10s
+      retries: 30
+      start_period: 40s
