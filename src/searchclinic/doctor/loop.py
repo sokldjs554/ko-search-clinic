@@ -55,7 +55,8 @@ def run_doctor_session(
             result.final_feedback = "모델 거절"
             break
 
-        messages.append({"role": "assistant", "content": response.content})
+        # 히스토리에는 SDK 원본 블록을 그대로 되돌린다 (thinking 블록 보존)
+        messages.append({"role": "assistant", "content": response.history_content})
         tool_uses = [b for b in response.content if isinstance(b, ToolUseBlock)]
         for block in response.content:
             if getattr(block, "type", "") == "text" and block.text.strip():

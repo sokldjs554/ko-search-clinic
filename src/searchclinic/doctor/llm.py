@@ -31,9 +31,23 @@ class ToolUseBlock:
 
 @dataclass
 class LLMResponse:
+    """한 턴의 모델 응답.
+
+    content와 raw_content를 나누는 이유가 중요하다. 진료 루프는 정규화된
+    블록(content)으로 판단하지만, **대화 히스토리에 되돌려 넣을 때는 SDK가
+    준 원본 블록(raw_content)을 그대로 써야 한다.** 우리 dataclass를 그대로
+    messages에 넣으면 SDK가 직렬화하지 못하고, thinking 블록도 유실된다
+    (Claude Opus 5는 thinking 블록을 변형 없이 되돌려받아야 한다).
+    """
+
     content: list = field(default_factory=list)
     stop_reason: str = "end_turn"
     model: str = ""
+    raw_content: list | None = None  # API에 되돌려줄 원본 블록 (없으면 content 사용)
+
+    @property
+    def history_content(self) -> list:
+        return self.raw_content if self.raw_content is not None else self.content
 
 
 class LLMClient(Protocol):
@@ -46,14 +60,29 @@ DEFAULT_MODEL = "claude-opus-5"
 
 
 class AnthropicLLM:
-    """Claude Messages API 클라이언트.
+    """Claude Messages API 클라이언트 (수동 tool-use 루프용).
 
-    - claude-opus-5는 adaptive thinking이 기본이라 thinking 파라미터를 보내지
-      않고, 샘플링 파라미터도 쓰지 않는다.
-    - stop_reason == "refusal"(안전 분류기 거절)을 명시적으로 처리한다.
+    claude-opus-5 기준 주의점:
+
+    - **thinking이 기본 활성이다.** thinking 파라미터를 보내지 않으면 adaptive
+      thinking이 돈다. 그리고 `max_tokens`는 thinking + 응답 텍스트를 **합쳐서**
+      제한하므로, 4096처럼 빠듯하게 잡으면 답변이 중간에 잘린다. 기본값을
+      넉넉히(16000) 잡되 상한일 뿐이라 실제 사용량만 과금된다.
+    - 샘플링 파라미터(temperature/top_p/top_k)는 거부되므로 보내지 않는다.
+    - `stop_reason == "refusal"`(안전 분류기 거절)을 명시적으로 처리한다.
+      서버측 `fallbacks` 파라미터로 자동 대체 모델을 쓸 수도 있지만, 베타
+      헤더 의존이 생기고 이 프로젝트의 질의(한국어 상품 검색)는 거절 위험이
+      사실상 없어 넣지 않았다. 거절 시에는 그대로 표면화한다.
+    - 응답 블록은 **원본 그대로** 히스토리에 돌려준다(raw_content). thinking
+      블록을 변형하면 API가 거부한다.
     """
 
-    def __init__(self, model: str = DEFAULT_MODEL, max_tokens: int = 4096) -> None:
+    def __init__(
+        self,
+        model: str = DEFAULT_MODEL,
+        max_tokens: int = 16000,
+        effort: str = "high",
+    ) -> None:
         try:
             import anthropic
         except ImportError as e:
@@ -65,6 +94,7 @@ class AnthropicLLM:
         self._client = anthropic.Anthropic()
         self.model = model
         self.max_tokens = max_tokens
+        self.effort = effort
 
     def create(
         self, *, system: str, messages: list[dict], tools: list[dict]
@@ -72,6 +102,7 @@ class AnthropicLLM:
         resp = self._client.messages.create(
             model=self.model,
             max_tokens=self.max_tokens,
+            output_config={"effort": self.effort},
             system=system,
             messages=messages,
             tools=tools,
@@ -81,7 +112,9 @@ class AnthropicLLM:
                 content=[TextBlock(text="(모델이 응답을 거절했습니다)")],
                 stop_reason="refusal",
                 model=resp.model,
+                raw_content=list(resp.content),
             )
+        # 정규화된 뷰(루프 판단용)와 원본(히스토리 반환용)을 따로 만든다
         content: list = []
         for block in resp.content:
             if block.type == "text":
@@ -90,8 +123,9 @@ class AnthropicLLM:
                 content.append(
                     ToolUseBlock(id=block.id, name=block.name, input=dict(block.input))
                 )
-            else:  # thinking 블록 등은 히스토리 보존을 위해 원본 유지
-                content.append(block)
         return LLMResponse(
-            content=content, stop_reason=resp.stop_reason, model=resp.model
+            content=content,
+            stop_reason=resp.stop_reason,
+            model=resp.model,
+            raw_content=list(resp.content),
         )
