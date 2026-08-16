@@ -77,9 +77,26 @@ def run_doctor_session(
                     "is_error": is_error,
                 }
             )
-            result.transcript.append(
-                f"[도구:{tu.name}] {json.dumps(tu.input, ensure_ascii=False)[:200]}"
-            )
+            if tu.name == SUBMIT_TOOL:
+                # 처방은 진료의 결론이다 — 잘라서 보여주면 무엇을 처방했는지
+                # 확인할 수 없다. 진단·근거·패치를 전부 남긴다.
+                result.transcript.append(
+                    f"[처방] 계열={tu.input.get('diagnosis_family', '?')}"
+                )
+                if tu.input.get("reasoning"):
+                    result.transcript.append(f"  근거: {tu.input['reasoning']}")
+                for w in tu.input.get("user_words") or []:
+                    result.transcript.append(f"  · 사전등록: {w.get('form')}")
+                for g in tu.input.get("synonym_groups") or []:
+                    result.transcript.append(f"  · 동의어: {' = '.join(g.get('terms', []))}")
+                for c in tu.input.get("compound_expansions") or []:
+                    result.transcript.append(
+                        f"  · 분해확장: {c.get('word')} → {'+'.join(c.get('parts', []))}"
+                    )
+            else:
+                result.transcript.append(
+                    f"[도구:{tu.name}] {json.dumps(tu.input, ensure_ascii=False)[:200]}"
+                )
             if tu.name == SUBMIT_TOOL and not is_error:
                 payload = json.loads(content)
                 result.attempts += 1
