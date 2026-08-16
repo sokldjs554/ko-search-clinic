@@ -13,6 +13,13 @@ from __future__ import annotations
 
 import argparse
 import sys
+import unicodedata
+
+
+def _pad(text: str, width: int) -> str:
+    """한글은 터미널에서 두 칸을 차지한다 — 글자 수로 맞추면 표가 어긋난다."""
+    shown = sum(2 if unicodedata.east_asian_width(c) in "WF" else 1 for c in text)
+    return text + " " * max(0, width - shown)
 
 
 def _build_executor():
@@ -29,7 +36,12 @@ def cmd_analyze(args: argparse.Namespace) -> int:
     analyzer = KoreanAnalyzer()
     print(f"입력: {args.text}")
     for t in analyzer.explain(args.text):
-        print(f"  {t['token']:14s} {t['tag']:6s} ({t['origin']})")
+        print(f"  {_pad(t['token'], 14)} {t['tag']:6s} ({t['origin']})")
+    # 버려진 토큰을 감추면 "왜 0건인지"의 절반이 사라진다.
+    # 아답터는 첫 음절 '아'가 감탄사로 오인돼 필터에서 빠지는 것이 핵심이다.
+    for form, tag in analyzer.dropped(args.text):
+        print(f"  {_pad(form, 14)} {tag:6s} (버려짐 — 내용어가 아님)")
+    print(f"  → 색인 토큰: {analyzer.tokens(args.text) or '없음'}")
     return 0
 
 
@@ -38,7 +50,7 @@ def cmd_search(args: argparse.Namespace) -> int:
     payload = executor._tool_search_products(args.query, k=args.k)
     print(f"질의: {args.query} — {payload['total']}건")
     for r in payload["results"]:
-        print(f"  {r['doc_id']}  {r['score']:7.3f}  {r['name']}  (매칭: {', '.join(r['matched_terms'])})")
+        print(f"  {r['doc_id']}  {r['score']:7.3f}  {_pad(r['name'], 26)} (매칭: {', '.join(r['matched_terms'])})")
     return 0
 
 
@@ -55,7 +67,7 @@ def cmd_evaluate(args: argparse.Namespace) -> int:
     print(f"- 실패 질의 {len(fail)}건: 평균 nDCG {mean_ndcg(fail):.3f} · 제로결과율 {zero_result_rate(fail):.0%}")
     print()
     for q, m in fail.items():
-        print(f"  {q:12s} nDCG={m.ndcg:.2f} recall={m.recall:.2f} 결과={m.n_results}")
+        print(f"  {_pad(q, 16)} nDCG={m.ndcg:.2f} recall={m.recall:.2f} 결과={m.n_results}")
     return 0
 
 

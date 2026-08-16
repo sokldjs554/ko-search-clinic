@@ -100,8 +100,27 @@ class KoreanAnalyzer:
         return [t.form for t in self.analyze(text)]
 
     def explain(self, text: str) -> list[dict]:
-        """진단 도구용: 각 토큰이 어떤 경로로 나왔는지 설명한다."""
+        """진단 도구용: 각 토큰이 어떤 경로로 나왔는지 설명한다.
+
+        의사 도구(`analyze_text`)가 그대로 쓰는 출력이라 형태를 바꾸지 않는다 —
+        실측 결과가 이 출력 위에서 나왔다. 버려진 토큰까지 보려면
+        `explain_with_dropped()`를 쓴다 (CLI `clinic analyze` 전용).
+        """
         return [
             {"token": t.form, "tag": t.tag, "origin": t.origin}
             for t in self.analyze(text)
+        ]
+
+    def dropped(self, text: str) -> list[tuple[str, str]]:
+        """내용어 필터에서 **버려진** 토큰 (form, tag) 목록.
+
+        `아답터`가 대표 사례다. Kiwi는 이걸 [아(IC), 답(NNG), 터(NNG)]로
+        쪼개는데, 첫 음절 '아'가 **감탄사(IC)로 오인**돼 필터에서 통째로
+        사라진다. 남는 색인 토큰은 [답, 터]뿐이라 '아답터'는 무엇과도
+        매칭되지 않는다 — 왜 0건인지 설명하려면 사라진 조각을 보여야 한다.
+        """
+        return [
+            (tok.form, tok.tag)
+            for tok in self._kiwi.tokenize(text)
+            if not tok.tag.startswith(_KEEP_PREFIXES)
         ]
