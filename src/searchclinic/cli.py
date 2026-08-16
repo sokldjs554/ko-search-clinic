@@ -22,6 +22,25 @@ def _pad(text: str, width: int) -> str:
     return text + " " * max(0, width - shown)
 
 
+def _force_utf8_output() -> None:
+    """표준 출력을 UTF-8로 고정한다.
+
+    한국어 Windows에서 표준 출력이 파일이나 파이프로 넘어가면 파이썬은
+    locale 기본값(cp949)으로 인코딩한다. 이 도구의 출력에는 `✅`·`→`·`⚠️`가
+    들어 있어 그 순간 UnicodeEncodeError로 죽는다 —
+    `clinic heal > report.md`처럼 아주 흔한 사용법이 터진다는 뜻이다.
+
+    콘솔에 직접 쓸 때는 파이썬이 이미 유니코드를 다루므로 영향이 없다.
+    """
+    for stream in (sys.stdout, sys.stderr):
+        reconfigure = getattr(stream, "reconfigure", None)
+        if reconfigure is not None:
+            try:
+                reconfigure(encoding="utf-8")
+            except (ValueError, OSError):
+                pass  # 이미 닫혔거나 재설정할 수 없는 스트림 — 출력은 계속한다
+
+
 def _build_executor():
     from searchclinic.corpus import load_catalog, load_evalset
     from searchclinic.doctor import ClinicExecutor
@@ -238,6 +257,7 @@ def cmd_export_es(args: argparse.Namespace) -> int:
 
 
 def main(argv: list[str] | None = None) -> int:
+    _force_utf8_output()
     parser = argparse.ArgumentParser(
         prog="clinic", description="ko-search-clinic — 한국어 검색 품질 자가 치유"
     )

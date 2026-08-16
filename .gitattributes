@@ -1,0 +1,7 @@
+# 줄바꿈을 LF로 통일한다.
+#
+# Windows용 Git은 기본값(core.autocrlf=true)으로 체크아웃할 때 LF를 CRLF로
+# 바꾼다. 그러면 docker/Dockerfile의 RUN 명령 끝에 \r이 붙어 컨테이너 안
+# 셸에서 깨지고, 리눅스 CI와 Windows 개발 환경의 파일이 서로 달라진다.
+# 이 프로젝트의 추적 파일은 전부 텍스트이므로 예외 없이 LF로 못 박는다.
+* text=auto eol=lf

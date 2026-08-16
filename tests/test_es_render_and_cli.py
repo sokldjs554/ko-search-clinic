@@ -83,9 +83,11 @@ def test_cli_heal_writes_outputs(tmp_path, capsys):
         "heal", "--engine", "scripted",
         "--output", str(report), "--ledger", str(ledger), "--es-output", str(es),
     ]) == 0
-    assert "치유율" in report.read_text()
-    entries = json.loads(ledger.read_text())
+    # encoding을 명시하지 않으면 한국어 Windows에서 cp949로 읽혀 깨진다.
+    # CLI는 항상 UTF-8로 쓰므로 읽는 쪽도 UTF-8로 고정한다 (실측으로 확인된 실패).
+    assert "치유율" in report.read_text(encoding="utf-8")
+    entries = json.loads(ledger.read_text(encoding="utf-8"))
     assert len(entries) == 10
     assert all("evidence" in e for e in entries)
-    es_settings = json.loads(es.read_text())
+    es_settings = json.loads(es.read_text(encoding="utf-8"))
     assert "analysis" in es_settings["settings"]["index"]
