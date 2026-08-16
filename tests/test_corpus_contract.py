@@ -6,7 +6,12 @@
 "0건 실패"가 사라진다. 이 테스트가 그 계약을 지킨다.
 """
 
-from searchclinic.corpus import failing_queries, healthy_queries, load_catalog
+from searchclinic.corpus import (
+    ZERO_RESULT_AT_BASELINE,
+    failing_queries,
+    healthy_queries,
+    load_catalog,
+)
 from searchclinic.evaluation.metrics import evaluate_query
 from searchclinic.index.engine import SearchEngine
 
@@ -44,13 +49,52 @@ def test_failing_queries_all_fail_as_labeled():
         assert m.ndcg < 0.95, f"{eq.query}: 실패 질의인데 nDCG {m.ndcg}"
 
 
-def test_zero_result_families_are_actually_zero():
-    """표기변형·유의어·복합어·쓰레기분해 계열은 0건이어야 한다."""
+def test_zero_result_queries_are_actually_zero():
+    """0건으로 설계된 질의는 실제로 0건이어야 한다."""
     engine = _engine()
     for eq in failing_queries():
-        if eq.family in ("spelling_variant", "synonym_gap", "compound_locked", "garbage_split"):
+        if eq.query in ZERO_RESULT_AT_BASELINE:
             m = evaluate_query(engine, eq)
             assert m.zero_result, f"{eq.query}: 0건이어야 하는데 {m.n_results}건"
+
+
+def test_non_zero_failures_return_junk_not_nothing():
+    """0건이 아닌 실패 질의는 '결과는 나오는데 틀린' 상태여야 한다.
+
+    이쪽이 실무에서 더 위험하다 — 검색이 되는 것처럼 보여 아무도 신고하지 않는다.
+    """
+    engine = _engine()
+    for eq in failing_queries():
+        if eq.query in ZERO_RESULT_AT_BASELINE:
+            continue
+        m = evaluate_query(engine, eq)
+        assert m.n_results > 0, f"{eq.query}: 0건이면 ZERO_RESULT_AT_BASELINE에 넣어야 한다"
+        assert m.ndcg < 0.95, f"{eq.query}: 결과는 나오지만 틀려야 하는데 nDCG {m.ndcg}"
+
+
+def test_backpack_trap_needs_two_stage_prescription():
+    """'백팩'은 동의어만으로는 절대 고쳐지지 않는다 (사전 등록이 선행돼야 함).
+
+    질의가 [백, 팩]으로 부서지므로 '백팩'이라는 토큰 자체가 생기지 않는다.
+    동의어 그룹에 '백팩'을 넣어도 발화되지 않아 표적이 개선되지 않고 기각된다.
+    """
+    from searchclinic.analysis.config import AnalyzerConfig, SynonymGroup, UserWord
+
+    engine = _engine()
+    eq = next(q for q in failing_queries() if q.query == "백팩")
+
+    synonym_only = engine.with_config(
+        AnalyzerConfig(synonym_groups=[SynonymGroup(terms=["배낭", "백팩"])])
+    )
+    assert evaluate_query(synonym_only, eq).ndcg == 0.0, "동의어만으로 고쳐지면 함정이 아니다"
+
+    two_stage = engine.with_config(
+        AnalyzerConfig(
+            user_words=[UserWord(form="백팩")],
+            synonym_groups=[SynonymGroup(terms=["배낭", "백팩"])],
+        )
+    )
+    assert evaluate_query(two_stage, eq).ndcg == 1.0, "2단계 처방으로는 풀려야 한다"
 
 
 def test_compound_parts_not_indexed_standalone():

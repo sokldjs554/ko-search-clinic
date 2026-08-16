@@ -3,6 +3,7 @@
 from searchclinic.corpus.catalog import CATALOG, Document, load_catalog
 from searchclinic.corpus.evalset import (
     FAILING,
+    ZERO_RESULT_AT_BASELINE,
     FAMILIES,
     HEALTHY,
     EvalQuery,
@@ -19,6 +20,7 @@ __all__ = [
     "FAMILIES",
     "HEALTHY",
     "FAILING",
+    "ZERO_RESULT_AT_BASELINE",
     "load_evalset",
     "healthy_queries",
     "failing_queries",

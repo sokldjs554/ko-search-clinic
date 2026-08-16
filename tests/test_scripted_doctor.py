@@ -30,6 +30,7 @@ EXPECTED = {
     "티슈": (True, "compound_locked"),
     "머스캣": (True, "compound_locked"),
     "아답터": (False, "spelling_variant"),  # 오진: 동의어만 제출 → 기각
+    "백팩": (False, None),  # 자모 유사 상대도 포함 복합어도 없다 — 규칙 밖
 }
 
 
@@ -50,8 +51,8 @@ def test_baseline_heals_exactly_the_designed_set(report):
 
 
 def test_baseline_rates(report):
-    assert report.heal_rate == pytest.approx(10 / 15)
-    assert report.diagnosis_accuracy == pytest.approx(10 / 15)
+    assert report.heal_rate == pytest.approx(10 / 16)
+    assert report.diagnosis_accuracy == pytest.approx(10 / 16)
 
 
 def test_no_healthy_regressions(report):
