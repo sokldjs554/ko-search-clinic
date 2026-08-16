@@ -1,0 +1,28 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ko-search-clinic"
+version = "0.1.0"
+description = "한국어 검색 품질 자가 치유 에이전트 — 진단·처방·검증·롤백"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+dependencies = [
+    "kiwipiepy>=0.18",
+    "pydantic>=2.5",
+]
+
+[project.optional-dependencies]
+llm = ["anthropic>=0.40"]
+dev = ["pytest>=8.0", "pyflakes>=3.2"]
+
+[project.scripts]
+clinic = "searchclinic.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
