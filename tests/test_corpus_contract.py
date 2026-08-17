@@ -180,3 +180,38 @@ def test_documented_scale_matches_reality():
         if phrase not in (root / rel).read_text(encoding="utf-8")
     ]
     assert not stale, "문서의 규모 선언이 실제와 어긋남: " + "; ".join(stale)
+
+
+def test_documented_test_count_matches_reality(request):
+    """README가 선언한 테스트 개수가 실제 수집 개수와 일치해야 한다.
+
+    코퍼스 규모와 같은 이유다 — 검증되지 않는 문서 수치는 반드시 낡는다.
+    다만 개수는 **전체를 수집했을 때만** 판정할 수 있으므로, 일부만 돌린
+    실행에서는 건너뛴다. 그러지 않으면 `pytest tests/test_service.py`가
+    실패하고, 실패하는 이유가 코드와 무관해진다.
+    """
+    import re
+    from pathlib import Path
+
+    root = Path(__file__).resolve().parent.parent
+    args = [str(a) for a in request.config.args]
+    collected_whole_suite = all(
+        Path(a.split("::")[0]).resolve() in (root, root / "tests") for a in args
+    ) and not request.config.option.keyword
+
+    if not collected_whole_suite:
+        import pytest
+
+        pytest.skip("일부만 수집한 실행 — 총 개수를 판정할 수 없다")
+
+    readme = (root / "README.md").read_text(encoding="utf-8")
+    claimed = {
+        int(m)
+        for pair in re.findall(r"테스트 (\d+)개|(\d+)개 테스트", readme)
+        for m in pair
+        if m
+    }
+    actual = len(request.session.items)
+
+    assert claimed, "README에 테스트 개수 선언이 없다"
+    assert claimed == {actual}, f"README가 {sorted(claimed)}개라 하는데 실제는 {actual}개다"

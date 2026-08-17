@@ -198,6 +198,9 @@ $ clinic demo-trap
 | 의사 엔진 | **세 지점**: 자모만 / 자모+임베딩 / Claude — 같은 상태 기계, 같은 게이트. 셋의 차이가 곧 "그 자가 무엇을 더 푸는가" |
 | 임베딩 유사도 | 다국어 문장 임베딩으로 **문자 체계를 넘는** 후보 탐색. 벡터는 저장소에 캐시로 커밋돼 모델 없이 재현되고, 생성 절차(`clinic build-vectors`)도 저장소 안에 있다 |
 | 평가 | 치유율 · **진단 정확도**(계열 라벨 대조) · **처방 적합성**(패치 유형 대조) · 건강셋 회귀 감시 |
+| 서비스 계층 | 세션별 설정 격리 + 잠금. fastapi·mcp를 import하지 않아 **선택 의존성 없이 전부 테스트**된다 |
+| REST API | FastAPI. 게이트 기각은 `202`(오류 아님), 도메인 예외를 상태 코드로 옮기는 자리가 한 곳 (`clinic-api`) |
+| MCP 서버 | 진료 도구 6종의 **스키마를 그대로** 노출 + 진료소 도구 2종. 외부 LLM 호스트가 의사가 된다 (`clinic-mcp`) |
 
 ## 아키텍처
 
@@ -216,10 +219,19 @@ flowchart LR
         G -->|기각 + 회귀 내역| D
     end
 
+    subgraph 외부 진입점
+        H[REST · MCP 호출자<br/>외부 LLM 호스트 포함] --> S[service.py<br/>세션 격리 + 잠금]
+        S --> T
+    end
+
     Q --> G
     A --> ES[Elasticsearch nori<br/>설정 JSON 렌더링]
     A --> R[진료 리포트<br/>치유율 · 진단 정확도]
 ```
+
+**외부 진입점도 `진료 도구`를 통해서만 들어옵니다.** 게이트가 프로토콜이 아니라
+도구 안에 있으므로, REST든 MCP든 새 입구를 열어도 검증을 건너뛰는 경로가
+생기지 않습니다.
 
 의사에게 정답표(qrels)는 보이지 않습니다. 의사가 보는 것은 검색 결과·원문
 grep·형태소 분석뿐이고, 채점은 게이트만 합니다 — 시험지와 채점표의 분리입니다.
@@ -270,8 +282,84 @@ docker compose -f docker/docker-compose.yml up -d --build
 clinic es-verify --output docs/ES_VERIFICATION_REPORT.md
 docker compose -f docker/docker-compose.yml down -v
 
-# 테스트 (131개, 전부 오프라인 — API 키도 Docker도 없이 CI가 돈다)
+# 8) 진료소를 프로세스 밖으로 — REST / MCP
+pip install -e ".[api,mcp]"
+clinic-api --port 8000                        # REST (문서: localhost:8000/docs)
+clinic-mcp                                    # MCP 서버 (stdio)
+
+# 테스트 (209개, 전부 오프라인 — API 키도 Docker도 없이 CI가 돈다)
 pytest
+```
+
+## 프로세스 밖으로 — REST와 MCP
+
+진료소는 CLI로 끝나지 않는다. 같은 진료 도구를 **HTTP**와 **MCP**로 연다.
+두 계층 모두 `service.py` 위의 얇은 결선이고, 로직은 한 벌만 존재한다.
+
+### 게이트는 프로토콜을 갈아타도 우회되지 않는다
+
+이것이 이 계층에서 확인하고 싶었던 성질이다. 과잉 동의어를 HTTP로 던지면:
+
+```console
+$ curl -X POST localhost:8000/sessions/$SID/prescriptions -d '{
+    "target_query": "후라이팬", "diagnosis_family": "spelling_variant",
+    "reasoning": "팬은 프라이팬의 준말이므로 함께 묶는다.",
+    "synonym_groups": [{"terms": ["프라이팬", "후라이팬", "팬"]}]}'
+
+HTTP 202
+{"accepted": false,
+ "feedback": "기각: 다른 질의 2건에 회귀 발생
+   - 회귀: '프라이팬' ndcg 1.00 → 0.65
+   - 회귀: '팬미팅 굿즈' precision5 0.50 → 0.40"}
+```
+
+처방을 좁히면 채택된다 (`HTTP 200`, nDCG 0.00 → 1.00). **검증이 프로토콜이
+아니라 도구 안에 있기 때문에** 새 진입점을 열어도 뒷문이 생기지 않는다.
+
+**기각을 `202`로 답하는 이유:** 요청은 옳았고 처방이 채택되지 않았을 뿐이다.
+`4xx`로 답하면 "요청이 틀렸다"는 잘못된 신호가 되고, 호출자는 회귀 목록을
+읽고 처방을 좁혀 다시 던져야 한다.
+
+### 왜 세션인가
+
+`ClinicExecutor`는 처방이 채택될 때마다 현역 설정을 갈아끼운다. 하나를 여러
+호출자가 공유하면 **A의 게이트가 "회귀 없음"이라 판정한 그 설정이 이미 B의
+것**이 된다. 게이트의 보증은 "이 설정 위에서 이 처방은 해롭지 않다"이지
+절대적인 것이 아니므로, 그 전제를 지키려면 설정이 격리되어야 한다.
+
+| 엔드포인트 | 하는 일 |
+|---|---|
+| `GET /health` · `GET /tools` | 진료소 상태 · 도구 스키마 (MCP와 **같은 목록**) |
+| `GET /evalset` · `GET /evaluate` | 평가셋(정답표 제외) · 전체 채점 |
+| `POST /search` · `POST /analyze` | 검색 · 형태소 분석(+버려진 토큰) |
+| `POST /sessions` · `GET`/`DELETE /sessions/{id}` | 진료 세션 |
+| `POST /sessions/{id}/target` | 진료 표적 고정 |
+| `POST /sessions/{id}/prescriptions` | **처방 제출 → 게이트 판정** |
+| `POST /sessions/{id}/tools` | 도구 하나 실행 (MCP와 같은 통로) |
+| `GET /sessions/{id}/elasticsearch` | 누적 설정 → ES nori 설정 + 정적 검증 |
+
+### MCP — 외부 모델이 의사가 된다
+
+MCP 호스트가 이 서버를 물면 그 호스트의 모델이 곧 의사다. `--engine claude`가
+하던 일을 프로세스 밖의 모델이 하는 것이고, 도구·게이트·평가셋은 그대로다.
+
+```jsonc
+// claude_desktop_config.json
+{"mcpServers": {"ko-search-clinic": {"command": "clinic-mcp"}}}
+```
+
+노출되는 도구는 **8종** — 진료 도구 6종은 `build_tool_definitions()`가 준
+스키마를 **손대지 않고** 그대로 넘긴다(도구를 파이썬 함수로 다시 선언하면
+정의가 두 벌이 되고, 두 벌은 반드시 갈라진다). 여기에 `open_target`(표적
+고정)과 `list_failing_queries`(진료 대상 목록)를 더한다.
+
+```console
+$ clinic-mcp   # 실제 MCP 클라이언트로 물어본 결과
+서버: ko-search-clinic 0.1.0
+도구 8 종: search_products, grep_documents, analyze_text, inspect_document,
+          find_similar_tokens, submit_prescription, open_target, list_failing_queries
+과잉 처방 채택: False | is_error: False   ← 기각은 오류가 아니라 판정이다
+최소 처방 채택: True  | 채택. 표적 '후라이팬' nDCG 0.00 → 1.00, 회귀 없음.
 ```
 
 ## 기술적 의사결정
@@ -303,9 +391,11 @@ src/searchclinic/
 ├── doctor/        # 진료 도구, 진료 루프, ScriptedDoctor, Claude 클라이언트
 ├── evaluation/    # 지표(nDCG/recall/precision@5), 하니스, 패치 원장
 ├── es/            # ES 클라이언트·엔진·대조 검증 (로컬과 같은 search 인터페이스)
+├── service.py     # 세션 격리 + 잠금 — REST와 MCP가 공유하는 단 하나의 로직
+├── api/           # rest.py(FastAPI) · mcp_server.py(MCP) — 둘 다 얇은 결선
 └── cli.py         # analyze/search/evaluate/diagnose/heal/demo-trap
                    # export-es/build-vectors/vector-probe/es-verify
-tests/             # 131개 테스트 (전부 오프라인 — API 키도 Docker도 불필요)
+tests/             # 209개 테스트 (전부 오프라인 — API 키도 Docker도 불필요)
 docker/            # ES + analysis-nori 이미지와 compose
 docs/              # 설계 문서 + CLI가 생성한 리포트/원장/ES 설정
 ```
@@ -333,7 +423,13 @@ docs/              # 설계 문서 + CLI가 생성한 리포트/원장/ES 설정
   [결과](docs/ES_VERIFICATION_REPORT_CLAUDE.md)). 다만 건강 질의 6건은 여전히
   토큰이 다르고(`파우치 → 파우` 등), 지금 이 코퍼스에서만 무해하다. 유사어가
   함께 있는 코퍼스에서는 뭉개질 수 있다
-- **처방 유형 확장**: 오탈자 교정(質의 시점), 불용어, 가중치 필드 부스팅
+- **처방 유형 확장**: 오탈자 교정(질의 시점), 불용어, 가중치 필드 부스팅
+- **세션 저장소가 메모리**: REST/MCP의 진료 세션은 프로세스 안에만 있고 상한
+  32개를 넘으면 오래된 것부터 버린다. 여러 프로세스로 띄우면 세션이 갈리므로,
+  실제로 여러 대에 올리려면 외부 저장소가 필요하다 — 지금은 **한 프로세스에서
+  도는 것을 전제**로 한 설계다
+- **인증 없음**: REST/MCP 모두 인증이 없다. 진료소가 코퍼스와 평가셋을 읽고
+  설정을 바꾸므로, 사내망 밖에 두려면 인증이 선행되어야 한다
 
 ## 라이선스
 
