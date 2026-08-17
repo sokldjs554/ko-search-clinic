@@ -282,10 +282,26 @@ class ClinicExecutor:
                 if vsim is not None:
                     row["vector_similarity"] = round(vsim, 3)
             scored.append(row)
-        scored.sort(
-            key=lambda x: (-max(x["similarity"], x.get("vector_similarity", 0.0)), x["token"])
+        # 두 자로 각각 상위 k를 뽑아 **합집합**을 낸다. 하나의 정렬로 자르면
+        # 한쪽 자의 좋은 후보가 다른 쪽에 밀려 목록 밖으로 사라진다 —
+        # 실측 실패: 벡터 상위가 8칸을 채워 '도넛'(자모 0.67)이 잘려나갔고,
+        # 자모 규칙은 목록에 없는 후보를 볼 수 없어 '도너츠'가 미치유로 떨어졌다.
+        # 자를 하나 더 주는 것이 원래 자를 망가뜨리면 안 된다.
+        limit = max(1, int(k))
+        by_jamo = sorted(scored, key=lambda x: (-x["similarity"], x["token"]))[:limit]
+        picked = {id(r): r for r in by_jamo}
+        if vectors is not None:
+            by_vec = sorted(
+                (r for r in scored if "vector_similarity" in r),
+                key=lambda x: (-x["vector_similarity"], x["token"]),
+            )[:limit]
+            for r in by_vec:
+                picked.setdefault(id(r), r)
+        merged = sorted(
+            picked.values(),
+            key=lambda x: (-max(x["similarity"], x.get("vector_similarity", 0.0)), x["token"]),
         )
-        payload = {"term": term, "similar": scored[: max(1, int(k))]}
+        payload = {"term": term, "similar": merged}
         if vectors is not None and term not in vectors:
             payload["note"] = f"'{term}'은 벡터 사전에 없어 의미 유사도를 낼 수 없다."
         return payload
