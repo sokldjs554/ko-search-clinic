@@ -250,6 +250,37 @@ def cmd_build_vectors(args: argparse.Namespace) -> int:
     return 0
 
 
+def cmd_vector_probe(args: argparse.Namespace) -> int:
+    """벡터 캐시가 정답 쌍과 쓰레기 쌍을 가를 수 있는지 잰다 (모델 불필요).
+
+    임계값을 고르기 전에 도는 자리다. 여기서 "분리 불가"가 나오면
+    `VECTOR_THRESHOLD`를 어떻게 잡아도 결과가 같다 — 실제로 그랬고,
+    그 판정을 명령 하나로 재현할 수 있어야 결론을 믿을 수 있다.
+    """
+    from searchclinic.analysis.probe import render_probe_markdown
+    from searchclinic.analysis.vectors import CACHE_PATH, load_vectors_if_available
+    from searchclinic.corpus import load_catalog
+    from searchclinic.index.engine import SearchEngine
+
+    path = args.cache or CACHE_PATH
+    vectors = load_vectors_if_available(path)
+    if vectors is None:
+        print(
+            f"벡터 캐시가 없습니다: {path}\n  clinic build-vectors 로 먼저 생성하세요.",
+            file=sys.stderr,
+        )
+        return 1
+
+    vocabulary = sorted(SearchEngine(load_catalog()).vocabulary())
+    md = render_probe_markdown(vectors, vocabulary)
+    print(md)
+    if args.output:
+        with open(args.output, "w", encoding="utf-8") as f:
+            f.write(md + "\n")
+        print(f"\n검사 결과 저장: {args.output}", file=sys.stderr)
+    return 0
+
+
 def cmd_es_verify(args: argparse.Namespace) -> int:
     """렌더된 nori 설정을 실제 ES에 물려 로컬 결과와 대조한다.
 
@@ -387,6 +418,13 @@ def main(argv: list[str] | None = None) -> int:
     p.add_argument("--model", default=DEFAULT_MODEL)
     p.add_argument("--output", help="캐시 저장 경로 (기본: 패키지 내 data/vectors.json)")
     p.set_defaults(func=cmd_build_vectors)
+
+    p = sub.add_parser(
+        "vector-probe", help="벡터 캐시의 분리 가능성·허브 구조 검사 (모델 불필요)"
+    )
+    p.add_argument("--cache", help="검사할 캐시 경로 (기본: 패키지 내 data/vectors.json)")
+    p.add_argument("--output", help="검사 결과(마크다운) 저장 경로")
+    p.set_defaults(func=cmd_vector_probe)
 
     p = sub.add_parser(
         "es-verify", help="렌더된 nori 설정을 실제 Elasticsearch에서 재검증"

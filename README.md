@@ -76,8 +76,23 @@ $ clinic analyze "아답터"
 **0.178로 고립**돼 한국어 전부와 멉니다. **벡터를 붙인 첫 번째 이유가 영한
 혼용이었는데, 그것이 이 신호가 가장 못하는 케이스였습니다.**
 
+더 결정적인 것은 **정답이 후보 목록 안에 없다**는 사실입니다. 어휘 438개에서
+정답의 유사도 순위는 `어댑터` 155위 · `bluetooth` 229위 · `배낭` 254위 ·
+`트레이닝복` 411위입니다. 의사는 상위 8개만 보므로 **임계값을 0까지 내려도
+이 후보들은 보이지 않습니다** — 거르는 문제가 아니라 불러오는 문제였습니다.
+(처음엔 이걸 임계값 문제로 오해해 0.35~0.80을 훑었고, 전 구간에서 11/16으로
+같았습니다.)
+
+"다국어 모델이라 그런 것 아닌가"에 답하기 위해 **한국어 전용 모델**
+(`jhgan/ko-sroberta-multitask`, 768차원)로 캐시만 갈아끼워 다시 돌렸습니다.
+치유 11/16 · 패치 11건이 **용어까지 동일**했고, 다른 줄은 `츄리닝` 하나뿐
+(진단 정확도 75% → 69%로 오히려 한 칸 하락). 독립적으로 학습된 두 모델이
+같은 곳에서 성공하고 같은 곳에서 실패했으므로, **모델 선택의 문제가
+아닙니다.**
+
 **"공고에 Vector Search가 있으니 붙였다"로 끝내지 않고 재봤고, 재보니 이
-문제에는 맞지 않았습니다** ([분포·허브 분석](docs/EVALUATION.md#벡터-의사-실측--임베딩이-어디까지-하는가)).
+문제에는 맞지 않았습니다** ([분포·허브 분석](docs/EVALUATION.md#벡터-의사-실측--임베딩이-어디까지-하는가) ·
+[재현: `clinic vector-probe`](docs/VECTOR_PROBE.md)).
 그리고 그 6건의 나머지를 LLM이 메웁니다 — 주장해서가 아니라 **같은 게이트를
 통과**해서.
 
@@ -236,6 +251,14 @@ pip install -e ".[vector]"
 clinic build-vectors                          # 모델로 어휘 벡터 캐시 생성
 clinic heal --engine vector
 
+# 5-1) 벡터 신호가 쓸 만한지부터 판정 — 모델 없이 캐시만으로 돈다
+clinic vector-probe --output docs/VECTOR_PROBE.md
+# → "분리 불가 / 정답 순위 155~411위" 가 여기서 나온다. 임계값을 만지기 전에 볼 것.
+
+# 5-2) 모델을 바꿔 그 판정을 재확인 (한국어 전용 모델, 코드 변경 없음)
+clinic build-vectors --model jhgan/ko-sroberta-multitask --output /tmp/ko.json
+clinic vector-probe --cache /tmp/ko.json
+
 # 6) Claude 의사 (ANTHROPIC_API_KEY 필요) — 베이스라인이 남긴 6건이 진짜 시험대
 export ANTHROPIC_API_KEY=sk-ant-...
 clinic diagnose "츄리닝" --engine claude       # 진료 기록 한 건을 턴 단위로 관찰
@@ -280,7 +303,8 @@ src/searchclinic/
 ├── doctor/        # 진료 도구, 진료 루프, ScriptedDoctor, Claude 클라이언트
 ├── evaluation/    # 지표(nDCG/recall/precision@5), 하니스, 패치 원장
 ├── es/            # ES 클라이언트·엔진·대조 검증 (로컬과 같은 search 인터페이스)
-└── cli.py         # analyze/search/evaluate/diagnose/heal/demo-trap/export-es/es-verify
+└── cli.py         # analyze/search/evaluate/diagnose/heal/demo-trap
+                   # export-es/build-vectors/vector-probe/es-verify
 tests/             # 131개 테스트 (전부 오프라인 — API 키도 Docker도 불필요)
 docker/            # ES + analysis-nori 이미지와 compose
 docs/              # 설계 문서 + CLI가 생성한 리포트/원장/ES 설정
