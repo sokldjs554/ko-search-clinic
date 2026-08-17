@@ -1,0 +1,200 @@
+[
+  {
+    "no": 1,
+    "target_query": "후라이팬",
+    "diagnosis_family": "spelling_variant",
+    "patch": "동의어(프라이팬 = 후라이팬)",
+    "reasoning": "'후라이팬'와 자모 유사도 0.78인 색인 토큰 '프라이팬'이 존재한다. 표기 변형으로 판단해 동의어로 연결한다.",
+    "evidence": {
+      "target_ndcg": [
+        0.0,
+        1.0
+      ],
+      "target_results": [
+        0,
+        2
+      ],
+      "evalset_mean_ndcg": [
+        0.5839,
+        0.6117
+      ]
+    },
+    "attempts": 1
+  },
+  {
+    "no": 2,
+    "target_query": "케잌 주문",
+    "diagnosis_family": "spelling_variant",
+    "patch": "동의어(케이크 = 케잌)",
+    "reasoning": "'케잌'와 자모 유사도 0.83인 색인 토큰 '케이크'이 존재한다. 표기 변형으로 판단해 동의어로 연결한다.",
+    "evidence": {
+      "target_ndcg": [
+        0.0,
+        1.0
+      ],
+      "target_results": [
+        0,
+        2
+      ],
+      "evalset_mean_ndcg": [
+        0.6117,
+        0.6395
+      ]
+    },
+    "attempts": 1
+  },
+  {
+    "no": 3,
+    "target_query": "쥬스",
+    "diagnosis_family": "spelling_variant",
+    "patch": "동의어(주스 = 쥬스)",
+    "reasoning": "'쥬스'와 자모 유사도 0.75인 색인 토큰 '주스'이 존재한다. 표기 변형으로 판단해 동의어로 연결한다.",
+    "evidence": {
+      "target_ndcg": [
+        0.0,
+        1.0
+      ],
+      "target_results": [
+        0,
+        2
+      ],
+      "evalset_mean_ndcg": [
+        0.6395,
+        0.6673
+      ]
+    },
+    "attempts": 1
+  },
+  {
+    "no": 4,
+    "target_query": "소세지",
+    "diagnosis_family": "spelling_variant",
+    "patch": "동의어(소시지 = 소세지)",
+    "reasoning": "'소세지'와 자모 유사도 0.83인 색인 토큰 '소시지'이 존재한다. 표기 변형으로 판단해 동의어로 연결한다.",
+    "evidence": {
+      "target_ndcg": [
+        0.0,
+        1.0
+      ],
+      "target_results": [
+        0,
+        2
+      ],
+      "evalset_mean_ndcg": [
+        0.6673,
+        0.6951
+      ]
+    },
+    "attempts": 1
+  },
+  {
+    "no": 5,
+    "target_query": "카페트",
+    "diagnosis_family": "synonym_gap",
+    "patch": "동의어(방지 = 카페트)",
+    "reasoning": "'카페트'와 자모 유사도는 0.17로 낮지만 임베딩 유사도가 0.87인 색인 토큰 '방지'이 있다. 형태가 다른 같은 뜻으로 판단해 동의어로 연결한다.",
+    "evidence": {
+      "target_ndcg": [
+        0.0,
+        0.3869
+      ],
+      "target_results": [
+        0,
+        3
+      ],
+      "evalset_mean_ndcg": [
+        0.6951,
+        0.7058
+      ]
+    },
+    "attempts": 1
+  },
+  {
+    "no": 6,
+    "target_query": "초콜렛",
+    "diagnosis_family": "spelling_variant",
+    "patch": "동의어(초콜릿 = 초콜렛)",
+    "reasoning": "'초콜렛'와 자모 유사도 0.88인 색인 토큰 '초콜릿'이 존재한다. 표기 변형으로 판단해 동의어로 연결한다.",
+    "evidence": {
+      "target_ndcg": [
+        0.0,
+        1.0
+      ],
+      "target_results": [
+        0,
+        3
+      ],
+      "evalset_mean_ndcg": [
+        0.7058,
+        0.7336
+      ]
+    },
+    "attempts": 1
+  },
+  {
+    "no": 7,
+    "target_query": "리모콘",
+    "diagnosis_family": "spelling_variant",
+    "patch": "동의어(리모컨 = 리모콘)",
+    "reasoning": "'리모콘'와 자모 유사도 0.86인 색인 토큰 '리모컨'이 존재한다. 표기 변형으로 판단해 동의어로 연결한다.",
+    "evidence": {
+      "target_ndcg": [
+        0.0,
+        1.0
+      ],
+      "target_results": [
+        0,
+        2
+      ],
+      "evalset_mean_ndcg": [
+        0.7336,
+        0.7614
+      ]
+    },
+    "attempts": 1
+  },
+  {
+    "no": 8,
+    "target_query": "핸드폰",
+    "diagnosis_family": "synonym_gap",
+    "patch": "동의어(휴대폰 = 핸드폰)",
+    "reasoning": "'핸드폰'와 자모 유사도는 0.62로 낮지만 임베딩 유사도가 0.98인 색인 토큰 '휴대폰'이 있다. 형태가 다른 같은 뜻으로 판단해 동의어로 연결한다.",
+    "evidence": {
+      "target_ndcg": [
+        0.0,
+        0.6733
+      ],
+      "target_results": [
+        0,
+        2
+      ],
+      "evalset_mean_ndcg": [
+        0.7614,
+        0.7801
+      ]
+    },
+    "attempts": 1
+  },
+  {
+    "no": 9,
+    "target_query": "티슈",
+    "diagnosis_family": "compound_locked",
+    "patch": "분해확장(물티슈 → 물+티슈)",
+    "reasoning": "색인 토큰 '물티슈'이 질의 토큰 '티슈'를 포함하는 복합어다. 통짜 색인이라 부분어로 못 찾으므로 분해 확장한다.",
+    "evidence": {
+      "target_ndcg": [
+        0.0,
+        1.0
+      ],
+      "target_results": [
+        0,
+        2
+      ],
+      "evalset_mean_ndcg": [
+        0.7801,
+        0.8078
+      ]
+    },
+    "attempts": 1
+  }
+]
