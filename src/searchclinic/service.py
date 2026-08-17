@@ -42,6 +42,7 @@ from searchclinic.doctor import ClinicExecutor
 from searchclinic.doctor.tools import build_tool_definitions
 from searchclinic.index.engine import SearchEngine
 from searchclinic.patch.es_render import to_es_settings, validate_es_settings
+from searchclinic.patch.ir import Prescription
 
 # 세션을 무한정 쌓아두면 프로세스가 메모리를 먹는다. 진료 하나가 코퍼스
 # 72건짜리 색인 한 벌을 들고 있으므로, 상한을 두고 가장 오래된 것부터 버린다.
@@ -66,6 +67,10 @@ class ClinicSession:
     executor: ClinicExecutor
     label: str = ""
     lock: threading.Lock = field(default_factory=threading.Lock)
+    # 저장소에서 되살린 원장. 실행기의 `accepted`는 이번 프로세스에서 채택된
+    # 것만 담으므로, 재시작 이전의 근거는 여기에 실린다. 둘을 합쳐야
+    # "채택된 모든 패치에 증거가 남는다"는 원칙이 재시작을 견딘다.
+    restored_ledger: list[dict] = field(default_factory=list)
 
 
 def _config_payload(cfg) -> dict:
@@ -107,13 +112,17 @@ def _ledger_payload(accepted) -> list[dict]:
 class ClinicService:
     """세션 저장소 + 표현 변환. 바깥 계층은 이 객체 하나만 안다."""
 
-    def __init__(self, max_sessions: int = MAX_SESSIONS) -> None:
+    def __init__(self, max_sessions: int = MAX_SESSIONS, store=None) -> None:
         self._catalog = load_catalog()
         self._evalset = load_evalset()
         self._vectors = load_vectors_if_available()
         self._sessions: dict[str, ClinicSession] = {}
         self._sessions_lock = threading.Lock()
         self._max_sessions = max_sessions
+        # 저장소가 있으면 세션이 프로세스보다 오래 산다. 없으면 메모리에만
+        # 있고, 그것이 기본 상태다 — DB는 여러 프로세스로 띄울 때 필요해지는
+        # 선택지이지 필수품이 아니다.
+        self._store = store
         # 읽기 전용 질의에 쓰는 기준 색인. 패치가 닿지 않으므로 세션과
         # 무관하게 언제나 **치유 전 상태**를 답한다 — 비교 기준점이 필요하다.
         self._baseline = SearchEngine(self._catalog)
@@ -128,6 +137,7 @@ class ClinicService:
             "failing_queries": sum(1 for q in self._evalset if not q.is_healthy),
             "vectors_loaded": self._vectors is not None,
             "active_sessions": len(self._sessions),
+            "persistent": self._store is not None,
         }
 
     def tool_definitions(self) -> list[dict]:
@@ -230,35 +240,82 @@ class ClinicService:
 
     # -------------------------------------------------------------- 세션
 
+    def _new_executor(self) -> ClinicExecutor:
+        return ClinicExecutor(
+            engine=SearchEngine(self._catalog),
+            evalset=self._evalset,
+            vectors=self._vectors,
+        )
+
     def create_session(self, label: str = "") -> dict:
         session_id = uuid.uuid4().hex[:12]
         session = ClinicSession(
-            session_id=session_id,
-            executor=ClinicExecutor(
-                engine=SearchEngine(self._catalog),
-                evalset=self._evalset,
-                vectors=self._vectors,
-            ),
-            label=label,
+            session_id=session_id, executor=self._new_executor(), label=label
         )
         with self._sessions_lock:
             # 상한을 넘으면 가장 오래된 것부터 버린다 (dict는 삽입 순서를 지킨다).
             while len(self._sessions) >= self._max_sessions:
                 self._sessions.pop(next(iter(self._sessions)))
             self._sessions[session_id] = session
+        if self._store is not None:
+            self._store.create_session(session_id, label)
         return self.describe_session(session_id)
+
+    def _restore_session(self, session_id: str) -> ClinicSession | None:
+        """DB의 처방 목록으로 세션을 **재구성**한다.
+
+        설정을 저장해 두었다가 싣는 것이 아니라, 채택 순서대로 처방을 다시
+        적용한다. 처방이 구조화된 IR이라 이것이 가능하고, 재구성 가능한 것을
+        따로 저장하지 않으면 두 벌이 갈라질 일도 없다.
+
+        게이트는 다시 돌리지 않는다 — 이미 통과해 원장에 남은 처방이고,
+        여기서 재검증하면 같은 계산을 두 번 하는 것이다.
+        """
+        if self._store is None or not self._store.session_exists(session_id):
+            return None
+
+        executor = self._new_executor()
+        restored: list[dict] = []
+        for stored in self._store.load_patches(session_id):
+            prescription = Prescription(**stored.prescription)
+            executor.engine = executor.engine.with_config(
+                prescription.apply_to(executor.engine.config)
+            )
+            restored.append(
+                {
+                    "target_query": prescription.target_query,
+                    "diagnosis_family": prescription.diagnosis_family,
+                    "reasoning": prescription.reasoning,
+                    "summary": prescription.summary(),
+                    "attempts": stored.attempts,
+                    "evidence": stored.evidence,
+                    "restored": True,  # 이번 프로세스가 아니라 저장소에서 온 줄
+                }
+            )
+        session = ClinicSession(
+            session_id=session_id, executor=executor, label="", restored_ledger=restored
+        )
+        with self._sessions_lock:
+            self._sessions[session_id] = session
+        return session
 
     def describe_session(self, session_id: str) -> dict:
         session = self._session(session_id)
+        # 되살린 원장이 먼저, 이번 프로세스에서 채택된 것이 뒤 — 채택 순서다.
+        ledger = session.restored_ledger + _ledger_payload(session.executor.accepted)
         return {
             "session_id": session.session_id,
             "label": session.label,
-            "accepted_count": len(session.executor.accepted),
+            "accepted_count": len(ledger),
             "config": _config_payload(session.executor.engine.config),
-            "ledger": _ledger_payload(session.executor.accepted),
+            "ledger": ledger,
         }
 
     def list_sessions(self) -> dict:
+        """저장소가 있으면 그쪽이 진실이다 — 다른 프로세스가 만든 세션도 보인다."""
+        if self._store is not None:
+            items = self._store.list_sessions()
+            return {"total": len(items), "sessions": items}
         with self._sessions_lock:
             items = [
                 {
@@ -271,10 +328,12 @@ class ClinicService:
         return {"total": len(items), "sessions": items}
 
     def delete_session(self, session_id: str) -> dict:
+        in_memory = False
         with self._sessions_lock:
-            if session_id not in self._sessions:
-                raise SessionNotFound(session_id)
-            del self._sessions[session_id]
+            in_memory = self._sessions.pop(session_id, None) is not None
+        in_store = self._store.delete_session(session_id) if self._store is not None else False
+        if not in_memory and not in_store:
+            raise SessionNotFound(session_id)
         return {"deleted": session_id}
 
     def elasticsearch_settings(self, session_id: str, index_name: str = "products") -> dict:
@@ -318,10 +377,28 @@ class ClinicService:
         return json.loads(payload)
 
     def submit_prescription(self, session_id: str, prescription: dict) -> dict:
-        """처방 제출 — 게이트 판정과 그 근거를 함께 돌려준다."""
+        """처방 제출 — 게이트 판정과 그 근거를 함께 돌려준다.
+
+        **채택된 것만** 저장소에 남긴다. 기각된 처방은 설정에 편입되지 않으므로
+        재구성에 필요하지 않고, 남기면 재구성이 틀린 설정을 만든다.
+        """
         result = self.call_tool(session_id, "submit_prescription", prescription)
         session = self._session(session_id)
-        result["accepted_count"] = len(session.executor.accepted)
+        result["accepted_count"] = len(session.restored_ledger) + len(session.executor.accepted)
+
+        if result["accepted"] and self._store is not None:
+            record = session.executor.accepted[-1]
+            self._store.create_session(session_id, session.label)
+            self._store.append_patch(
+                session_id,
+                record.prescription.model_dump(),
+                {
+                    "target_ndcg_before": record.verdict.target_before.ndcg,
+                    "target_ndcg_after": record.verdict.target_after.ndcg,
+                    "regressions": len(record.verdict.regressions),
+                },
+                attempts=record.attempts,
+            )
         return result
 
     def open_query(self, session_id: str, query: str) -> dict:
@@ -345,6 +422,11 @@ class ClinicService:
     def _session(self, session_id: str) -> ClinicSession:
         with self._sessions_lock:
             session = self._sessions.get(session_id)
+        if session is not None:
+            return session
+        # 메모리에 없으면 저장소에서 재구성해 본다 — 프로세스가 재시작됐거나
+        # 다른 프로세스가 만든 세션일 수 있다. 이것이 DB를 둔 이유다.
+        session = self._restore_session(session_id)
         if session is None:
             raise SessionNotFound(session_id)
         return session

@@ -21,6 +21,7 @@ from searchclinic.doctor import ENGINES
 from searchclinic.doctor.prompts import PROMPT_VARIANTS
 from searchclinic.rag.retriever import DEFAULT_MODE as RETRIEVAL_DEFAULT_MODE
 from searchclinic.rag.retriever import MODES as RETRIEVAL_MODES
+from searchclinic.scale.mine import ENGINES as MINE_ENGINES
 
 
 def _pad(text: str, width: int) -> str:
@@ -279,6 +280,69 @@ def _build_retriever(mode: str):
     from searchclinic.rag.retriever import KnowledgeRetriever
 
     return KnowledgeRetriever(vectors=load_vectors_if_available(), mode=mode)
+
+
+def cmd_build_lake(args: argparse.Namespace) -> int:
+    """합성 코퍼스와 질의 로그를 Parquet 데이터 레이크로 쓴다."""
+    from searchclinic.scale.generate import synthesize_catalog, synthesize_query_log
+    from searchclinic.scale.lake import lake_stats, write_catalog, write_query_log
+
+    docs = synthesize_catalog(args.docs, seed=args.seed)
+    rows = synthesize_query_log(args.log_rows, seed=args.seed)
+    write_catalog(docs, args.root)
+    write_query_log(rows, args.root)
+
+    stats = lake_stats(args.root)
+    print(f"데이터 레이크 생성: {args.root}")
+    print(f"  카탈로그 {len(docs):,}건 · 질의 로그 {len(rows):,}줄")
+    print(f"  Parquet 파일 {stats['files']}개 · {stats['bytes'] / 1024 / 1024:.1f}MB")
+    print(f"  로그 파티션: {', '.join(stats['log_partitions'])}")
+    return 0
+
+
+def cmd_mine_logs(args: argparse.Namespace) -> int:
+    """질의 로그에서 진료 대상을 뽑는다 — 평가셋을 손으로 고르는 대신."""
+    from searchclinic.scale.mine import mine_candidates, render_candidates_markdown
+
+    try:
+        candidates = mine_candidates(
+            args.root, engine=args.engine, limit=args.limit, min_volume=args.min_volume
+        )
+    except RuntimeError as e:
+        print(str(e), file=sys.stderr)
+        return 1
+
+    md = render_candidates_markdown(candidates, args.engine)
+    print(md)
+    if args.output:
+        with open(args.output, "w", encoding="utf-8") as f:
+            f.write(md + "\n")
+        print(f"\n리포트 저장: {args.output}", file=sys.stderr)
+    return 0
+
+
+def cmd_scale_bench(args: argparse.Namespace) -> int:
+    """규모를 바꿔가며 게이트의 판정이 유지되는지 잰다."""
+    from searchclinic.scale.benchmark import run_scale_benchmark
+
+    def tick(i, total, point):
+        print(
+            f"  [{i}/{total}] 문서 {point.n_docs:,}건 — 색인 {point.index_seconds:.1f}s · "
+            f"게이트 {point.gate_seconds:.2f}s · "
+            f"과잉={'채택' if point.overbroad_accepted else '기각'}",
+            file=sys.stderr,
+            flush=True,
+        )
+
+    report = run_scale_benchmark(args.sizes, seed=args.seed, on_progress=tick)
+    md = report.markdown()
+    print(md)
+    if args.output:
+        with open(args.output, "w", encoding="utf-8") as f:
+            f.write(md + "\n")
+        print(f"\n리포트 저장: {args.output}", file=sys.stderr)
+    # 판정이 갈리면 종료 코드 1 — 이건 프로젝트의 주장이 깨진 것이다.
+    return 0 if report.all_hold else 1
 
 
 def cmd_rag_eval(args: argparse.Namespace) -> int:
@@ -553,6 +617,30 @@ def main(argv: list[str] | None = None) -> int:
     p.add_argument("--model", default=DEFAULT_MODEL)
     p.add_argument("--output", help="캐시 저장 경로 (기본: 패키지 내 data/vectors.json)")
     p.set_defaults(func=cmd_build_vectors)
+
+    p = sub.add_parser("build-lake", help="합성 코퍼스·질의 로그를 Parquet 레이크로 생성")
+    p.add_argument("--root", default="data/lake", help="레이크 루트 경로")
+    p.add_argument("--docs", type=int, default=50_000, help="합성 문서 수")
+    p.add_argument("--log-rows", type=int, default=500_000, help="질의 로그 줄 수")
+    p.add_argument("--seed", type=int, default=20260817)
+    p.set_defaults(func=cmd_build_lake)
+
+    p = sub.add_parser("mine-logs", help="질의 로그에서 진료 대상 추출 (DuckDB / Spark)")
+    p.add_argument("--root", default="data/lake")
+    p.add_argument("--engine", choices=list(MINE_ENGINES), default="duckdb")
+    p.add_argument("--limit", type=int, default=20)
+    p.add_argument("--min-volume", type=int, default=3)
+    p.add_argument("--output", help="리포트(마크다운) 저장 경로")
+    p.set_defaults(func=cmd_mine_logs)
+
+    p = sub.add_parser("scale-bench", help="규모별로 게이트 판정이 유지되는지 측정")
+    p.add_argument(
+        "--sizes", type=int, nargs="+", default=[0, 1_000, 10_000, 50_000],
+        help="합성 문서 수 목록 (원본 72건이 항상 포함된다)",
+    )
+    p.add_argument("--seed", type=int, default=20260817)
+    p.add_argument("--output", help="리포트(마크다운) 저장 경로")
+    p.set_defaults(func=cmd_scale_bench)
 
     p = sub.add_parser(
         "rag-eval", help="지식 검색 품질만 채점 (생성 없이, 모델·API 키 불필요)"
