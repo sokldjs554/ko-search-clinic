@@ -16,6 +16,9 @@ dependencies = [
 
 [project.optional-dependencies]
 llm = ["anthropic>=0.40"]
+# 벡터 캐시를 **생성**할 때만 필요하다. 캐시가 커밋돼 있으면 --engine vector는
+# 이것 없이도 같은 수치를 재현한다.
+vector = ["sentence-transformers>=3.0"]
 dev = ["pytest>=8.0", "pyflakes>=3.2"]
 
 [project.scripts]
@@ -23,6 +26,9 @@ clinic = "searchclinic.cli:main"
 
 [tool.setuptools.packages.find]
 where = ["src"]
+
+[tool.setuptools.package-data]
+searchclinic = ["data/*.json"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

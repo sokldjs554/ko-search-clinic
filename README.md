@@ -163,7 +163,8 @@ $ clinic demo-trap
 | 패치 원장 | 채택된 모든 패치에 표적 질의·진단 근거·전후 지표 기록 — "왜 넣었는지 모르는 사전 항목" 방지 |
 | ES 렌더러 | 채택 설정 → **Elasticsearch nori 설정 JSON** (user_dictionary_rules / synonym_graph / decompound_mode) 1:1 렌더링 |
 | ES 실연결 검증 | 렌더된 설정으로 **실제 ES 인덱스를 만들어 같은 평가셋 재실행** — 로컬 BM25와 질의별 대조 (`clinic es-verify`, docker compose 포함). 보내기 전 정적 검사로 nori 규약 위반을 먼저 잡는다 |
-| 의사 엔진 | ScriptedDoctor(결정적 베이스라인) + Claude(수동 tool-use 루프) — 같은 LLMClient 프로토콜 |
+| 의사 엔진 | **세 지점**: 자모만 / 자모+임베딩 / Claude — 같은 상태 기계, 같은 게이트. 셋의 차이가 곧 "그 자가 무엇을 더 푸는가" |
+| 임베딩 유사도 | 다국어 문장 임베딩으로 **문자 체계를 넘는** 후보 탐색. 벡터는 저장소에 캐시로 커밋돼 모델 없이 재현되고, 생성 절차(`clinic build-vectors`)도 저장소 안에 있다 |
 | 평가 | 치유율 · **진단 정확도**(계열 라벨 대조) · **처방 적합성**(패치 유형 대조) · 건강셋 회귀 감시 |
 
 ## 아키텍처
@@ -176,8 +177,8 @@ flowchart LR
     end
 
     subgraph 진료 루프
-        D[의사<br/>Scripted / Claude] -->|도구 호출| T[진료 도구]
-        T -->|search / grep / analyze<br/>similar_tokens| E
+        D[의사<br/>자모 / 자모+벡터 / Claude] -->|도구 호출| T[진료 도구]
+        T -->|search / grep / analyze<br/>similar_tokens 자모+벡터| E
         D -->|submit_prescription| G{회귀 게이트<br/>전수 재실행}
         G -->|채택| A[설정 편입 + 원장 기록]
         G -->|기각 + 회귀 내역| D
@@ -213,18 +214,23 @@ clinic demo-trap
 clinic heal --engine scripted --output docs/CLINIC_REPORT.md \
     --ledger docs/LEDGER.json --es-output docs/ES_SETTINGS.json
 
-# 5) Claude 의사 (ANTHROPIC_API_KEY 필요) — 베이스라인이 남긴 6건이 진짜 시험대
+# 5) 벡터 의사 — 자모가 못 넘는 경계를 임베딩으로 (캐시 1회 생성)
+pip install -e ".[vector]"
+clinic build-vectors                          # 모델로 어휘 벡터 캐시 생성
+clinic heal --engine vector
+
+# 6) Claude 의사 (ANTHROPIC_API_KEY 필요) — 베이스라인이 남긴 6건이 진짜 시험대
 export ANTHROPIC_API_KEY=sk-ant-...
 clinic diagnose "츄리닝" --engine claude       # 진료 기록 한 건을 턴 단위로 관찰
 clinic heal --engine claude --output docs/CLINIC_REPORT_CLAUDE.md \
     --ledger docs/LEDGER_CLAUDE.json --es-output docs/es_config_claude.json
 
-# 6) 실제 Elasticsearch(nori)에서 재검증 — 렌더러의 주장을 실측으로 확인
+# 7) 실제 Elasticsearch(nori)에서 재검증 — 렌더러의 주장을 실측으로 확인
 docker compose -f docker/docker-compose.yml up -d --build
 clinic es-verify --output docs/ES_VERIFICATION_REPORT.md
 docker compose -f docker/docker-compose.yml down -v
 
-# 테스트 (110개, 전부 오프라인 — API 키도 Docker도 없이 CI가 돈다)
+# 테스트 (131개, 전부 오프라인 — API 키도 Docker도 없이 CI가 돈다)
 pytest
 ```
 
@@ -250,7 +256,7 @@ pytest
 
 ```
 src/searchclinic/
-├── analysis/      # Kiwi 분석기 + 설정(사전/동의어/분해), 자모 거리
+├── analysis/      # Kiwi 분석기 + 설정(사전/동의어/분해), 자모 거리, 임베딩 유사도
 ├── index/         # BM25 역색인, 검색 엔진(설정 교체 = 재색인)
 ├── corpus/        # 상품 카탈로그 72건 + 평가셋 36질의 (실측 기반 설계)
 ├── patch/         # 처방 IR(pydantic), 회귀 게이트, ES nori 렌더러
@@ -258,7 +264,7 @@ src/searchclinic/
 ├── evaluation/    # 지표(nDCG/recall/precision@5), 하니스, 패치 원장
 ├── es/            # ES 클라이언트·엔진·대조 검증 (로컬과 같은 search 인터페이스)
 └── cli.py         # analyze/search/evaluate/diagnose/heal/demo-trap/export-es/es-verify
-tests/             # 110개 테스트 (전부 오프라인 — API 키도 Docker도 불필요)
+tests/             # 131개 테스트 (전부 오프라인 — API 키도 Docker도 불필요)
 docker/            # ES + analysis-nori 이미지와 compose
 docs/              # 설계 문서 + CLI가 생성한 리포트/원장/ES 설정
 ```

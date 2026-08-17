@@ -115,11 +115,14 @@ def run_clinic(
     호출된다. Claude 의사는 전체가 20분 넘게 걸리는데, 그동안 화면이 멈춰
     있으면 도는 중인지 죽은 건지 구분할 수 없다 — 실제로 그렇게 겪었다.
     """
+    from searchclinic.analysis.vectors import load_vectors_if_available
     from searchclinic.doctor import ClinicExecutor, make_doctor
     from searchclinic.doctor.loop import run_doctor_session
 
     executor = ClinicExecutor(
-        engine=SearchEngine(load_catalog()), evalset=load_evalset()
+        engine=SearchEngine(load_catalog()),
+        evalset=load_evalset(),
+        vectors=load_vectors_if_available() if doctor_name == "vector" else None,
     )
     report = ClinicReport(doctor=doctor_name)
     report.failing_before = evaluate_all(executor.engine, failing_queries())

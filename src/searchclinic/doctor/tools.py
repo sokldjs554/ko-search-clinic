@@ -17,6 +17,7 @@ from dataclasses import dataclass, field
 from pydantic import ValidationError
 
 from searchclinic.analysis.jamo import jamo_similarity
+from searchclinic.analysis.vectors import CachedVectors
 from searchclinic.corpus.evalset import EvalQuery
 from searchclinic.index.engine import SearchEngine
 from searchclinic.patch.gate import GateVerdict, run_gate
@@ -189,6 +190,10 @@ class ClinicExecutor:
 
     engine: SearchEngine
     evalset: list[EvalQuery]
+    # 임베딩 벡터를 주면 find_similar_tokens가 자모 유사도와 **나란히**
+    # 의미 유사도를 함께 낸다. 자모를 대체하지 않는다 — 두 자를 같이
+    # 보여줘야 의사가 "형태가 닮은 것"과 "뜻이 같은 것"을 구분할 수 있다.
+    vectors: CachedVectors | None = None
     accepted: list[AcceptedRecord] = field(default_factory=list)
     _attempts_this_session: int = 0
     _session_query: str | None = None
@@ -259,13 +264,31 @@ class ClinicExecutor:
         }
 
     def _tool_find_similar_tokens(self, term: str, k: int = 8) -> dict:
-        scored = [
-            {"token": tok, "similarity": round(jamo_similarity(term, tok), 3)}
-            for tok in self.engine.vocabulary()
-            if tok != term
-        ]
-        scored.sort(key=lambda x: (-x["similarity"], x["token"]))
-        return {"term": term, "similar": scored[: max(1, int(k))]}
+        """색인 어휘에서 닮은 토큰을 찾는다 — 형태(자모)와 의미(벡터) 두 자로.
+
+        정렬은 **둘 중 큰 값** 기준이다. 자모로만 정렬하면 '블루투스'에 대한
+        'bluetooth'(자모 0.00)가 목록 끝으로 밀려 보이지 않는다.
+        """
+        vectors = self.vectors
+        scored: list[dict] = []
+        for tok in self.engine.vocabulary():
+            if tok == term:
+                continue
+            row = {"token": tok, "similarity": round(jamo_similarity(term, tok), 3)}
+            if vectors is not None:
+                vsim = vectors.similarity(term, tok)
+                # 캐시에 없는 단어는 키를 아예 넣지 않는다. 0.0으로 채우면
+                # '뜻이 멀다'와 '모른다'가 구분되지 않는다.
+                if vsim is not None:
+                    row["vector_similarity"] = round(vsim, 3)
+            scored.append(row)
+        scored.sort(
+            key=lambda x: (-max(x["similarity"], x.get("vector_similarity", 0.0)), x["token"])
+        )
+        payload = {"term": term, "similar": scored[: max(1, int(k))]}
+        if vectors is not None and term not in vectors:
+            payload["note"] = f"'{term}'은 벡터 사전에 없어 의미 유사도를 낼 수 없다."
+        return payload
 
     def _tool_submit_prescription(self, **kwargs) -> dict:
         prescription = Prescription(**kwargs)

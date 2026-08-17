@@ -7,6 +7,7 @@ clinic diagnose   : 실패 질의 하나를 진료한다 (진료 기록 출력)
 clinic heal       : 전체 실패 질의를 순회 치유하고 리포트/원장을 만든다
 clinic demo-trap  : 과잉 동의어가 회귀 게이트에 기각되는 것을 시연한다
 clinic export-es  : 채택된 설정을 Elasticsearch nori 설정 JSON으로 렌더링한다
+clinic build-vectors : 임베딩 모델로 색인 어휘의 벡터 캐시를 생성한다
 """
 
 from __future__ import annotations
@@ -14,6 +15,9 @@ from __future__ import annotations
 import argparse
 import sys
 import unicodedata
+
+from searchclinic.analysis.vectors import DEFAULT_MODEL
+from searchclinic.doctor import ENGINES
 
 
 def _pad(text: str, width: int) -> str:
@@ -41,12 +45,38 @@ def _force_utf8_output() -> None:
                 pass  # 이미 닫혔거나 재설정할 수 없는 스트림 — 출력은 계속한다
 
 
-def _build_executor():
+def _build_executor(engine: str = "scripted"):
+    from searchclinic.analysis.vectors import load_vectors_if_available
     from searchclinic.corpus import load_catalog, load_evalset
     from searchclinic.doctor import ClinicExecutor
     from searchclinic.index.engine import SearchEngine
 
-    return ClinicExecutor(engine=SearchEngine(load_catalog()), evalset=load_evalset())
+    return ClinicExecutor(
+        engine=SearchEngine(load_catalog()),
+        evalset=load_evalset(),
+        vectors=load_vectors_if_available() if engine == "vector" else None,
+    )
+
+
+def _warn_if_vectors_missing(engine: str) -> None:
+    """벡터 의사를 불렀는데 캐시가 없으면 알린다.
+
+    조용히 자모 규칙만 쓰는 상태로 떨어지면 '벡터를 켜고 돌린 결과'라는
+    기록이 거짓이 된다. 세 엔진을 비교하는 프로젝트에서 이건 치명적이다.
+    """
+    if engine != "vector":
+        return
+    from searchclinic.analysis.vectors import CACHE_PATH, load_vectors_if_available
+
+    if load_vectors_if_available() is None:
+        print(
+            f"벡터 캐시가 없습니다 ({CACHE_PATH}).\n"
+            "임베딩 규칙이 꺼진 채로 돌아 'scripted'와 같은 결과가 나옵니다.\n"
+            "먼저 생성하세요:\n"
+            '  pip install -e ".[vector]"\n'
+            "  clinic build-vectors",
+            file=sys.stderr,
+        )
 
 
 def cmd_analyze(args: argparse.Namespace) -> int:
@@ -93,13 +123,14 @@ def cmd_evaluate(args: argparse.Namespace) -> int:
 def cmd_diagnose(args: argparse.Namespace) -> int:
     from searchclinic.doctor import make_doctor, run_doctor_session
 
-    executor = _build_executor()
+    executor = _build_executor(args.engine)
     known = [q.query for q in executor.evalset]
     if args.query not in known:
         print(f"평가셋에 없는 질의입니다: '{args.query}'", file=sys.stderr)
         print("채점할 정답(qrels)이 없으면 진료 결과를 검증할 수 없습니다.", file=sys.stderr)
         print("사용 가능한 질의:\n  " + "\n  ".join(known), file=sys.stderr)
         return 1
+    _warn_if_vectors_missing(args.engine)
     try:
         doctor = make_doctor(args.engine)
     except RuntimeError as e:
@@ -124,6 +155,7 @@ def cmd_heal(args: argparse.Namespace) -> int:
     )
     from searchclinic.patch.es_render import render_es_json
 
+    _warn_if_vectors_missing(args.engine)
     try:
         report = run_clinic(doctor_name=args.engine)
     except RuntimeError as e:
@@ -179,6 +211,45 @@ def cmd_demo_trap(args: argparse.Namespace) -> int:
     return 0
 
 
+def cmd_build_vectors(args: argparse.Namespace) -> int:
+    """색인 어휘 + 평가셋 질의의 벡터를 뽑아 저장소에 커밋할 캐시를 만든다.
+
+    이 명령만 임베딩 모델을 필요로 한다. 한 번 돌려 캐시를 커밋해 두면
+    이후 `--engine vector`는 모델 없이도 **같은 수치를 재현**한다.
+    """
+    from searchclinic.analysis.vectors import (
+        CACHE_PATH,
+        CachedVectors,
+        SentenceTransformerBackend,
+    )
+    from searchclinic.corpus import load_catalog, load_evalset
+    from searchclinic.index.engine import SearchEngine
+
+    engine = SearchEngine(load_catalog())
+    # 색인 어휘 + 질의 원문·토큰까지 넣는다. 의사는 질의어로 유사도를
+    # 물어보므로, 어휘만 넣으면 정작 기준어가 캐시에 없다.
+    tokens = list(engine.vocabulary())
+    for eq in load_evalset():
+        tokens.append(eq.query)
+        tokens.append(eq.query.replace(" ", ""))
+        tokens.extend(engine.analyzer.tokens(eq.query))
+    tokens = [t for t in tokens if t.strip()]
+
+    try:
+        backend = SentenceTransformerBackend(args.model)
+    except RuntimeError as e:
+        print(str(e), file=sys.stderr)
+        return 1
+
+    print(f"모델 {args.model}로 {len(set(tokens))}개 토큰을 임베딩합니다...", file=sys.stderr)
+    cache = CachedVectors.build(backend, tokens, model=args.model)
+    out = args.output or CACHE_PATH
+    cache.save(out)
+    size = __import__("pathlib").Path(out).stat().st_size
+    print(f"벡터 캐시 저장: {out} ({len(cache)}개 토큰, {size/1024:.0f}KB)")
+    return 0
+
+
 def cmd_es_verify(args: argparse.Namespace) -> int:
     """렌더된 nori 설정을 실제 ES에 물려 로컬 결과와 대조한다.
 
@@ -218,6 +289,7 @@ def cmd_es_verify(args: argparse.Namespace) -> int:
         file=sys.stderr,
     )
 
+    _warn_if_vectors_missing(args.engine)
     print(f"'{args.engine}' 의사로 치유를 실행해 채택 설정을 만듭니다...", file=sys.stderr)
 
     def _tick(i, total, query, session):
@@ -292,11 +364,11 @@ def main(argv: list[str] | None = None) -> int:
 
     p = sub.add_parser("diagnose", help="실패 질의 하나 진료")
     p.add_argument("query")
-    p.add_argument("--engine", choices=["scripted", "claude"], default="scripted")
+    p.add_argument("--engine", choices=list(ENGINES), default="scripted")
     p.set_defaults(func=cmd_diagnose)
 
     p = sub.add_parser("heal", help="전체 실패 질의 순회 치유 + 리포트")
-    p.add_argument("--engine", choices=["scripted", "claude"], default="scripted")
+    p.add_argument("--engine", choices=list(ENGINES), default="scripted")
     p.add_argument("--output", help="마크다운 리포트 저장 경로")
     p.add_argument("--ledger", help="패치 원장(JSON) 저장 경로")
     p.add_argument("--es-output", help="치유 후 ES 설정(JSON) 저장 경로")
@@ -310,10 +382,17 @@ def main(argv: list[str] | None = None) -> int:
     p.set_defaults(func=cmd_export_es)
 
     p = sub.add_parser(
+        "build-vectors", help="임베딩 모델로 어휘 벡터 캐시 생성 (1회, 모델 필요)"
+    )
+    p.add_argument("--model", default=DEFAULT_MODEL)
+    p.add_argument("--output", help="캐시 저장 경로 (기본: 패키지 내 data/vectors.json)")
+    p.set_defaults(func=cmd_build_vectors)
+
+    p = sub.add_parser(
         "es-verify", help="렌더된 nori 설정을 실제 Elasticsearch에서 재검증"
     )
     p.add_argument("--url", default="http://localhost:9200")
-    p.add_argument("--engine", choices=["scripted", "claude"], default="scripted")
+    p.add_argument("--engine", choices=list(ENGINES), default="scripted")
     p.add_argument("--index", default="ko-search-clinic")
     p.add_argument("--output", help="검증 리포트(마크다운) 저장 경로")
     p.add_argument(
