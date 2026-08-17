@@ -219,8 +219,17 @@ def cmd_es_verify(args: argparse.Namespace) -> int:
     )
 
     print(f"'{args.engine}' 의사로 치유를 실행해 채택 설정을 만듭니다...", file=sys.stderr)
+
+    def _tick(i, total, query, session):
+        mark = "✅" if session.healed else "❌"
+        print(
+            f"  [{i}/{total}] {mark} {query} (제출 {session.attempts}회 · 턴 {session.n_turns})",
+            file=sys.stderr,
+            flush=True,
+        )
+
     try:
-        report = run_clinic(doctor_name=args.engine)
+        report = run_clinic(doctor_name=args.engine, on_progress=_tick)
     except RuntimeError as e:
         print(str(e), file=sys.stderr)
         return 1

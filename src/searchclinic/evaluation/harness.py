@@ -104,11 +104,16 @@ def run_clinic(
     doctor_name: str = "scripted",
     doctor: LLMClient | None = None,
     doctor_factory=None,
+    on_progress=None,
 ) -> ClinicReport:
     """의사 하나를 전체 실패 질의에 투입한다.
 
     doctor_factory가 있으면 진료마다 새 인스턴스를 만든다 (상태 격리).
     채택된 처방은 누적되므로 뒤 진료는 앞 진료의 설정 위에서 돈다.
+
+    on_progress(순번, 전체, 질의, 결과)가 주어지면 진료 한 건이 끝날 때마다
+    호출된다. Claude 의사는 전체가 20분 넘게 걸리는데, 그동안 화면이 멈춰
+    있으면 도는 중인지 죽은 건지 구분할 수 없다 — 실제로 그렇게 겪었다.
     """
     from searchclinic.doctor import ClinicExecutor, make_doctor
     from searchclinic.doctor.loop import run_doctor_session
@@ -120,7 +125,8 @@ def run_clinic(
     report.failing_before = evaluate_all(executor.engine, failing_queries())
     report.healthy_before = evaluate_all(executor.engine, healthy_queries())
 
-    for eq in failing_queries():
+    queries = failing_queries()
+    for idx, eq in enumerate(queries, 1):
         if doctor_factory is not None:
             session_doctor = doctor_factory()
         elif doctor is not None:
@@ -145,6 +151,8 @@ def run_clinic(
                 feedback=session.final_feedback,
             )
         )
+        if on_progress is not None:
+            on_progress(idx, len(queries), eq.query, session)
 
     report.failing_after = evaluate_all(executor.engine, failing_queries())
     report.healthy_after = evaluate_all(executor.engine, healthy_queries())
