@@ -48,6 +48,9 @@ class CaseResult:
     ndcg_before: float
     ndcg_after: float
     feedback: str
+    # RAG로 돌렸을 때 이 진료에 붙은 지식 문서 id. 진단이 틀렸을 때
+    # "못 찾은 것"과 "찾았는데 못 쓴 것"을 가르는 근거가 된다.
+    retrieved_docs: tuple[str, ...] = ()
 
     @property
     def diagnosis_correct(self) -> bool:
@@ -105,6 +108,9 @@ def run_clinic(
     doctor: LLMClient | None = None,
     doctor_factory=None,
     on_progress=None,
+    prompt_variant: str = "full",
+    retriever=None,
+    top_k: int = 3,
 ) -> ClinicReport:
     """의사 하나를 전체 실패 질의에 투입한다.
 
@@ -114,6 +120,10 @@ def run_clinic(
     on_progress(순번, 전체, 질의, 결과)가 주어지면 진료 한 건이 끝날 때마다
     호출된다. Claude 의사는 전체가 20분 넘게 걸리는데, 그동안 화면이 멈춰
     있으면 도는 중인지 죽은 건지 구분할 수 없다 — 실제로 그렇게 겪었다.
+
+    prompt_variant / retriever는 **지식을 어디서 얻을지**를 정한다(LLM 의사
+    전용). 프롬프트에 박은 것과 검색해서 붙인 것을 같은 조건에서 비교하기
+    위한 손잡이이며, 휴리스틱 의사에는 영향이 없다.
     """
     from searchclinic.analysis.vectors import load_vectors_if_available
     from searchclinic.doctor import ClinicExecutor, make_doctor
@@ -136,7 +146,14 @@ def run_clinic(
             session_doctor = doctor
         else:
             session_doctor = make_doctor(doctor_name)
-        session = run_doctor_session(executor, session_doctor, eq.query)
+        session = run_doctor_session(
+            executor,
+            session_doctor,
+            eq.query,
+            prompt_variant=prompt_variant,
+            retriever=retriever,
+            top_k=top_k,
+        )
         before = report.failing_before[eq.query]
         after_metrics = evaluate_all(executor.engine, [eq])[eq.query]
         report.cases.append(
@@ -152,6 +169,7 @@ def run_clinic(
                 ndcg_before=before.ndcg,
                 ndcg_after=after_metrics.ndcg,
                 feedback=session.final_feedback,
+                retrieved_docs=session.retrieved_docs,
             )
         )
         if on_progress is not None:

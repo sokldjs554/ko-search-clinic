@@ -338,7 +338,7 @@ clinic-mcp                                    # MCP 서버 (stdio)
 clinic baseline                               # 기준선 대조
 clinic baseline --write                       # 정당한 변경 후 기준선 갱신
 
-# 테스트 (221개, 전부 오프라인 — API 키도 Docker도 없이 CI가 돈다)
+# 테스트 (244개, 전부 오프라인 — API 키도 Docker도 없이 CI가 돈다)
 pytest
 ```
 
@@ -447,7 +447,7 @@ src/searchclinic/
 └── cli.py         # analyze/search/evaluate/diagnose/heal/demo-trap/baseline
                    # export-es/build-vectors/vector-probe/es-verify
 .github/workflows/ # CI — 테스트(우분투·윈도우) + 검색 품질 게이트
-tests/             # 221개 테스트 (전부 오프라인 — API 키도 Docker도 불필요)
+tests/             # 244개 테스트 (전부 오프라인 — API 키도 Docker도 불필요)
 docker/            # ES + analysis-nori 이미지와 compose
 docs/              # 설계 문서 + CLI가 생성한 리포트/원장/ES 설정
 ```

@@ -18,6 +18,9 @@ import unicodedata
 
 from searchclinic.analysis.vectors import DEFAULT_MODEL
 from searchclinic.doctor import ENGINES
+from searchclinic.doctor.prompts import PROMPT_VARIANTS
+from searchclinic.rag.retriever import DEFAULT_MODE as RETRIEVAL_DEFAULT_MODE
+from searchclinic.rag.retriever import MODES as RETRIEVAL_MODES
 
 
 def _pad(text: str, width: int) -> str:
@@ -156,8 +159,20 @@ def cmd_heal(args: argparse.Namespace) -> int:
     from searchclinic.patch.es_render import render_es_json
 
     _warn_if_vectors_missing(args.engine)
+    retriever = _build_retriever(args.retrieval) if args.rag else None
+    if retriever is not None:
+        print(
+            f"RAG 켜짐 — 지식 검색 `{retriever.mode}` top-{args.top_k}, "
+            f"프롬프트 `{args.prompt}`",
+            file=sys.stderr,
+        )
     try:
-        report = run_clinic(doctor_name=args.engine)
+        report = run_clinic(
+            doctor_name=args.engine,
+            prompt_variant=args.prompt,
+            retriever=retriever,
+            top_k=args.top_k,
+        )
     except RuntimeError as e:
         print(str(e), file=sys.stderr)
         return 1
@@ -233,6 +248,15 @@ def cmd_build_vectors(args: argparse.Namespace) -> int:
         tokens.append(eq.query)
         tokens.append(eq.query.replace(" ", ""))
         tokens.extend(engine.analyzer.tokens(eq.query))
+
+    # 지식베이스 어휘도 넣는다. 이게 없으면 의미 기반 지식 검색이 어휘의
+    # 7%만 보고 판단하게 되고(실측), 그 상태로 잰 dense 성적은 신호의
+    # 실력이 아니라 캐시의 결손을 잰 것이 된다.
+    from searchclinic.rag.knowledge import load_knowledge
+
+    for doc in load_knowledge():
+        tokens.extend(engine.analyzer.tokens(doc.text))
+
     tokens = [t for t in tokens if t.strip()]
 
     try:
@@ -247,6 +271,53 @@ def cmd_build_vectors(args: argparse.Namespace) -> int:
     cache.save(out)
     size = __import__("pathlib").Path(out).stat().st_size
     print(f"벡터 캐시 저장: {out} ({len(cache)}개 토큰, {size/1024:.0f}KB)")
+    return 0
+
+
+def _build_retriever(mode: str):
+    from searchclinic.analysis.vectors import load_vectors_if_available
+    from searchclinic.rag.retriever import KnowledgeRetriever
+
+    return KnowledgeRetriever(vectors=load_vectors_if_available(), mode=mode)
+
+
+def cmd_rag_eval(args: argparse.Namespace) -> int:
+    """지식 검색만 따로 채점한다 — 생성 없이, API 키 없이.
+
+    RAG가 안 되는 이유는 못 찾았거나(R) 찾고도 못 썼거나(G)인데, 섞어 재면
+    어느 쪽인지 알 수 없다. 여기서 R만 떼어 잰다.
+    """
+    from searchclinic.corpus import failing_queries, load_catalog
+    from searchclinic.index.engine import SearchEngine
+    from searchclinic.rag.evaluate import evaluate_retrieval
+    from searchclinic.rag.retriever import MODES
+
+    engine = SearchEngine(load_catalog())
+    queries = failing_queries()
+    modes = list(MODES) if args.compare else [args.mode]
+
+    reports = []
+    for mode in modes:
+        report = evaluate_retrieval(_build_retriever(mode), queries, engine, k=args.k)
+        reports.append(report)
+        print(report.markdown())
+        print()
+
+    if len(reports) > 1:
+        print("### 방식 비교")
+        print()
+        print(f"| 방식 | 적중률 | recall@{args.k} | precision@{args.k} | MRR |")
+        print("|---|---|---|---|---|")
+        for r in reports:
+            print(
+                f"| {r.mode} | {r.hit_rate:.0%} | {r.recall:.3f} | "
+                f"{r.precision:.3f} | {r.mrr:.3f} |"
+            )
+
+    if args.output:
+        with open(args.output, "w", encoding="utf-8") as f:
+            f.write("\n\n".join(r.markdown() for r in reports) + "\n")
+        print(f"\n리포트 저장: {args.output}", file=sys.stderr)
     return 0
 
 
@@ -457,6 +528,16 @@ def main(argv: list[str] | None = None) -> int:
     p.add_argument("--output", help="마크다운 리포트 저장 경로")
     p.add_argument("--ledger", help="패치 원장(JSON) 저장 경로")
     p.add_argument("--es-output", help="치유 후 ES 설정(JSON) 저장 경로")
+    # 지식을 어디서 얻을지 — 프롬프트에 박은 것 vs 검색해서 붙인 것.
+    p.add_argument(
+        "--prompt",
+        choices=list(PROMPT_VARIANTS),
+        default="full",
+        help="full=지식을 프롬프트에 포함(기본), minimal=지식 없음",
+    )
+    p.add_argument("--rag", action="store_true", help="지식베이스를 검색해 브리핑에 붙인다")
+    p.add_argument("--retrieval", choices=list(RETRIEVAL_MODES), default=RETRIEVAL_DEFAULT_MODE)
+    p.add_argument("--top-k", type=int, default=3, help="검색할 지식 문서 수")
     p.set_defaults(func=cmd_heal)
 
     p = sub.add_parser("demo-trap", help="과잉 동의어 기각 시연")
@@ -472,6 +553,15 @@ def main(argv: list[str] | None = None) -> int:
     p.add_argument("--model", default=DEFAULT_MODEL)
     p.add_argument("--output", help="캐시 저장 경로 (기본: 패키지 내 data/vectors.json)")
     p.set_defaults(func=cmd_build_vectors)
+
+    p = sub.add_parser(
+        "rag-eval", help="지식 검색 품질만 채점 (생성 없이, 모델·API 키 불필요)"
+    )
+    p.add_argument("--mode", choices=list(RETRIEVAL_MODES), default=RETRIEVAL_DEFAULT_MODE)
+    p.add_argument("--compare", action="store_true", help="세 방식을 한 번에 비교")
+    p.add_argument("-k", type=int, default=3, help="검색할 문서 수 (기본 3)")
+    p.add_argument("--output", help="리포트(마크다운) 저장 경로")
+    p.set_defaults(func=cmd_rag_eval)
 
     p = sub.add_parser(
         "baseline", help="검색 품질 기준선 대조 (회귀면 종료 코드 1) — CI가 부른다"
