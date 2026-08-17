@@ -24,7 +24,12 @@ vector = ["sentence-transformers>=3.0"]
 api = ["fastapi>=0.115", "uvicorn>=0.30"]
 mcp = ["mcp>=2.0"]
 # 규모 실험 — 데이터 레이크(Parquet)와 로그 마이닝. 본체는 이것 없이 돈다.
-scale = ["pyarrow>=15", "duckdb>=1.0", "pyspark>=3.5"]
+# pyspark를 여기 묶지 않는 이유: 소스 배포판이라 빌드 환경이 필요하고,
+# 그 하나가 실패하면 가벼운 것들까지 통째로 막힌다 (실측으로 겪은 실패).
+scale = ["pyarrow>=15", "duckdb>=1.0"]
+# Spark는 로그가 한 대 메모리를 넘을 때만 값을 한다. 그 전에는 비용만 내므로
+# 기본에서 뺀다 — 실측에서 이 규모에서는 DuckDB가 48배 빨랐다.
+spark = ["pyspark>=3.5"]
 dev = ["pytest>=8.0", "pyflakes>=3.2", "httpx>=0.27"]
 
 [project.scripts]

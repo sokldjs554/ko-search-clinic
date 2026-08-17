@@ -275,11 +275,17 @@ def cmd_build_vectors(args: argparse.Namespace) -> int:
     return 0
 
 
-def _build_retriever(mode: str):
+def _build_retriever(mode: str, chunked: bool = False, max_chars: int = 400, overlap: int = 80):
     from searchclinic.analysis.vectors import load_vectors_if_available
     from searchclinic.rag.retriever import KnowledgeRetriever
 
-    return KnowledgeRetriever(vectors=load_vectors_if_available(), mode=mode)
+    return KnowledgeRetriever(
+        vectors=load_vectors_if_available(),
+        mode=mode,
+        chunked=chunked,
+        max_chars=max_chars,
+        overlap=overlap,
+    )
 
 
 def cmd_build_lake(args: argparse.Namespace) -> int:
@@ -358,11 +364,38 @@ def cmd_rag_eval(args: argparse.Namespace) -> int:
 
     engine = SearchEngine(load_catalog())
     queries = failing_queries()
-    modes = list(MODES) if args.compare else [args.mode]
 
+    # 청킹 전략 비교 — 청크 크기를 바꿔가며 검색 적중률을 잰다. "청킹을 했다"가
+    # 아니라 "이 크기가 낫다"를 말하려면 이 표가 있어야 한다.
+    if args.chunking:
+        print("### 청킹 전략 비교 — 검색 품질로 정한다")
+        print()
+        print(f"| 청크 크기 | 겹침 | 색인 단위 | 적중률 | recall@{args.k} | MRR |")
+        print("|---|---|---|---|---|---|")
+        settings = [(0, 0)] + [(c, int(c * 0.2)) for c in (200, 300, 400, 600)]
+        for max_chars, overlap in settings:
+            retriever = (
+                _build_retriever(args.mode)
+                if max_chars == 0
+                else _build_retriever(args.mode, chunked=True, max_chars=max_chars, overlap=overlap)
+            )
+            r = evaluate_retrieval(retriever, queries, engine, k=args.k)
+            label = "청킹 없음" if max_chars == 0 else f"{max_chars}자"
+            units = retriever._index_size()
+            print(
+                f"| {label} | {overlap or '—'} | {units} | {r.hit_rate:.0%} | "
+                f"{r.recall:.3f} | {r.mrr:.3f} |"
+            )
+        return 0
+
+    modes = list(MODES) if args.compare else [args.mode]
     reports = []
     for mode in modes:
-        report = evaluate_retrieval(_build_retriever(mode), queries, engine, k=args.k)
+        report = evaluate_retrieval(
+            _build_retriever(mode, chunked=args.chunked, max_chars=args.max_chars,
+                             overlap=args.overlap),
+            queries, engine, k=args.k,
+        )
         reports.append(report)
         print(report.markdown())
         print()
@@ -647,6 +680,10 @@ def main(argv: list[str] | None = None) -> int:
     )
     p.add_argument("--mode", choices=list(RETRIEVAL_MODES), default=RETRIEVAL_DEFAULT_MODE)
     p.add_argument("--compare", action="store_true", help="세 방식을 한 번에 비교")
+    p.add_argument("--chunking", action="store_true", help="청크 크기를 바꿔가며 비교")
+    p.add_argument("--chunked", action="store_true", help="청킹한 조각을 색인 단위로 쓴다")
+    p.add_argument("--max-chars", type=int, default=400, help="청크 최대 글자 수")
+    p.add_argument("--overlap", type=int, default=80, help="청크 겹침 글자 수")
     p.add_argument("-k", type=int, default=3, help="검색할 문서 수 (기본 3)")
     p.add_argument("--output", help="리포트(마크다운) 저장 경로")
     p.set_defaults(func=cmd_rag_eval)

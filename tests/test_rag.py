@@ -161,17 +161,34 @@ def test_recall_and_mrr_are_consistent(engine, vectors):
         assert (row.reciprocal_rank > 0) == row.hit
 
 
-def test_dense_beats_bm25_on_knowledge_retrieval(engine, vectors):
-    """문장 단위에서는 임베딩이 낫다 — 토큰 단위 실측과 반대 방향이다.
+def test_dense_ranks_the_right_document_first_more_often(engine, vectors):
+    """의미 검색은 **1위를 맞히는 데** 강하다 — 문서 설명의 표가 이 관계에 선다.
 
-    이 관계가 뒤집히면 README의 '기본값이 dense인 이유'가 거짓이 된다.
+    처음엔 "dense가 모든 k에서 이긴다"고 적었는데, 긴 문서를 넣자 k=3에서
+    BM25가 앞섰다. 코퍼스가 바뀌면 신호의 우열도 바뀐다는 것을 이 테스트가
+    잡아냈다. 그래서 지금은 **k=1에서의 우위**만 주장한다 — 그것이 실측이
+    지지하는 범위다.
     """
     if vectors is None:
         pytest.skip("벡터 캐시 없음")
     qs = failing_queries()
-    dense = evaluate_retrieval(KnowledgeRetriever(vectors=vectors, mode="dense"), qs, engine, k=5)
-    bm25 = evaluate_retrieval(KnowledgeRetriever(vectors=vectors, mode="bm25"), qs, engine, k=5)
+    dense = evaluate_retrieval(KnowledgeRetriever(vectors=vectors, mode="dense"), qs, engine, k=1)
+    bm25 = evaluate_retrieval(KnowledgeRetriever(vectors=vectors, mode="bm25"), qs, engine, k=1)
     assert dense.hit_rate > bm25.hit_rate
+
+
+def test_default_mode_wins_at_the_default_k(engine, vectors):
+    """기본값이 기본 k에서 최선이어야 한다 — 아니면 기본값을 고른 근거가 없다."""
+    from searchclinic.rag.retriever import DEFAULT_TOP_K
+
+    qs = failing_queries()
+    scores = {
+        mode: evaluate_retrieval(
+            KnowledgeRetriever(vectors=vectors, mode=mode), qs, engine, k=DEFAULT_TOP_K
+        ).hit_rate
+        for mode in MODES
+    }
+    assert scores[DEFAULT_MODE] == max(scores.values()), scores
 
 
 # --------------------------------------------------------------- 프롬프트

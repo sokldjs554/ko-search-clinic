@@ -313,7 +313,7 @@ DB가 없으면 메모리로 돕니다. **DB 없이 도는 것이 기본 상태*
 | REST API | FastAPI. 게이트 기각은 `202`(오류 아님), 도메인 예외를 상태 코드로 옮기는 자리가 한 곳 (`clinic-api`) |
 | MCP 서버 | 진료 도구 6종의 **스키마를 그대로** 노출 + 진료소 도구 2종. 외부 LLM 호스트가 의사가 된다 (`clinic-mcp`) |
 | CI 품질 게이트 | 매 푸시마다 평가셋 재실행 → 커밋된 기준선과 질의별 대조, 회귀면 빌드 실패 (`clinic baseline`). **처방을 거치지 않는 변경**(코퍼스·설정 수정)이 검색을 조용히 깨뜨리는 것을 막는다 |
-| 지식 검색 (RAG) | 도메인 지식을 프롬프트에서 빼 지식베이스로. BM25/임베딩/RRF 하이브리드이며, **검색만 따로 채점**해 R과 G를 분리한다 (`clinic rag-eval`) |
+| 지식 검색 (RAG) | 도메인 지식을 프롬프트에서 빼 지식베이스로. 전처리 · **청킹**(섹션/문단/문장 경계 + 겹침) · BM25/임베딩/RRF 하이브리드이며, **검색만 따로 채점**해 R과 G를 분리한다 (`clinic rag-eval`) |
 | 데이터 레이크 | 코퍼스·질의 로그를 **Parquet + 날짜 파티션**으로. 기간 집계가 파일 자체를 건너뛴다 (`clinic build-lake`) |
 | 로그 마이닝 | 제로결과 질의를 집계해 **진료 대상을 자동 선정** — Spark와 DuckDB가 같은 SQL로 같은 답을 낸다 (`clinic mine-logs`) |
 | 규모 실험 | 문서 5만 건까지 키워 **게이트 판정이 유지되는지** 측정 (`clinic scale-bench`) |
@@ -421,7 +421,7 @@ clinic scale-bench --sizes 0 1000 10000 50000
 # 12) 영속 저장소 (선택) — 진료가 프로세스보다 오래 산다
 export DATABASE_URL=postgresql://clinic:clinic@localhost:5432/clinicdb
 
-# 테스트 (275개, 전부 오프라인 — API 키도 Docker도 없이 CI가 돈다)
+# 테스트 (296개, 전부 오프라인 — API 키도 Docker도 없이 CI가 돈다)
 pytest
 ```
 
@@ -533,7 +533,7 @@ src/searchclinic/
 └── cli.py         # analyze/search/evaluate/diagnose/heal/demo-trap/baseline
                    # export-es/build-vectors/vector-probe/es-verify
 .github/workflows/ # CI — 테스트(우분투·윈도우) + 검색 품질 게이트
-tests/             # 275개 테스트 (전부 오프라인 — API 키도 Docker도 불필요)
+tests/             # 296개 테스트 (전부 오프라인 — API 키도 Docker도 불필요)
 docker/            # ES + analysis-nori 이미지와 compose
 docs/              # 설계 문서 + CLI가 생성한 리포트/원장/ES 설정
 ```

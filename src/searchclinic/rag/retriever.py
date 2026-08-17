@@ -20,23 +20,34 @@
 직접 재보려고 둘 다 두고, 어느 쪽이 나은지는 오프라인 채점으로 정했다
 (`clinic rag-eval`).
 
-## 기본값이 dense인 이유 — 실측으로 정했다
+## 기본값을 실측으로 정했다 — 그리고 한 번 뒤집혔다
 
 적중률(관련 문서가 상위 k 안에 하나라도 들어오는 비율):
 
     k      1     3     5     8
-    bm25   12%   25%   25%   75%
-    dense  50%   62%   75%   94%
-    hybrid  6%   62%   75%   81%
+    bm25   12%   88%   88%   88%
+    dense  56%   62%   88%  100%
+    hybrid  0%   75%   88%   88%
 
-**dense가 모든 k에서 이긴다.** 그리고 이것은 토큰 수준 실측과 **정반대**다 —
-같은 임베딩이 438개 짧은 토큰에서는 정답을 155~411위에 두었는데, 문장 단위
-지식 문서에서는 BM25의 두 배를 낸다. 신호가 좋아진 것이 아니라 **단위가
-바뀐 것**이고, 임베딩이 언제 쓸 만한지가 여기서 갈린다.
+**어느 쪽도 지배하지 않는다.** 의미 검색은 **1위를 맞히는 데** 강하고
+(56% vs 12%), 어휘 검색은 **좁은 상위 목록을 채우는 데** 강하다(k=3에서
+88% vs 62%). 기본 top-k가 3이므로 기본값은 `bm25`다.
 
-하이브리드가 k=1에서 6%로 둘보다 나쁜 것도 기록해 둔다. RRF는 두 순위를
+이 표는 한 번 뒤집혔다. 지식 문서가 전부 200자 안팎이던 때는 dense가 모든
+k에서 이겼는데, 실무 문서 길이의 긴 문서를 넣자 BM25가 따라잡았다. 긴 문서는
+용어가 더 많이 겹쳐 어휘 검색에 유리하기 때문이다. **코퍼스의 성질이 바뀌면
+신호의 우열도 바뀐다** — 회귀 테스트가 이 뒤집힘을 잡아냈다.
+
+하이브리드가 k=1에서 0%로 둘보다 나쁜 것도 기록해 둔다. RRF는 두 순위를
 대등하게 섞으므로, 한쪽 신호가 확연히 약하면 그 약한 순위가 1위 자리를
-빼앗는다. "합치면 낫다"가 늘 참은 아니다.
+빼앗는다. **"합치면 낫다"가 늘 참은 아니다.**
+
+### 이 표를 아직 믿으면 안 되는 이유
+
+커밋된 벡터 캐시가 지식베이스 어휘의 **6%만** 안다(캐시를 상품 어휘로 만들었기
+때문). 그러니 dense 수치는 임베딩의 실력이 아니라 **캐시의 결손**을 함께 잰
+값이다. `clinic build-vectors`로 캐시를 다시 만들면 달라지고, 리포트가 이
+커버리지를 함께 내도록 해 두었다.
 
 순위 융합은 RRF(Reciprocal Rank Fusion)를 쓴다 — 두 신호의 점수 척도가
 서로 달라(BM25는 무계, 코사인은 [-1,1]) 그대로 더할 수 없고, 순위만 쓰면
@@ -50,6 +61,7 @@ from dataclasses import dataclass
 from searchclinic.analysis.vectors import CachedVectors
 from searchclinic.corpus.catalog import Document
 from searchclinic.index.engine import SearchEngine
+from searchclinic.rag.chunker import DEFAULT_MAX_CHARS, DEFAULT_OVERLAP, chunk_knowledge
 from searchclinic.rag.knowledge import KnowledgeDoc, load_knowledge
 
 # RRF 상수. 표준값 60을 쓴다 — 상위 순위의 영향력을 과하지 않게 누른다.
@@ -59,8 +71,9 @@ DEFAULT_TOP_K = 3
 
 MODES = ("bm25", "dense", "hybrid")
 
-# 실측으로 정한 기본값 — 모든 k에서 dense가 이겼다 (위 표).
-DEFAULT_MODE = "dense"
+# 실측으로 정한 기본값 — 기본 top-k(3)에서 bm25가 이긴다 (위 표).
+# 모델도 캐시도 필요 없다는 것이 덤이다.
+DEFAULT_MODE = "bm25"
 
 
 @dataclass(frozen=True)
@@ -79,6 +92,21 @@ def _as_documents(docs: list[KnowledgeDoc]) -> list[Document]:
     ]
 
 
+def _as_chunk_documents(docs: list[KnowledgeDoc], max_chars: int, overlap: int):
+    """청킹한 조각들을 색인 단위로 쓴다.
+
+    조각의 `doc_id`는 원문 문서 id를 유지한다(`K001#0`). 채점과 근거 표시는
+    문서 단위로 하므로 조각이 어디서 왔는지를 잃으면 안 된다.
+    """
+    chunks = chunk_knowledge(docs, max_chars=max_chars, overlap=overlap)
+    return chunks, [
+        Document(
+            doc_id=c.chunk_id, name=c.heading, description=c.text, category="knowledge"
+        )
+        for c in chunks
+    ]
+
+
 class KnowledgeRetriever:
     """지식베이스에서 질의에 맞는 문서를 고른다."""
 
@@ -87,10 +115,16 @@ class KnowledgeRetriever:
         docs: list[KnowledgeDoc] | None = None,
         vectors: CachedVectors | None = None,
         mode: str = DEFAULT_MODE,
+        chunked: bool = False,
+        max_chars: int = DEFAULT_MAX_CHARS,
+        overlap: int = DEFAULT_OVERLAP,
     ) -> None:
         if mode not in MODES:
             raise ValueError(f"알 수 없는 검색 방식: {mode} (가능: {', '.join(MODES)})")
         self.docs = docs if docs is not None else load_knowledge()
+        self.chunked = chunked
+        self.max_chars = max_chars
+        self.overlap = overlap
         self.requested_mode = mode
         self.vectors = vectors
 
@@ -101,7 +135,17 @@ class KnowledgeRetriever:
         self.degraded = self.mode != self.requested_mode
 
         self._by_id = {d.doc_id: d for d in self.docs}
-        self._engine = SearchEngine(_as_documents(self.docs))
+        if chunked:
+            self.chunks, indexed = _as_chunk_documents(self.docs, max_chars, overlap)
+            # 조각 id → 원문 문서. 검색 단위는 조각이지만 결과는 문서로 돌려준다.
+            self._owner = {c.chunk_id: self._by_id[c.doc_id] for c in self.chunks}
+            self._chunk_text = {c.chunk_id: c.display for c in self.chunks}
+        else:
+            self.chunks = []
+            indexed = _as_documents(self.docs)
+            self._owner = dict(self._by_id)
+            self._chunk_text = {}
+        self._engine = SearchEngine(indexed)
 
     def vector_coverage(self) -> float:
         """지식베이스 어휘 중 벡터 캐시가 아는 비율.
@@ -112,15 +156,36 @@ class KnowledgeRetriever:
         """
         if self.vectors is None:
             return 0.0
-        tokens = {t for d in self.docs for t in self._engine.analyzer.tokens(d.text)}
+        texts = [c.display for c in self.chunks] if self.chunked else [d.text for d in self.docs]
+        tokens = {t for text in texts for t in self._engine.analyzer.tokens(text)}
         if not tokens:
             return 0.0
         return round(sum(1 for t in tokens if t in self.vectors) / len(tokens), 4)
 
     # ------------------------------------------------------------- 신호
 
+    def _index_size(self) -> int:
+        return len(self.chunks) if self.chunked else len(self.docs)
+
+    def _fold(self, unit_ids: list[str]) -> list[str]:
+        """검색 단위(조각) 순위를 **문서** 순위로 접는다.
+
+        같은 문서의 조각이 여러 개 걸리면 가장 높은 순위 하나만 남긴다.
+        접지 않으면 상위 k가 한 문서의 조각들로 채워져, 청킹이 오히려
+        다양성을 죽인다.
+        """
+        seen: list[str] = []
+        for unit_id in unit_ids:
+            owner = self._owner.get(unit_id)
+            if owner is None:
+                continue
+            if owner.doc_id not in seen:
+                seen.append(owner.doc_id)
+        return seen
+
     def _bm25_ranking(self, query: str) -> list[str]:
-        return [h.doc_id for h in self._engine.search(query, k=len(self.docs))]
+        hits = self._engine.search(query, k=self._index_size())
+        return self._fold([h.doc_id for h in hits])
 
     def _dense_ranking(self, query: str) -> list[str]:
         """질의 토큰과 문서 토큰의 최대 유사도 평균으로 문서를 정렬한다.
@@ -136,19 +201,24 @@ class KnowledgeRetriever:
         if not q_tokens:
             return []
 
+        units = (
+            [(c.chunk_id, c.display) for c in self.chunks]
+            if self.chunked
+            else [(d.doc_id, d.text) for d in self.docs]
+        )
         scored: list[tuple[str, float]] = []
-        for doc in self.docs:
-            d_tokens = [t for t in self._engine.analyzer.tokens(doc.text) if t in self.vectors]
+        for unit_id, unit_text in units:
+            d_tokens = [t for t in self._engine.analyzer.tokens(unit_text) if t in self.vectors]
             if not d_tokens:
                 continue
             total = 0.0
             for qt in q_tokens:
                 sims = [s for dt in d_tokens if (s := self.vectors.similarity(qt, dt)) is not None]
                 total += max(sims) if sims else 0.0
-            scored.append((doc.doc_id, total / len(q_tokens)))
+            scored.append((unit_id, total / len(q_tokens)))
 
         scored.sort(key=lambda x: (-x[1], x[0]))
-        return [doc_id for doc_id, _ in scored]
+        return self._fold([unit_id for unit_id, _ in scored])
 
     # ------------------------------------------------------------- 검색
 
