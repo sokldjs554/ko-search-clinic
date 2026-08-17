@@ -84,6 +84,12 @@ $ clinic analyze "아답터"
 > 아직 한 번도 안 돌았습니다 —
 > [한계 세 가지](docs/EVALUATION.md#정직하게-남기는-세-가지-한계).
 
+> **그리고 실제 Elasticsearch에 붙여봤습니다.** ES 8.15 + nori에서 같은 평가셋
+> 36건을 재실행한 결과 평균 nDCG 로컬 0.8617 / ES 0.8627, **갈린 질의 0건**.
+> 그 과정에서 렌더러가 **실제로는 ES가 거부하는 설정을 만들고 있었다는 것**도
+> 드러났습니다 — 붙여보기 전엔 아무도 몰랐습니다
+> ([대조 분석](docs/EVALUATION.md#elasticsearch-실연결-대조-clinic-es-verify)).
+
 ## 회귀 게이트가 실제로 잡는 것
 
 ```console
@@ -155,7 +161,7 @@ $ clinic demo-trap
 | 회귀 게이트 | 전체 평가셋 전수 재실행: 표적 개선 + 질의별 무회귀(nDCG·recall·precision@5) + 전체 평균 보존 |
 | 패치 원장 | 채택된 모든 패치에 표적 질의·진단 근거·전후 지표 기록 — "왜 넣었는지 모르는 사전 항목" 방지 |
 | ES 렌더러 | 채택 설정 → **Elasticsearch nori 설정 JSON** (user_dictionary_rules / synonym_graph / decompound_mode) 1:1 렌더링 |
-| ES 실연결 검증 | 렌더된 설정으로 **실제 ES 인덱스를 만들어 같은 평가셋 재실행** — 로컬 BM25와 질의별 대조 (`clinic es-verify`, docker compose 포함) |
+| ES 실연결 검증 | 렌더된 설정으로 **실제 ES 인덱스를 만들어 같은 평가셋 재실행** — 로컬 BM25와 질의별 대조 (`clinic es-verify`, docker compose 포함). 보내기 전 정적 검사로 nori 규약 위반을 먼저 잡는다 |
 | 의사 엔진 | ScriptedDoctor(결정적 베이스라인) + Claude(수동 tool-use 루프) — 같은 LLMClient 프로토콜 |
 | 평가 | 치유율 · **진단 정확도**(계열 라벨 대조) · **처방 적합성**(패치 유형 대조) · 건강셋 회귀 감시 |
 
@@ -274,10 +280,11 @@ docs/              # 설계 문서 + CLI가 생성한 리포트/원장/ES 설정
   게이트를 예측해 미리 범위를 좁히기 때문인데, 그것을 확인하려면 도구로
   관측 불가능한 회귀를 심은 함정이 필요하다
   ([분석](docs/EVALUATION.md#정직하게-남기는-세-가지-한계))
-- **ES 대조 결과 미기재**: 어댑터(`clinic es-verify`)와 docker compose는 완성됐고
-  오프라인 테스트로 고정돼 있지만, **실제 클러스터에서 돌린 대조표는 아직 이
-  저장소에 없다.** Kiwi와 nori는 다른 분석기라 일부 질의는 갈릴 것으로 예상하며,
-  갈리면 그대로 기록할 것이다 ([절차](docs/ES_VERIFICATION.md))
+- **ES 대조는 절반만 덮는다**: 실제 ES 8.15 + nori에서 36건을 재실행해
+  평균 nDCG 로컬 0.8617 vs ES 0.8627, 갈린 질의 0건을 확인했다
+  ([결과](docs/ES_VERIFICATION_REPORT.md)). 다만 그 실행은 휴리스틱 의사가
+  채택한 10건 설정이라 **`user_words`(사전 등록) 패치 유형이 ES에서 한 번도
+  시험되지 않았다.** `clinic es-verify --engine claude`로 채워진다
 - **처방 유형 확장**: 오탈자 교정(質의 시점), 불용어, 가중치 필드 부스팅
 
 ## 라이선스

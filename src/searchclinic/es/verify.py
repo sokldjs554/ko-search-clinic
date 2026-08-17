@@ -115,7 +115,7 @@ def render_verification_markdown(report: VerificationReport) -> str:
     for r in sorted(report.rows, key=lambda r: -abs(r.ndcg_delta)):
         mark = " ⚠️" if r.diverged else ""
         out.append(
-            f"| {r.query} | {r.family} | {r.local.ndcg:.2f} | {r.es.ndcg:.2f} | "
+            f"| {r.query} | {r.family or '건강'} | {r.local.ndcg:.2f} | {r.es.ndcg:.2f} | "
             f"{r.ndcg_delta:+.2f}{mark} | `{' '.join(r.kiwi_tokens) or '없음'}` | "
             f"`{' '.join(r.nori_tokens) or '없음'}` |"
         )
@@ -124,7 +124,7 @@ def render_verification_markdown(report: VerificationReport) -> str:
         out.append("\n#### 갈린 질의")
         for r in report.diverged:
             out.append(
-                f"\n**{r.query}** ({r.family}) — 로컬 {r.local.ndcg:.2f} → ES {r.es.ndcg:.2f}\n"
+                f"\n**{r.query}** ({r.family or '건강'}) — 로컬 {r.local.ndcg:.2f} → ES {r.es.ndcg:.2f}\n"
                 f"- Kiwi: `{' '.join(r.kiwi_tokens) or '없음'}`\n"
                 f"- nori: `{' '.join(r.nori_tokens) or '없음'}`\n"
                 f"- 로컬 상위: {', '.join(r.local.hits_top) or '없음'}\n"
