@@ -1,0 +1,68 @@
+# 검색 품질을 CI가 지킨다.
+#
+# 진료 중의 회귀 게이트는 **처방 하나**를 판정한다. 그런데 사전·동의어를 손으로
+# 고치거나 코퍼스 문서를 수정하는 것은 처방이 아니므로 게이트가 보지 못한다.
+# 현업에서 검색이 조용히 망가지는 경로가 정확히 그것이다 — 누군가 민원을 받고
+# 사전을 고치고, 그 수정이 다른 검색을 깨뜨렸는지는 아무도 확인하지 않는다.
+#
+# 그래서 같은 기준(질의별 ε=0.02)을 커밋에 적용한다: 매 푸시마다 평가셋
+# 36질의를 재실행해 커밋된 기준선과 대조하고, 회귀가 있으면 빌드를 막는다.
+
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  tests:
+    name: 테스트 (${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        # 이 프로젝트는 윈도우에서 cp949 인코딩과 CRLF로 두 번 깨진 적이 있다.
+        # 그 회귀를 테스트가 들고 있으므로, 실제로 윈도우에서도 돌려야 의미가 있다.
+        os: [ubuntu-latest, windows-latest]
+        python-version: ["3.11"]
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: pip
+
+      - name: 설치
+        run: pip install -e ".[api,mcp,dev]"
+
+      - name: 테스트
+        run: pytest -q
+
+  quality-gate:
+    name: 검색 품질 게이트
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+
+      - name: 설치
+        run: pip install -e .
+
+      # 회귀가 있으면 종료 코드 1 → 빌드 실패. 어떤 질의가 어떤 지표에서
+      # 얼마나 나빠졌는지는 요약 패널의 표로 남는다 (로그를 스크롤해야
+      # 보이는 결과는 아무도 안 본다).
+      - name: 평가셋 재실행 및 기준선 대조
+        run: clinic baseline
+
+      # 실패했을 때 지금 상태가 어떤지 함께 남긴다. 기준선을 갱신해야 하는
+      # 정당한 변경인지, 진짜 회귀인지는 사람이 이걸 보고 판단한다.
+      - name: 실패 시 현재 지표 전체
+        if: failure()
+        run: clinic evaluate

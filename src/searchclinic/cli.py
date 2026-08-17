@@ -250,6 +250,60 @@ def cmd_build_vectors(args: argparse.Namespace) -> int:
     return 0
 
 
+def cmd_baseline(args: argparse.Namespace) -> int:
+    """검색 품질 기준선을 쓰거나(--write) 대조한다(기본).
+
+    CI가 부르는 명령이다. 회귀가 있으면 종료 코드 1을 돌려주고, 그것이
+    빌드를 빨간불로 만든다 — 진료 게이트가 처방을 기각하는 것과 같은 일을
+    커밋 단위로 하는 셈이다.
+    """
+    import os
+
+    from searchclinic.corpus import load_catalog, load_evalset
+    from searchclinic.evaluation.baseline import (
+        BASELINE_PATH,
+        compare,
+        load_baseline,
+        write_baseline,
+    )
+    from searchclinic.index.engine import SearchEngine
+
+    engine = SearchEngine(load_catalog())
+    evalset = load_evalset()
+    path = args.path or BASELINE_PATH
+
+    if args.write:
+        payload = write_baseline(engine, evalset, path)
+        print(f"기준선 저장: {path} ({len(payload['queries'])}질의, 평균 nDCG {payload['mean_ndcg']:.4f})")
+        return 0
+
+    try:
+        baseline = load_baseline(path)
+    except FileNotFoundError:
+        print(
+            f"기준선 파일이 없습니다: {path}\n  clinic baseline --write 로 먼저 만드세요.",
+            file=sys.stderr,
+        )
+        return 1
+
+    report = compare(engine, evalset, baseline)
+    print(report.summary())
+
+    # GitHub Actions에서 돌면 요약 패널에 표를 남긴다. 로그를 스크롤해
+    # 찾아야 하는 결과는 아무도 안 본다.
+    summary_path = os.environ.get("GITHUB_STEP_SUMMARY")
+    if summary_path:
+        with open(summary_path, "a", encoding="utf-8") as f:
+            f.write(report.markdown() + "\n")
+
+    if args.output:
+        with open(args.output, "w", encoding="utf-8") as f:
+            f.write(report.markdown() + "\n")
+        print(f"\n리포트 저장: {args.output}", file=sys.stderr)
+
+    return 0 if report.ok else 1
+
+
 def cmd_vector_probe(args: argparse.Namespace) -> int:
     """벡터 캐시가 정답 쌍과 쓰레기 쌍을 가를 수 있는지 잰다 (모델 불필요).
 
@@ -418,6 +472,14 @@ def main(argv: list[str] | None = None) -> int:
     p.add_argument("--model", default=DEFAULT_MODEL)
     p.add_argument("--output", help="캐시 저장 경로 (기본: 패키지 내 data/vectors.json)")
     p.set_defaults(func=cmd_build_vectors)
+
+    p = sub.add_parser(
+        "baseline", help="검색 품질 기준선 대조 (회귀면 종료 코드 1) — CI가 부른다"
+    )
+    p.add_argument("--write", action="store_true", help="현재 상태로 기준선을 새로 쓴다")
+    p.add_argument("--path", help="기준선 파일 경로 (기본: docs/BASELINE.json)")
+    p.add_argument("--output", help="대조 리포트(마크다운) 저장 경로")
+    p.set_defaults(func=cmd_baseline)
 
     p = sub.add_parser(
         "vector-probe", help="벡터 캐시의 분리 가능성·허브 구조 검사 (모델 불필요)"

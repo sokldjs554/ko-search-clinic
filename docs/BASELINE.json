@@ -1,0 +1,222 @@
+{
+  "epsilon": 0.02,
+  "mean_ndcg": 0.5839,
+  "queries": {
+    "가습기": {
+      "ndcg": 1.0,
+      "recall": 1.0,
+      "precision5": 1.0,
+      "n_results": 1
+    },
+    "김치": {
+      "ndcg": 1.0,
+      "recall": 1.0,
+      "precision5": 1.0,
+      "n_results": 1
+    },
+    "노트북 파우치": {
+      "ndcg": 1.0,
+      "recall": 1.0,
+      "precision5": 0.5,
+      "n_results": 2
+    },
+    "도너츠": {
+      "ndcg": 0.0,
+      "recall": 0.0,
+      "precision5": 0.0,
+      "n_results": 0
+    },
+    "도넛": {
+      "ndcg": 1.0,
+      "recall": 1.0,
+      "precision5": 1.0,
+      "n_results": 2
+    },
+    "리모컨": {
+      "ndcg": 1.0,
+      "recall": 1.0,
+      "precision5": 1.0,
+      "n_results": 2
+    },
+    "리모콘": {
+      "ndcg": 0.0,
+      "recall": 0.0,
+      "precision5": 0.0,
+      "n_results": 0
+    },
+    "머스캣": {
+      "ndcg": 0.0,
+      "recall": 0.0,
+      "precision5": 0.0,
+      "n_results": 0
+    },
+    "무선 이어폰": {
+      "ndcg": 1.0,
+      "recall": 1.0,
+      "precision5": 0.3333,
+      "n_results": 3
+    },
+    "물티슈": {
+      "ndcg": 1.0,
+      "recall": 1.0,
+      "precision5": 1.0,
+      "n_results": 2
+    },
+    "백팩": {
+      "ndcg": 0.0,
+      "recall": 0.0,
+      "precision5": 0.0,
+      "n_results": 4
+    },
+    "블루투스 스피커": {
+      "ndcg": 0.5,
+      "recall": 1.0,
+      "precision5": 0.3333,
+      "n_results": 3
+    },
+    "샤인머스캣": {
+      "ndcg": 1.0,
+      "recall": 1.0,
+      "precision5": 1.0,
+      "n_results": 2
+    },
+    "선풍기": {
+      "ndcg": 1.0,
+      "recall": 1.0,
+      "precision5": 1.0,
+      "n_results": 1
+    },
+    "소세지": {
+      "ndcg": 0.0,
+      "recall": 0.0,
+      "precision5": 0.0,
+      "n_results": 0
+    },
+    "소시지": {
+      "ndcg": 1.0,
+      "recall": 1.0,
+      "precision5": 1.0,
+      "n_results": 2
+    },
+    "아답터": {
+      "ndcg": 0.0,
+      "recall": 0.0,
+      "precision5": 0.0,
+      "n_results": 0
+    },
+    "어댑터": {
+      "ndcg": 1.0,
+      "recall": 1.0,
+      "precision5": 1.0,
+      "n_results": 2
+    },
+    "운동화": {
+      "ndcg": 1.0,
+      "recall": 1.0,
+      "precision5": 1.0,
+      "n_results": 1
+    },
+    "주스": {
+      "ndcg": 1.0,
+      "recall": 1.0,
+      "precision5": 1.0,
+      "n_results": 2
+    },
+    "쥬스": {
+      "ndcg": 0.0,
+      "recall": 0.0,
+      "precision5": 0.0,
+      "n_results": 0
+    },
+    "초콜렛": {
+      "ndcg": 0.0,
+      "recall": 0.0,
+      "precision5": 0.0,
+      "n_results": 0
+    },
+    "츄리닝": {
+      "ndcg": 0.0,
+      "recall": 0.0,
+      "precision5": 0.0,
+      "n_results": 0
+    },
+    "카페트": {
+      "ndcg": 0.0,
+      "recall": 0.0,
+      "precision5": 0.0,
+      "n_results": 0
+    },
+    "카펫": {
+      "ndcg": 1.0,
+      "recall": 1.0,
+      "precision5": 1.0,
+      "n_results": 2
+    },
+    "캠핑 의자": {
+      "ndcg": 0.9448,
+      "recall": 1.0,
+      "precision5": 0.5,
+      "n_results": 4
+    },
+    "케이크": {
+      "ndcg": 1.0,
+      "recall": 1.0,
+      "precision5": 1.0,
+      "n_results": 2
+    },
+    "케잌 주문": {
+      "ndcg": 0.0,
+      "recall": 0.0,
+      "precision5": 0.0,
+      "n_results": 0
+    },
+    "텀블러": {
+      "ndcg": 0.6131,
+      "recall": 0.5,
+      "precision5": 1.0,
+      "n_results": 1
+    },
+    "트레이닝복": {
+      "ndcg": 1.0,
+      "recall": 1.0,
+      "precision5": 1.0,
+      "n_results": 2
+    },
+    "티슈": {
+      "ndcg": 0.0,
+      "recall": 0.0,
+      "precision5": 0.0,
+      "n_results": 0
+    },
+    "팬미팅 굿즈": {
+      "ndcg": 1.0,
+      "recall": 1.0,
+      "precision5": 0.5,
+      "n_results": 4
+    },
+    "프라이팬": {
+      "ndcg": 1.0,
+      "recall": 1.0,
+      "precision5": 1.0,
+      "n_results": 2
+    },
+    "핸드폰": {
+      "ndcg": 0.0,
+      "recall": 0.0,
+      "precision5": 0.0,
+      "n_results": 0
+    },
+    "후라이팬": {
+      "ndcg": 0.0,
+      "recall": 0.0,
+      "precision5": 0.0,
+      "n_results": 0
+    },
+    "휴대폰 거치대": {
+      "ndcg": 0.9639,
+      "recall": 1.0,
+      "precision5": 0.6667,
+      "n_results": 3
+    }
+  }
+}

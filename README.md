@@ -1,5 +1,7 @@
 # ko-search-clinic
 
+[![CI](https://github.com/sokldjs554/ko-search-clinic/actions/workflows/ci.yml/badge.svg)](https://github.com/sokldjs554/ko-search-clinic/actions/workflows/ci.yml)
+
 **한국어 검색 품질 자가 치유 에이전트 — 진단 · 처방 · 검증 · 롤백**
 
 한국어 검색은 조용히 실패합니다. 사용자가 `후라이팬`을 검색하면 `프라이팬`
@@ -145,6 +147,50 @@ $ clinic demo-trap
 봅니다 — nDCG는 정답 아래에 쌓이는 쓰레기를 벌하지 않기 때문입니다. 좁힌
 처방(프라이팬=후라이팬)은 즉시 채택됩니다.
 
+## 게이트가 못 보는 곳 — 그래서 CI에도 건다
+
+위의 게이트는 **처방 하나**를 판정합니다. 그런데 검색 품질을 바꾸는 경로가
+처방만은 아닙니다.
+
+```
+코퍼스 문서를 고친다          → 정답이 있던 문서의 표기가 바뀐다
+분석기 기본 설정을 손댄다      → 모든 질의의 토큰이 달라진다
+사전·동의어를 손으로 추가한다  → 게이트를 우회한 그 수정이 정확히 현업의 사고다
+```
+
+**게이트가 지키는 것과 저장소가 바뀌는 경로가 어긋나 있습니다.** 그 틈을 CI로
+메웁니다 — 매 푸시마다 평가셋 36질의를 재실행해 커밋된 기준선과 질의별로
+대조하고, 회귀가 있으면 빌드를 막습니다. 진료 게이트와 **같은 허용치(ε=0.02)**를
+쓰므로 새 개념이 아니라 같은 원리를 한 층 위에 올린 것입니다.
+
+실제로 상품명 하나에서 `프라이팬`을 지워보면:
+
+```console
+$ clinic baseline
+검색 품질 회귀 — 평균 nDCG 0.5839 → 0.5732
+  - 회귀: '팬미팅 굿즈' precision5 0.50 → 0.40 (↓0.10)
+  - 회귀: '프라이팬' ndcg 1.00 → 0.61 (↓0.39)
+  - 회귀: '프라이팬' recall 1.00 → 0.50 (↓0.50)
+$ echo $?
+1
+```
+
+**`팬미팅 굿즈`가 같이 걸린 것이 이 검사의 값어치입니다.** 프라이팬 상품 하나를
+고쳤는데 전혀 다른 질의가 흔들렸고(문서빈도가 변해 BM25 점수가 이동), 사람이
+리뷰로 예측할 수 있는 종류의 일이 아닙니다.
+
+PR에서는 이 표가 요약 패널에 그대로 붙습니다:
+
+| | 질의 | 지표 | 기준선 | 현재 | 변화 |
+|---|---|---|---|---|---|
+| ❌ | 팬미팅 굿즈 | precision5 | 0.50 | 0.40 | -0.10 |
+| ❌ | 프라이팬 | ndcg | 1.00 | 0.61 | -0.39 |
+| ❌ | 프라이팬 | recall | 1.00 | 0.50 | -0.50 |
+
+**질의를 지워서 초록불을 만들 수는 없습니다.** 기준선에 있던 질의가 평가셋에서
+사라지면 그것도 실패로 셉니다 — 그 길이 열려 있으면 이 검사가 막으려던 바로
+그 일이 가능해집니다.
+
 ## 왜 이 주제인가 — 그리고 관련 연구와의 거리
 
 한국어 검색 품질 운영(사전·동의어·decompound 관리)은 국내 모든 검색 서비스가
@@ -201,6 +247,7 @@ $ clinic demo-trap
 | 서비스 계층 | 세션별 설정 격리 + 잠금. fastapi·mcp를 import하지 않아 **선택 의존성 없이 전부 테스트**된다 |
 | REST API | FastAPI. 게이트 기각은 `202`(오류 아님), 도메인 예외를 상태 코드로 옮기는 자리가 한 곳 (`clinic-api`) |
 | MCP 서버 | 진료 도구 6종의 **스키마를 그대로** 노출 + 진료소 도구 2종. 외부 LLM 호스트가 의사가 된다 (`clinic-mcp`) |
+| CI 품질 게이트 | 매 푸시마다 평가셋 재실행 → 커밋된 기준선과 질의별 대조, 회귀면 빌드 실패 (`clinic baseline`). **처방을 거치지 않는 변경**(코퍼스·설정 수정)이 검색을 조용히 깨뜨리는 것을 막는다 |
 
 ## 아키텍처
 
@@ -287,7 +334,11 @@ pip install -e ".[api,mcp]"
 clinic-api --port 8000                        # REST (문서: localhost:8000/docs)
 clinic-mcp                                    # MCP 서버 (stdio)
 
-# 테스트 (209개, 전부 오프라인 — API 키도 Docker도 없이 CI가 돈다)
+# 9) CI 품질 게이트 — 회귀면 종료 코드 1 (GitHub Actions가 매 푸시마다 부른다)
+clinic baseline                               # 기준선 대조
+clinic baseline --write                       # 정당한 변경 후 기준선 갱신
+
+# 테스트 (221개, 전부 오프라인 — API 키도 Docker도 없이 CI가 돈다)
 pytest
 ```
 
@@ -393,9 +444,10 @@ src/searchclinic/
 ├── es/            # ES 클라이언트·엔진·대조 검증 (로컬과 같은 search 인터페이스)
 ├── service.py     # 세션 격리 + 잠금 — REST와 MCP가 공유하는 단 하나의 로직
 ├── api/           # rest.py(FastAPI) · mcp_server.py(MCP) — 둘 다 얇은 결선
-└── cli.py         # analyze/search/evaluate/diagnose/heal/demo-trap
+└── cli.py         # analyze/search/evaluate/diagnose/heal/demo-trap/baseline
                    # export-es/build-vectors/vector-probe/es-verify
-tests/             # 209개 테스트 (전부 오프라인 — API 키도 Docker도 불필요)
+.github/workflows/ # CI — 테스트(우분투·윈도우) + 검색 품질 게이트
+tests/             # 221개 테스트 (전부 오프라인 — API 키도 Docker도 불필요)
 docker/            # ES + analysis-nori 이미지와 compose
 docs/              # 설계 문서 + CLI가 생성한 리포트/원장/ES 설정
 ```
