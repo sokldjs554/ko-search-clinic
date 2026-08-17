@@ -8,7 +8,23 @@
             "decompound_mode": "mixed",
             "user_dictionary_rules": [
               "물티슈 물 티슈",
-              "샤인머스캣 샤인 머스캣"
+              "샤인머스캣 샤인 머스캣",
+              "프라이팬",
+              "후라이팬",
+              "케이크",
+              "케잌",
+              "도넛",
+              "도너츠",
+              "주스",
+              "쥬스",
+              "소시지",
+              "소세지",
+              "카펫",
+              "카페트",
+              "초콜릿",
+              "초콜렛",
+              "리모컨",
+              "리모콘"
             ]
           }
         },
@@ -68,9 +84,15 @@
     "properties": {
       "name": {
         "type": "text",
-        "analyzer": "clinic_korean"
+        "analyzer": "clinic_korean",
+        "copy_to": "text"
       },
       "description": {
+        "type": "text",
+        "analyzer": "clinic_korean",
+        "copy_to": "text"
+      },
+      "text": {
         "type": "text",
         "analyzer": "clinic_korean"
       },

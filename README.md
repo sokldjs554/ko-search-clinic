@@ -217,7 +217,7 @@ docker compose -f docker/docker-compose.yml up -d --build
 clinic es-verify --output docs/ES_VERIFICATION_REPORT.md
 docker compose -f docker/docker-compose.yml down -v
 
-# 테스트 (98개, 전부 오프라인 — API 키도 Docker도 없이 CI가 돈다)
+# 테스트 (110개, 전부 오프라인 — API 키도 Docker도 없이 CI가 돈다)
 pytest
 ```
 
@@ -251,7 +251,7 @@ src/searchclinic/
 ├── evaluation/    # 지표(nDCG/recall/precision@5), 하니스, 패치 원장
 ├── es/            # ES 클라이언트·엔진·대조 검증 (로컬과 같은 search 인터페이스)
 └── cli.py         # analyze/search/evaluate/diagnose/heal/demo-trap/export-es/es-verify
-tests/             # 98개 테스트 (전부 오프라인 — API 키도 Docker도 불필요)
+tests/             # 110개 테스트 (전부 오프라인 — API 키도 Docker도 불필요)
 docker/            # ES + analysis-nori 이미지와 compose
 docs/              # 설계 문서 + CLI가 생성한 리포트/원장/ES 설정
 ```

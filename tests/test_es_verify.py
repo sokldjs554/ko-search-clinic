@@ -270,3 +270,114 @@ def test_authorization_header_is_attached_to_requests(monkeypatch):
     monkeypatch.setattr(mod.urllib.request, "urlopen", fake_urlopen)
     ESClient("http://x", api_key="k").ping()
     assert seen["auth"] == "ApiKey k"
+
+
+# ------------------------------------------- 실측이 찾아낸 nori 규약 위반
+
+def _settings_with(synonyms, user_rules, decompound="mixed"):
+    """검증기만 시험하기 위한 최소 설정."""
+    return {
+        "settings": {"index": {"analysis": {
+            "tokenizer": {"clinic_korean_tokenizer": {
+                "decompound_mode": decompound,
+                "user_dictionary_rules": user_rules,
+            }},
+            "filter": {"clinic_synonyms": {
+                "type": "synonym_graph", "synonyms": synonyms,
+            }},
+        }}}
+    }
+
+
+def test_synonym_terms_are_registered_as_atomic_tokens():
+    """동의어에 등장하는 한글 표현은 전부 사전에 원자 토큰으로 등록된다.
+
+    실측 실패: ES 8.15가 인덱스 생성을 거부했다 —
+      term: 후라이팬 analyzed to a token (후라이) with position increment != 1
+
+    decompound_mode: mixed가 '후라이팬'을 [후라이팬, 후라이, 팬]으로 겹쳐
+    내보내는데, 동의어 필터는 겹치는 토큰이 든 규칙을 만들지 못한다.
+    Kiwi는 '후라이팬'을 한 토큰으로 두므로 이것은 로컬-nori 동작 차이이며,
+    사전 등록이 그 차이를 메운다.
+    """
+    cfg = AnalyzerConfig(synonym_groups=[SynonymGroup(terms=["프라이팬", "후라이팬"])])
+    rules = to_es_settings(cfg)["settings"]["index"]["analysis"]["tokenizer"][
+        "clinic_korean_tokenizer"
+    ]["user_dictionary_rules"]
+    assert "프라이팬" in rules and "후라이팬" in rules
+
+
+def test_compound_words_keep_their_decompound_rule():
+    """분해가 의도인 말은 원자 등록으로 덮어쓰면 안 된다."""
+    from searchclinic.analysis.config import CompoundExpansion
+
+    cfg = AnalyzerConfig(
+        compound_expansions=[CompoundExpansion(word="물티슈", parts=["물", "티슈"])],
+        synonym_groups=[SynonymGroup(terms=["물티슈", "물수건"])],
+    )
+    rules = to_es_settings(cfg)["settings"]["index"]["analysis"]["tokenizer"][
+        "clinic_korean_tokenizer"
+    ]["user_dictionary_rules"]
+    assert "물티슈 물 티슈" in rules
+    assert "물티슈" not in rules  # 원자 등록이 분해 규칙을 가리면 안 된다
+
+
+def test_latin_terms_are_not_registered():
+    """라틴 문자는 nori가 분해하지 않으므로 사전에 넣을 이유가 없다."""
+    cfg = AnalyzerConfig(synonym_groups=[SynonymGroup(terms=["블루투스", "bluetooth"])])
+    rules = to_es_settings(cfg)["settings"]["index"]["analysis"]["tokenizer"][
+        "clinic_korean_tokenizer"
+    ]["user_dictionary_rules"]
+    assert "블루투스" in rules
+    assert "bluetooth" not in rules
+
+
+def test_ir_already_forbids_whitespace_in_synonym_terms():
+    """공백은 사전 규칙에서 '분해'를 뜻하므로 동의어 항목에 들어오면 안 된다.
+
+    렌더러에도 방어가 있지만, 실제로는 처방 IR이 먼저 막는다 — 잘못된 패치는
+    ES까지 가기 전에 제출 시점에 거부되는 편이 낫다.
+    """
+    with pytest.raises(Exception, match="공백 없는 단일 토큰"):
+        SynonymGroup(terms=["블루투스 스피커", "bluetooth"])
+
+
+def test_validator_catches_the_real_failure():
+    """검증기 자체의 검증 — 실제로 부딪힌 그 설정을 잡아내는가."""
+    from searchclinic.patch.es_render import validate_es_settings
+
+    broken = _settings_with(["후라이팬 => 프라이팬"], user_rules=[])
+    problems = validate_es_settings(broken)
+    assert problems and "후라이팬" in problems[0]
+
+    fixed = _settings_with(["후라이팬 => 프라이팬"], user_rules=["후라이팬", "프라이팬"])
+    assert validate_es_settings(fixed) == []
+
+
+def test_validator_passes_current_renderer_output():
+    """지금 렌더러가 내는 설정은 규약을 지킨다."""
+    from searchclinic.evaluation import run_clinic
+    from searchclinic.patch.es_render import validate_es_settings
+
+    cfg = run_clinic(doctor_name="scripted").final_executor.engine.config
+    assert validate_es_settings(to_es_settings(cfg)) == []
+
+
+def test_reindex_refuses_to_send_invalid_settings():
+    """잘못된 설정은 ES에 보내기 전에 막는다 — 400보다 원인이 분명한 메시지로."""
+    from searchclinic.analysis.config import AnalyzerConfig as AC
+
+    es = ElasticsearchEngine(FakeClient(), load_catalog(), AC(), index="t")
+    # 사전 등록을 건너뛴 설정을 강제로 물린다
+    es.config = AC(synonym_groups=[SynonymGroup(terms=["프라이팬", "후라이팬"])])
+    import searchclinic.es.engine as mod
+
+    original = mod.to_es_settings
+    mod.to_es_settings = lambda cfg, index_name="": _settings_with(
+        ["후라이팬 => 프라이팬"], user_rules=[]
+    )
+    try:
+        with pytest.raises(ESError, match="nori 설정이 ES 규약"):
+            es.reindex()
+    finally:
+        mod.to_es_settings = original

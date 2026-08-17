@@ -18,9 +18,9 @@ from __future__ import annotations
 
 from searchclinic.analysis.config import AnalyzerConfig
 from searchclinic.corpus.catalog import Document
-from searchclinic.es.client import ESClient
+from searchclinic.es.client import ESClient, ESError
 from searchclinic.index.bm25 import SearchHit
-from searchclinic.patch.es_render import to_es_settings
+from searchclinic.patch.es_render import to_es_settings, validate_es_settings
 
 DEFAULT_INDEX = "ko-search-clinic"
 
@@ -49,6 +49,12 @@ class ElasticsearchEngine:
         (ES에서 analyzer를 바꾸려면 reindex가 필요한 실제 제약과 일치).
         """
         settings = to_es_settings(self.config, index_name=self.index)
+        # 보내기 전에 정적 검사 — ES의 400보다 원인이 분명한 메시지를 준다
+        problems = validate_es_settings(settings)
+        if problems:
+            raise ESError(
+                "렌더된 nori 설정이 ES 규약을 어깁니다:\n  " + "\n  ".join(problems)
+            )
         self.client.delete_index(self.index)
         self.client.create_index(self.index, settings)
         self.client.bulk_index(
