@@ -124,16 +124,39 @@ class SentenceTransformerBackend:
     """실제 임베딩 모델. 캐시를 생성할 때만 필요하다 (선택 의존성)."""
 
     def __init__(self, model_name: str = DEFAULT_MODEL) -> None:
+        # torch를 먼저 직접 확인한다. sentence-transformers만 깔리고 torch가
+        # 없으면 라이브러리 안쪽에서 `NameError: name 'torch' is not defined`
+        # 같은 날것의 오류가 튀어나오는데, 그 메시지로는 무엇을 해야 할지
+        # 알 수 없다 (실측으로 확인된 실패).
+        try:
+            import torch  # noqa: F401  # 존재 확인이 목적이라 쓰지 않는다
+        except Exception as e:  # pragma: no cover - 설치 환경에 따라 갈림
+            raise RuntimeError(
+                f"PyTorch를 불러올 수 없습니다 ({type(e).__name__}: {e}).\n"
+                "  일반 환경:  pip install torch\n"
+                "  인텔 맥:    pip install 'torch<=2.2.2'  "
+                "(PyTorch가 macOS x86_64 빌드를 2.2.2에서 중단했습니다)\n"
+                "설치가 계속 막히면 다른 기계에서 캐시를 만들어 커밋해도 됩니다 — "
+                "캐시만 있으면 --engine vector는 torch 없이 돕니다."
+            ) from e
+
         try:
             from sentence_transformers import SentenceTransformer
-        except ImportError as e:  # pragma: no cover - 설치 여부에 따라 갈림
+        except Exception as e:  # pragma: no cover - 설치 환경에 따라 갈림
             raise RuntimeError(
-                "임베딩 모델이 설치돼 있지 않습니다. 캐시된 벡터만 쓰려면 "
-                "이 백엔드가 필요 없습니다:\n"
+                f"sentence-transformers를 불러올 수 없습니다 ({type(e).__name__}: {e}).\n"
                 '  pip install -e ".[vector]"'
             ) from e
+
         self.model_name = model_name
-        self._model = SentenceTransformer(model_name)
+        try:
+            self._model = SentenceTransformer(model_name)
+        except Exception as e:  # pragma: no cover - 네트워크·디스크에 따라 갈림
+            raise RuntimeError(
+                f"모델 '{model_name}'을 준비하지 못했습니다 ({type(e).__name__}: {e}).\n"
+                "처음 실행이면 HuggingFace에서 내려받습니다 — 네트워크가 막혀 있으면 "
+                "다른 기계에서 캐시를 만들어 커밋하세요."
+            ) from e
 
     def embed(self, texts: list[str]) -> list[list[float]]:
         return [list(map(float, v)) for v in self._model.encode(texts, show_progress_bar=False)]

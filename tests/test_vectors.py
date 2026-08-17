@@ -204,3 +204,41 @@ def test_vector_doctor_heals_a_query_the_jamo_doctor_cannot():
     vec = run_doctor_session(_executor(CachedVectors(FAKE)), make_doctor("vector"), query)
     assert vec.healed
     assert vec.diagnosis_family == "cross_script"
+
+
+# --------------------------------------------------------------- 설치 오류 안내
+
+def _backend_without_torch(monkeypatch, exc):
+    """torch import만 실패하도록 만든 뒤 백엔드를 만들어 본다."""
+    import builtins
+
+    from searchclinic.analysis.vectors import SentenceTransformerBackend
+
+    real_import = builtins.__import__
+
+    def fake(name, *args, **kwargs):
+        if name == "torch":
+            raise exc
+        return real_import(name, *args, **kwargs)
+
+    monkeypatch.setattr(builtins, "__import__", fake)
+    return SentenceTransformerBackend
+
+
+def test_missing_torch_gives_actionable_message(monkeypatch):
+    """torch가 없을 때 라이브러리 안쪽의 날것 오류가 새어나오면 안 된다.
+
+    실측 실패: sentence-transformers만 깔린 환경에서
+    `NameError: name 'torch' is not defined`가 그대로 튀어나왔다.
+    그 메시지로는 무엇을 해야 할지 알 수 없다.
+    """
+    Backend = _backend_without_torch(monkeypatch, NameError("name 'torch' is not defined"))
+    with pytest.raises(RuntimeError, match="PyTorch를 불러올 수 없습니다"):
+        Backend()
+
+
+def test_intel_mac_hint_is_included(monkeypatch):
+    """인텔 맥은 torch 2.2.2가 마지막이라 그 안내가 메시지에 있어야 한다."""
+    Backend = _backend_without_torch(monkeypatch, ImportError("No module named 'torch'"))
+    with pytest.raises(RuntimeError, match=r"torch<=2\.2\.2"):
+        Backend()
