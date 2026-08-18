@@ -224,26 +224,46 @@ class ScriptedDoctor:
                 "색인 어휘에서 유사 토큰을 찾는다.",
             )
         if step == 5:
-            rx = self._rule_variant() or self._rule_compound() or self._rule_semantic()
-            if rx is None:
-                return LLMResponse(
-                    content=[
-                        TextBlock(
-                            text=(
-                                "진단 실패: 자모 유사 토큰도, 포함 관계 복합어도, "
-                                "의미가 가까운 토큰도 없다."
-                                if self.use_vectors else
-                                "진단 실패: 자모 유사 토큰도, 포함 관계 복합어도 없다. "
-                                "이 계열(영한 혼용·유의어 등)은 형태 규칙으로 풀 수 없다."
-                            )
-                        )
-                    ],
-                    stop_reason="end_turn",
-                    model=self._model_name,
-                )
-            rx["target_query"] = self._query
-            return call(SUBMIT_TOOL, rx, "규칙에 따라 처방을 제출한다.")
+            return self._first_prescription(call)
+        return self._after_verdict(call)
 
-        # step 6: 판정 확인 후 종료 (기각돼도 재진단 능력이 없다 — 설계된 한계)
-        text = "치유 완료." if (self._verdict or {}).get("accepted") else "처방이 기각됐다. 규칙 기반으로는 더 좁힐 수 없어 중단한다."
-        return LLMResponse(content=[TextBlock(text=text)], stop_reason="end_turn", model=self._model_name)
+    # ------------------------------------------------- 처방 단계 (확장점)
+    #
+    # 이 두 메서드가 **규칙 의사의 한계가 사는 자리**다. `RulesPlusDoctor`는
+    # 다른 것을 하나도 바꾸지 않고 이 둘만 덮어써서, "규칙기가 못 푼 것이
+    # 규칙의 한계인가 액션·재시도의 한계인가"를 갈라 잰다.
+
+    def _first_prescription(self, call) -> LLMResponse:
+        rx = self._rule_variant() or self._rule_compound() or self._rule_semantic()
+        if rx is None:
+            return self._diagnosis_failed()
+        rx["target_query"] = self._query
+        return call(SUBMIT_TOOL, rx, "규칙에 따라 처방을 제출한다.")
+
+    def _after_verdict(self, call) -> LLMResponse:
+        """판정 확인 후 종료 — 기각돼도 재진단 능력이 없다 (설계된 한계)."""
+        text = (
+            "치유 완료."
+            if (self._verdict or {}).get("accepted")
+            else "처방이 기각됐다. 규칙 기반으로는 더 좁힐 수 없어 중단한다."
+        )
+        return LLMResponse(
+            content=[TextBlock(text=text)], stop_reason="end_turn", model=self._model_name
+        )
+
+    def _diagnosis_failed(self) -> LLMResponse:
+        return LLMResponse(
+            content=[
+                TextBlock(
+                    text=(
+                        "진단 실패: 자모 유사 토큰도, 포함 관계 복합어도, "
+                        "의미가 가까운 토큰도 없다."
+                        if self.use_vectors else
+                        "진단 실패: 자모 유사 토큰도, 포함 관계 복합어도 없다. "
+                        "이 계열(영한 혼용·유의어 등)은 형태 규칙으로 풀 수 없다."
+                    )
+                )
+            ],
+            stop_reason="end_turn",
+            model=self._model_name,
+        )

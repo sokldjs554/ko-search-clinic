@@ -17,7 +17,7 @@ import sys
 import unicodedata
 
 from searchclinic.analysis.vectors import DEFAULT_MODEL
-from searchclinic.doctor import ENGINES
+from searchclinic.doctor import ENGINES, VECTOR_ENGINES
 from searchclinic.doctor.prompts import PROMPT_VARIANTS
 from searchclinic.rag.retriever import DEFAULT_MODE as RETRIEVAL_DEFAULT_MODE
 from searchclinic.rag.retriever import MODES as RETRIEVAL_MODES
@@ -58,7 +58,7 @@ def _build_executor(engine: str = "scripted"):
     return ClinicExecutor(
         engine=SearchEngine(load_catalog()),
         evalset=load_evalset(),
-        vectors=load_vectors_if_available() if engine == "vector" else None,
+        vectors=load_vectors_if_available() if engine in VECTOR_ENGINES else None,
     )
 
 
@@ -68,7 +68,7 @@ def _warn_if_vectors_missing(engine: str) -> None:
     조용히 자모 규칙만 쓰는 상태로 떨어지면 '벡터를 켜고 돌린 결과'라는
     기록이 거짓이 된다. 세 엔진을 비교하는 프로젝트에서 이건 치명적이다.
     """
-    if engine != "vector":
+    if engine not in VECTOR_ENGINES:
         return
     from searchclinic.analysis.vectors import CACHE_PATH, load_vectors_if_available
 

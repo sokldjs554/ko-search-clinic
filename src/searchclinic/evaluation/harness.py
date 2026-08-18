@@ -126,13 +126,13 @@ def run_clinic(
     위한 손잡이이며, 휴리스틱 의사에는 영향이 없다.
     """
     from searchclinic.analysis.vectors import load_vectors_if_available
-    from searchclinic.doctor import ClinicExecutor, make_doctor
+    from searchclinic.doctor import VECTOR_ENGINES, ClinicExecutor, make_doctor
     from searchclinic.doctor.loop import run_doctor_session
 
     executor = ClinicExecutor(
         engine=SearchEngine(load_catalog()),
         evalset=load_evalset(),
-        vectors=load_vectors_if_available() if doctor_name == "vector" else None,
+        vectors=load_vectors_if_available() if doctor_name in VECTOR_ENGINES else None,
     )
     report = ClinicReport(doctor=doctor_name)
     report.failing_before = evaluate_all(executor.engine, failing_queries())

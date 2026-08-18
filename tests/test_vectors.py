@@ -190,8 +190,16 @@ def test_make_doctor_vector_enables_the_rule():
     assert make_doctor("scripted").use_vectors is False
 
 
-def test_unknown_engine_lists_all_three():
-    with pytest.raises(ValueError, match="scripted, vector, claude"):
+def test_unknown_engine_lists_every_engine():
+    """오류 메시지가 엔진 목록과 어긋나면 안 된다.
+
+    문자열을 박아두면 엔진이 늘 때마다 이 테스트가 거짓말을 하거나 깨진다.
+    `ENGINES`에서 만들어 대조한다 — 실제로 `rules+`·`vector+`를 더할 때
+    이 테스트가 깨져서 메시지 갱신을 잊지 않았다.
+    """
+    from searchclinic.doctor import ENGINES
+
+    with pytest.raises(ValueError, match=", ".join(ENGINES).replace("+", r"\+")):
         make_doctor("없는엔진")
 
 
