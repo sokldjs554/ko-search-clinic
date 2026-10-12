@@ -32,9 +32,19 @@ def _run_id():
 
 
 def run_command(args):
-    root = Path(args.root)
+    root = Path(args.root or "artifacts/research")
     try:
+        if args.protocol_version != "phase01-v1" and args.root is None:
+            raise ValueError("new protocol requires an explicit separate --root")
+        if (args.protocol_version != "phase01-v1"
+                and root.resolve() == (ROOT / "artifacts/research").resolve()):
+            raise ValueError("new protocol cannot append to the preserved v1 root")
         protocol = load_protocol(args.protocol_version)
+        for path in (root / "runs").glob("*.json"):
+            run = json.loads(path.read_text(encoding="utf-8"))
+            version = run.get("config", {}).get("config", {}).get("version")
+            if version != protocol["version"] or run.get("protocol_hash") != digest(protocol):
+                raise ValueError("artifact root contains a different protocol version/hash")
         if args.research_command == "audit":
             result = audit_state()
             write_artifact(root / "audit" / ("audit-" + _run_id() + ".json"), result)
@@ -82,7 +92,7 @@ def add_parser(subparsers):
     commands = parser.add_subparsers(dest="research_command", required=True)
     for name in ("audit", "prepare", "baseline", "run", "report"):
         command = commands.add_parser(name)
-        command.add_argument("--root", default="artifacts/research")
+        command.add_argument("--root", default=None)
         command.add_argument("--protocol-version", choices=tuple(PROTOCOL_VERSIONS), default="phase01-v1")
         if name == "run":
             command.add_argument("--policy", choices=POLICIES, default="selective_rule")

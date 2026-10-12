@@ -123,3 +123,47 @@ def test_run_cannot_select_a_protocol_outside_supported_versions():
     from searchclinic.research.runner import run_experiment
     with pytest.raises(ValueError, match="protocol"):
         run_experiment("no_repair", protocol_version="not-a-version")
+
+
+def test_no_repair_cannot_escape_all_run_provenance_checks():
+    from copy import deepcopy
+    from searchclinic.research.runner import run_experiment
+    from searchclinic.research.artifacts import compare_runs, render_report
+    base = run_experiment("no_repair")
+    a, s = deepcopy(base), deepcopy(base)
+    a["policy"], s["policy"] = "always_typed_patch", "selective_rule"
+    base["source_hash"] = "different-source"
+    for check in (compare_runs, render_report):
+        with pytest.raises(ValueError, match="source_hash"):
+            check([base, a, s])
+
+
+def test_cli_v2_cannot_append_to_any_root_containing_v1_runs(tmp_path):
+    import json
+    from searchclinic.cli import main
+    root = str(tmp_path)
+    assert main(["research", "prepare", "--root", root]) == 0
+    assert main(["research", "run", "--root", root, "--policy", "no_repair"]) == 0
+    existing = list((tmp_path / "runs").glob("*.json"))
+    original = json.loads(existing[0].read_text(encoding="utf-8"))
+    assert main(["research", "run", "--root", root, "--policy", "selective_rule",
+                 "--protocol-version", "phase01-v2"]) == 1
+    assert len(list((tmp_path / "runs").glob("*.json"))) == 1
+    assert json.loads(existing[0].read_text(encoding="utf-8")) == original
+
+
+def test_cli_report_must_match_the_requested_protocol_version(tmp_path):
+    from searchclinic.cli import main
+    root = str(tmp_path)
+    assert main(["research", "prepare", "--root", root]) == 0
+    assert main(["research", "run", "--root", root, "--policy", "no_repair"]) == 0
+    assert main(["research", "report", "--root", root,
+                 "--protocol-version", "phase01-v2"]) == 1
+    assert not (tmp_path / "summaries/RESULTS.md").exists()
+
+
+def test_new_v2_default_cannot_touch_the_preserved_v1_root(tmp_path, monkeypatch):
+    from searchclinic.cli import main
+    monkeypatch.chdir(tmp_path)
+    assert main(["research", "prepare", "--protocol-version", "phase01-v2"]) == 1
+    assert not (tmp_path / "artifacts/research/splits/controlled-v1.json").exists()

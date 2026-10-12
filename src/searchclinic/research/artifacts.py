@@ -23,15 +23,19 @@ def write_report(path, text):
 def compare_runs(runs):
     if len({r["policy"] for r in runs}) != len(runs):
         raise ValueError("duplicate policy runs: use a separate artifact root per comparison")
+    if runs:
+        reference = runs[0]
+        for run in runs[1:]:
+            for field in ("protocol_hash", "split_hash", "corpus_hash", "evalset_hash",
+                          "source_hash", "environment", "seed", "dataset", "heldout_status"):
+                if run[field] != reference[field]:
+                    raise ValueError(f"incomparable runs: {field} mismatch")
+            if [q["query_id"] for q in run["queries"]] != [q["query_id"] for q in reference["queries"]]:
+                raise ValueError("incomparable runs: query order mismatch")
     by_policy = {r["policy"]: r for r in runs}
     if not {"always_typed_patch", "selective_rule"} <= by_policy.keys():
         return {"status": "comparison_not_executed"}
     a, s = by_policy["always_typed_patch"], by_policy["selective_rule"]
-    for field in ("protocol_hash", "split_hash", "corpus_hash", "evalset_hash", "source_hash", "environment", "seed"):
-        if a[field] != s[field]:
-            raise ValueError(f"incomparable runs: {field} mismatch")
-    if [q["query_id"] for q in a["queries"]] != [q["query_id"] for q in s["queries"]]:
-        raise ValueError("incomparable runs: query order mismatch")
     sa, ss = a["summary"], s["summary"]
     h1 = ss["healthy_interventions"] < sa["healthy_interventions"] and s["costs"]["search_calls"] < a["costs"]["search_calls"]
     h2 = ss["recovered_count"] >= sa["recovered_count"] and ss["failing_ndcg_after"] >= sa["failing_ndcg_after"] and ss["healthy_regression_count"] == 0
@@ -77,7 +81,9 @@ def render_report(runs):
         c = r["costs"]
         lines.append(f"| {r['policy']} | {c['input_tokens']} | {c['output_tokens']} | {c['api_cost_usd']} |")
     comparison = compare_runs(runs)
-    lines += ["", "## 사전 가설 판정", "", "```json", json.dumps(comparison, ensure_ascii=False, indent=2), "```",
+    hypothesis_heading = ("## 사후 변경 버전의 별도 판정"
+        if any(r.get("protocol_version") == "phase01-v2" for r in runs) else "## 사전 가설 판정")
+    lines += ["", hypothesis_heading, "", "```json", json.dumps(comparison, ensure_ascii=False, indent=2), "```",
         "", "## 실행 provenance", ""]
     for r in runs:
         lines += [f"- {r['policy']}: git `{r['git_sha']}`, source hash `{r['source_hash']}`, dirty={r['git_dirty']};",
@@ -94,6 +100,8 @@ def render_report(runs):
     lines += ["- 기존 v1의 공개 fixture만 평가했다. held-out·외부 도메인·LLM 능력 증거는 없다.",
         "- span/형태 관계는 완전한 의미 타당성 판정이 아니다. Phase 2에서 독립 근거 검증이 필요하다.",
         "- rewrite_query, switch_or_fuse_retriever, rerank 실행과 LLM 비교는 Phase 1에서 미지원/미실행이다.",
-        "- λ와 detector 기준은 사전 지정값이다. 비용 차이는 모델 호출 절감의 증거가 아니다.",
+        ("- detector 기준은 기존 사전 지정값이며 latency 항 제외는 사후 버전 변경이다. 비용 차이는 모델 호출 절감의 증거가 아니다."
+         if any(r.get("protocol_version") == "phase01-v2" for r in runs)
+         else "- λ와 detector 기준은 사전 지정값이다. 비용 차이는 모델 호출 절감의 증거가 아니다."),
         "- gate budget은 제출 횟수 제한이다. 큰 corpus의 전체 재색인 시간 상한을 보장하지 않는다.", ""]
     return "\n".join(lines)
