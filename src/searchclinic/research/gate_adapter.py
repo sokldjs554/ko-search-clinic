@@ -3,7 +3,7 @@ from dataclasses import asdict
 
 from searchclinic.analysis.jamo import jamo_similarity
 from searchclinic.corpus import load_evalset
-from searchclinic.patch.gate import run_gate
+from searchclinic.patch.gate import run_gate, MIN_TARGET_GAIN, EPSILON
 from searchclinic.research.actions import ActionKind, prescription_terms
 from searchclinic.research.policy import Budget
 
@@ -17,8 +17,18 @@ class GateAdapter:
         if not (0 <= self.budget.max_submits <= 3 and 0 <= self.budget.max_actions <= 3):
             raise ValueError("budget must remain within v1 maximum 3")
         self.min_gain, self.epsilon = min_gain, epsilon
+        if not self._valid_contract():
+            raise ValueError("v1 gate contract cannot be relaxed or nonfinite")
         self.accepted, self.trace = [], []
         self.target, self.feedback = None, None
+
+    def _valid_contract(self):
+        if self.min_gain != MIN_TARGET_GAIN or self.epsilon != EPSILON:
+            return False
+        b = self.budget
+        values = (b.max_actions, b.max_submits, b.used_actions, b.used_submits)
+        return (all(type(v) is int and v >= 0 for v in values)
+                and b.max_actions <= 3 and b.max_submits <= 3)
 
     def start_session(self, query):
         if query not in {q.query for q in self.evalset}:
@@ -78,6 +88,8 @@ class GateAdapter:
             self.trace.append(record)
             return record
 
+        if not self._valid_contract():
+            return finish("invalid_configuration")
         if candidate.action != ActionKind.TYPED_PATCH:
             return finish("unsupported_action")
         if self.budget.exhausted:

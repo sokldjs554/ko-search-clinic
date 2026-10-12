@@ -54,6 +54,20 @@ def test_unknown_api_cost_is_not_zero_cost_in_policy():
     assert utility(1, 0, CostRecord(api_cost_usd=None)) is None
 
 
+@pytest.mark.parametrize("value", [float("nan"), float("inf"), -1])
+def test_invalid_utility_weights_do_not_select_repair(value):
+    from searchclinic.research.detector import RuleDetector
+    from searchclinic.research.policy import select_action, Budget
+    from searchclinic.research.actions import Candidate, ActionKind
+    from searchclinic.research.models import EvidenceSpan
+    from searchclinic.research.costs import DEFAULT_WEIGHTS
+    c = Candidate(ActionKind.TYPED_PATCH, evidence=(EvidenceSpan(source_type="query",
+        source_id="후라이팬", start=0, end=4, text="후라이팬"),))
+    d = RuleDetector().detect(observation(result_count=0).policy_view())
+    weights = {**DEFAULT_WEIGHTS, "latency_ms": value}
+    assert select_action(d, [c], Budget(), weights=weights).action == ActionKind.ABSTAIN
+
+
 def test_healthy_trace_selects_no_op():
     from searchclinic.research.detector import RuleDetector
     from searchclinic.research.policy import select_action, Budget

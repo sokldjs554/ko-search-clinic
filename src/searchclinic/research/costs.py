@@ -40,14 +40,21 @@ DEFAULT_WEIGHTS = dict(regression=1.0, model_calls=0.01, tokens=0.000001,
 def utility(quality_gain: float, healthy_regression: float, cost: CostRecord,
             unnecessary_actions: int = 1, weights: dict | None = None) -> float | None:
     w = weights if weights is not None else DEFAULT_WEIGHTS
+    if (set(w) != set(DEFAULT_WEIGHTS)
+            or any(type(v) not in (int, float) or not math.isfinite(v) or v < 0
+                   for v in w.values())
+            or any(type(v) not in (int, float) or not math.isfinite(v) or v < 0
+                   for v in (quality_gain, healthy_regression, unnecessary_actions))):
+        return None
     if any(getattr(cost, x) is None for x in
            ("model_calls", "input_tokens", "output_tokens", "latency_ms", "api_cost_usd")):
         return None
-    return (quality_gain - w["regression"] * healthy_regression
+    result = (quality_gain - w["regression"] * healthy_regression
             - w["model_calls"] * cost.model_calls
             - w["tokens"] * (cost.input_tokens + cost.output_tokens)
             - w["latency_ms"] * cost.latency_ms
             - w["unnecessary_actions"] * unnecessary_actions)
+    return result if math.isfinite(result) else None
 
 
 @dataclass

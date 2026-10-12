@@ -38,6 +38,22 @@ def test_gate_requires_full_healthy_and_failure_suite(engine):
         GateAdapter(engine, load_evalset()[:-1])
 
 
+@pytest.mark.parametrize("kwargs", [{"epsilon": float("nan")}, {"epsilon": 1.0},
+                                    {"min_gain": 0.0}])
+def test_gate_adapter_cannot_relax_the_v1_acceptance_contract(engine, kwargs):
+    from searchclinic.research.gate_adapter import GateAdapter
+    with pytest.raises(ValueError, match="contract"):
+        GateAdapter(engine, load_evalset(), **kwargs)
+
+
+def test_mutating_gate_config_after_construction_still_fails_closed(engine):
+    from searchclinic.research.gate_adapter import GateAdapter
+    gate = GateAdapter(engine, load_evalset())
+    gate.epsilon = float("nan")
+    assert gate.submit(candidate(engine, rx()))["reason"] == "invalid_configuration"
+    assert gate.engine is engine
+
+
 def test_patch_without_evidence_never_reaches_gate(engine):
     from searchclinic.research.gate_adapter import GateAdapter
     from searchclinic.research.actions import Candidate, ActionKind
@@ -108,6 +124,12 @@ def test_detector_metrics_handle_ties_and_exact_probabilities():
     b = detection_metrics([False, True], [0.5, 0.5])
     assert b["auroc"] == 0.5 and b["auprc"] == 0.5
     assert detection_metrics([True], [0.9])["auroc"] is None
+
+
+def test_missing_detector_scores_do_not_become_measured_zero_metrics():
+    from searchclinic.research.metrics import detection_metrics
+    result = detection_metrics([True, False], [None, None])
+    assert result["precision"] is None and result["f1"] is None
 
 
 def test_protocol_drives_detector_and_policy_values():

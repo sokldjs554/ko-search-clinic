@@ -15,6 +15,10 @@ def detection_metrics(labels, scores, threshold=0.5):
     precision = tp / (tp + fp) if tp + fp else 0.0
     recall = tp / positives if positives else None
     f1 = 2 * precision * recall / (precision + recall) if recall and precision else 0.0
+    if not pairs:
+        precision = f1 = None
+    elif recall is None:
+        f1 = None
     pos = [p for y, p in pairs if y]
     neg = [p for y, p in pairs if not y]
     auc = (sum(1 if a > b else 0.5 if a == b else 0 for a in pos for b in neg)

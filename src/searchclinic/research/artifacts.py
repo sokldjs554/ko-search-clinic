@@ -21,11 +21,13 @@ def write_report(path, text):
 
 
 def compare_runs(runs):
+    if len({r["policy"] for r in runs}) != len(runs):
+        raise ValueError("duplicate policy runs: use a separate artifact root per comparison")
     by_policy = {r["policy"]: r for r in runs}
     if not {"always_typed_patch", "selective_rule"} <= by_policy.keys():
         return {"status": "comparison_not_executed"}
     a, s = by_policy["always_typed_patch"], by_policy["selective_rule"]
-    for field in ("protocol_hash", "split_hash", "corpus_hash", "source_hash", "environment", "seed"):
+    for field in ("protocol_hash", "split_hash", "corpus_hash", "evalset_hash", "source_hash", "environment", "seed"):
         if a[field] != s[field]:
             raise ValueError(f"incomparable runs: {field} mismatch")
     if [q["query_id"] for q in a["queries"]] != [q["query_id"] for q in s["queries"]]:
