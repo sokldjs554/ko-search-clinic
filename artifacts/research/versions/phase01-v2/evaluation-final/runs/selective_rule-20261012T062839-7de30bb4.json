@@ -1,0 +1,4737 @@
+{
+  "schema_version": 2,
+  "policy": "selective_rule",
+  "dataset": "controlled-v1/dev",
+  "heldout_status": "not_collected",
+  "git_sha": "73a9fcc379d37729cbe1ec8df8bbcb340511d28f",
+  "git_dirty": false,
+  "source_hash": "b6ee792476f148a0e3eb4ac37002ad23d1c194f6123f8b2db793b05f22b73e85",
+  "protocol_commit": "bb267e2853d5e66e9907fdf025ce651547765bca",
+  "protocol_hash": "1e62a3811ae0f07b7bcaec72a19c12afbcd55442bfa057a6bb26de6d147c6a11",
+  "split_hash": "43f8dc393b9686d4cae2bee1d7f4cedcb432ecf5143141afa1b6f34a2f31212b",
+  "corpus_hash": "0fc66c40b278ec0f8a357f177a1db3945581da9776043c0532ce663281aef62f",
+  "evalset_hash": "4163f6921755ade3c8ca03b579bc6e3b272c34c0b14a0ce59fd3a192569e386f",
+  "environment": {
+    "python": "3.12.14",
+    "kiwipiepy": "0.23.2",
+    "kiwipiepy_model": "0.23.0",
+    "pydantic": "2.14.1",
+    "model": null
+  },
+  "seed": 20261012,
+  "config": {
+    "config": {
+      "schema_version": 1,
+      "version": "phase01-v2",
+      "start_sha": "80ea3bcf2fffb395b27abc3d38db4e9876a9c2d1",
+      "seed": 20261012,
+      "dataset": "controlled-v1",
+      "evaluation_split": "dev",
+      "heldout_status": "not_collected",
+      "detector": {
+        "version": "rule-v1",
+        "threshold": 0.5,
+        "coverage_threshold": 0.5,
+        "margin_threshold": 0.1,
+        "zero_score": 0.95,
+        "coverage_score": 0.8,
+        "margin_score": 0.6,
+        "healthy_score": 0.1
+      },
+      "policy": {
+        "max_actions": 3,
+        "max_submits": 3,
+        "min_gain": 0.05,
+        "epsilon": 0.02,
+        "weights": {
+          "regression": 1.0,
+          "model_calls": 0.01,
+          "tokens": 1e-06,
+          "latency_ms": 0.0,
+          "unnecessary_actions": 0.005
+        },
+        "cost_semantics": "expected-v2",
+        "expected_action_cost": {
+          "search_calls": 0,
+          "reindexes": 0,
+          "model_calls": 0,
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "latency_ms": null,
+          "api_cost_usd": 0.0
+        }
+      },
+      "baselines": [
+        "no_repair",
+        "always_typed_patch",
+        "selective_rule"
+      ],
+      "bootstrap_samples": 2000,
+      "success": {
+        "H1": "fewer healthy interventions AND fewer measured search calls",
+        "H2": "no decrease in recovered cases OR mean failing nDCG; zero healthy regressions over epsilon",
+        "H3": "all labeled failures have zero results"
+      },
+      "phase_limit": 1,
+      "parent_version": "phase01-v1",
+      "change_class": "posthoc_reproducibility_correction",
+      "preserved_baseline_sha": "a0fc8c7abe8a04d932de382e28e5ccd93b3cdc1f",
+      "change_reason": "Measured candidate generation latency is sunk diagnostic cost, not predicted future repair cost; separate selection inputs from measurement.",
+      "expected_cost_scope": "Selection model: declared external usage of offline typed patch; future latency uncalibrated/null and excluded via zero weight. Actual searches, reindexes and wall-clock remain measured separately.",
+      "reproducibility_contract": "Same observation/candidate content/expected cost/config yields same decision regardless of measured diagnostic latency."
+    },
+    "split_hash": "43f8dc393b9686d4cae2bee1d7f4cedcb432ecf5143141afa1b6f34a2f31212b",
+    "config_hash": "1e62a3811ae0f07b7bcaec72a19c12afbcd55442bfa057a6bb26de6d147c6a11",
+    "selection_split": "dev"
+  },
+  "queries": [
+    {
+      "query_id": "q-129b2d9aadcac3af",
+      "query": "프라이팬",
+      "split": "dev",
+      "family": null,
+      "observation": {
+        "query_id": "q-129b2d9aadcac3af",
+        "query": "프라이팬",
+        "split": "dev",
+        "result_count": 2,
+        "top1_score": 4.3779,
+        "top2_score": 3.9835,
+        "score_margin": 0.09008885538728625,
+        "lexical_coverage": 1.0,
+        "retriever_agreement": null,
+        "evidence_conflict": null,
+        "grounding_score": null,
+        "latency_ms": 1.3186240030336194,
+        "family": null,
+        "baseline_ndcg": 1.0,
+        "baseline_recall": 1.0
+      },
+      "detection": {
+        "failure_probability": 0.6,
+        "predicted_failure": true,
+        "failure_reason_codes": [
+          "low_score_margin"
+        ],
+        "calibration_version": "rule-v1-uncalibrated"
+      },
+      "decision": "abstain",
+      "intervened": true,
+      "policy_events": [
+        {
+          "action": "abstain",
+          "reason": "no_candidate"
+        }
+      ],
+      "trace": [],
+      "accepted": false,
+      "submissions": 0,
+      "action_count": 0,
+      "before": {
+        "query": "프라이팬",
+        "ndcg": 1.0,
+        "recall": 1.0,
+        "precision5": 1.0,
+        "n_results": 2,
+        "hits_top": [
+          "P001",
+          "P002"
+        ]
+      },
+      "costs": {
+        "search_calls": 1,
+        "reindexes": 0,
+        "model_calls": 0,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "latency_ms": 7.261832997755846,
+        "api_cost_usd": 0.0
+      },
+      "after": {
+        "query": "프라이팬",
+        "ndcg": 1.0,
+        "recall": 1.0,
+        "precision5": 1.0,
+        "n_results": 2,
+        "hits_top": [
+          "P001",
+          "P002"
+        ]
+      }
+    },
+    {
+      "query_id": "q-0d07085ffc1431f5",
+      "query": "케이크",
+      "split": "dev",
+      "family": null,
+      "observation": {
+        "query_id": "q-0d07085ffc1431f5",
+        "query": "케이크",
+        "split": "dev",
+        "result_count": 2,
+        "top1_score": 5.0714,
+        "top2_score": 4.6059,
+        "score_margin": 0.09178924951689861,
+        "lexical_coverage": 1.0,
+        "retriever_agreement": null,
+        "evidence_conflict": null,
+        "grounding_score": null,
+        "latency_ms": 1.2252769993210677,
+        "family": null,
+        "baseline_ndcg": 1.0,
+        "baseline_recall": 1.0
+      },
+      "detection": {
+        "failure_probability": 0.6,
+        "predicted_failure": true,
+        "failure_reason_codes": [
+          "low_score_margin"
+        ],
+        "calibration_version": "rule-v1-uncalibrated"
+      },
+      "decision": "typed_patch",
+      "intervened": true,
+      "policy_events": [
+        {
+          "action": "typed_patch",
+          "reason": "positive_utility",
+          "utility": 0.024999999999999998,
+          "feedback": null,
+          "cost_semantics": "expected-v2",
+          "expected_cost": {
+            "search_calls": 0,
+            "reindexes": 0,
+            "model_calls": 0,
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "latency_ms": null,
+            "api_cost_usd": 0.0
+          },
+          "measured_candidate_generation_cost": {
+            "search_calls": 0,
+            "reindexes": 0,
+            "model_calls": 0,
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "latency_ms": 5.544794999877922,
+            "api_cost_usd": 0.0
+          }
+        }
+      ],
+      "trace": [
+        {
+          "action": "typed_patch",
+          "accepted": false,
+          "previous_feedback": null,
+          "regressions": [],
+          "evidence_ids": [
+            "document:P037:9:12",
+            "query:케이크:0:3"
+          ],
+          "evidence": [
+            {
+              "source_type": "document",
+              "source_id": "P037",
+              "start": 9,
+              "end": 12,
+              "text": "케이스"
+            },
+            {
+              "source_type": "query",
+              "source_id": "케이크",
+              "start": 0,
+              "end": 3,
+              "text": "케이크"
+            }
+          ],
+          "prescription": {
+            "target_query": "케이크",
+            "diagnosis_family": "spelling_variant",
+            "reasoning": "'케이크'와 자모 유사도 0.83인 색인 토큰 '케이스'이 존재한다. 표기 변형으로 판단해 동의어로 연결한다.",
+            "user_words": [],
+            "synonym_groups": [
+              {
+                "terms": [
+                  "케이스",
+                  "케이크"
+                ]
+              }
+            ],
+            "compound_expansions": []
+          },
+          "verdict": {
+            "accepted": false,
+            "reason": "표적 질의가 충분히 개선되지 않음 (nDCG 1.00 → 0.88, 요구 이득 +0.05)",
+            "target_query": "케이크",
+            "target_before": {
+              "query": "케이크",
+              "ndcg": 1.0,
+              "recall": 1.0,
+              "precision5": 1.0,
+              "n_results": 2,
+              "hits_top": [
+                "P006",
+                "P007"
+              ]
+            },
+            "target_after": {
+              "query": "케이크",
+              "ndcg": 0.8772,
+              "recall": 1.0,
+              "precision5": 0.4,
+              "n_results": 5,
+              "hits_top": [
+                "P006",
+                "P038",
+                "P039",
+                "P007",
+                "P037"
+              ]
+            },
+            "mean_before": 0.5839,
+            "mean_after": 0.5805,
+            "regressions": []
+          },
+          "reason": "rejected",
+          "attempt": 1,
+          "feedback": "기각: 표적 질의가 충분히 개선되지 않음 (nDCG 1.00 → 0.88, 요구 이득 +0.05)\n처방을 더 좁히거나(대상 항목 축소) 다른 패치 유형을 검토하라."
+        }
+      ],
+      "accepted": false,
+      "submissions": 1,
+      "action_count": 1,
+      "before": {
+        "query": "케이크",
+        "ndcg": 1.0,
+        "recall": 1.0,
+        "precision5": 1.0,
+        "n_results": 2,
+        "hits_top": [
+          "P006",
+          "P007"
+        ]
+      },
+      "costs": {
+        "search_calls": 73,
+        "reindexes": 1,
+        "model_calls": 0,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "latency_ms": 42.118293000385165,
+        "api_cost_usd": 0.0
+      },
+      "after": {
+        "query": "케이크",
+        "ndcg": 1.0,
+        "recall": 1.0,
+        "precision5": 1.0,
+        "n_results": 2,
+        "hits_top": [
+          "P006",
+          "P007"
+        ]
+      }
+    },
+    {
+      "query_id": "q-b16975b5e92136fb",
+      "query": "도넛",
+      "split": "dev",
+      "family": null,
+      "observation": {
+        "query_id": "q-b16975b5e92136fb",
+        "query": "도넛",
+        "split": "dev",
+        "result_count": 2,
+        "top1_score": 5.1702,
+        "top2_score": 4.1714,
+        "score_margin": 0.19318401609222083,
+        "lexical_coverage": 1.0,
+        "retriever_agreement": null,
+        "evidence_conflict": null,
+        "grounding_score": null,
+        "latency_ms": 1.1282550003670622,
+        "family": null,
+        "baseline_ndcg": 1.0,
+        "baseline_recall": 1.0
+      },
+      "detection": {
+        "failure_probability": 0.1,
+        "predicted_failure": false,
+        "failure_reason_codes": [],
+        "calibration_version": "rule-v1-uncalibrated"
+      },
+      "decision": "no_op",
+      "intervened": false,
+      "policy_events": [],
+      "trace": [],
+      "accepted": false,
+      "submissions": 0,
+      "action_count": 0,
+      "before": {
+        "query": "도넛",
+        "ndcg": 1.0,
+        "recall": 1.0,
+        "precision5": 1.0,
+        "n_results": 2,
+        "hits_top": [
+          "P004",
+          "P005"
+        ]
+      },
+      "costs": {
+        "search_calls": 0,
+        "reindexes": 0,
+        "model_calls": 0,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "latency_ms": 0.009130002581514418,
+        "api_cost_usd": 0.0
+      },
+      "after": {
+        "query": "도넛",
+        "ndcg": 1.0,
+        "recall": 1.0,
+        "precision5": 1.0,
+        "n_results": 2,
+        "hits_top": [
+          "P004",
+          "P005"
+        ]
+      }
+    },
+    {
+      "query_id": "q-97b5185478205eae",
+      "query": "주스",
+      "split": "dev",
+      "family": null,
+      "observation": {
+        "query_id": "q-97b5185478205eae",
+        "query": "주스",
+        "split": "dev",
+        "result_count": 2,
+        "top1_score": 4.489,
+        "top2_score": 4.2722,
+        "score_margin": 0.048295834261528205,
+        "lexical_coverage": 1.0,
+        "retriever_agreement": null,
+        "evidence_conflict": null,
+        "grounding_score": null,
+        "latency_ms": 0.9059449985215906,
+        "family": null,
+        "baseline_ndcg": 1.0,
+        "baseline_recall": 1.0
+      },
+      "detection": {
+        "failure_probability": 0.6,
+        "predicted_failure": true,
+        "failure_reason_codes": [
+          "low_score_margin"
+        ],
+        "calibration_version": "rule-v1-uncalibrated"
+      },
+      "decision": "abstain",
+      "intervened": true,
+      "policy_events": [
+        {
+          "action": "abstain",
+          "reason": "no_candidate"
+        }
+      ],
+      "trace": [],
+      "accepted": false,
+      "submissions": 0,
+      "action_count": 0,
+      "before": {
+        "query": "주스",
+        "ndcg": 1.0,
+        "recall": 1.0,
+        "precision5": 1.0,
+        "n_results": 2,
+        "hits_top": [
+          "P009",
+          "P010"
+        ]
+      },
+      "costs": {
+        "search_calls": 1,
+        "reindexes": 0,
+        "model_calls": 0,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "latency_ms": 3.980570996645838,
+        "api_cost_usd": 0.0
+      },
+      "after": {
+        "query": "주스",
+        "ndcg": 1.0,
+        "recall": 1.0,
+        "precision5": 1.0,
+        "n_results": 2,
+        "hits_top": [
+          "P009",
+          "P010"
+        ]
+      }
+    },
+    {
+      "query_id": "q-5989d0466d73a649",
+      "query": "소시지",
+      "split": "dev",
+      "family": null,
+      "observation": {
+        "query_id": "q-5989d0466d73a649",
+        "query": "소시지",
+        "split": "dev",
+        "result_count": 2,
+        "top1_score": 5.273,
+        "top2_score": 4.489,
+        "score_margin": 0.14868196472596243,
+        "lexical_coverage": 1.0,
+        "retriever_agreement": null,
+        "evidence_conflict": null,
+        "grounding_score": null,
+        "latency_ms": 1.031137002428295,
+        "family": null,
+        "baseline_ndcg": 1.0,
+        "baseline_recall": 1.0
+      },
+      "detection": {
+        "failure_probability": 0.1,
+        "predicted_failure": false,
+        "failure_reason_codes": [],
+        "calibration_version": "rule-v1-uncalibrated"
+      },
+      "decision": "no_op",
+      "intervened": false,
+      "policy_events": [],
+      "trace": [],
+      "accepted": false,
+      "submissions": 0,
+      "action_count": 0,
+      "before": {
+        "query": "소시지",
+        "ndcg": 1.0,
+        "recall": 1.0,
+        "precision5": 1.0,
+        "n_results": 2,
+        "hits_top": [
+          "P012",
+          "P011"
+        ]
+      },
+      "costs": {
+        "search_calls": 0,
+        "reindexes": 0,
+        "model_calls": 0,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "latency_ms": 0.006771999323973432,
+        "api_cost_usd": 0.0
+      },
+      "after": {
+        "query": "소시지",
+        "ndcg": 1.0,
+        "recall": 1.0,
+        "precision5": 1.0,
+        "n_results": 2,
+        "hits_top": [
+          "P012",
+          "P011"
+        ]
+      }
+    },
+    {
+      "query_id": "q-7d69e7ddd510b949",
+      "query": "어댑터",
+      "split": "dev",
+      "family": null,
+      "observation": {
+        "query_id": "q-7d69e7ddd510b949",
+        "query": "어댑터",
+        "split": "dev",
+        "result_count": 2,
+        "top1_score": 4.6059,
+        "top2_score": 4.3779,
+        "score_margin": 0.04950172604702659,
+        "lexical_coverage": 1.0,
+        "retriever_agreement": null,
+        "evidence_conflict": null,
+        "grounding_score": null,
+        "latency_ms": 0.7079300012264866,
+        "family": null,
+        "baseline_ndcg": 1.0,
+        "baseline_recall": 1.0
+      },
+      "detection": {
+        "failure_probability": 0.6,
+        "predicted_failure": true,
+        "failure_reason_codes": [
+          "low_score_margin"
+        ],
+        "calibration_version": "rule-v1-uncalibrated"
+      },
+      "decision": "abstain",
+      "intervened": true,
+      "policy_events": [
+        {
+          "action": "abstain",
+          "reason": "no_candidate"
+        }
+      ],
+      "trace": [],
+      "accepted": false,
+      "submissions": 0,
+      "action_count": 0,
+      "before": {
+        "query": "어댑터",
+        "ndcg": 1.0,
+        "recall": 1.0,
+        "precision5": 1.0,
+        "n_results": 2,
+        "hits_top": [
+          "P036",
+          "P035"
+        ]
+      },
+      "costs": {
+        "search_calls": 1,
+        "reindexes": 0,
+        "model_calls": 0,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "latency_ms": 5.908856997848488,
+        "api_cost_usd": 0.0
+      },
+      "after": {
+        "query": "어댑터",
+        "ndcg": 1.0,
+        "recall": 1.0,
+        "precision5": 1.0,
+        "n_results": 2,
+        "hits_top": [
+          "P036",
+          "P035"
+        ]
+      }
+    },
+    {
+      "query_id": "q-a4f32f03899e2605",
+      "query": "물티슈",
+      "split": "dev",
+      "family": null,
+      "observation": {
+        "query_id": "q-a4f32f03899e2605",
+        "query": "물티슈",
+        "split": "dev",
+        "result_count": 2,
+        "top1_score": 4.7291,
+        "top2_score": 4.489,
+        "score_margin": 0.050770759764014295,
+        "lexical_coverage": 1.0,
+        "retriever_agreement": null,
+        "evidence_conflict": null,
+        "grounding_score": null,
+        "latency_ms": 0.810984998679487,
+        "family": null,
+        "baseline_ndcg": 1.0,
+        "baseline_recall": 1.0
+      },
+      "detection": {
+        "failure_probability": 0.6,
+        "predicted_failure": true,
+        "failure_reason_codes": [
+          "low_score_margin"
+        ],
+        "calibration_version": "rule-v1-uncalibrated"
+      },
+      "decision": "abstain",
+      "intervened": true,
+      "policy_events": [
+        {
+          "action": "abstain",
+          "reason": "no_candidate"
+        }
+      ],
+      "trace": [],
+      "accepted": false,
+      "submissions": 0,
+      "action_count": 0,
+      "before": {
+        "query": "물티슈",
+        "ndcg": 1.0,
+        "recall": 1.0,
+        "precision5": 1.0,
+        "n_results": 2,
+        "hits_top": [
+          "P021",
+          "P020"
+        ]
+      },
+      "costs": {
+        "search_calls": 1,
+        "reindexes": 0,
+        "model_calls": 0,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "latency_ms": 5.923156000790186,
+        "api_cost_usd": 0.0
+      },
+      "after": {
+        "query": "물티슈",
+        "ndcg": 1.0,
+        "recall": 1.0,
+        "precision5": 1.0,
+        "n_results": 2,
+        "hits_top": [
+          "P021",
+          "P020"
+        ]
+      }
+    },
+    {
+      "query_id": "q-5a28e9d0f68e877b",
+      "query": "샤인머스캣",
+      "split": "dev",
+      "family": null,
+      "observation": {
+        "query_id": "q-5a28e9d0f68e877b",
+        "query": "샤인머스캣",
+        "split": "dev",
+        "result_count": 2,
+        "top1_score": 4.9962,
+        "top2_score": 4.6059,
+        "score_margin": 0.0781193707217485,
+        "lexical_coverage": 1.0,
+        "retriever_agreement": null,
+        "evidence_conflict": null,
+        "grounding_score": null,
+        "latency_ms": 0.9751830002642237,
+        "family": null,
+        "baseline_ndcg": 1.0,
+        "baseline_recall": 1.0
+      },
+      "detection": {
+        "failure_probability": 0.6,
+        "predicted_failure": true,
+        "failure_reason_codes": [
+          "low_score_margin"
+        ],
+        "calibration_version": "rule-v1-uncalibrated"
+      },
+      "decision": "abstain",
+      "intervened": true,
+      "policy_events": [
+        {
+          "action": "abstain",
+          "reason": "no_candidate"
+        }
+      ],
+      "trace": [],
+      "accepted": false,
+      "submissions": 0,
+      "action_count": 0,
+      "before": {
+        "query": "샤인머스캣",
+        "ndcg": 1.0,
+        "recall": 1.0,
+        "precision5": 1.0,
+        "n_results": 2,
+        "hits_top": [
+          "P051",
+          "P050"
+        ]
+      },
+      "costs": {
+        "search_calls": 1,
+        "reindexes": 0,
+        "model_calls": 0,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "latency_ms": 8.688147001521429,
+        "api_cost_usd": 0.0
+      },
+      "after": {
+        "query": "샤인머스캣",
+        "ndcg": 1.0,
+        "recall": 1.0,
+        "precision5": 1.0,
+        "n_results": 2,
+        "hits_top": [
+          "P051",
+          "P050"
+        ]
+      }
+    },
+    {
+      "query_id": "q-e6c7b7f2cd651483",
+      "query": "트레이닝복",
+      "split": "dev",
+      "family": null,
+      "observation": {
+        "query_id": "q-e6c7b7f2cd651483",
+        "query": "트레이닝복",
+        "split": "dev",
+        "result_count": 2,
+        "top1_score": 4.859,
+        "top2_score": 4.7291,
+        "score_margin": 0.026733895863346395,
+        "lexical_coverage": 1.0,
+        "retriever_agreement": null,
+        "evidence_conflict": null,
+        "grounding_score": null,
+        "latency_ms": 0.6945290006115101,
+        "family": null,
+        "baseline_ndcg": 1.0,
+        "baseline_recall": 1.0
+      },
+      "detection": {
+        "failure_probability": 0.6,
+        "predicted_failure": true,
+        "failure_reason_codes": [
+          "low_score_margin"
+        ],
+        "calibration_version": "rule-v1-uncalibrated"
+      },
+      "decision": "abstain",
+      "intervened": true,
+      "policy_events": [
+        {
+          "action": "abstain",
+          "reason": "no_candidate"
+        }
+      ],
+      "trace": [],
+      "accepted": false,
+      "submissions": 0,
+      "action_count": 0,
+      "before": {
+        "query": "트레이닝복",
+        "ndcg": 1.0,
+        "recall": 1.0,
+        "precision5": 1.0,
+        "n_results": 2,
+        "hits_top": [
+          "P061",
+          "P060"
+        ]
+      },
+      "costs": {
+        "search_calls": 1,
+        "reindexes": 0,
+        "model_calls": 0,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "latency_ms": 8.310435001476435,
+        "api_cost_usd": 0.0
+      },
+      "after": {
+        "query": "트레이닝복",
+        "ndcg": 1.0,
+        "recall": 1.0,
+        "precision5": 1.0,
+        "n_results": 2,
+        "hits_top": [
+          "P061",
+          "P060"
+        ]
+      }
+    },
+    {
+      "query_id": "q-32587ea7a904024b",
+      "query": "휴대폰 거치대",
+      "split": "dev",
+      "family": null,
+      "observation": {
+        "query_id": "q-32587ea7a904024b",
+        "query": "휴대폰 거치대",
+        "split": "dev",
+        "result_count": 3,
+        "top1_score": 9.4581,
+        "top2_score": 4.9962,
+        "score_margin": 0.4717543692707838,
+        "lexical_coverage": 1.0,
+        "retriever_agreement": null,
+        "evidence_conflict": null,
+        "grounding_score": null,
+        "latency_ms": 1.4083559981372673,
+        "family": null,
+        "baseline_ndcg": 0.9639,
+        "baseline_recall": 1.0
+      },
+      "detection": {
+        "failure_probability": 0.1,
+        "predicted_failure": false,
+        "failure_reason_codes": [],
+        "calibration_version": "rule-v1-uncalibrated"
+      },
+      "decision": "no_op",
+      "intervened": false,
+      "policy_events": [],
+      "trace": [],
+      "accepted": false,
+      "submissions": 0,
+      "action_count": 0,
+      "before": {
+        "query": "휴대폰 거치대",
+        "ndcg": 0.9639,
+        "recall": 1.0,
+        "precision5": 0.6667,
+        "n_results": 3,
+        "hits_top": [
+          "P040",
+          "P034",
+          "P038"
+        ]
+      },
+      "costs": {
+        "search_calls": 0,
+        "reindexes": 0,
+        "model_calls": 0,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "latency_ms": 0.007491998985642567,
+        "api_cost_usd": 0.0
+      },
+      "after": {
+        "query": "휴대폰 거치대",
+        "ndcg": 0.9639,
+        "recall": 1.0,
+        "precision5": 0.6667,
+        "n_results": 3,
+        "hits_top": [
+          "P040",
+          "P034",
+          "P038"
+        ]
+      }
+    },
+    {
+      "query_id": "q-0eb7498787af2887",
+      "query": "무선 이어폰",
+      "split": "dev",
+      "family": null,
+      "observation": {
+        "query_id": "q-0eb7498787af2887",
+        "query": "무선 이어폰",
+        "split": "dev",
+        "result_count": 3,
+        "top1_score": 8.982,
+        "top2_score": 4.3744,
+        "score_margin": 0.512981518592741,
+        "lexical_coverage": 1.0,
+        "retriever_agreement": null,
+        "evidence_conflict": null,
+        "grounding_score": null,
+        "latency_ms": 1.720344000204932,
+        "family": null,
+        "baseline_ndcg": 1.0,
+        "baseline_recall": 1.0
+      },
+      "detection": {
+        "failure_probability": 0.1,
+        "predicted_failure": false,
+        "failure_reason_codes": [],
+        "calibration_version": "rule-v1-uncalibrated"
+      },
+      "decision": "no_op",
+      "intervened": false,
+      "policy_events": [],
+      "trace": [],
+      "accepted": false,
+      "submissions": 0,
+      "action_count": 0,
+      "before": {
+        "query": "무선 이어폰",
+        "ndcg": 1.0,
+        "recall": 1.0,
+        "precision5": 0.3333,
+        "n_results": 3,
+        "hits_top": [
+          "P030",
+          "P044",
+          "P015"
+        ]
+      },
+      "costs": {
+        "search_calls": 0,
+        "reindexes": 0,
+        "model_calls": 0,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "latency_ms": 0.01761499879648909,
+        "api_cost_usd": 0.0
+      },
+      "after": {
+        "query": "무선 이어폰",
+        "ndcg": 1.0,
+        "recall": 1.0,
+        "precision5": 0.3333,
+        "n_results": 3,
+        "hits_top": [
+          "P030",
+          "P044",
+          "P015"
+        ]
+      }
+    },
+    {
+      "query_id": "q-5f53517410799af3",
+      "query": "노트북 파우치",
+      "split": "dev",
+      "family": null,
+      "observation": {
+        "query_id": "q-5f53517410799af3",
+        "query": "노트북 파우치",
+        "split": "dev",
+        "result_count": 2,
+        "top1_score": 10.4536,
+        "top2_score": 3.1044,
+        "score_margin": 0.7030305349353333,
+        "lexical_coverage": 1.0,
+        "retriever_agreement": null,
+        "evidence_conflict": null,
+        "grounding_score": null,
+        "latency_ms": 0.7509049974032678,
+        "family": null,
+        "baseline_ndcg": 1.0,
+        "baseline_recall": 1.0
+      },
+      "detection": {
+        "failure_probability": 0.1,
+        "predicted_failure": false,
+        "failure_reason_codes": [],
+        "calibration_version": "rule-v1-uncalibrated"
+      },
+      "decision": "no_op",
+      "intervened": false,
+      "policy_events": [],
+      "trace": [],
+      "accepted": false,
+      "submissions": 0,
+      "action_count": 0,
+      "before": {
+        "query": "노트북 파우치",
+        "ndcg": 1.0,
+        "recall": 1.0,
+        "precision5": 0.5,
+        "n_results": 2,
+        "hits_top": [
+          "P031",
+          "P035"
+        ]
+      },
+      "costs": {
+        "search_calls": 0,
+        "reindexes": 0,
+        "model_calls": 0,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "latency_ms": 0.0022370004444383085,
+        "api_cost_usd": 0.0
+      },
+      "after": {
+        "query": "노트북 파우치",
+        "ndcg": 1.0,
+        "recall": 1.0,
+        "precision5": 0.5,
+        "n_results": 2,
+        "hits_top": [
+          "P031",
+          "P035"
+        ]
+      }
+    },
+    {
+      "query_id": "q-f5c9fa6d4a6f5faf",
+      "query": "팬미팅 굿즈",
+      "split": "dev",
+      "family": null,
+      "observation": {
+        "query_id": "q-f5c9fa6d4a6f5faf",
+        "query": "팬미팅 굿즈",
+        "split": "dev",
+        "result_count": 4,
+        "top1_score": 13.0506,
+        "top2_score": 3.9053,
+        "score_margin": 0.7007570533155564,
+        "lexical_coverage": 1.0,
+        "retriever_agreement": null,
+        "evidence_conflict": null,
+        "grounding_score": null,
+        "latency_ms": 1.5990900028555188,
+        "family": null,
+        "baseline_ndcg": 1.0,
+        "baseline_recall": 1.0
+      },
+      "detection": {
+        "failure_probability": 0.1,
+        "predicted_failure": false,
+        "failure_reason_codes": [],
+        "calibration_version": "rule-v1-uncalibrated"
+      },
+      "decision": "no_op",
+      "intervened": false,
+      "policy_events": [],
+      "trace": [],
+      "accepted": false,
+      "submissions": 0,
+      "action_count": 0,
+      "before": {
+        "query": "팬미팅 굿즈",
+        "ndcg": 1.0,
+        "recall": 1.0,
+        "precision5": 0.5,
+        "n_results": 4,
+        "hits_top": [
+          "P070",
+          "P071",
+          "P072",
+          "P073"
+        ]
+      },
+      "costs": {
+        "search_calls": 0,
+        "reindexes": 0,
+        "model_calls": 0,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "latency_ms": 0.0016310004866681993,
+        "api_cost_usd": 0.0
+      },
+      "after": {
+        "query": "팬미팅 굿즈",
+        "ndcg": 1.0,
+        "recall": 1.0,
+        "precision5": 0.5,
+        "n_results": 4,
+        "hits_top": [
+          "P070",
+          "P071",
+          "P072",
+          "P073"
+        ]
+      }
+    },
+    {
+      "query_id": "q-5dbc68bc8092ac47",
+      "query": "선풍기",
+      "split": "dev",
+      "family": null,
+      "observation": {
+        "query_id": "q-5dbc68bc8092ac47",
+        "query": "선풍기",
+        "split": "dev",
+        "result_count": 1,
+        "top1_score": 5.5946,
+        "top2_score": null,
+        "score_margin": null,
+        "lexical_coverage": 1.0,
+        "retriever_agreement": null,
+        "evidence_conflict": null,
+        "grounding_score": null,
+        "latency_ms": 0.48772700029076077,
+        "family": null,
+        "baseline_ndcg": 1.0,
+        "baseline_recall": 1.0
+      },
+      "detection": {
+        "failure_probability": 0.1,
+        "predicted_failure": false,
+        "failure_reason_codes": [],
+        "calibration_version": "rule-v1-uncalibrated"
+      },
+      "decision": "no_op",
+      "intervened": false,
+      "policy_events": [],
+      "trace": [],
+      "accepted": false,
+      "submissions": 0,
+      "action_count": 0,
+      "before": {
+        "query": "선풍기",
+        "ndcg": 1.0,
+        "recall": 1.0,
+        "precision5": 1.0,
+        "n_results": 1,
+        "hits_top": [
+          "P072"
+        ]
+      },
+      "costs": {
+        "search_calls": 0,
+        "reindexes": 0,
+        "model_calls": 0,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "latency_ms": 0.0014449979062192142,
+        "api_cost_usd": 0.0
+      },
+      "after": {
+        "query": "선풍기",
+        "ndcg": 1.0,
+        "recall": 1.0,
+        "precision5": 1.0,
+        "n_results": 1,
+        "hits_top": [
+          "P072"
+        ]
+      }
+    },
+    {
+      "query_id": "q-4117bc485676ce82",
+      "query": "캠핑 의자",
+      "split": "dev",
+      "family": null,
+      "observation": {
+        "query_id": "q-4117bc485676ce82",
+        "query": "캠핑 의자",
+        "split": "dev",
+        "result_count": 4,
+        "top1_score": 8.8757,
+        "top2_score": 3.1093,
+        "score_margin": 0.6496839685883931,
+        "lexical_coverage": 1.0,
+        "retriever_agreement": null,
+        "evidence_conflict": null,
+        "grounding_score": null,
+        "latency_ms": 1.1644229998637456,
+        "family": null,
+        "baseline_ndcg": 0.9448,
+        "baseline_recall": 1.0
+      },
+      "detection": {
+        "failure_probability": 0.1,
+        "predicted_failure": false,
+        "failure_reason_codes": [],
+        "calibration_version": "rule-v1-uncalibrated"
+      },
+      "decision": "no_op",
+      "intervened": false,
+      "policy_events": [],
+      "trace": [],
+      "accepted": false,
+      "submissions": 0,
+      "action_count": 0,
+      "before": {
+        "query": "캠핑 의자",
+        "ndcg": 0.9448,
+        "recall": 1.0,
+        "precision5": 0.5,
+        "n_results": 4,
+        "hits_top": [
+          "P090",
+          "P092",
+          "P032",
+          "P091"
+        ]
+      },
+      "costs": {
+        "search_calls": 0,
+        "reindexes": 0,
+        "model_calls": 0,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "latency_ms": 0.001562999386806041,
+        "api_cost_usd": 0.0
+      },
+      "after": {
+        "query": "캠핑 의자",
+        "ndcg": 0.9448,
+        "recall": 1.0,
+        "precision5": 0.5,
+        "n_results": 4,
+        "hits_top": [
+          "P090",
+          "P092",
+          "P032",
+          "P091"
+        ]
+      }
+    },
+    {
+      "query_id": "q-bf388b5681fa55e0",
+      "query": "운동화",
+      "split": "dev",
+      "family": null,
+      "observation": {
+        "query_id": "q-bf388b5681fa55e0",
+        "query": "운동화",
+        "split": "dev",
+        "result_count": 1,
+        "top1_score": 5.7526,
+        "top2_score": null,
+        "score_margin": null,
+        "lexical_coverage": 1.0,
+        "retriever_agreement": null,
+        "evidence_conflict": null,
+        "grounding_score": null,
+        "latency_ms": 0.5198979997658171,
+        "family": null,
+        "baseline_ndcg": 1.0,
+        "baseline_recall": 1.0
+      },
+      "detection": {
+        "failure_probability": 0.1,
+        "predicted_failure": false,
+        "failure_reason_codes": [],
+        "calibration_version": "rule-v1-uncalibrated"
+      },
+      "decision": "no_op",
+      "intervened": false,
+      "policy_events": [],
+      "trace": [],
+      "accepted": false,
+      "submissions": 0,
+      "action_count": 0,
+      "before": {
+        "query": "운동화",
+        "ndcg": 1.0,
+        "recall": 1.0,
+        "precision5": 1.0,
+        "n_results": 1,
+        "hits_top": [
+          "P062"
+        ]
+      },
+      "costs": {
+        "search_calls": 0,
+        "reindexes": 0,
+        "model_calls": 0,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "latency_ms": 0.0014780016499571502,
+        "api_cost_usd": 0.0
+      },
+      "after": {
+        "query": "운동화",
+        "ndcg": 1.0,
+        "recall": 1.0,
+        "precision5": 1.0,
+        "n_results": 1,
+        "hits_top": [
+          "P062"
+        ]
+      }
+    },
+    {
+      "query_id": "q-1cc9af90e7863890",
+      "query": "카펫",
+      "split": "dev",
+      "family": null,
+      "observation": {
+        "query_id": "q-1cc9af90e7863890",
+        "query": "카펫",
+        "split": "dev",
+        "result_count": 2,
+        "top1_score": 4.489,
+        "top2_score": 4.489,
+        "score_margin": 0.0,
+        "lexical_coverage": 1.0,
+        "retriever_agreement": null,
+        "evidence_conflict": null,
+        "grounding_score": null,
+        "latency_ms": 1.1074530011683237,
+        "family": null,
+        "baseline_ndcg": 1.0,
+        "baseline_recall": 1.0
+      },
+      "detection": {
+        "failure_probability": 0.6,
+        "predicted_failure": true,
+        "failure_reason_codes": [
+          "low_score_margin"
+        ],
+        "calibration_version": "rule-v1-uncalibrated"
+      },
+      "decision": "abstain",
+      "intervened": true,
+      "policy_events": [
+        {
+          "action": "abstain",
+          "reason": "no_candidate"
+        }
+      ],
+      "trace": [],
+      "accepted": false,
+      "submissions": 0,
+      "action_count": 0,
+      "before": {
+        "query": "카펫",
+        "ndcg": 1.0,
+        "recall": 1.0,
+        "precision5": 1.0,
+        "n_results": 2,
+        "hits_top": [
+          "P016",
+          "P017"
+        ]
+      },
+      "costs": {
+        "search_calls": 1,
+        "reindexes": 0,
+        "model_calls": 0,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "latency_ms": 4.431872002896853,
+        "api_cost_usd": 0.0
+      },
+      "after": {
+        "query": "카펫",
+        "ndcg": 1.0,
+        "recall": 1.0,
+        "precision5": 1.0,
+        "n_results": 2,
+        "hits_top": [
+          "P016",
+          "P017"
+        ]
+      }
+    },
+    {
+      "query_id": "q-12d0faaff2200094",
+      "query": "리모컨",
+      "split": "dev",
+      "family": null,
+      "observation": {
+        "query_id": "q-12d0faaff2200094",
+        "query": "리모컨",
+        "split": "dev",
+        "result_count": 2,
+        "top1_score": 4.9962,
+        "top2_score": 4.6059,
+        "score_margin": 0.0781193707217485,
+        "lexical_coverage": 1.0,
+        "retriever_agreement": null,
+        "evidence_conflict": null,
+        "grounding_score": null,
+        "latency_ms": 0.7325769984163344,
+        "family": null,
+        "baseline_ndcg": 1.0,
+        "baseline_recall": 1.0
+      },
+      "detection": {
+        "failure_probability": 0.6,
+        "predicted_failure": true,
+        "failure_reason_codes": [
+          "low_score_margin"
+        ],
+        "calibration_version": "rule-v1-uncalibrated"
+      },
+      "decision": "abstain",
+      "intervened": true,
+      "policy_events": [
+        {
+          "action": "abstain",
+          "reason": "no_candidate"
+        }
+      ],
+      "trace": [],
+      "accepted": false,
+      "submissions": 0,
+      "action_count": 0,
+      "before": {
+        "query": "리모컨",
+        "ndcg": 1.0,
+        "recall": 1.0,
+        "precision5": 1.0,
+        "n_results": 2,
+        "hits_top": [
+          "P041",
+          "P042"
+        ]
+      },
+      "costs": {
+        "search_calls": 1,
+        "reindexes": 0,
+        "model_calls": 0,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "latency_ms": 5.616345002636081,
+        "api_cost_usd": 0.0
+      },
+      "after": {
+        "query": "리모컨",
+        "ndcg": 1.0,
+        "recall": 1.0,
+        "precision5": 1.0,
+        "n_results": 2,
+        "hits_top": [
+          "P041",
+          "P042"
+        ]
+      }
+    },
+    {
+      "query_id": "q-dbebe5ad2225d772",
+      "query": "가습기",
+      "split": "dev",
+      "family": null,
+      "observation": {
+        "query_id": "q-dbebe5ad2225d772",
+        "query": "가습기",
+        "split": "dev",
+        "result_count": 1,
+        "top1_score": 5.3032,
+        "top2_score": null,
+        "score_margin": null,
+        "lexical_coverage": 1.0,
+        "retriever_agreement": null,
+        "evidence_conflict": null,
+        "grounding_score": null,
+        "latency_ms": 0.655792002362432,
+        "family": null,
+        "baseline_ndcg": 1.0,
+        "baseline_recall": 1.0
+      },
+      "detection": {
+        "failure_probability": 0.1,
+        "predicted_failure": false,
+        "failure_reason_codes": [],
+        "calibration_version": "rule-v1-uncalibrated"
+      },
+      "decision": "no_op",
+      "intervened": false,
+      "policy_events": [],
+      "trace": [],
+      "accepted": false,
+      "submissions": 0,
+      "action_count": 0,
+      "before": {
+        "query": "가습기",
+        "ndcg": 1.0,
+        "recall": 1.0,
+        "precision5": 1.0,
+        "n_results": 1,
+        "hits_top": [
+          "P097"
+        ]
+      },
+      "costs": {
+        "search_calls": 0,
+        "reindexes": 0,
+        "model_calls": 0,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "latency_ms": 0.006598998879780993,
+        "api_cost_usd": 0.0
+      },
+      "after": {
+        "query": "가습기",
+        "ndcg": 1.0,
+        "recall": 1.0,
+        "precision5": 1.0,
+        "n_results": 1,
+        "hits_top": [
+          "P097"
+        ]
+      }
+    },
+    {
+      "query_id": "q-48037bb1b5612105",
+      "query": "김치",
+      "split": "dev",
+      "family": null,
+      "observation": {
+        "query_id": "q-48037bb1b5612105",
+        "query": "김치",
+        "split": "dev",
+        "result_count": 1,
+        "top1_score": 4.3353,
+        "top2_score": null,
+        "score_margin": null,
+        "lexical_coverage": 1.0,
+        "retriever_agreement": null,
+        "evidence_conflict": null,
+        "grounding_score": null,
+        "latency_ms": 0.5002990001230501,
+        "family": null,
+        "baseline_ndcg": 1.0,
+        "baseline_recall": 1.0
+      },
+      "detection": {
+        "failure_probability": 0.1,
+        "predicted_failure": false,
+        "failure_reason_codes": [],
+        "calibration_version": "rule-v1-uncalibrated"
+      },
+      "decision": "no_op",
+      "intervened": false,
+      "policy_events": [],
+      "trace": [],
+      "accepted": false,
+      "submissions": 0,
+      "action_count": 0,
+      "before": {
+        "query": "김치",
+        "ndcg": 1.0,
+        "recall": 1.0,
+        "precision5": 1.0,
+        "n_results": 1,
+        "hits_top": [
+          "P052"
+        ]
+      },
+      "costs": {
+        "search_calls": 0,
+        "reindexes": 0,
+        "model_calls": 0,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "latency_ms": 0.002300999767612666,
+        "api_cost_usd": 0.0
+      },
+      "after": {
+        "query": "김치",
+        "ndcg": 1.0,
+        "recall": 1.0,
+        "precision5": 1.0,
+        "n_results": 1,
+        "hits_top": [
+          "P052"
+        ]
+      }
+    },
+    {
+      "query_id": "q-c973645c424d51d7",
+      "query": "후라이팬",
+      "split": "dev",
+      "family": "spelling_variant",
+      "observation": {
+        "query_id": "q-c973645c424d51d7",
+        "query": "후라이팬",
+        "split": "dev",
+        "result_count": 0,
+        "top1_score": null,
+        "top2_score": null,
+        "score_margin": null,
+        "lexical_coverage": 0.0,
+        "retriever_agreement": null,
+        "evidence_conflict": null,
+        "grounding_score": null,
+        "latency_ms": 0.1592170010553673,
+        "family": "spelling_variant",
+        "baseline_ndcg": 0.0,
+        "baseline_recall": 0.0
+      },
+      "detection": {
+        "failure_probability": 0.95,
+        "predicted_failure": true,
+        "failure_reason_codes": [
+          "zero_results",
+          "low_lexical_coverage"
+        ],
+        "calibration_version": "rule-v1-uncalibrated"
+      },
+      "decision": "typed_patch",
+      "intervened": true,
+      "policy_events": [
+        {
+          "action": "typed_patch",
+          "reason": "positive_utility",
+          "utility": 0.0425,
+          "feedback": null,
+          "cost_semantics": "expected-v2",
+          "expected_cost": {
+            "search_calls": 0,
+            "reindexes": 0,
+            "model_calls": 0,
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "latency_ms": null,
+            "api_cost_usd": 0.0
+          },
+          "measured_candidate_generation_cost": {
+            "search_calls": 0,
+            "reindexes": 0,
+            "model_calls": 0,
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "latency_ms": 7.615245998749742,
+            "api_cost_usd": 0.0
+          }
+        }
+      ],
+      "trace": [
+        {
+          "action": "typed_patch",
+          "accepted": true,
+          "previous_feedback": null,
+          "regressions": [],
+          "evidence_ids": [
+            "document:P001:6:10",
+            "query:후라이팬:0:4"
+          ],
+          "evidence": [
+            {
+              "source_type": "document",
+              "source_id": "P001",
+              "start": 6,
+              "end": 10,
+              "text": "프라이팬"
+            },
+            {
+              "source_type": "query",
+              "source_id": "후라이팬",
+              "start": 0,
+              "end": 4,
+              "text": "후라이팬"
+            }
+          ],
+          "prescription": {
+            "target_query": "후라이팬",
+            "diagnosis_family": "spelling_variant",
+            "reasoning": "'후라이팬'와 자모 유사도 0.78인 색인 토큰 '프라이팬'이 존재한다. 표기 변형으로 판단해 동의어로 연결한다.",
+            "user_words": [],
+            "synonym_groups": [
+              {
+                "terms": [
+                  "프라이팬",
+                  "후라이팬"
+                ]
+              }
+            ],
+            "compound_expansions": []
+          },
+          "verdict": {
+            "accepted": true,
+            "reason": "표적 개선 + 무회귀 + 전체 보존",
+            "target_query": "후라이팬",
+            "target_before": {
+              "query": "후라이팬",
+              "ndcg": 0.0,
+              "recall": 0.0,
+              "precision5": 0.0,
+              "n_results": 0,
+              "hits_top": []
+            },
+            "target_after": {
+              "query": "후라이팬",
+              "ndcg": 1.0,
+              "recall": 1.0,
+              "precision5": 1.0,
+              "n_results": 2,
+              "hits_top": [
+                "P001",
+                "P002"
+              ]
+            },
+            "mean_before": 0.5839,
+            "mean_after": 0.6117,
+            "regressions": []
+          },
+          "reason": "accepted",
+          "attempt": 1,
+          "feedback": "채택. 표적 '후라이팬' nDCG 0.00 → 1.00, 회귀 없음."
+        }
+      ],
+      "accepted": true,
+      "submissions": 1,
+      "action_count": 1,
+      "before": {
+        "query": "후라이팬",
+        "ndcg": 0.0,
+        "recall": 0.0,
+        "precision5": 0.0,
+        "n_results": 0,
+        "hits_top": []
+      },
+      "costs": {
+        "search_calls": 73,
+        "reindexes": 1,
+        "model_calls": 0,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "latency_ms": 43.520460996660404,
+        "api_cost_usd": 0.0
+      },
+      "after": {
+        "query": "후라이팬",
+        "ndcg": 1.0,
+        "recall": 1.0,
+        "precision5": 1.0,
+        "n_results": 2,
+        "hits_top": [
+          "P001",
+          "P002"
+        ]
+      }
+    },
+    {
+      "query_id": "q-f87dc1fe3de9b4c4",
+      "query": "케잌 주문",
+      "split": "dev",
+      "family": "spelling_variant",
+      "observation": {
+        "query_id": "q-f87dc1fe3de9b4c4",
+        "query": "케잌 주문",
+        "split": "dev",
+        "result_count": 0,
+        "top1_score": null,
+        "top2_score": null,
+        "score_margin": null,
+        "lexical_coverage": 0.0,
+        "retriever_agreement": null,
+        "evidence_conflict": null,
+        "grounding_score": null,
+        "latency_ms": 0.13364199912757613,
+        "family": "spelling_variant",
+        "baseline_ndcg": 0.0,
+        "baseline_recall": 0.0
+      },
+      "detection": {
+        "failure_probability": 0.95,
+        "predicted_failure": true,
+        "failure_reason_codes": [
+          "zero_results",
+          "low_lexical_coverage"
+        ],
+        "calibration_version": "rule-v1-uncalibrated"
+      },
+      "decision": "typed_patch",
+      "intervened": true,
+      "policy_events": [
+        {
+          "action": "typed_patch",
+          "reason": "positive_utility",
+          "utility": 0.0425,
+          "feedback": null,
+          "cost_semantics": "expected-v2",
+          "expected_cost": {
+            "search_calls": 0,
+            "reindexes": 0,
+            "model_calls": 0,
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "latency_ms": null,
+            "api_cost_usd": 0.0
+          },
+          "measured_candidate_generation_cost": {
+            "search_calls": 0,
+            "reindexes": 0,
+            "model_calls": 0,
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "latency_ms": 4.69431999954395,
+            "api_cost_usd": 0.0
+          }
+        }
+      ],
+      "trace": [
+        {
+          "action": "typed_patch",
+          "accepted": true,
+          "previous_feedback": null,
+          "regressions": [],
+          "evidence_ids": [
+            "document:P006:7:10",
+            "query:케잌 주문:0:2"
+          ],
+          "evidence": [
+            {
+              "source_type": "document",
+              "source_id": "P006",
+              "start": 7,
+              "end": 10,
+              "text": "케이크"
+            },
+            {
+              "source_type": "query",
+              "source_id": "케잌 주문",
+              "start": 0,
+              "end": 2,
+              "text": "케잌"
+            }
+          ],
+          "prescription": {
+            "target_query": "케잌 주문",
+            "diagnosis_family": "spelling_variant",
+            "reasoning": "'케잌'와 자모 유사도 0.83인 색인 토큰 '케이크'이 존재한다. 표기 변형으로 판단해 동의어로 연결한다.",
+            "user_words": [],
+            "synonym_groups": [
+              {
+                "terms": [
+                  "케이크",
+                  "케잌"
+                ]
+              }
+            ],
+            "compound_expansions": []
+          },
+          "verdict": {
+            "accepted": true,
+            "reason": "표적 개선 + 무회귀 + 전체 보존",
+            "target_query": "케잌 주문",
+            "target_before": {
+              "query": "케잌 주문",
+              "ndcg": 0.0,
+              "recall": 0.0,
+              "precision5": 0.0,
+              "n_results": 0,
+              "hits_top": []
+            },
+            "target_after": {
+              "query": "케잌 주문",
+              "ndcg": 1.0,
+              "recall": 1.0,
+              "precision5": 1.0,
+              "n_results": 2,
+              "hits_top": [
+                "P006",
+                "P007"
+              ]
+            },
+            "mean_before": 0.6117,
+            "mean_after": 0.6395,
+            "regressions": []
+          },
+          "reason": "accepted",
+          "attempt": 1,
+          "feedback": "채택. 표적 '케잌 주문' nDCG 0.00 → 1.00, 회귀 없음."
+        }
+      ],
+      "accepted": true,
+      "submissions": 1,
+      "action_count": 1,
+      "before": {
+        "query": "케잌 주문",
+        "ndcg": 0.0,
+        "recall": 0.0,
+        "precision5": 0.0,
+        "n_results": 0,
+        "hits_top": []
+      },
+      "costs": {
+        "search_calls": 73,
+        "reindexes": 1,
+        "model_calls": 0,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "latency_ms": 36.305117999290815,
+        "api_cost_usd": 0.0
+      },
+      "after": {
+        "query": "케잌 주문",
+        "ndcg": 1.0,
+        "recall": 1.0,
+        "precision5": 1.0,
+        "n_results": 2,
+        "hits_top": [
+          "P006",
+          "P007"
+        ]
+      }
+    },
+    {
+      "query_id": "q-2750d65ecf4b4253",
+      "query": "도너츠",
+      "split": "dev",
+      "family": "spelling_variant",
+      "observation": {
+        "query_id": "q-2750d65ecf4b4253",
+        "query": "도너츠",
+        "split": "dev",
+        "result_count": 0,
+        "top1_score": null,
+        "top2_score": null,
+        "score_margin": null,
+        "lexical_coverage": 0.0,
+        "retriever_agreement": null,
+        "evidence_conflict": null,
+        "grounding_score": null,
+        "latency_ms": 0.030865998269291595,
+        "family": "spelling_variant",
+        "baseline_ndcg": 0.0,
+        "baseline_recall": 0.0
+      },
+      "detection": {
+        "failure_probability": 0.95,
+        "predicted_failure": true,
+        "failure_reason_codes": [
+          "zero_results",
+          "low_lexical_coverage"
+        ],
+        "calibration_version": "rule-v1-uncalibrated"
+      },
+      "decision": "typed_patch",
+      "intervened": true,
+      "policy_events": [
+        {
+          "action": "typed_patch",
+          "reason": "positive_utility",
+          "utility": 0.0425,
+          "feedback": null,
+          "cost_semantics": "expected-v2",
+          "expected_cost": {
+            "search_calls": 0,
+            "reindexes": 0,
+            "model_calls": 0,
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "latency_ms": null,
+            "api_cost_usd": 0.0
+          },
+          "measured_candidate_generation_cost": {
+            "search_calls": 0,
+            "reindexes": 0,
+            "model_calls": 0,
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "latency_ms": 5.228248002822511,
+            "api_cost_usd": 0.0
+          }
+        }
+      ],
+      "trace": [
+        {
+          "action": "typed_patch",
+          "accepted": true,
+          "previous_feedback": null,
+          "regressions": [],
+          "evidence_ids": [
+            "query:도너츠:0:3",
+            "document:P004:4:6"
+          ],
+          "evidence": [
+            {
+              "source_type": "query",
+              "source_id": "도너츠",
+              "start": 0,
+              "end": 3,
+              "text": "도너츠"
+            },
+            {
+              "source_type": "document",
+              "source_id": "P004",
+              "start": 4,
+              "end": 6,
+              "text": "도넛"
+            }
+          ],
+          "prescription": {
+            "target_query": "도너츠",
+            "diagnosis_family": "spelling_variant",
+            "reasoning": "'도너츠'와 자모 유사도 0.67인 색인 토큰 '도넛'이 존재한다. 표기 변형으로 판단해 동의어로 연결한다.",
+            "user_words": [],
+            "synonym_groups": [
+              {
+                "terms": [
+                  "도넛",
+                  "도너츠"
+                ]
+              }
+            ],
+            "compound_expansions": []
+          },
+          "verdict": {
+            "accepted": true,
+            "reason": "표적 개선 + 무회귀 + 전체 보존",
+            "target_query": "도너츠",
+            "target_before": {
+              "query": "도너츠",
+              "ndcg": 0.0,
+              "recall": 0.0,
+              "precision5": 0.0,
+              "n_results": 0,
+              "hits_top": []
+            },
+            "target_after": {
+              "query": "도너츠",
+              "ndcg": 1.0,
+              "recall": 1.0,
+              "precision5": 1.0,
+              "n_results": 2,
+              "hits_top": [
+                "P004",
+                "P005"
+              ]
+            },
+            "mean_before": 0.6395,
+            "mean_after": 0.6673,
+            "regressions": []
+          },
+          "reason": "accepted",
+          "attempt": 1,
+          "feedback": "채택. 표적 '도너츠' nDCG 0.00 → 1.00, 회귀 없음."
+        }
+      ],
+      "accepted": true,
+      "submissions": 1,
+      "action_count": 1,
+      "before": {
+        "query": "도너츠",
+        "ndcg": 0.0,
+        "recall": 0.0,
+        "precision5": 0.0,
+        "n_results": 0,
+        "hits_top": []
+      },
+      "costs": {
+        "search_calls": 73,
+        "reindexes": 1,
+        "model_calls": 0,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "latency_ms": 40.05732999939937,
+        "api_cost_usd": 0.0
+      },
+      "after": {
+        "query": "도너츠",
+        "ndcg": 1.0,
+        "recall": 1.0,
+        "precision5": 1.0,
+        "n_results": 2,
+        "hits_top": [
+          "P004",
+          "P005"
+        ]
+      }
+    },
+    {
+      "query_id": "q-f9250410ae8e2a24",
+      "query": "쥬스",
+      "split": "dev",
+      "family": "spelling_variant",
+      "observation": {
+        "query_id": "q-f9250410ae8e2a24",
+        "query": "쥬스",
+        "split": "dev",
+        "result_count": 0,
+        "top1_score": null,
+        "top2_score": null,
+        "score_margin": null,
+        "lexical_coverage": 0.0,
+        "retriever_agreement": null,
+        "evidence_conflict": null,
+        "grounding_score": null,
+        "latency_ms": 0.0672310015943367,
+        "family": "spelling_variant",
+        "baseline_ndcg": 0.0,
+        "baseline_recall": 0.0
+      },
+      "detection": {
+        "failure_probability": 0.95,
+        "predicted_failure": true,
+        "failure_reason_codes": [
+          "zero_results",
+          "low_lexical_coverage"
+        ],
+        "calibration_version": "rule-v1-uncalibrated"
+      },
+      "decision": "typed_patch",
+      "intervened": true,
+      "policy_events": [
+        {
+          "action": "typed_patch",
+          "reason": "positive_utility",
+          "utility": 0.0425,
+          "feedback": null,
+          "cost_semantics": "expected-v2",
+          "expected_cost": {
+            "search_calls": 0,
+            "reindexes": 0,
+            "model_calls": 0,
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "latency_ms": null,
+            "api_cost_usd": 0.0
+          },
+          "measured_candidate_generation_cost": {
+            "search_calls": 0,
+            "reindexes": 0,
+            "model_calls": 0,
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "latency_ms": 4.850735000218265,
+            "api_cost_usd": 0.0
+          }
+        }
+      ],
+      "trace": [
+        {
+          "action": "typed_patch",
+          "accepted": true,
+          "previous_feedback": null,
+          "regressions": [],
+          "evidence_ids": [
+            "document:P009:7:9",
+            "query:쥬스:0:2"
+          ],
+          "evidence": [
+            {
+              "source_type": "document",
+              "source_id": "P009",
+              "start": 7,
+              "end": 9,
+              "text": "주스"
+            },
+            {
+              "source_type": "query",
+              "source_id": "쥬스",
+              "start": 0,
+              "end": 2,
+              "text": "쥬스"
+            }
+          ],
+          "prescription": {
+            "target_query": "쥬스",
+            "diagnosis_family": "spelling_variant",
+            "reasoning": "'쥬스'와 자모 유사도 0.75인 색인 토큰 '주스'이 존재한다. 표기 변형으로 판단해 동의어로 연결한다.",
+            "user_words": [],
+            "synonym_groups": [
+              {
+                "terms": [
+                  "주스",
+                  "쥬스"
+                ]
+              }
+            ],
+            "compound_expansions": []
+          },
+          "verdict": {
+            "accepted": true,
+            "reason": "표적 개선 + 무회귀 + 전체 보존",
+            "target_query": "쥬스",
+            "target_before": {
+              "query": "쥬스",
+              "ndcg": 0.0,
+              "recall": 0.0,
+              "precision5": 0.0,
+              "n_results": 0,
+              "hits_top": []
+            },
+            "target_after": {
+              "query": "쥬스",
+              "ndcg": 1.0,
+              "recall": 1.0,
+              "precision5": 1.0,
+              "n_results": 2,
+              "hits_top": [
+                "P009",
+                "P010"
+              ]
+            },
+            "mean_before": 0.6673,
+            "mean_after": 0.695,
+            "regressions": []
+          },
+          "reason": "accepted",
+          "attempt": 1,
+          "feedback": "채택. 표적 '쥬스' nDCG 0.00 → 1.00, 회귀 없음."
+        }
+      ],
+      "accepted": true,
+      "submissions": 1,
+      "action_count": 1,
+      "before": {
+        "query": "쥬스",
+        "ndcg": 0.0,
+        "recall": 0.0,
+        "precision5": 0.0,
+        "n_results": 0,
+        "hits_top": []
+      },
+      "costs": {
+        "search_calls": 73,
+        "reindexes": 1,
+        "model_calls": 0,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "latency_ms": 39.68222500043339,
+        "api_cost_usd": 0.0
+      },
+      "after": {
+        "query": "쥬스",
+        "ndcg": 1.0,
+        "recall": 1.0,
+        "precision5": 1.0,
+        "n_results": 2,
+        "hits_top": [
+          "P009",
+          "P010"
+        ]
+      }
+    },
+    {
+      "query_id": "q-a5afb88c7f0fd72c",
+      "query": "소세지",
+      "split": "dev",
+      "family": "spelling_variant",
+      "observation": {
+        "query_id": "q-a5afb88c7f0fd72c",
+        "query": "소세지",
+        "split": "dev",
+        "result_count": 0,
+        "top1_score": null,
+        "top2_score": null,
+        "score_margin": null,
+        "lexical_coverage": 0.0,
+        "retriever_agreement": null,
+        "evidence_conflict": null,
+        "grounding_score": null,
+        "latency_ms": 0.11263800115557387,
+        "family": "spelling_variant",
+        "baseline_ndcg": 0.0,
+        "baseline_recall": 0.0
+      },
+      "detection": {
+        "failure_probability": 0.95,
+        "predicted_failure": true,
+        "failure_reason_codes": [
+          "zero_results",
+          "low_lexical_coverage"
+        ],
+        "calibration_version": "rule-v1-uncalibrated"
+      },
+      "decision": "typed_patch",
+      "intervened": true,
+      "policy_events": [
+        {
+          "action": "typed_patch",
+          "reason": "positive_utility",
+          "utility": 0.0425,
+          "feedback": null,
+          "cost_semantics": "expected-v2",
+          "expected_cost": {
+            "search_calls": 0,
+            "reindexes": 0,
+            "model_calls": 0,
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "latency_ms": null,
+            "api_cost_usd": 0.0
+          },
+          "measured_candidate_generation_cost": {
+            "search_calls": 0,
+            "reindexes": 0,
+            "model_calls": 0,
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "latency_ms": 5.464148998726159,
+            "api_cost_usd": 0.0
+          }
+        }
+      ],
+      "trace": [
+        {
+          "action": "typed_patch",
+          "accepted": true,
+          "previous_feedback": null,
+          "regressions": [],
+          "evidence_ids": [
+            "query:소세지:0:3",
+            "document:P011:4:7"
+          ],
+          "evidence": [
+            {
+              "source_type": "query",
+              "source_id": "소세지",
+              "start": 0,
+              "end": 3,
+              "text": "소세지"
+            },
+            {
+              "source_type": "document",
+              "source_id": "P011",
+              "start": 4,
+              "end": 7,
+              "text": "소시지"
+            }
+          ],
+          "prescription": {
+            "target_query": "소세지",
+            "diagnosis_family": "spelling_variant",
+            "reasoning": "'소세지'와 자모 유사도 0.83인 색인 토큰 '소시지'이 존재한다. 표기 변형으로 판단해 동의어로 연결한다.",
+            "user_words": [],
+            "synonym_groups": [
+              {
+                "terms": [
+                  "소시지",
+                  "소세지"
+                ]
+              }
+            ],
+            "compound_expansions": []
+          },
+          "verdict": {
+            "accepted": true,
+            "reason": "표적 개선 + 무회귀 + 전체 보존",
+            "target_query": "소세지",
+            "target_before": {
+              "query": "소세지",
+              "ndcg": 0.0,
+              "recall": 0.0,
+              "precision5": 0.0,
+              "n_results": 0,
+              "hits_top": []
+            },
+            "target_after": {
+              "query": "소세지",
+              "ndcg": 1.0,
+              "recall": 1.0,
+              "precision5": 1.0,
+              "n_results": 2,
+              "hits_top": [
+                "P012",
+                "P011"
+              ]
+            },
+            "mean_before": 0.695,
+            "mean_after": 0.7228,
+            "regressions": []
+          },
+          "reason": "accepted",
+          "attempt": 1,
+          "feedback": "채택. 표적 '소세지' nDCG 0.00 → 1.00, 회귀 없음."
+        }
+      ],
+      "accepted": true,
+      "submissions": 1,
+      "action_count": 1,
+      "before": {
+        "query": "소세지",
+        "ndcg": 0.0,
+        "recall": 0.0,
+        "precision5": 0.0,
+        "n_results": 0,
+        "hits_top": []
+      },
+      "costs": {
+        "search_calls": 73,
+        "reindexes": 1,
+        "model_calls": 0,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "latency_ms": 36.85499700077344,
+        "api_cost_usd": 0.0
+      },
+      "after": {
+        "query": "소세지",
+        "ndcg": 1.0,
+        "recall": 1.0,
+        "precision5": 1.0,
+        "n_results": 2,
+        "hits_top": [
+          "P012",
+          "P011"
+        ]
+      }
+    },
+    {
+      "query_id": "q-71f94e1004027d8c",
+      "query": "카페트",
+      "split": "dev",
+      "family": "spelling_variant",
+      "observation": {
+        "query_id": "q-71f94e1004027d8c",
+        "query": "카페트",
+        "split": "dev",
+        "result_count": 0,
+        "top1_score": null,
+        "top2_score": null,
+        "score_margin": null,
+        "lexical_coverage": 0.0,
+        "retriever_agreement": null,
+        "evidence_conflict": null,
+        "grounding_score": null,
+        "latency_ms": 0.031718998798169196,
+        "family": "spelling_variant",
+        "baseline_ndcg": 0.0,
+        "baseline_recall": 0.0
+      },
+      "detection": {
+        "failure_probability": 0.95,
+        "predicted_failure": true,
+        "failure_reason_codes": [
+          "zero_results",
+          "low_lexical_coverage"
+        ],
+        "calibration_version": "rule-v1-uncalibrated"
+      },
+      "decision": "typed_patch",
+      "intervened": true,
+      "policy_events": [
+        {
+          "action": "typed_patch",
+          "reason": "positive_utility",
+          "utility": 0.0425,
+          "feedback": null,
+          "cost_semantics": "expected-v2",
+          "expected_cost": {
+            "search_calls": 0,
+            "reindexes": 0,
+            "model_calls": 0,
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "latency_ms": null,
+            "api_cost_usd": 0.0
+          },
+          "measured_candidate_generation_cost": {
+            "search_calls": 0,
+            "reindexes": 0,
+            "model_calls": 0,
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "latency_ms": 5.467355000291718,
+            "api_cost_usd": 0.0
+          }
+        }
+      ],
+      "trace": [
+        {
+          "action": "typed_patch",
+          "accepted": true,
+          "previous_feedback": null,
+          "regressions": [],
+          "evidence_ids": [
+            "query:카페트:0:3",
+            "document:P016:3:5"
+          ],
+          "evidence": [
+            {
+              "source_type": "query",
+              "source_id": "카페트",
+              "start": 0,
+              "end": 3,
+              "text": "카페트"
+            },
+            {
+              "source_type": "document",
+              "source_id": "P016",
+              "start": 3,
+              "end": 5,
+              "text": "카펫"
+            }
+          ],
+          "prescription": {
+            "target_query": "카페트",
+            "diagnosis_family": "spelling_variant",
+            "reasoning": "'카페트'와 자모 유사도 0.67인 색인 토큰 '카펫'이 존재한다. 표기 변형으로 판단해 동의어로 연결한다.",
+            "user_words": [],
+            "synonym_groups": [
+              {
+                "terms": [
+                  "카펫",
+                  "카페트"
+                ]
+              }
+            ],
+            "compound_expansions": []
+          },
+          "verdict": {
+            "accepted": true,
+            "reason": "표적 개선 + 무회귀 + 전체 보존",
+            "target_query": "카페트",
+            "target_before": {
+              "query": "카페트",
+              "ndcg": 0.0,
+              "recall": 0.0,
+              "precision5": 0.0,
+              "n_results": 0,
+              "hits_top": []
+            },
+            "target_after": {
+              "query": "카페트",
+              "ndcg": 1.0,
+              "recall": 1.0,
+              "precision5": 1.0,
+              "n_results": 2,
+              "hits_top": [
+                "P016",
+                "P017"
+              ]
+            },
+            "mean_before": 0.7228,
+            "mean_after": 0.7506,
+            "regressions": []
+          },
+          "reason": "accepted",
+          "attempt": 1,
+          "feedback": "채택. 표적 '카페트' nDCG 0.00 → 1.00, 회귀 없음."
+        }
+      ],
+      "accepted": true,
+      "submissions": 1,
+      "action_count": 1,
+      "before": {
+        "query": "카페트",
+        "ndcg": 0.0,
+        "recall": 0.0,
+        "precision5": 0.0,
+        "n_results": 0,
+        "hits_top": []
+      },
+      "costs": {
+        "search_calls": 73,
+        "reindexes": 1,
+        "model_calls": 0,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "latency_ms": 40.17142100201454,
+        "api_cost_usd": 0.0
+      },
+      "after": {
+        "query": "카페트",
+        "ndcg": 1.0,
+        "recall": 1.0,
+        "precision5": 1.0,
+        "n_results": 2,
+        "hits_top": [
+          "P016",
+          "P017"
+        ]
+      }
+    },
+    {
+      "query_id": "q-f1bdc8428b8323d7",
+      "query": "초콜렛",
+      "split": "dev",
+      "family": "spelling_variant",
+      "observation": {
+        "query_id": "q-f1bdc8428b8323d7",
+        "query": "초콜렛",
+        "split": "dev",
+        "result_count": 0,
+        "top1_score": null,
+        "top2_score": null,
+        "score_margin": null,
+        "lexical_coverage": 0.0,
+        "retriever_agreement": null,
+        "evidence_conflict": null,
+        "grounding_score": null,
+        "latency_ms": 0.06394500087480992,
+        "family": "spelling_variant",
+        "baseline_ndcg": 0.0,
+        "baseline_recall": 0.0
+      },
+      "detection": {
+        "failure_probability": 0.95,
+        "predicted_failure": true,
+        "failure_reason_codes": [
+          "zero_results",
+          "low_lexical_coverage"
+        ],
+        "calibration_version": "rule-v1-uncalibrated"
+      },
+      "decision": "typed_patch",
+      "intervened": true,
+      "policy_events": [
+        {
+          "action": "typed_patch",
+          "reason": "positive_utility",
+          "utility": 0.0425,
+          "feedback": null,
+          "cost_semantics": "expected-v2",
+          "expected_cost": {
+            "search_calls": 0,
+            "reindexes": 0,
+            "model_calls": 0,
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "latency_ms": null,
+            "api_cost_usd": 0.0
+          },
+          "measured_candidate_generation_cost": {
+            "search_calls": 0,
+            "reindexes": 0,
+            "model_calls": 0,
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "latency_ms": 6.820597001933493,
+            "api_cost_usd": 0.0
+          }
+        }
+      ],
+      "trace": [
+        {
+          "action": "typed_patch",
+          "accepted": true,
+          "previous_feedback": null,
+          "regressions": [],
+          "evidence_ids": [
+            "query:초콜렛:0:3",
+            "document:P005:3:6"
+          ],
+          "evidence": [
+            {
+              "source_type": "query",
+              "source_id": "초콜렛",
+              "start": 0,
+              "end": 3,
+              "text": "초콜렛"
+            },
+            {
+              "source_type": "document",
+              "source_id": "P005",
+              "start": 3,
+              "end": 6,
+              "text": "초콜릿"
+            }
+          ],
+          "prescription": {
+            "target_query": "초콜렛",
+            "diagnosis_family": "spelling_variant",
+            "reasoning": "'초콜렛'와 자모 유사도 0.88인 색인 토큰 '초콜릿'이 존재한다. 표기 변형으로 판단해 동의어로 연결한다.",
+            "user_words": [],
+            "synonym_groups": [
+              {
+                "terms": [
+                  "초콜릿",
+                  "초콜렛"
+                ]
+              }
+            ],
+            "compound_expansions": []
+          },
+          "verdict": {
+            "accepted": true,
+            "reason": "표적 개선 + 무회귀 + 전체 보존",
+            "target_query": "초콜렛",
+            "target_before": {
+              "query": "초콜렛",
+              "ndcg": 0.0,
+              "recall": 0.0,
+              "precision5": 0.0,
+              "n_results": 0,
+              "hits_top": []
+            },
+            "target_after": {
+              "query": "초콜렛",
+              "ndcg": 1.0,
+              "recall": 1.0,
+              "precision5": 1.0,
+              "n_results": 3,
+              "hits_top": [
+                "P008",
+                "P005",
+                "P007"
+              ]
+            },
+            "mean_before": 0.7506,
+            "mean_after": 0.7784,
+            "regressions": []
+          },
+          "reason": "accepted",
+          "attempt": 1,
+          "feedback": "채택. 표적 '초콜렛' nDCG 0.00 → 1.00, 회귀 없음."
+        }
+      ],
+      "accepted": true,
+      "submissions": 1,
+      "action_count": 1,
+      "before": {
+        "query": "초콜렛",
+        "ndcg": 0.0,
+        "recall": 0.0,
+        "precision5": 0.0,
+        "n_results": 0,
+        "hits_top": []
+      },
+      "costs": {
+        "search_calls": 73,
+        "reindexes": 1,
+        "model_calls": 0,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "latency_ms": 39.865350001491606,
+        "api_cost_usd": 0.0
+      },
+      "after": {
+        "query": "초콜렛",
+        "ndcg": 1.0,
+        "recall": 1.0,
+        "precision5": 1.0,
+        "n_results": 3,
+        "hits_top": [
+          "P008",
+          "P005",
+          "P007"
+        ]
+      }
+    },
+    {
+      "query_id": "q-fa86f375066072e0",
+      "query": "리모콘",
+      "split": "dev",
+      "family": "spelling_variant",
+      "observation": {
+        "query_id": "q-fa86f375066072e0",
+        "query": "리모콘",
+        "split": "dev",
+        "result_count": 0,
+        "top1_score": null,
+        "top2_score": null,
+        "score_margin": null,
+        "lexical_coverage": 0.0,
+        "retriever_agreement": null,
+        "evidence_conflict": null,
+        "grounding_score": null,
+        "latency_ms": 0.060688998928526416,
+        "family": "spelling_variant",
+        "baseline_ndcg": 0.0,
+        "baseline_recall": 0.0
+      },
+      "detection": {
+        "failure_probability": 0.95,
+        "predicted_failure": true,
+        "failure_reason_codes": [
+          "zero_results",
+          "low_lexical_coverage"
+        ],
+        "calibration_version": "rule-v1-uncalibrated"
+      },
+      "decision": "typed_patch",
+      "intervened": true,
+      "policy_events": [
+        {
+          "action": "typed_patch",
+          "reason": "positive_utility",
+          "utility": 0.0425,
+          "feedback": null,
+          "cost_semantics": "expected-v2",
+          "expected_cost": {
+            "search_calls": 0,
+            "reindexes": 0,
+            "model_calls": 0,
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "latency_ms": null,
+            "api_cost_usd": 0.0
+          },
+          "measured_candidate_generation_cost": {
+            "search_calls": 0,
+            "reindexes": 0,
+            "model_calls": 0,
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "latency_ms": 5.721549001464155,
+            "api_cost_usd": 0.0
+          }
+        }
+      ],
+      "trace": [
+        {
+          "action": "typed_patch",
+          "accepted": true,
+          "previous_feedback": null,
+          "regressions": [],
+          "evidence_ids": [
+            "document:P041:6:9",
+            "query:리모콘:0:3"
+          ],
+          "evidence": [
+            {
+              "source_type": "document",
+              "source_id": "P041",
+              "start": 6,
+              "end": 9,
+              "text": "리모컨"
+            },
+            {
+              "source_type": "query",
+              "source_id": "리모콘",
+              "start": 0,
+              "end": 3,
+              "text": "리모콘"
+            }
+          ],
+          "prescription": {
+            "target_query": "리모콘",
+            "diagnosis_family": "spelling_variant",
+            "reasoning": "'리모콘'와 자모 유사도 0.86인 색인 토큰 '리모컨'이 존재한다. 표기 변형으로 판단해 동의어로 연결한다.",
+            "user_words": [],
+            "synonym_groups": [
+              {
+                "terms": [
+                  "리모컨",
+                  "리모콘"
+                ]
+              }
+            ],
+            "compound_expansions": []
+          },
+          "verdict": {
+            "accepted": true,
+            "reason": "표적 개선 + 무회귀 + 전체 보존",
+            "target_query": "리모콘",
+            "target_before": {
+              "query": "리모콘",
+              "ndcg": 0.0,
+              "recall": 0.0,
+              "precision5": 0.0,
+              "n_results": 0,
+              "hits_top": []
+            },
+            "target_after": {
+              "query": "리모콘",
+              "ndcg": 1.0,
+              "recall": 1.0,
+              "precision5": 1.0,
+              "n_results": 2,
+              "hits_top": [
+                "P041",
+                "P042"
+              ]
+            },
+            "mean_before": 0.7784,
+            "mean_after": 0.8062,
+            "regressions": []
+          },
+          "reason": "accepted",
+          "attempt": 1,
+          "feedback": "채택. 표적 '리모콘' nDCG 0.00 → 1.00, 회귀 없음."
+        }
+      ],
+      "accepted": true,
+      "submissions": 1,
+      "action_count": 1,
+      "before": {
+        "query": "리모콘",
+        "ndcg": 0.0,
+        "recall": 0.0,
+        "precision5": 0.0,
+        "n_results": 0,
+        "hits_top": []
+      },
+      "costs": {
+        "search_calls": 73,
+        "reindexes": 1,
+        "model_calls": 0,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "latency_ms": 36.9849590024387,
+        "api_cost_usd": 0.0
+      },
+      "after": {
+        "query": "리모콘",
+        "ndcg": 1.0,
+        "recall": 1.0,
+        "precision5": 1.0,
+        "n_results": 2,
+        "hits_top": [
+          "P041",
+          "P042"
+        ]
+      }
+    },
+    {
+      "query_id": "q-cde5d622966a4aba",
+      "query": "블루투스 스피커",
+      "split": "dev",
+      "family": "cross_script",
+      "observation": {
+        "query_id": "q-cde5d622966a4aba",
+        "query": "블루투스 스피커",
+        "split": "dev",
+        "result_count": 3,
+        "top1_score": 4.498,
+        "top2_score": 4.2575,
+        "score_margin": 0.05346820809248553,
+        "lexical_coverage": 0.5,
+        "retriever_agreement": null,
+        "evidence_conflict": null,
+        "grounding_score": null,
+        "latency_ms": 0.9849840025708545,
+        "family": "cross_script",
+        "baseline_ndcg": 0.5,
+        "baseline_recall": 1.0
+      },
+      "detection": {
+        "failure_probability": 0.6,
+        "predicted_failure": true,
+        "failure_reason_codes": [
+          "low_score_margin"
+        ],
+        "calibration_version": "rule-v1-uncalibrated"
+      },
+      "decision": "abstain",
+      "intervened": true,
+      "policy_events": [
+        {
+          "action": "abstain",
+          "reason": "no_candidate"
+        }
+      ],
+      "trace": [],
+      "accepted": false,
+      "submissions": 0,
+      "action_count": 0,
+      "before": {
+        "query": "블루투스 스피커",
+        "ndcg": 0.5,
+        "recall": 1.0,
+        "precision5": 0.3333,
+        "n_results": 3,
+        "hits_top": [
+          "P034",
+          "P033",
+          "P032"
+        ]
+      },
+      "costs": {
+        "search_calls": 1,
+        "reindexes": 0,
+        "model_calls": 0,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "latency_ms": 7.4218000008841045,
+        "api_cost_usd": 0.0
+      },
+      "after": {
+        "query": "블루투스 스피커",
+        "ndcg": 0.5,
+        "recall": 1.0,
+        "precision5": 0.3333,
+        "n_results": 3,
+        "hits_top": [
+          "P034",
+          "P033",
+          "P032"
+        ]
+      }
+    },
+    {
+      "query_id": "q-b1da87818f8d293d",
+      "query": "텀블러",
+      "split": "dev",
+      "family": "cross_script",
+      "observation": {
+        "query_id": "q-b1da87818f8d293d",
+        "query": "텀블러",
+        "split": "dev",
+        "result_count": 1,
+        "top1_score": 5.1686,
+        "top2_score": null,
+        "score_margin": null,
+        "lexical_coverage": 1.0,
+        "retriever_agreement": null,
+        "evidence_conflict": null,
+        "grounding_score": null,
+        "latency_ms": 0.6584920010936912,
+        "family": "cross_script",
+        "baseline_ndcg": 0.6131,
+        "baseline_recall": 0.5
+      },
+      "detection": {
+        "failure_probability": 0.1,
+        "predicted_failure": false,
+        "failure_reason_codes": [],
+        "calibration_version": "rule-v1-uncalibrated"
+      },
+      "decision": "no_op",
+      "intervened": false,
+      "policy_events": [],
+      "trace": [],
+      "accepted": false,
+      "submissions": 0,
+      "action_count": 0,
+      "before": {
+        "query": "텀블러",
+        "ndcg": 0.6131,
+        "recall": 0.5,
+        "precision5": 1.0,
+        "n_results": 1,
+        "hits_top": [
+          "P080"
+        ]
+      },
+      "costs": {
+        "search_calls": 0,
+        "reindexes": 0,
+        "model_calls": 0,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "latency_ms": 0.008704999345354736,
+        "api_cost_usd": 0.0
+      },
+      "after": {
+        "query": "텀블러",
+        "ndcg": 0.6131,
+        "recall": 0.5,
+        "precision5": 1.0,
+        "n_results": 1,
+        "hits_top": [
+          "P080"
+        ]
+      }
+    },
+    {
+      "query_id": "q-a16cbcda6b6ad4d2",
+      "query": "핸드폰",
+      "split": "dev",
+      "family": "synonym_gap",
+      "observation": {
+        "query_id": "q-a16cbcda6b6ad4d2",
+        "query": "핸드폰",
+        "split": "dev",
+        "result_count": 0,
+        "top1_score": null,
+        "top2_score": null,
+        "score_margin": null,
+        "lexical_coverage": 0.0,
+        "retriever_agreement": null,
+        "evidence_conflict": null,
+        "grounding_score": null,
+        "latency_ms": 0.10784199912450276,
+        "family": "synonym_gap",
+        "baseline_ndcg": 0.0,
+        "baseline_recall": 0.0
+      },
+      "detection": {
+        "failure_probability": 0.95,
+        "predicted_failure": true,
+        "failure_reason_codes": [
+          "zero_results",
+          "low_lexical_coverage"
+        ],
+        "calibration_version": "rule-v1-uncalibrated"
+      },
+      "decision": "abstain",
+      "intervened": true,
+      "policy_events": [
+        {
+          "action": "abstain",
+          "reason": "no_candidate"
+        }
+      ],
+      "trace": [],
+      "accepted": false,
+      "submissions": 0,
+      "action_count": 0,
+      "before": {
+        "query": "핸드폰",
+        "ndcg": 0.0,
+        "recall": 0.0,
+        "precision5": 0.0,
+        "n_results": 0,
+        "hits_top": []
+      },
+      "costs": {
+        "search_calls": 1,
+        "reindexes": 0,
+        "model_calls": 0,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "latency_ms": 7.248697002069093,
+        "api_cost_usd": 0.0
+      },
+      "after": {
+        "query": "핸드폰",
+        "ndcg": 0.0,
+        "recall": 0.0,
+        "precision5": 0.0,
+        "n_results": 0,
+        "hits_top": []
+      }
+    },
+    {
+      "query_id": "q-92d9adfb92879d87",
+      "query": "츄리닝",
+      "split": "dev",
+      "family": "synonym_gap",
+      "observation": {
+        "query_id": "q-92d9adfb92879d87",
+        "query": "츄리닝",
+        "split": "dev",
+        "result_count": 0,
+        "top1_score": null,
+        "top2_score": null,
+        "score_margin": null,
+        "lexical_coverage": 0.0,
+        "retriever_agreement": null,
+        "evidence_conflict": null,
+        "grounding_score": null,
+        "latency_ms": 0.07833400013623759,
+        "family": "synonym_gap",
+        "baseline_ndcg": 0.0,
+        "baseline_recall": 0.0
+      },
+      "detection": {
+        "failure_probability": 0.95,
+        "predicted_failure": true,
+        "failure_reason_codes": [
+          "zero_results",
+          "low_lexical_coverage"
+        ],
+        "calibration_version": "rule-v1-uncalibrated"
+      },
+      "decision": "abstain",
+      "intervened": true,
+      "policy_events": [
+        {
+          "action": "abstain",
+          "reason": "no_candidate"
+        }
+      ],
+      "trace": [],
+      "accepted": false,
+      "submissions": 0,
+      "action_count": 0,
+      "before": {
+        "query": "츄리닝",
+        "ndcg": 0.0,
+        "recall": 0.0,
+        "precision5": 0.0,
+        "n_results": 0,
+        "hits_top": []
+      },
+      "costs": {
+        "search_calls": 1,
+        "reindexes": 0,
+        "model_calls": 0,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "latency_ms": 7.09053200262133,
+        "api_cost_usd": 0.0
+      },
+      "after": {
+        "query": "츄리닝",
+        "ndcg": 0.0,
+        "recall": 0.0,
+        "precision5": 0.0,
+        "n_results": 0,
+        "hits_top": []
+      }
+    },
+    {
+      "query_id": "q-92d153f5398c2c94",
+      "query": "티슈",
+      "split": "dev",
+      "family": "compound_locked",
+      "observation": {
+        "query_id": "q-92d153f5398c2c94",
+        "query": "티슈",
+        "split": "dev",
+        "result_count": 0,
+        "top1_score": null,
+        "top2_score": null,
+        "score_margin": null,
+        "lexical_coverage": 0.0,
+        "retriever_agreement": null,
+        "evidence_conflict": null,
+        "grounding_score": null,
+        "latency_ms": 0.037988000258337706,
+        "family": "compound_locked",
+        "baseline_ndcg": 0.0,
+        "baseline_recall": 0.0
+      },
+      "detection": {
+        "failure_probability": 0.95,
+        "predicted_failure": true,
+        "failure_reason_codes": [
+          "zero_results",
+          "low_lexical_coverage"
+        ],
+        "calibration_version": "rule-v1-uncalibrated"
+      },
+      "decision": "typed_patch",
+      "intervened": true,
+      "policy_events": [
+        {
+          "action": "typed_patch",
+          "reason": "positive_utility",
+          "utility": 0.0425,
+          "feedback": null,
+          "cost_semantics": "expected-v2",
+          "expected_cost": {
+            "search_calls": 0,
+            "reindexes": 0,
+            "model_calls": 0,
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "latency_ms": null,
+            "api_cost_usd": 0.0
+          },
+          "measured_candidate_generation_cost": {
+            "search_calls": 0,
+            "reindexes": 0,
+            "model_calls": 0,
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "latency_ms": 5.075474997283891,
+            "api_cost_usd": 0.0
+          }
+        }
+      ],
+      "trace": [
+        {
+          "action": "typed_patch",
+          "accepted": true,
+          "previous_feedback": null,
+          "regressions": [],
+          "evidence_ids": [
+            "document:P008:31:32",
+            "document:P020:3:6",
+            "query:티슈:0:2"
+          ],
+          "evidence": [
+            {
+              "source_type": "document",
+              "source_id": "P008",
+              "start": 31,
+              "end": 32,
+              "text": "물"
+            },
+            {
+              "source_type": "document",
+              "source_id": "P020",
+              "start": 3,
+              "end": 6,
+              "text": "물티슈"
+            },
+            {
+              "source_type": "query",
+              "source_id": "티슈",
+              "start": 0,
+              "end": 2,
+              "text": "티슈"
+            }
+          ],
+          "prescription": {
+            "target_query": "티슈",
+            "diagnosis_family": "compound_locked",
+            "reasoning": "색인 토큰 '물티슈'이 질의 토큰 '티슈'를 포함하는 복합어다. 통짜 색인이라 부분어로 못 찾으므로 분해 확장한다.",
+            "user_words": [],
+            "synonym_groups": [],
+            "compound_expansions": [
+              {
+                "word": "물티슈",
+                "parts": [
+                  "물",
+                  "티슈"
+                ]
+              }
+            ]
+          },
+          "verdict": {
+            "accepted": true,
+            "reason": "표적 개선 + 무회귀 + 전체 보존",
+            "target_query": "티슈",
+            "target_before": {
+              "query": "티슈",
+              "ndcg": 0.0,
+              "recall": 0.0,
+              "precision5": 0.0,
+              "n_results": 0,
+              "hits_top": []
+            },
+            "target_after": {
+              "query": "티슈",
+              "ndcg": 1.0,
+              "recall": 1.0,
+              "precision5": 1.0,
+              "n_results": 2,
+              "hits_top": [
+                "P021",
+                "P020"
+              ]
+            },
+            "mean_before": 0.8062,
+            "mean_after": 0.8339,
+            "regressions": []
+          },
+          "reason": "accepted",
+          "attempt": 1,
+          "feedback": "채택. 표적 '티슈' nDCG 0.00 → 1.00, 회귀 없음."
+        }
+      ],
+      "accepted": true,
+      "submissions": 1,
+      "action_count": 1,
+      "before": {
+        "query": "티슈",
+        "ndcg": 0.0,
+        "recall": 0.0,
+        "precision5": 0.0,
+        "n_results": 0,
+        "hits_top": []
+      },
+      "costs": {
+        "search_calls": 73,
+        "reindexes": 1,
+        "model_calls": 0,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "latency_ms": 41.7002260001027,
+        "api_cost_usd": 0.0
+      },
+      "after": {
+        "query": "티슈",
+        "ndcg": 1.0,
+        "recall": 1.0,
+        "precision5": 1.0,
+        "n_results": 2,
+        "hits_top": [
+          "P021",
+          "P020"
+        ]
+      }
+    },
+    {
+      "query_id": "q-5de3ac070f459ac2",
+      "query": "머스캣",
+      "split": "dev",
+      "family": "compound_locked",
+      "observation": {
+        "query_id": "q-5de3ac070f459ac2",
+        "query": "머스캣",
+        "split": "dev",
+        "result_count": 0,
+        "top1_score": null,
+        "top2_score": null,
+        "score_margin": null,
+        "lexical_coverage": 0.0,
+        "retriever_agreement": null,
+        "evidence_conflict": null,
+        "grounding_score": null,
+        "latency_ms": 0.05657799920300022,
+        "family": "compound_locked",
+        "baseline_ndcg": 0.0,
+        "baseline_recall": 0.0
+      },
+      "detection": {
+        "failure_probability": 0.95,
+        "predicted_failure": true,
+        "failure_reason_codes": [
+          "zero_results",
+          "low_lexical_coverage"
+        ],
+        "calibration_version": "rule-v1-uncalibrated"
+      },
+      "decision": "typed_patch",
+      "intervened": true,
+      "policy_events": [
+        {
+          "action": "typed_patch",
+          "reason": "positive_utility",
+          "utility": 0.0425,
+          "feedback": null,
+          "cost_semantics": "expected-v2",
+          "expected_cost": {
+            "search_calls": 0,
+            "reindexes": 0,
+            "model_calls": 0,
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "latency_ms": null,
+            "api_cost_usd": 0.0
+          },
+          "measured_candidate_generation_cost": {
+            "search_calls": 0,
+            "reindexes": 0,
+            "model_calls": 0,
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "latency_ms": 6.356646001222543,
+            "api_cost_usd": 0.0
+          }
+        }
+      ],
+      "trace": [
+        {
+          "action": "typed_patch",
+          "accepted": true,
+          "previous_feedback": null,
+          "regressions": [],
+          "evidence_ids": [
+            "query:머스캣:0:3",
+            "document:P050:0:2",
+            "document:P050:0:5"
+          ],
+          "evidence": [
+            {
+              "source_type": "query",
+              "source_id": "머스캣",
+              "start": 0,
+              "end": 3,
+              "text": "머스캣"
+            },
+            {
+              "source_type": "document",
+              "source_id": "P050",
+              "start": 0,
+              "end": 2,
+              "text": "샤인"
+            },
+            {
+              "source_type": "document",
+              "source_id": "P050",
+              "start": 0,
+              "end": 5,
+              "text": "샤인머스캣"
+            }
+          ],
+          "prescription": {
+            "target_query": "머스캣",
+            "diagnosis_family": "compound_locked",
+            "reasoning": "색인 토큰 '샤인머스캣'이 질의 토큰 '머스캣'를 포함하는 복합어다. 통짜 색인이라 부분어로 못 찾으므로 분해 확장한다.",
+            "user_words": [],
+            "synonym_groups": [],
+            "compound_expansions": [
+              {
+                "word": "샤인머스캣",
+                "parts": [
+                  "샤인",
+                  "머스캣"
+                ]
+              }
+            ]
+          },
+          "verdict": {
+            "accepted": true,
+            "reason": "표적 개선 + 무회귀 + 전체 보존",
+            "target_query": "머스캣",
+            "target_before": {
+              "query": "머스캣",
+              "ndcg": 0.0,
+              "recall": 0.0,
+              "precision5": 0.0,
+              "n_results": 0,
+              "hits_top": []
+            },
+            "target_after": {
+              "query": "머스캣",
+              "ndcg": 1.0,
+              "recall": 1.0,
+              "precision5": 1.0,
+              "n_results": 2,
+              "hits_top": [
+                "P051",
+                "P050"
+              ]
+            },
+            "mean_before": 0.8339,
+            "mean_after": 0.8617,
+            "regressions": []
+          },
+          "reason": "accepted",
+          "attempt": 1,
+          "feedback": "채택. 표적 '머스캣' nDCG 0.00 → 1.00, 회귀 없음."
+        }
+      ],
+      "accepted": true,
+      "submissions": 1,
+      "action_count": 1,
+      "before": {
+        "query": "머스캣",
+        "ndcg": 0.0,
+        "recall": 0.0,
+        "precision5": 0.0,
+        "n_results": 0,
+        "hits_top": []
+      },
+      "costs": {
+        "search_calls": 73,
+        "reindexes": 1,
+        "model_calls": 0,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "latency_ms": 38.93920900009107,
+        "api_cost_usd": 0.0
+      },
+      "after": {
+        "query": "머스캣",
+        "ndcg": 1.0,
+        "recall": 1.0,
+        "precision5": 1.0,
+        "n_results": 2,
+        "hits_top": [
+          "P051",
+          "P050"
+        ]
+      }
+    },
+    {
+      "query_id": "q-ff65fc04a1229a8c",
+      "query": "아답터",
+      "split": "dev",
+      "family": "garbage_split",
+      "observation": {
+        "query_id": "q-ff65fc04a1229a8c",
+        "query": "아답터",
+        "split": "dev",
+        "result_count": 0,
+        "top1_score": null,
+        "top2_score": null,
+        "score_margin": null,
+        "lexical_coverage": 0.0,
+        "retriever_agreement": null,
+        "evidence_conflict": null,
+        "grounding_score": null,
+        "latency_ms": 0.062229999457485974,
+        "family": "garbage_split",
+        "baseline_ndcg": 0.0,
+        "baseline_recall": 0.0
+      },
+      "detection": {
+        "failure_probability": 0.95,
+        "predicted_failure": true,
+        "failure_reason_codes": [
+          "zero_results",
+          "low_lexical_coverage"
+        ],
+        "calibration_version": "rule-v1-uncalibrated"
+      },
+      "decision": "typed_patch",
+      "intervened": true,
+      "policy_events": [
+        {
+          "action": "typed_patch",
+          "reason": "positive_utility",
+          "utility": 0.0425,
+          "feedback": null,
+          "cost_semantics": "expected-v2",
+          "expected_cost": {
+            "search_calls": 0,
+            "reindexes": 0,
+            "model_calls": 0,
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "latency_ms": null,
+            "api_cost_usd": 0.0
+          },
+          "measured_candidate_generation_cost": {
+            "search_calls": 0,
+            "reindexes": 0,
+            "model_calls": 0,
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "latency_ms": 5.873426001926418,
+            "api_cost_usd": 0.0
+          }
+        },
+        {
+          "action": "typed_patch",
+          "reason": "positive_utility",
+          "utility": 0.0425,
+          "feedback": "기각: 표적 질의가 충분히 개선되지 않음 (nDCG 0.00 → 0.00, 요구 이득 +0.05)\n처방을 더 좁히거나(대상 항목 축소) 다른 패치 유형을 검토하라.",
+          "cost_semantics": "expected-v2",
+          "expected_cost": {
+            "search_calls": 0,
+            "reindexes": 0,
+            "model_calls": 0,
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "latency_ms": null,
+            "api_cost_usd": 0.0
+          },
+          "measured_candidate_generation_cost": {
+            "search_calls": 0,
+            "reindexes": 0,
+            "model_calls": 0,
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "latency_ms": 5.873426001926418,
+            "api_cost_usd": 0.0
+          }
+        }
+      ],
+      "trace": [
+        {
+          "action": "typed_patch",
+          "accepted": false,
+          "previous_feedback": null,
+          "regressions": [],
+          "evidence_ids": [
+            "query:아답터:0:3",
+            "document:P035:7:10"
+          ],
+          "evidence": [
+            {
+              "source_type": "query",
+              "source_id": "아답터",
+              "start": 0,
+              "end": 3,
+              "text": "아답터"
+            },
+            {
+              "source_type": "document",
+              "source_id": "P035",
+              "start": 7,
+              "end": 10,
+              "text": "어댑터"
+            }
+          ],
+          "prescription": {
+            "target_query": "아답터",
+            "diagnosis_family": "spelling_variant",
+            "reasoning": "'아답터'와 자모 유사도 0.71인 색인 토큰 '어댑터'이 존재한다. 표기 변형으로 판단해 동의어로 연결한다.",
+            "user_words": [],
+            "synonym_groups": [
+              {
+                "terms": [
+                  "어댑터",
+                  "아답터"
+                ]
+              }
+            ],
+            "compound_expansions": []
+          },
+          "verdict": {
+            "accepted": false,
+            "reason": "표적 질의가 충분히 개선되지 않음 (nDCG 0.00 → 0.00, 요구 이득 +0.05)",
+            "target_query": "아답터",
+            "target_before": {
+              "query": "아답터",
+              "ndcg": 0.0,
+              "recall": 0.0,
+              "precision5": 0.0,
+              "n_results": 0,
+              "hits_top": []
+            },
+            "target_after": {
+              "query": "아답터",
+              "ndcg": 0.0,
+              "recall": 0.0,
+              "precision5": 0.0,
+              "n_results": 0,
+              "hits_top": []
+            },
+            "mean_before": 0.8617,
+            "mean_after": 0.8617,
+            "regressions": []
+          },
+          "reason": "rejected",
+          "attempt": 1,
+          "feedback": "기각: 표적 질의가 충분히 개선되지 않음 (nDCG 0.00 → 0.00, 요구 이득 +0.05)\n처방을 더 좁히거나(대상 항목 축소) 다른 패치 유형을 검토하라."
+        },
+        {
+          "action": "typed_patch",
+          "accepted": true,
+          "previous_feedback": "기각: 표적 질의가 충분히 개선되지 않음 (nDCG 0.00 → 0.00, 요구 이득 +0.05)\n처방을 더 좁히거나(대상 항목 축소) 다른 패치 유형을 검토하라.",
+          "regressions": [],
+          "evidence_ids": [
+            "query:아답터:0:3",
+            "document:P035:7:10"
+          ],
+          "evidence": [
+            {
+              "source_type": "query",
+              "source_id": "아답터",
+              "start": 0,
+              "end": 3,
+              "text": "아답터"
+            },
+            {
+              "source_type": "document",
+              "source_id": "P035",
+              "start": 7,
+              "end": 10,
+              "text": "어댑터"
+            }
+          ],
+          "prescription": {
+            "target_query": "아답터",
+            "diagnosis_family": "garbage_split",
+            "reasoning": "질의가 [답, 터]로 한 음절씩 쪼개졌다. 이 상태에서는 동의어를 걸어도 매칭될 토큰이 없다. '아답터'를 사전에 등록해 한 덩어리로 만든 뒤, 자모 유사도 0.71인 색인 토큰 '어댑터'과 동의어로 연결한다.",
+            "user_words": [
+              {
+                "form": "아답터",
+                "tag": "NNP"
+              }
+            ],
+            "synonym_groups": [
+              {
+                "terms": [
+                  "어댑터",
+                  "아답터"
+                ]
+              }
+            ],
+            "compound_expansions": []
+          },
+          "verdict": {
+            "accepted": true,
+            "reason": "표적 개선 + 무회귀 + 전체 보존",
+            "target_query": "아답터",
+            "target_before": {
+              "query": "아답터",
+              "ndcg": 0.0,
+              "recall": 0.0,
+              "precision5": 0.0,
+              "n_results": 0,
+              "hits_top": []
+            },
+            "target_after": {
+              "query": "아답터",
+              "ndcg": 1.0,
+              "recall": 1.0,
+              "precision5": 1.0,
+              "n_results": 2,
+              "hits_top": [
+                "P036",
+                "P035"
+              ]
+            },
+            "mean_before": 0.8617,
+            "mean_after": 0.8895,
+            "regressions": []
+          },
+          "reason": "accepted",
+          "attempt": 2,
+          "feedback": "채택. 표적 '아답터' nDCG 0.00 → 1.00, 회귀 없음."
+        }
+      ],
+      "accepted": true,
+      "submissions": 2,
+      "action_count": 2,
+      "before": {
+        "query": "아답터",
+        "ndcg": 0.0,
+        "recall": 0.0,
+        "precision5": 0.0,
+        "n_results": 0,
+        "hits_top": []
+      },
+      "costs": {
+        "search_calls": 145,
+        "reindexes": 2,
+        "model_calls": 0,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "latency_ms": 76.08614400305669,
+        "api_cost_usd": 0.0
+      },
+      "after": {
+        "query": "아답터",
+        "ndcg": 1.0,
+        "recall": 1.0,
+        "precision5": 1.0,
+        "n_results": 2,
+        "hits_top": [
+          "P036",
+          "P035"
+        ]
+      }
+    },
+    {
+      "query_id": "q-f2ce19b5e2f37a0d",
+      "query": "백팩",
+      "split": "dev",
+      "family": "garbage_split",
+      "observation": {
+        "query_id": "q-f2ce19b5e2f37a0d",
+        "query": "백팩",
+        "split": "dev",
+        "result_count": 4,
+        "top1_score": 5.5946,
+        "top2_score": 3.1238,
+        "score_margin": 0.44164015300468307,
+        "lexical_coverage": 1.0,
+        "retriever_agreement": null,
+        "evidence_conflict": null,
+        "grounding_score": null,
+        "latency_ms": 1.4196360025380272,
+        "family": "garbage_split",
+        "baseline_ndcg": 0.0,
+        "baseline_recall": 0.0
+      },
+      "detection": {
+        "failure_probability": 0.1,
+        "predicted_failure": false,
+        "failure_reason_codes": [],
+        "calibration_version": "rule-v1-uncalibrated"
+      },
+      "decision": "no_op",
+      "intervened": false,
+      "policy_events": [],
+      "trace": [],
+      "accepted": false,
+      "submissions": 0,
+      "action_count": 0,
+      "before": {
+        "query": "백팩",
+        "ndcg": 0.0,
+        "recall": 0.0,
+        "precision5": 0.0,
+        "n_results": 4,
+        "hits_top": [
+          "P064",
+          "P021",
+          "P020",
+          "P010"
+        ]
+      },
+      "costs": {
+        "search_calls": 0,
+        "reindexes": 0,
+        "model_calls": 0,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "latency_ms": 0.007916998583823442,
+        "api_cost_usd": 0.0
+      },
+      "after": {
+        "query": "백팩",
+        "ndcg": 0.0,
+        "recall": 0.0,
+        "precision5": 0.0,
+        "n_results": 4,
+        "hits_top": [
+          "P064",
+          "P010",
+          "P021",
+          "P020"
+        ]
+      }
+    }
+  ],
+  "accepted_ledger": [
+    {
+      "action": "typed_patch",
+      "accepted": true,
+      "previous_feedback": null,
+      "regressions": [],
+      "evidence_ids": [
+        "document:P001:6:10",
+        "query:후라이팬:0:4"
+      ],
+      "evidence": [
+        {
+          "source_type": "document",
+          "source_id": "P001",
+          "start": 6,
+          "end": 10,
+          "text": "프라이팬"
+        },
+        {
+          "source_type": "query",
+          "source_id": "후라이팬",
+          "start": 0,
+          "end": 4,
+          "text": "후라이팬"
+        }
+      ],
+      "prescription": {
+        "target_query": "후라이팬",
+        "diagnosis_family": "spelling_variant",
+        "reasoning": "'후라이팬'와 자모 유사도 0.78인 색인 토큰 '프라이팬'이 존재한다. 표기 변형으로 판단해 동의어로 연결한다.",
+        "user_words": [],
+        "synonym_groups": [
+          {
+            "terms": [
+              "프라이팬",
+              "후라이팬"
+            ]
+          }
+        ],
+        "compound_expansions": []
+      },
+      "verdict": {
+        "accepted": true,
+        "reason": "표적 개선 + 무회귀 + 전체 보존",
+        "target_query": "후라이팬",
+        "target_before": {
+          "query": "후라이팬",
+          "ndcg": 0.0,
+          "recall": 0.0,
+          "precision5": 0.0,
+          "n_results": 0,
+          "hits_top": []
+        },
+        "target_after": {
+          "query": "후라이팬",
+          "ndcg": 1.0,
+          "recall": 1.0,
+          "precision5": 1.0,
+          "n_results": 2,
+          "hits_top": [
+            "P001",
+            "P002"
+          ]
+        },
+        "mean_before": 0.5839,
+        "mean_after": 0.6117,
+        "regressions": []
+      },
+      "reason": "accepted",
+      "attempt": 1,
+      "feedback": "채택. 표적 '후라이팬' nDCG 0.00 → 1.00, 회귀 없음."
+    },
+    {
+      "action": "typed_patch",
+      "accepted": true,
+      "previous_feedback": null,
+      "regressions": [],
+      "evidence_ids": [
+        "document:P006:7:10",
+        "query:케잌 주문:0:2"
+      ],
+      "evidence": [
+        {
+          "source_type": "document",
+          "source_id": "P006",
+          "start": 7,
+          "end": 10,
+          "text": "케이크"
+        },
+        {
+          "source_type": "query",
+          "source_id": "케잌 주문",
+          "start": 0,
+          "end": 2,
+          "text": "케잌"
+        }
+      ],
+      "prescription": {
+        "target_query": "케잌 주문",
+        "diagnosis_family": "spelling_variant",
+        "reasoning": "'케잌'와 자모 유사도 0.83인 색인 토큰 '케이크'이 존재한다. 표기 변형으로 판단해 동의어로 연결한다.",
+        "user_words": [],
+        "synonym_groups": [
+          {
+            "terms": [
+              "케이크",
+              "케잌"
+            ]
+          }
+        ],
+        "compound_expansions": []
+      },
+      "verdict": {
+        "accepted": true,
+        "reason": "표적 개선 + 무회귀 + 전체 보존",
+        "target_query": "케잌 주문",
+        "target_before": {
+          "query": "케잌 주문",
+          "ndcg": 0.0,
+          "recall": 0.0,
+          "precision5": 0.0,
+          "n_results": 0,
+          "hits_top": []
+        },
+        "target_after": {
+          "query": "케잌 주문",
+          "ndcg": 1.0,
+          "recall": 1.0,
+          "precision5": 1.0,
+          "n_results": 2,
+          "hits_top": [
+            "P006",
+            "P007"
+          ]
+        },
+        "mean_before": 0.6117,
+        "mean_after": 0.6395,
+        "regressions": []
+      },
+      "reason": "accepted",
+      "attempt": 1,
+      "feedback": "채택. 표적 '케잌 주문' nDCG 0.00 → 1.00, 회귀 없음."
+    },
+    {
+      "action": "typed_patch",
+      "accepted": true,
+      "previous_feedback": null,
+      "regressions": [],
+      "evidence_ids": [
+        "query:도너츠:0:3",
+        "document:P004:4:6"
+      ],
+      "evidence": [
+        {
+          "source_type": "query",
+          "source_id": "도너츠",
+          "start": 0,
+          "end": 3,
+          "text": "도너츠"
+        },
+        {
+          "source_type": "document",
+          "source_id": "P004",
+          "start": 4,
+          "end": 6,
+          "text": "도넛"
+        }
+      ],
+      "prescription": {
+        "target_query": "도너츠",
+        "diagnosis_family": "spelling_variant",
+        "reasoning": "'도너츠'와 자모 유사도 0.67인 색인 토큰 '도넛'이 존재한다. 표기 변형으로 판단해 동의어로 연결한다.",
+        "user_words": [],
+        "synonym_groups": [
+          {
+            "terms": [
+              "도넛",
+              "도너츠"
+            ]
+          }
+        ],
+        "compound_expansions": []
+      },
+      "verdict": {
+        "accepted": true,
+        "reason": "표적 개선 + 무회귀 + 전체 보존",
+        "target_query": "도너츠",
+        "target_before": {
+          "query": "도너츠",
+          "ndcg": 0.0,
+          "recall": 0.0,
+          "precision5": 0.0,
+          "n_results": 0,
+          "hits_top": []
+        },
+        "target_after": {
+          "query": "도너츠",
+          "ndcg": 1.0,
+          "recall": 1.0,
+          "precision5": 1.0,
+          "n_results": 2,
+          "hits_top": [
+            "P004",
+            "P005"
+          ]
+        },
+        "mean_before": 0.6395,
+        "mean_after": 0.6673,
+        "regressions": []
+      },
+      "reason": "accepted",
+      "attempt": 1,
+      "feedback": "채택. 표적 '도너츠' nDCG 0.00 → 1.00, 회귀 없음."
+    },
+    {
+      "action": "typed_patch",
+      "accepted": true,
+      "previous_feedback": null,
+      "regressions": [],
+      "evidence_ids": [
+        "document:P009:7:9",
+        "query:쥬스:0:2"
+      ],
+      "evidence": [
+        {
+          "source_type": "document",
+          "source_id": "P009",
+          "start": 7,
+          "end": 9,
+          "text": "주스"
+        },
+        {
+          "source_type": "query",
+          "source_id": "쥬스",
+          "start": 0,
+          "end": 2,
+          "text": "쥬스"
+        }
+      ],
+      "prescription": {
+        "target_query": "쥬스",
+        "diagnosis_family": "spelling_variant",
+        "reasoning": "'쥬스'와 자모 유사도 0.75인 색인 토큰 '주스'이 존재한다. 표기 변형으로 판단해 동의어로 연결한다.",
+        "user_words": [],
+        "synonym_groups": [
+          {
+            "terms": [
+              "주스",
+              "쥬스"
+            ]
+          }
+        ],
+        "compound_expansions": []
+      },
+      "verdict": {
+        "accepted": true,
+        "reason": "표적 개선 + 무회귀 + 전체 보존",
+        "target_query": "쥬스",
+        "target_before": {
+          "query": "쥬스",
+          "ndcg": 0.0,
+          "recall": 0.0,
+          "precision5": 0.0,
+          "n_results": 0,
+          "hits_top": []
+        },
+        "target_after": {
+          "query": "쥬스",
+          "ndcg": 1.0,
+          "recall": 1.0,
+          "precision5": 1.0,
+          "n_results": 2,
+          "hits_top": [
+            "P009",
+            "P010"
+          ]
+        },
+        "mean_before": 0.6673,
+        "mean_after": 0.695,
+        "regressions": []
+      },
+      "reason": "accepted",
+      "attempt": 1,
+      "feedback": "채택. 표적 '쥬스' nDCG 0.00 → 1.00, 회귀 없음."
+    },
+    {
+      "action": "typed_patch",
+      "accepted": true,
+      "previous_feedback": null,
+      "regressions": [],
+      "evidence_ids": [
+        "query:소세지:0:3",
+        "document:P011:4:7"
+      ],
+      "evidence": [
+        {
+          "source_type": "query",
+          "source_id": "소세지",
+          "start": 0,
+          "end": 3,
+          "text": "소세지"
+        },
+        {
+          "source_type": "document",
+          "source_id": "P011",
+          "start": 4,
+          "end": 7,
+          "text": "소시지"
+        }
+      ],
+      "prescription": {
+        "target_query": "소세지",
+        "diagnosis_family": "spelling_variant",
+        "reasoning": "'소세지'와 자모 유사도 0.83인 색인 토큰 '소시지'이 존재한다. 표기 변형으로 판단해 동의어로 연결한다.",
+        "user_words": [],
+        "synonym_groups": [
+          {
+            "terms": [
+              "소시지",
+              "소세지"
+            ]
+          }
+        ],
+        "compound_expansions": []
+      },
+      "verdict": {
+        "accepted": true,
+        "reason": "표적 개선 + 무회귀 + 전체 보존",
+        "target_query": "소세지",
+        "target_before": {
+          "query": "소세지",
+          "ndcg": 0.0,
+          "recall": 0.0,
+          "precision5": 0.0,
+          "n_results": 0,
+          "hits_top": []
+        },
+        "target_after": {
+          "query": "소세지",
+          "ndcg": 1.0,
+          "recall": 1.0,
+          "precision5": 1.0,
+          "n_results": 2,
+          "hits_top": [
+            "P012",
+            "P011"
+          ]
+        },
+        "mean_before": 0.695,
+        "mean_after": 0.7228,
+        "regressions": []
+      },
+      "reason": "accepted",
+      "attempt": 1,
+      "feedback": "채택. 표적 '소세지' nDCG 0.00 → 1.00, 회귀 없음."
+    },
+    {
+      "action": "typed_patch",
+      "accepted": true,
+      "previous_feedback": null,
+      "regressions": [],
+      "evidence_ids": [
+        "query:카페트:0:3",
+        "document:P016:3:5"
+      ],
+      "evidence": [
+        {
+          "source_type": "query",
+          "source_id": "카페트",
+          "start": 0,
+          "end": 3,
+          "text": "카페트"
+        },
+        {
+          "source_type": "document",
+          "source_id": "P016",
+          "start": 3,
+          "end": 5,
+          "text": "카펫"
+        }
+      ],
+      "prescription": {
+        "target_query": "카페트",
+        "diagnosis_family": "spelling_variant",
+        "reasoning": "'카페트'와 자모 유사도 0.67인 색인 토큰 '카펫'이 존재한다. 표기 변형으로 판단해 동의어로 연결한다.",
+        "user_words": [],
+        "synonym_groups": [
+          {
+            "terms": [
+              "카펫",
+              "카페트"
+            ]
+          }
+        ],
+        "compound_expansions": []
+      },
+      "verdict": {
+        "accepted": true,
+        "reason": "표적 개선 + 무회귀 + 전체 보존",
+        "target_query": "카페트",
+        "target_before": {
+          "query": "카페트",
+          "ndcg": 0.0,
+          "recall": 0.0,
+          "precision5": 0.0,
+          "n_results": 0,
+          "hits_top": []
+        },
+        "target_after": {
+          "query": "카페트",
+          "ndcg": 1.0,
+          "recall": 1.0,
+          "precision5": 1.0,
+          "n_results": 2,
+          "hits_top": [
+            "P016",
+            "P017"
+          ]
+        },
+        "mean_before": 0.7228,
+        "mean_after": 0.7506,
+        "regressions": []
+      },
+      "reason": "accepted",
+      "attempt": 1,
+      "feedback": "채택. 표적 '카페트' nDCG 0.00 → 1.00, 회귀 없음."
+    },
+    {
+      "action": "typed_patch",
+      "accepted": true,
+      "previous_feedback": null,
+      "regressions": [],
+      "evidence_ids": [
+        "query:초콜렛:0:3",
+        "document:P005:3:6"
+      ],
+      "evidence": [
+        {
+          "source_type": "query",
+          "source_id": "초콜렛",
+          "start": 0,
+          "end": 3,
+          "text": "초콜렛"
+        },
+        {
+          "source_type": "document",
+          "source_id": "P005",
+          "start": 3,
+          "end": 6,
+          "text": "초콜릿"
+        }
+      ],
+      "prescription": {
+        "target_query": "초콜렛",
+        "diagnosis_family": "spelling_variant",
+        "reasoning": "'초콜렛'와 자모 유사도 0.88인 색인 토큰 '초콜릿'이 존재한다. 표기 변형으로 판단해 동의어로 연결한다.",
+        "user_words": [],
+        "synonym_groups": [
+          {
+            "terms": [
+              "초콜릿",
+              "초콜렛"
+            ]
+          }
+        ],
+        "compound_expansions": []
+      },
+      "verdict": {
+        "accepted": true,
+        "reason": "표적 개선 + 무회귀 + 전체 보존",
+        "target_query": "초콜렛",
+        "target_before": {
+          "query": "초콜렛",
+          "ndcg": 0.0,
+          "recall": 0.0,
+          "precision5": 0.0,
+          "n_results": 0,
+          "hits_top": []
+        },
+        "target_after": {
+          "query": "초콜렛",
+          "ndcg": 1.0,
+          "recall": 1.0,
+          "precision5": 1.0,
+          "n_results": 3,
+          "hits_top": [
+            "P008",
+            "P005",
+            "P007"
+          ]
+        },
+        "mean_before": 0.7506,
+        "mean_after": 0.7784,
+        "regressions": []
+      },
+      "reason": "accepted",
+      "attempt": 1,
+      "feedback": "채택. 표적 '초콜렛' nDCG 0.00 → 1.00, 회귀 없음."
+    },
+    {
+      "action": "typed_patch",
+      "accepted": true,
+      "previous_feedback": null,
+      "regressions": [],
+      "evidence_ids": [
+        "document:P041:6:9",
+        "query:리모콘:0:3"
+      ],
+      "evidence": [
+        {
+          "source_type": "document",
+          "source_id": "P041",
+          "start": 6,
+          "end": 9,
+          "text": "리모컨"
+        },
+        {
+          "source_type": "query",
+          "source_id": "리모콘",
+          "start": 0,
+          "end": 3,
+          "text": "리모콘"
+        }
+      ],
+      "prescription": {
+        "target_query": "리모콘",
+        "diagnosis_family": "spelling_variant",
+        "reasoning": "'리모콘'와 자모 유사도 0.86인 색인 토큰 '리모컨'이 존재한다. 표기 변형으로 판단해 동의어로 연결한다.",
+        "user_words": [],
+        "synonym_groups": [
+          {
+            "terms": [
+              "리모컨",
+              "리모콘"
+            ]
+          }
+        ],
+        "compound_expansions": []
+      },
+      "verdict": {
+        "accepted": true,
+        "reason": "표적 개선 + 무회귀 + 전체 보존",
+        "target_query": "리모콘",
+        "target_before": {
+          "query": "리모콘",
+          "ndcg": 0.0,
+          "recall": 0.0,
+          "precision5": 0.0,
+          "n_results": 0,
+          "hits_top": []
+        },
+        "target_after": {
+          "query": "리모콘",
+          "ndcg": 1.0,
+          "recall": 1.0,
+          "precision5": 1.0,
+          "n_results": 2,
+          "hits_top": [
+            "P041",
+            "P042"
+          ]
+        },
+        "mean_before": 0.7784,
+        "mean_after": 0.8062,
+        "regressions": []
+      },
+      "reason": "accepted",
+      "attempt": 1,
+      "feedback": "채택. 표적 '리모콘' nDCG 0.00 → 1.00, 회귀 없음."
+    },
+    {
+      "action": "typed_patch",
+      "accepted": true,
+      "previous_feedback": null,
+      "regressions": [],
+      "evidence_ids": [
+        "document:P008:31:32",
+        "document:P020:3:6",
+        "query:티슈:0:2"
+      ],
+      "evidence": [
+        {
+          "source_type": "document",
+          "source_id": "P008",
+          "start": 31,
+          "end": 32,
+          "text": "물"
+        },
+        {
+          "source_type": "document",
+          "source_id": "P020",
+          "start": 3,
+          "end": 6,
+          "text": "물티슈"
+        },
+        {
+          "source_type": "query",
+          "source_id": "티슈",
+          "start": 0,
+          "end": 2,
+          "text": "티슈"
+        }
+      ],
+      "prescription": {
+        "target_query": "티슈",
+        "diagnosis_family": "compound_locked",
+        "reasoning": "색인 토큰 '물티슈'이 질의 토큰 '티슈'를 포함하는 복합어다. 통짜 색인이라 부분어로 못 찾으므로 분해 확장한다.",
+        "user_words": [],
+        "synonym_groups": [],
+        "compound_expansions": [
+          {
+            "word": "물티슈",
+            "parts": [
+              "물",
+              "티슈"
+            ]
+          }
+        ]
+      },
+      "verdict": {
+        "accepted": true,
+        "reason": "표적 개선 + 무회귀 + 전체 보존",
+        "target_query": "티슈",
+        "target_before": {
+          "query": "티슈",
+          "ndcg": 0.0,
+          "recall": 0.0,
+          "precision5": 0.0,
+          "n_results": 0,
+          "hits_top": []
+        },
+        "target_after": {
+          "query": "티슈",
+          "ndcg": 1.0,
+          "recall": 1.0,
+          "precision5": 1.0,
+          "n_results": 2,
+          "hits_top": [
+            "P021",
+            "P020"
+          ]
+        },
+        "mean_before": 0.8062,
+        "mean_after": 0.8339,
+        "regressions": []
+      },
+      "reason": "accepted",
+      "attempt": 1,
+      "feedback": "채택. 표적 '티슈' nDCG 0.00 → 1.00, 회귀 없음."
+    },
+    {
+      "action": "typed_patch",
+      "accepted": true,
+      "previous_feedback": null,
+      "regressions": [],
+      "evidence_ids": [
+        "query:머스캣:0:3",
+        "document:P050:0:2",
+        "document:P050:0:5"
+      ],
+      "evidence": [
+        {
+          "source_type": "query",
+          "source_id": "머스캣",
+          "start": 0,
+          "end": 3,
+          "text": "머스캣"
+        },
+        {
+          "source_type": "document",
+          "source_id": "P050",
+          "start": 0,
+          "end": 2,
+          "text": "샤인"
+        },
+        {
+          "source_type": "document",
+          "source_id": "P050",
+          "start": 0,
+          "end": 5,
+          "text": "샤인머스캣"
+        }
+      ],
+      "prescription": {
+        "target_query": "머스캣",
+        "diagnosis_family": "compound_locked",
+        "reasoning": "색인 토큰 '샤인머스캣'이 질의 토큰 '머스캣'를 포함하는 복합어다. 통짜 색인이라 부분어로 못 찾으므로 분해 확장한다.",
+        "user_words": [],
+        "synonym_groups": [],
+        "compound_expansions": [
+          {
+            "word": "샤인머스캣",
+            "parts": [
+              "샤인",
+              "머스캣"
+            ]
+          }
+        ]
+      },
+      "verdict": {
+        "accepted": true,
+        "reason": "표적 개선 + 무회귀 + 전체 보존",
+        "target_query": "머스캣",
+        "target_before": {
+          "query": "머스캣",
+          "ndcg": 0.0,
+          "recall": 0.0,
+          "precision5": 0.0,
+          "n_results": 0,
+          "hits_top": []
+        },
+        "target_after": {
+          "query": "머스캣",
+          "ndcg": 1.0,
+          "recall": 1.0,
+          "precision5": 1.0,
+          "n_results": 2,
+          "hits_top": [
+            "P051",
+            "P050"
+          ]
+        },
+        "mean_before": 0.8339,
+        "mean_after": 0.8617,
+        "regressions": []
+      },
+      "reason": "accepted",
+      "attempt": 1,
+      "feedback": "채택. 표적 '머스캣' nDCG 0.00 → 1.00, 회귀 없음."
+    },
+    {
+      "action": "typed_patch",
+      "accepted": true,
+      "previous_feedback": "기각: 표적 질의가 충분히 개선되지 않음 (nDCG 0.00 → 0.00, 요구 이득 +0.05)\n처방을 더 좁히거나(대상 항목 축소) 다른 패치 유형을 검토하라.",
+      "regressions": [],
+      "evidence_ids": [
+        "query:아답터:0:3",
+        "document:P035:7:10"
+      ],
+      "evidence": [
+        {
+          "source_type": "query",
+          "source_id": "아답터",
+          "start": 0,
+          "end": 3,
+          "text": "아답터"
+        },
+        {
+          "source_type": "document",
+          "source_id": "P035",
+          "start": 7,
+          "end": 10,
+          "text": "어댑터"
+        }
+      ],
+      "prescription": {
+        "target_query": "아답터",
+        "diagnosis_family": "garbage_split",
+        "reasoning": "질의가 [답, 터]로 한 음절씩 쪼개졌다. 이 상태에서는 동의어를 걸어도 매칭될 토큰이 없다. '아답터'를 사전에 등록해 한 덩어리로 만든 뒤, 자모 유사도 0.71인 색인 토큰 '어댑터'과 동의어로 연결한다.",
+        "user_words": [
+          {
+            "form": "아답터",
+            "tag": "NNP"
+          }
+        ],
+        "synonym_groups": [
+          {
+            "terms": [
+              "어댑터",
+              "아답터"
+            ]
+          }
+        ],
+        "compound_expansions": []
+      },
+      "verdict": {
+        "accepted": true,
+        "reason": "표적 개선 + 무회귀 + 전체 보존",
+        "target_query": "아답터",
+        "target_before": {
+          "query": "아답터",
+          "ndcg": 0.0,
+          "recall": 0.0,
+          "precision5": 0.0,
+          "n_results": 0,
+          "hits_top": []
+        },
+        "target_after": {
+          "query": "아답터",
+          "ndcg": 1.0,
+          "recall": 1.0,
+          "precision5": 1.0,
+          "n_results": 2,
+          "hits_top": [
+            "P036",
+            "P035"
+          ]
+        },
+        "mean_before": 0.8617,
+        "mean_after": 0.8895,
+        "regressions": []
+      },
+      "reason": "accepted",
+      "attempt": 2,
+      "feedback": "채택. 표적 '아답터' nDCG 0.00 → 1.00, 회귀 없음."
+    }
+  ],
+  "summary": {
+    "query_count": 36,
+    "healthy_count": 20,
+    "failing_count": 16,
+    "recovered_count": 11,
+    "failure_recovery_rate": 0.6875,
+    "failing_ndcg_before": 0.06956875,
+    "failing_ndcg_after": 0.75706875,
+    "failing_recall_after": 0.78125,
+    "failing_precision5_after": 0.77083125,
+    "healthy_regressions": [],
+    "healthy_regression_count": 0,
+    "healthy_regression_rate": 0.0,
+    "healthy_interventions": 9,
+    "unnecessary_action_rate": 0.45,
+    "submissions": 13,
+    "mean_submissions": 0.3611111111111111,
+    "first_pass_acceptance": 0.8333333333333334,
+    "submitted_query_count": 12,
+    "rejected_query_count": 2,
+    "recovery_after_rejection": 0.5,
+    "detection": {
+      "auroc": 0.8953125,
+      "auprc": 0.9060990338164252,
+      "precision": 0.6086956521739131,
+      "recall": 0.875,
+      "f1": 0.717948717948718,
+      "brier": 0.1434027777777778,
+      "ece": 0.1763888888888889,
+      "healthy_fpr": 0.45,
+      "observed_count": 36,
+      "missing_count": 0,
+      "positives": 16,
+      "negatives": 20,
+      "tp": 14,
+      "fp": 9
+    }
+  },
+  "costs": {
+    "search_calls": 1067,
+    "reindexes": 14,
+    "model_calls": 0,
+    "input_tokens": 0,
+    "output_tokens": 0,
+    "latency_ms": 656.5422490020865,
+    "api_cost_usd": 0.0
+  },
+  "cost_scope": "total includes observations, before/after evaluation and full gate",
+  "errors": [],
+  "protocol_version": "phase01-v2",
+  "policy_cost_semantics": "expected-v2",
+  "posthoc_change": true
+}

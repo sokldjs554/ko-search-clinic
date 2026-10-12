@@ -337,9 +337,31 @@ clinic build-lake --docs 50000 --log-rows 500000
 clinic mine-logs --engine duckdb
 clinic scale-bench --sizes 0 1000 10000 50000
 
-# 테스트 308개, 전부 오프라인
+# 오프라인 테스트 (수집 개수는 설치된 선택 의존성에 따라 다릅니다)
 pytest
 ```
+
+### 선택적 검색 실패 복구 연구 — Phase 0–1
+
+기존 진단·타입 처방·전체 회귀 게이트·증거 원장 앞에 규칙 기반 실패 탐지와
+비용 인지형 정책을 추가했습니다. 공개된 v1 평가셋은 개발 데이터로만 취급하며,
+held-out·외부 일반화·LLM 선택 정책 결과는 아직 없습니다.
+
+```bash
+pip install -c docs/research/constraints.txt -e ".[api,mcp,dev,scale]"
+pytest -q
+clinic research audit --root artifacts/my-research
+clinic research prepare --root artifacts/my-research
+clinic research baseline --root artifacts/my-research
+clinic research report --root artifacts/my-research
+```
+
+각 비교는 새 artifact 디렉터리에서 실행합니다. 과거 run은 덮어쓰지 않습니다.
+[현재 상태 감사](docs/research/CURRENT_STATE_AUDIT.md),
+[사전 고정 프로토콜](docs/research/PROTOCOL.md),
+[JSON에서 생성한 실제 결과](docs/research/RESULTS.md),
+[재현 조건과 한계](docs/research/REPRODUCIBILITY.md)를 확인하세요.
+기존 Claude 결과의 원시 provenance와 현재 재실행 결과의 구분은 감사에 기록했습니다.
 
 ## REST와 MCP
 
@@ -416,7 +438,7 @@ src/searchclinic/
 ├── store/         # PostgreSQL 영속 저장소 (선택)
 └── cli.py         # analyze/search/evaluate/diagnose/heal/demo-trap/baseline 등
 .github/workflows/ # CI — 테스트(우분투·윈도우) + 검색 품질 게이트
-tests/             # 308개 테스트 (전부 오프라인)
+tests/             # 오프라인 테스트 (선택 의존성에 따라 수집 개수가 달라짐)
 docker/            # ES + analysis-nori 이미지와 compose
 docs/              # 설계 문서 + CLI가 생성한 리포트/원장/ES 설정
 ```

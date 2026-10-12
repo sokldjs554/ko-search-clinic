@@ -5,3 +5,8 @@
 # 셸에서 깨지고, 리눅스 CI와 Windows 개발 환경의 파일이 서로 달라진다.
 # 이 프로젝트의 추적 파일은 전부 텍스트이므로 예외 없이 LF로 못 박는다.
 * text=auto eol=lf
+
+# pytest 원시 로그의 들여쓰기/빈칸을 실행 증거 그대로 보존한다.
+artifacts/research/**/*.log whitespace=-blank-at-eol
+# 첨부 원본 Markdown의 두 칸 줄바꿈도 원본 그대로 둔다.
+docs/research/design/*.md whitespace=-blank-at-eol

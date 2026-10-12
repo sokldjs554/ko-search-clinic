@@ -1,0 +1,60 @@
+{
+  "start_sha": "80ea3bcf2fffb395b27abc3d38db4e9876a9c2d1",
+  "protocol_commit": "6ec3b8dacba53b3bcd18704f2680567432dab531",
+  "implementation_sha": "7a43aae61460ebb2727ec00ed19fd677c2ba1149",
+  "commands": [
+    {
+      "command": "python -m pytest -q -m \"\"",
+      "exit_code": 0,
+      "passed": 353,
+      "skipped": 2,
+      "skip_reasons": [
+        "PostgreSQL optional dependency/service unavailable",
+        "pyspark not installed"
+      ]
+    },
+    {
+      "command": "python -m pytest tests/test_research_contracts.py tests/test_research_execution.py tests/test_research_artifacts.py -q",
+      "exit_code": 0,
+      "passed": 56
+    },
+    {
+      "command": "clinic baseline",
+      "exit_code": 0
+    },
+    {
+      "command": "clinic research prepare --root artifacts/research/validation",
+      "exit_code": 0
+    },
+    {
+      "command": "clinic research baseline --root artifacts/research/validation",
+      "exit_code": 0
+    },
+    {
+      "command": "clinic research report --root artifacts/research/validation",
+      "exit_code": 0
+    },
+    {
+      "command": "repro venv research tests",
+      "exit_code": 0,
+      "passed": 56
+    },
+    {
+      "command": "python -m pyflakes src/searchclinic/research tests/test_research*.py",
+      "exit_code": 0
+    },
+    {
+      "command": "git diff --check",
+      "exit_code": 0
+    }
+  ],
+  "split_leakage_check": "passed; all exposed v1 is dev; no heldout data",
+  "v1_artifact_hash_check": "all original docs top-level and vectors unchanged; README intentionally updated after experiments",
+  "generated_report_check": "exact equality with render_report(actual validation JSON)",
+  "replay_check": "same quality, decisions, submissions, search calls, reindexes in both independent venv executions",
+  "credential_personal_data_pattern_scan": "no matching credentials, private keys, email addresses in added research files",
+  "remote_new_ci": "not_executed",
+  "llm_experiment": "not_executed",
+  "elasticsearch_live": "not_executed",
+  "heldout": "not_collected"
+}

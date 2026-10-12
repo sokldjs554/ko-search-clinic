@@ -213,5 +213,9 @@ def test_documented_test_count_matches_reality(request):
     }
     actual = len(request.session.items)
 
-    assert claimed, "README에 테스트 개수 선언이 없다"
+    if not claimed:
+        # 선택 의존성별 수집 개수는 다르다. 숫자를 다시 주장하면 아래 대조는 유지한다.
+        assert "pytest -q" in readme, "README에 전체 테스트 실행 명령이 없다"
+        assert "선택 의존성" in readme, "환경별 테스트 수집 차이를 설명해야 한다"
+        return
     assert claimed == {actual}, f"README가 {sorted(claimed)}개라 하는데 실제는 {actual}개다"
