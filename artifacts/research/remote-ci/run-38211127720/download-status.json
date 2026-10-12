@@ -1,0 +1,10 @@
+{
+  "artifact_id": 11728974687,
+  "connector_download_reference_created": true,
+  "local_zip_download_attempts": 1,
+  "local_download_error": "curl: (22) The requested URL returned error: 403",
+  "local_zip_read_verified": false,
+  "retried": false,
+  "artifact_url": "https://github.com/sokldjs554/ko-search-clinic/actions/runs/38211127720/artifacts/11728974687",
+  "artifact_digest_from_github": "sha256:46fd397d1d2c90edd8cae388cbd8468229f37ac7fcff23b10b4e9d94da6f34ea"
+}
