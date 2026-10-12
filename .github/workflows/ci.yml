@@ -29,6 +29,8 @@ jobs:
         python-version: ["3.11"]
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - uses: actions/setup-python@v5
         with:
@@ -36,7 +38,7 @@ jobs:
           cache: pip
 
       - name: 설치
-        run: pip install -e ".[api,mcp,dev]"
+        run: pip install -c docs/research/constraints.txt -e ".[api,mcp,dev]"
 
       - name: 테스트
         run: pytest -q
@@ -46,6 +48,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - uses: actions/setup-python@v5
         with:
@@ -53,13 +57,27 @@ jobs:
           cache: pip
 
       - name: 설치
-        run: pip install -e .
+        run: pip install -c docs/research/constraints.txt -e .
 
       # 회귀가 있으면 종료 코드 1 → 빌드 실패. 어떤 질의가 어떤 지표에서
       # 얼마나 나빠졌는지는 요약 패널의 표로 남는다 (로그를 스크롤해야
       # 보이는 결과는 아무도 안 본다).
       - name: 평가셋 재실행 및 기준선 대조
         run: clinic baseline
+
+      - name: 선택적 복구 오프라인 프로토콜과 기준선
+        run: |
+          clinic research audit --root artifacts/ci-research
+          clinic research prepare --root artifacts/ci-research
+          clinic research baseline --root artifacts/ci-research
+          clinic research report --root artifacts/ci-research
+
+      - name: 연구 실행 근거 보존
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: research-offline
+          path: artifacts/ci-research
 
       # 실패했을 때 지금 상태가 어떤지 함께 남긴다. 기준선을 갱신해야 하는
       # 정당한 변경인지, 진짜 회귀인지는 사람이 이걸 보고 판단한다.
