@@ -57,6 +57,10 @@ def render_report(runs):
         if actual != s:
             raise ValueError("artifact summary does not match query records")
         lines.append(f"| {r['policy']} | {s['recovered_count']}/{s['failing_count']} | {s['failing_ndcg_after']:.4f} | {s['healthy_regression_count']} | {s['healthy_interventions']} | {s['submissions']} | {c['search_calls']} | {c['reindexes']} | {c['model_calls']} | {c['latency_ms']:.3f} |")
+    if any(r.get("protocol_version") == "phase01-v2" for r in runs):
+        lines += ["", "phase01-v2는 실측 지연과 예상 행동 비용을 분리한 사후 변경이다.",
+            "예상 미래 latency는 null이며 그 미보정 항의 weight만 0이다. 실제 지연은 위 표에 보존한다.",
+            "이 결과는 기존 phase01-v1 또는 held-out 성능을 대체하지 않는다."]
     lines += ["", "검색 호출은 초기 관측·전후 평가·전체 회귀 게이트를 모두 포함한다.",
         "건강 개입은 진단 실행도 포함하며 실제 제출과 구분한다.", "",
         "| 정책 | AUROC | AUPRC | Precision | Recall | F1 | Brier | ECE | 건강 FPR | 불필요 개입률 | 첫 제출 채택률 | 기각 후 회복률 | 평균 제출 |",

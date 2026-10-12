@@ -47,12 +47,14 @@ def utility(quality_gain: float, healthy_regression: float, cost: CostRecord,
                    for v in (quality_gain, healthy_regression, unnecessary_actions))):
         return None
     if any(getattr(cost, x) is None for x in
-           ("model_calls", "input_tokens", "output_tokens", "latency_ms", "api_cost_usd")):
+           ("model_calls", "input_tokens", "output_tokens", "api_cost_usd")):
+        return None
+    if cost.latency_ms is None and w["latency_ms"] != 0:
         return None
     result = (quality_gain - w["regression"] * healthy_regression
             - w["model_calls"] * cost.model_calls
             - w["tokens"] * (cost.input_tokens + cost.output_tokens)
-            - w["latency_ms"] * cost.latency_ms
+            - (w["latency_ms"] * cost.latency_ms if cost.latency_ms is not None else 0)
             - w["unnecessary_actions"] * unnecessary_actions)
     return result if math.isfinite(result) else None
 

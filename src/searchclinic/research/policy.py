@@ -25,7 +25,10 @@ class Decision:
     utility: float | None = None
 
 
-def select_action(detection, candidates, budget, weights=None, min_gain=0.05):
+def select_action(detection, candidates, budget, weights=None, min_gain=0.05,
+                  cost_semantics="measured-v1"):
+    if cost_semantics not in ("measured-v1", "expected-v2"):
+        raise ValueError("unsupported cost semantics")
     if detection.predicted_failure is False:
         return Decision(ActionKind.NO_OP, "healthy_trace")
     if budget.exhausted:
@@ -35,8 +38,11 @@ def select_action(detection, candidates, budget, weights=None, min_gain=0.05):
     available = [c for c in candidates if c.evidence]
     if not available:
         return Decision(ActionKind.ABSTAIN, "no_evidenced_candidate")
-    scored = [(utility(detection.failure_probability * min_gain, 0, c.cost,
-                       weights=weights), c) for c in available]
+    scored = []
+    for c in available:
+        cost = c.expected_cost if cost_semantics == "expected-v2" else c.cost
+        scored.append((utility(detection.failure_probability * min_gain, 0, cost,
+                               weights=weights) if cost is not None else None, c))
     scored = [(score, c) for score, c in scored if score is not None]
     if not scored:
         return Decision(ActionKind.ABSTAIN, "unknown_cost")

@@ -41,7 +41,7 @@ jobs:
         run: pip install -c docs/research/constraints.txt -e ".[api,mcp,dev]"
 
       - name: 테스트
-        run: pytest -q
+        run: pytest -q -rs
 
   quality-gate:
     name: 검색 품질 게이트
@@ -71,13 +71,32 @@ jobs:
           clinic research prepare --root artifacts/ci-research
           clinic research baseline --root artifacts/ci-research
           clinic research report --root artifacts/ci-research
+          clinic research prepare --root artifacts/ci-research-v2 --protocol-version phase01-v2
+          clinic research baseline --root artifacts/ci-research-v2 --protocol-version phase01-v2
+          clinic research report --root artifacts/ci-research-v2 --protocol-version phase01-v2
+
+      - name: 실제 연구 source SHA와 hash 기록
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          for root in ("artifacts/ci-research", "artifacts/ci-research-v2"):
+              for path in sorted((Path(root) / "runs").glob("*.json")):
+                  run = json.loads(path.read_text(encoding="utf-8"))
+                  fields = ("git_sha", "git_dirty", "source_hash", "protocol_hash", "split_hash", "evalset_hash", "policy")
+                  provenance = {key: run[key] for key in fields}
+                  provenance.update(protocol_version=run["config"]["config"]["version"], artifact_path=str(path), summary=run["summary"], costs=run["costs"])
+                  print("RESEARCH_PROVENANCE " + json.dumps(provenance, ensure_ascii=False, allow_nan=False))
+          PY
 
       - name: 연구 실행 근거 보존
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: research-offline
-          path: artifacts/ci-research
+          path: |
+            artifacts/ci-research
+            artifacts/ci-research-v2
 
       # 실패했을 때 지금 상태가 어떤지 함께 남긴다. 기준선을 갱신해야 하는
       # 정당한 변경인지, 진짜 회귀인지는 사람이 이걸 보고 판단한다.

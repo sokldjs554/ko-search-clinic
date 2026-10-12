@@ -6,7 +6,7 @@ from uuid import uuid4
 
 from searchclinic.corpus import load_catalog, load_evalset
 from searchclinic.research.artifacts import write_artifact, write_report, render_report, compare_runs
-from searchclinic.research.runner import ROOT, POLICIES, load_protocol, run_experiment
+from searchclinic.research.runner import ROOT, POLICIES, PROTOCOL_VERSIONS, load_protocol, run_experiment
 from searchclinic.research.splits import prepare_manifest, digest
 
 
@@ -34,7 +34,7 @@ def _run_id():
 def run_command(args):
     root = Path(args.root)
     try:
-        protocol = load_protocol()
+        protocol = load_protocol(args.protocol_version)
         if args.research_command == "audit":
             result = audit_state()
             write_artifact(root / "audit" / ("audit-" + _run_id() + ".json"), result)
@@ -55,7 +55,7 @@ def run_command(args):
             manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
             policies = POLICIES if args.research_command == "baseline" else [args.policy]
             for policy in policies:
-                result = run_experiment(policy, manifest=manifest)
+                result = run_experiment(policy, manifest=manifest, protocol_version=args.protocol_version)
                 path = root / "runs" / (policy + "-" + _run_id() + ".json")
                 write_artifact(path, result)
                 write_artifact(root / "observations" / path.name,
@@ -83,6 +83,7 @@ def add_parser(subparsers):
     for name in ("audit", "prepare", "baseline", "run", "report"):
         command = commands.add_parser(name)
         command.add_argument("--root", default="artifacts/research")
+        command.add_argument("--protocol-version", choices=tuple(PROTOCOL_VERSIONS), default="phase01-v1")
         if name == "run":
             command.add_argument("--policy", choices=POLICIES, default="selective_rule")
         if name == "report":

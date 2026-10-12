@@ -24,6 +24,11 @@ from searchclinic.research.splits import prepare_manifest, validate_splits, dige
 
 ROOT = Path(__file__).resolve().parents[3]
 PROTOCOL_PATH = ROOT / "artifacts/research/protocol.json"
+PROTOCOL_VERSIONS = {
+    "phase01-v1": (PROTOCOL_PATH, "6ec3b8dacba53b3bcd18704f2680567432dab531"),
+    "phase01-v2": (ROOT / "artifacts/research/versions/phase01-v2/protocol.json",
+                   "bb267e2853d5e66e9907fdf025ce651547765bca"),
+}
 POLICIES = ("no_repair", "always_typed_patch", "selective_rule")
 
 
@@ -31,15 +36,18 @@ def git_output(*args):
     return subprocess.check_output(["git", *args], cwd=ROOT, text=True).strip()
 
 
-def load_protocol():
-    protocol = json.loads(PROTOCOL_PATH.read_text(encoding="utf-8"))
-    frozen = json.loads(git_output("show", "6ec3b8dacba53b3bcd18704f2680567432dab531:artifacts/research/protocol.json"))
+def load_protocol(protocol_version="phase01-v1"):
+    if protocol_version not in PROTOCOL_VERSIONS:
+        raise ValueError("unsupported protocol version")
+    path, commit = PROTOCOL_VERSIONS[protocol_version]
+    protocol = json.loads(path.read_text(encoding="utf-8"))
+    frozen = json.loads(git_output("show", f"{commit}:{path.relative_to(ROOT).as_posix()}"))
     if protocol != frozen:
         raise ValueError("protocol hash differs from pre-experiment freeze")
     return protocol
 
 
-def propose_candidates(engine, query):
+def propose_candidates(engine, query, expected_cost=None):
     """Reuse v1 rules+ morphology rules with only public search diagnostics.
 
     Its private rule ladder is intentionally isolated here; no qrels, family or
@@ -56,16 +64,18 @@ def propose_candidates(engine, query):
     prescriptions = [Prescription(target_query=query, **p) for p in doctor._ladder()]
     elapsed = (perf_counter() - start) * 1000
     return [Candidate(ActionKind.TYPED_PATCH, p, evidence_for(engine, p),
-                      CostRecord(latency_ms=elapsed)) for p in prescriptions]
+                      CostRecord(latency_ms=elapsed), expected_cost) for p in prescriptions]
 
 
-def run_experiment(policy, manifest=None, protocol=None):
+def run_experiment(policy, manifest=None, protocol=None, protocol_version="phase01-v1"):
     if policy not in POLICIES:
         raise ValueError("unsupported Phase 1 policy")
-    frozen = load_protocol()
+    frozen = load_protocol(protocol_version)
     if protocol is not None and protocol != frozen:
         raise ValueError("protocol mismatch")
     protocol = frozen
+    expected_cost = (CostRecord(**protocol["policy"]["expected_action_cost"])
+                     if protocol_version == "phase01-v2" else None)
     docs, evalset = load_catalog(), load_evalset()
     expected = prepare_manifest(evalset, docs, protocol["seed"])
     manifest = expected if manifest is None else manifest
@@ -96,17 +106,23 @@ def run_experiment(policy, manifest=None, protocol=None):
                           policy == "selective_rule" and detection.predicted_failure is True)
         if should_diagnose:
             intervened = True
-            candidates = propose_candidates(gate.engine, eq.query)
+            candidates = propose_candidates(gate.engine, eq.query, expected_cost=expected_cost)
             if not candidates:
                 decision = "abstain"
                 events.append({"action": "abstain", "reason": "no_candidate"})
             while candidates:
                 if policy == "selective_rule":
                     selected = select_action(detection, candidates, gate.budget,
-                        weights=protocol["policy"]["weights"], min_gain=protocol["policy"]["min_gain"])
+                        weights=protocol["policy"]["weights"], min_gain=protocol["policy"]["min_gain"],
+                        cost_semantics=protocol["policy"].get("cost_semantics", "measured-v1"))
                     decision = selected.action.value
                     events.append({"action": decision, "reason": selected.reason,
                                    "utility": selected.utility, "feedback": gate.feedback})
+                    if protocol_version == "phase01-v2":
+                        chosen = selected.candidate
+                        events[-1].update(cost_semantics="expected-v2",
+                            expected_cost=asdict(chosen.expected_cost) if chosen else None,
+                            measured_candidate_generation_cost=asdict(chosen.cost) if chosen else None)
                     if selected.candidate is None:
                         break
                     candidate = selected.candidate
@@ -136,12 +152,12 @@ def run_experiment(policy, manifest=None, protocol=None):
         q["after"] = asdict(after[q["query"]])
     elapsed = (perf_counter() - start) * 1000
     summary = summarize(queries, protocol["policy"]["epsilon"], protocol["detector"]["threshold"])
-    return dict(schema_version=1, policy=policy, dataset="controlled-v1/dev",
+    result = dict(schema_version=1, policy=policy, dataset="controlled-v1/dev",
         heldout_status="not_collected", git_sha=git_output("rev-parse", "HEAD"),
         git_dirty=bool(git_output("status", "--porcelain", "--", "src", "tests", ".github")),
         source_hash=digest({str(p.relative_to(ROOT)): p.read_text(encoding="utf-8")
                            for p in sorted((ROOT / "src").rglob("*.py"))}),
-        protocol_commit="6ec3b8dacba53b3bcd18704f2680567432dab531",
+        protocol_commit=PROTOCOL_VERSIONS[protocol_version][1],
         protocol_hash=digest(protocol), split_hash=manifest["split_hash"],
         corpus_hash=manifest["corpus_hash"], evalset_hash=manifest["evalset_hash"],
         environment={"python": platform.python_version(), "kiwipiepy": version("kiwipiepy"),
@@ -152,6 +168,10 @@ def run_experiment(policy, manifest=None, protocol=None):
             reindexes=engine.meter.reindexes, latency_ms=elapsed)),
         cost_scope="total includes observations, before/after evaluation and full gate",
         errors=[t["exception"] for t in gate.trace if "exception" in t])
+    if protocol_version == "phase01-v2":
+        result.update(schema_version=2, protocol_version=protocol_version,
+                      policy_cost_semantics="expected-v2", posthoc_change=True)
+    return result
 
 
 def replay_signature(run):

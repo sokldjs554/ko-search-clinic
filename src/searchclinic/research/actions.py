@@ -22,6 +22,8 @@ class Candidate:
     prescription: Prescription | None = None
     evidence: tuple[EvidenceSpan, ...] = ()
     cost: CostRecord = field(default_factory=CostRecord)
+    # cost retains the measured-v1 contract. New policy versions must opt in.
+    expected_cost: CostRecord | None = None
 
 
 def prescription_terms(rx):
