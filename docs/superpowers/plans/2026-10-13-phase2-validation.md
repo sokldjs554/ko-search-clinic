@@ -52,3 +52,8 @@ no final-evaluation verdict supplied to generators. Generalization is withheld.
 - Ruling: defer paid transport/data-specific final evaluator wiring until a usable reviewed label set exists. Otherwise engineering would create the impression that only paid approval remains; cost is an additional implementation step before actual experiment.
 - Final review: fresh reviewer found no Critical/Important changed-code defect in documented string-ID offline scope; confirmed material data blockers. Review in docs/research/PHASE2_DATA_AND_CODE_REVIEW.md.
 - Final: minor (deferred): standalone durable budget accepts non-string query IDs; current Context validates strings. Reject non-string IDs before external standalone paid integration.
+
+- Remote CI 38370700803: Ubuntu and quality gate passed, Windows failed two existing Phase2 worker/CLI tests. Root cause: isolated -I ignores PYTHONIOENCODING, leaving legacy pipe encoding. Reproduced cp1252 child-stream failure, explicitly configured worker UTF-8, targeted tests 12 passed; full local default suite 410 passed/2 skipped. This is a newly discovered portability defect, not a second optional review pass.
+- Remote fixed code SHA: 9e1ff62a501b26b0c6e64866f8a72cb369468402. New CI 38371306888. No main/PR1 modification and no paid call.
+
+- Task 3: verified report and evidence complete. Remote CI 38371306888 succeeded: Windows 410 passed/2 skipped, Ubuntu 410 passed/2 skipped, quality gate success. Paid integration/evaluation remain blocked and unexecuted.

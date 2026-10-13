@@ -7,7 +7,18 @@
   "generalization_claim": false,
   "live_provider_integration_complete": false,
   "llm_superiority_claim": false,
+  "local_test_source_sha": "e644bb7ff98e07c4eb38961de5ce2d73d407bdfb",
   "paid_calls": 0,
+  "preserved_remote_heads": {
+    "main": "80ea3bcf2fffb395b27abc3d38db4e9876a9c2d1",
+    "phase01_pr1_head": "3238d58a69a8bc7881f971138f4c1278e46dc402",
+    "phase2_original": "564a664ae533dba65935211f4534cdaf7eda4643"
+  },
+  "previous_local_source": {
+    "passed": 409,
+    "source_hash": "ebd35485b21f6c49c960b2cd6a45c4ce0b0ce75da34d602f6b1195b241b09963",
+    "source_sha": "6a10d40a90019228444e12b35ced379ec604b1c7"
+  },
   "protocol_commit": "921ce4b381a4848ee6f897bf297a0233589644eb",
   "protocol_hash": "aa0fb4805e79223a03d067f87eb3f43de24430e7746c80f2d7f1b1b5d909d8ee",
   "python": "3.12.14",
@@ -18,21 +29,34 @@
     "mean_ndcg": 0.5839
   },
   "remote_ci": {
-    "cli_push": "dry-run failed: no Git HTTPS credentials",
-    "connector_repo_push_permission": true,
-    "status": "not_yet_run"
+    "cli_push": "no HTTPS credentials; GitHub connector publication succeeded",
+    "evidence": "remote-ci.json",
+    "failure_log": "windows-ci-failure-excerpt.log",
+    "first_result": "Linux and quality gate passed; Windows failed two existing Phase2 stream tests",
+    "first_run_id": 38370700803,
+    "first_tested_sha": "1b0ba474e7b4f2e06162d4af73df2006a0261ac2",
+    "fix_reproduction": "windows-encoding-red.log -> windows-encoding-green.log (12 passed)",
+    "fix_sha": "9e1ff62a501b26b0c6e64866f8a72cb369468402",
+    "quality_gate": "success",
+    "run_id": 38371306888,
+    "skipped_per_platform": 2,
+    "status": "all_three_jobs_passed",
+    "tested_sha": "9e1ff62a501b26b0c6e64866f8a72cb369468402",
+    "ubuntu_passed": 410,
+    "url": "https://github.com/sokldjs554/ko-search-clinic/actions/runs/38371306888",
+    "windows_passed": 410
   },
   "retrieval_evaluation_run": false,
   "review": "docs/research/PHASE2_DATA_AND_CODE_REVIEW.md",
   "source_dirty": false,
-  "source_hash": "ebd35485b21f6c49c960b2cd6a45c4ce0b0ce75da34d602f6b1195b241b09963",
-  "source_sha": "6a10d40a90019228444e12b35ced379ec604b1c7",
+  "source_hash": "f2487701b4d0e4c42b0af2c709d18494ef1e0a9e3fdc7c798ce133f8e00715c8",
+  "source_sha": "9e1ff62a501b26b0c6e64866f8a72cb369468402",
   "tests": {
     "default_suite": {
       "command": ".venv/bin/pytest -q -rs",
       "failed": 0,
-      "log": "final-tests.log",
-      "passed": 409,
+      "log": "final-tests-after-windows-fix.log",
+      "passed": 410,
       "skipped": 2
     },
     "scope": "Default suite, not optional PostgreSQL/scale/slow extras; no live-provider test"

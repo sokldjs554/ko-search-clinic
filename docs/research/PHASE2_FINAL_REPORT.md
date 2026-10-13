@@ -181,12 +181,32 @@ python -m venv .venv
 검증 로그·실행 SHA·source hash·환경은
 `artifacts/research/phase2-validation-20261013/`에 기록한다.
 초기 기본 테스트는 394 passed / 2 skipped. 추가 테스트는 데이터 선택과
-지속성 비용 예약을 실제 로컬 파일·SQLite로 검증한다. 최종 수치는 동 폴더의
-`verification.json`과 `final-tests.log`를 기준으로 한다.
+지속성 비용 예약을 실제 로컬 파일·SQLite로 검증한다. Windows 오류 수정 후
+로컬 기본 테스트는 **410 passed / 2 skipped**, 검색 품질 기준선 검사는 통과
+(평균 nDCG 0.5839)했다. 최종 수치는 동 폴더의 `verification.json`과
+`final-tests-after-windows-fix.log`를 기준으로 한다. 선택 의존성인
+PostgreSQL/scale 및 별도 slow 전체 실행은 이번 통과 수치에 포함하지 않는다.
 
-Git CLI의 push dry-run은 인증 정보 부재로 실패했다. 이것은 GitHub connector의
-권한과 별개다. 새 원격 CI의 실제 실행/성공 여부는 `verification.json`에
-기록하며, 과거 Phase 0~1 CI를 이번 코드의 CI 근거로 사용하지 않는다.
+최종 코드 snapshot은 `9e1ff62a501b26b0c6e64866f8a72cb369468402`,
+source hash는 `f2487701b4d0e4c42b0af2c709d18494ef1e0a9e3fdc7c798ce133f8e00715c8`이다.
+로컬 실행 커밋 `e644bb7ff98e07c4eb38961de5ce2d73d407bdfb`와 이 원격 snapshot의
+소스 내용이 같음을 확인했다. Git CLI 인증이 없어 connector로 같은 내용을
+보존했으며, 커밋 식별자가 같다고 주장하지 않는다.
+
+첫 새 원격 CI [38370700803](https://github.com/sokldjs554/ko-search-clinic/actions/runs/38370700803)는
+Linux·검색 품질 게이트가 통과했지만 Windows의 기존 Phase 2 통신 테스트
+2개가 실패했다. `-I` 격리 실행이 `PYTHONIOENCODING` 환경변수를 무시하므로
+한국어 JSON을 Windows 기본 인코딩으로 읽는 문제였다. 실제 자식 프로세스의
+cp1252 스트림으로 실패를 재현하고 worker 입출력을 UTF-8로 명시했다.
+해당 재현·경계·CLI 테스트 12개가 통과했다.
+
+수정 코드의 새 원격 CI는 [38371306888](https://github.com/sokldjs554/ko-search-clinic/actions/runs/38371306888)이다.
+최종 판정: **Windows 410 passed / 2 skipped, Ubuntu 410 passed / 2 skipped, 검색 품질 게이트 통과**. 실제 job·로그 근거는 `remote-ci.json` 및 `verification.json`에 기록했다. 과거 Phase 0~1 CI를 이번
+코드의 CI 근거로 사용하지 않는다. main과 PR #1 head는 재조회에서도 그대로였다.
+
+독립 코드 검토의 보류된 경미한 항목: 비용 journal의 query ID는 현재 Context의
+문자열 계약에 의존한다. 이 클래스를 단독 유료 실행 API로 사용할 때에는
+비문자열 ID 거부와 transport가 같은 journal을 사용하는지 검증해야 한다.
 
 ## 9. 지원 서류에 사용할 수 있는 정확한 문장
 

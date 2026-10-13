@@ -28,6 +28,8 @@
     "68"
   ],
   "retrieval_scoring": "not_run",
+  "review_evidence": "docs/research/PHASE2_DATA_AND_CODE_REVIEW.md",
+  "selected_source_canonical_hash": "b59b563066b0fd95fd684e37499d57affc2f6bb8c818fb0a680ac592b7466281",
   "selected_source_sha256": "62b0a870c0476b38c76e4a176a4aee73dd66e8fcffd72b062bef9c2497e2b608",
   "selection_commit": "174d0ee93c745849ca584a13b8ca57dda579187e",
   "selection_fixed_before_outcomes": true,

@@ -1,0 +1,37 @@
+{
+  "run_id": 38371306888,
+  "head_sha": "9e1ff62a501b26b0c6e64866f8a72cb369468402",
+  "url": "https://github.com/sokldjs554/ko-search-clinic/actions/runs/38371306888",
+  "jobs": [
+    {
+      "id": 115208699665,
+      "name": "검색 품질 게이트",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 115208699929,
+      "name": "테스트 (windows-latest)",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 115208701141,
+      "name": "테스트 (ubuntu-latest)",
+      "status": "completed",
+      "conclusion": "success"
+    }
+  ],
+  "summaries": [
+    {
+      "platform": "windows-latest",
+      "job_id": 115208699929,
+      "log_excerpt": "2026-10-13T08:44:23.4606714Z   python-version: 3.11\n2026-10-13T08:46:30.9050934Z SKIPPED [1] tests\\\\test_postgres_store.py:20: PostgreSQL\\uc740 \\uc120\\ud0dd \\uc758\\uc874\\uc131\\uc774\\ub2e4\n2026-10-13T08:46:30.9051653Z SKIPPED [1] tests\\\\test_scale.py:21: \\uaddc\\ubaa8 \\uacc4\\uce35\\uc740 \\uc120\\ud0dd \\uc758\\uc874\\uc131\\uc774\\ub2e4\n2026-10-13T08:46:30.9052118Z 410 passed, 2 skipped in 68.65s (0:01:08)"
+    },
+    {
+      "platform": "ubuntu-latest",
+      "job_id": 115208701141,
+      "log_excerpt": "2026-10-13T08:44:18.4468897Z   python-version: 3.11\n2026-10-13T08:45:18.5134398Z SKIPPED [1] tests/test_postgres_store.py:20: PostgreSQL은 선택 의존성이다\n2026-10-13T08:45:18.5135396Z SKIPPED [1] tests/test_scale.py:21: 규모 계층은 선택 의존성이다\n2026-10-13T08:45:18.5135986Z 410 passed, 2 skipped in 39.52s"
+    }
+  ]
+}
