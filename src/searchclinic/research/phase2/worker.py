@@ -21,6 +21,10 @@ def install_boundary(denied_paths):
 
 
 def main():
+    # -I ignores PYTHONIOENCODING. Configure both ends of our UTF-8 JSON
+    # protocol explicitly, including Windows pipes with a legacy locale.
+    for stream in (sys.stdin, sys.stdout, sys.stderr):
+        stream.reconfigure(encoding='utf-8')
     payload = json.load(sys.stdin)
     denied = ['/workspace/phase2-private','/workspace/konkuk-2027-private']
     if 'probe' in payload:

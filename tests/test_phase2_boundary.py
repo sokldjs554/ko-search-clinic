@@ -40,6 +40,22 @@ def test_same_context_no_labels_and_isolated_worker(context):
     assert process['costs']['model_calls'] == 0
 
 
+def test_worker_roundtrips_korean_with_legacy_default_stream_encoding(context):
+    """Emulate Windows pipe encoding under -I, which ignores PYTHONIOENCODING."""
+    import subprocess
+    import sys
+    from searchclinic.research.phase2.contracts import ROOT
+    code = (f"import sys; sys.path.insert(0,{str(ROOT/'src')!r}); "
+            "[s.reconfigure(encoding='cp1252') for s in (sys.stdin,sys.stdout,sys.stderr)]; "
+            "from searchclinic.research.phase2.worker import main; main()")
+    completed = subprocess.run([sys.executable, '-I', '-c', code],
+        input=json.dumps({'context':context.model_dump()},ensure_ascii=False).encode('utf-8'),
+        capture_output=True, timeout=60)
+    assert completed.returncode == 0, completed.stderr.decode('utf-8', errors='replace')
+    result = json.loads(completed.stdout.decode('utf-8'))
+    assert result['context_hash'] == api().generate_rules(context)['context_hash']
+
+
 def test_worker_denies_private_labels_and_evaluator_import(context, tmp_path):
     g = api()
     hidden = tmp_path / 'labels.json'
