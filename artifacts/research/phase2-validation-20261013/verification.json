@@ -1,0 +1,40 @@
+{
+  "api_cost_usd": "0",
+  "base_sha": "564a664ae533dba65935211f4534cdaf7eda4643",
+  "branch": "feat/phase2-llm-validation-20261013",
+  "data_review_complete": false,
+  "date": "2026-10-13",
+  "generalization_claim": false,
+  "live_provider_integration_complete": false,
+  "llm_superiority_claim": false,
+  "paid_calls": 0,
+  "protocol_commit": "921ce4b381a4848ee6f897bf297a0233589644eb",
+  "protocol_hash": "aa0fb4805e79223a03d067f87eb3f43de24430e7746c80f2d7f1b1b5d909d8ee",
+  "python": "3.12.14",
+  "quality_gate": {
+    "command": ".venv/bin/clinic baseline",
+    "exit_code": 0,
+    "log": "baseline-quality.log",
+    "mean_ndcg": 0.5839
+  },
+  "remote_ci": {
+    "cli_push": "dry-run failed: no Git HTTPS credentials",
+    "connector_repo_push_permission": true,
+    "status": "not_yet_run"
+  },
+  "retrieval_evaluation_run": false,
+  "review": "docs/research/PHASE2_DATA_AND_CODE_REVIEW.md",
+  "source_dirty": false,
+  "source_hash": "ebd35485b21f6c49c960b2cd6a45c4ce0b0ce75da34d602f6b1195b241b09963",
+  "source_sha": "6a10d40a90019228444e12b35ced379ec604b1c7",
+  "tests": {
+    "default_suite": {
+      "command": ".venv/bin/pytest -q -rs",
+      "failed": 0,
+      "log": "final-tests.log",
+      "passed": 409,
+      "skipped": 2
+    },
+    "scope": "Default suite, not optional PostgreSQL/scale/slow extras; no live-provider test"
+  }
+}

@@ -1,5 +1,8 @@
 """Offline reservation guard. No key handling, transport or API calls."""
 from decimal import Decimal
+from contextlib import contextmanager
+import json
+import sqlite3
 
 
 class CallBudget:
@@ -57,3 +60,105 @@ class CallBudget:
             raise ValueError('call not pending')
         entry.update(status='error',error=reason)
         self.halted=True
+
+
+class DurableCallBudget:
+    """Persist reservations BEFORE transport, with no automatic crash retry.
+
+    One SQLite journal belongs to one approved, frozen experiment. Reopening
+    cannot change its configuration. A pending request blocks every new request:
+    after a crash its billing is unknown, so an operator must reconcile evidence.
+    This is an execution safeguard, not evidence that approval was obtained.
+    The caller must authenticate approval and use the same journal on every run.
+    """
+
+    def __init__(self, path, *, experiment_hash, approved=False, **config):
+        if approved is not True:
+            raise PermissionError('separate paid-experiment approval required')
+        if (not isinstance(experiment_hash, str) or len(experiment_hash) != 64
+                or any(c not in '0123456789abcdef' for c in experiment_hash)):
+            raise ValueError('frozen experiment SHA256 required')
+        self.path = str(path)
+        self.config = dict(config, approved=True)
+        initial = CallBudget(**self.config)
+        # Canonical decimal spelling prevents equivalent prices causing drift.
+        self.identity = json.dumps(dict(
+            experiment_hash=experiment_hash, model=initial.model,
+            input_usd_million=str(initial.input_price.normalize()),
+            output_usd_million=str(initial.output_price.normalize()),
+            max_calls=initial.max_calls, usd_limit=str(initial.usd_limit.normalize())),
+            sort_keys=True)
+        with self._connect() as db:
+            db.execute('BEGIN IMMEDIATE')
+            db.execute('CREATE TABLE IF NOT EXISTS budget '
+                       '(id INTEGER PRIMARY KEY CHECK(id=1), identity TEXT NOT NULL, state TEXT NOT NULL)')
+            row = db.execute('SELECT identity FROM budget WHERE id=1').fetchone()
+            if row is None:
+                db.execute('INSERT INTO budget VALUES (1, ?, ?)',
+                           (self.identity, self._encode(initial)))
+            elif row[0] != self.identity:
+                raise ValueError('journal configuration differs from frozen experiment')
+
+    @contextmanager
+    def _connect(self):
+        db = sqlite3.connect(self.path, timeout=0)
+        try:
+            db.execute('PRAGMA synchronous=FULL')
+            with db:
+                yield db
+        finally:
+            db.close()
+
+    @staticmethod
+    def _encode(budget):
+        return json.dumps(dict(spent=str(budget.spent), reserved=str(budget.reserved),
+            calls=budget.calls, halted=budget.halted, entries={key: dict(value,
+                reserved=str(value['reserved'])) for key, value in budget.entries.items()}),
+            sort_keys=True, allow_nan=False)
+
+    def _load(self, db):
+        identity, raw = db.execute('SELECT identity, state FROM budget WHERE id=1').fetchone()
+        if identity != self.identity:
+            raise ValueError('journal configuration changed')
+        state = json.loads(raw)
+        budget = CallBudget(**self.config)
+        budget.spent, budget.reserved = Decimal(state['spent']), Decimal(state['reserved'])
+        budget.calls, budget.halted = state['calls'], state['halted']
+        budget.entries = {k: dict(v, reserved=Decimal(v['reserved']))
+                          for k, v in state['entries'].items()}
+        return budget
+
+    def _mutate(self, operation, *args, **kwargs):
+        error, result = None, None
+        with self._connect() as db:
+            db.execute('BEGIN IMMEDIATE')
+            budget = self._load(db)
+            try:
+                if operation == 'reserve' and not budget.halted:
+                    if any(e['status'] == 'reserved' for e in budget.entries.values()):
+                        raise ValueError('pending call requires reconciliation; no automatic retry')
+                result = getattr(budget, operation)(*args, **kwargs)
+            except (ValueError, PermissionError) as exc:
+                # Settle can halt on unknown billing. Persist that halt even when
+                # raising, instead of rolling the safety state back with the error.
+                error = exc
+            db.execute('UPDATE budget SET state=? WHERE id=1', (self._encode(budget),))
+        if error is not None:
+            raise error
+        return result
+
+    def reserve(self, query_id, input_bound):
+        return self._mutate('reserve', query_id, input_bound)
+
+    def settle(self, query_id, inputs, outputs, model):
+        return self._mutate('settle', query_id, inputs, outputs, model)
+
+    def fail(self, query_id, reason):
+        return self._mutate('fail', query_id, reason)
+
+    def snapshot(self):
+        with self._connect() as db:
+            budget = self._load(db)
+        return dict(spent_usd=str(budget.spent), reserved_usd=str(budget.reserved),
+                    calls=budget.calls, halted=budget.halted,
+                    entries=json.loads(self._encode(budget))['entries'])
