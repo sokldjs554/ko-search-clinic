@@ -1,4 +1,6 @@
+# Revision 2: preserve quarantined diagnostic evidence without certifying it.
 name: Restore pinned MIRACL review passages privately
+# Revision 2: encrypted diagnostic evidence also retained on checksum failure.
 on:
   push:
     branches: [ops/phase2-miracl-restore-20261014]
@@ -18,7 +20,9 @@ jobs:
           python-version: '3.12'
       - run: python -m pip install cryptography==50.0.2
       - run: python research-ops/miracl/acquire_miracl.py
-      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+      - if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always()
         with:
           name: miracl-encrypted-restoration-${{ github.run_id }}
           path: ${{ runner.temp }}/miracl-restored.enc
