@@ -1,0 +1,38 @@
+name: Private p2r3 authorized GPT batch
+on:
+  push:
+    branches: [ops/p2r3-gpt-run-20261014]
+    paths: [.github/workflows/p2r3-gpt-private.yml]
+permissions:
+  contents: write
+concurrency:
+  group: p2r3-gpt-original-approved-batch
+  cancel-in-progress: false
+jobs:
+  private-batch:
+    if: github.run_attempt == 1
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+        with:
+          python-version: '3.12'
+      - name: Install envelope dependency
+        run: python -m pip install cryptography==50.0.2
+      - name: Validate, run once, seal, and evaluate privately
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          GITHUB_TOKEN: ${{ github.token }}
+          KSC_RECIPIENT: 63a13244cf1c055e3da4f3ba1a5472ee872b74bf3df7cb2a3148a644f4183161
+        run: python research-ops/p2r3/runner.py
+      - name: Preserve encrypted evidence even on failure
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: p2r3-encrypted-evidence-${{ github.run_id }}
+          path: ${{ runner.temp }}/p2r3-output.enc
+          if-no-files-found: warn
+          retention-days: 90
