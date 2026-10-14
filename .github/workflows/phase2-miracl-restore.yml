@@ -22,7 +22,6 @@ jobs:
       - run: python research-ops/miracl/acquire_miracl.py
       - if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
-        if: always()
         with:
           name: miracl-encrypted-restoration-${{ github.run_id }}
           path: ${{ runner.temp }}/miracl-restored.enc
