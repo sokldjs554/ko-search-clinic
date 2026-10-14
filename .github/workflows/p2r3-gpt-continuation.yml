@@ -1,3 +1,4 @@
+# Transfer revision: previous run failed before decryption, claims and generation; preserve its logs.
 # Posthoc development amendment: preserve first failed call; execute only six untouched requests.
 name: Private p2r3 remaining six GPT requests
 on:
