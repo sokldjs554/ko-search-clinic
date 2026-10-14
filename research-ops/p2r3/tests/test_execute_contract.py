@@ -18,3 +18,10 @@ class ContractTests(unittest.TestCase):
    (p/'x').write_bytes(b'changed')
    with self.assertRaises(ValueError):self.m().verify_files(p,{'x':hashlib.sha256(b'fixed').hexdigest()})
 if __name__=='__main__':unittest.main()
+def test_source_tests_use_default_protocol_without_experiment_override():
+ import execute
+ env={'PYTHONPATH':'src','TIKTOKEN_CACHE_DIR':'cache','SEARCHCLINIC_PHASE2_COMMIT':'custom',
+      'SEARCHCLINIC_PHASE2_PROTOCOL':'p2r3','SEARCHCLINIC_PHASE2_PRIVATE_ROOT':'private','KSC_INPUT':'capsule'}
+ actual=execute.source_test_env(env)
+ assert actual=={'PYTHONPATH':'src','TIKTOKEN_CACHE_DIR':'cache'}
+ assert env['SEARCHCLINIC_PHASE2_PROTOCOL']=='p2r3'

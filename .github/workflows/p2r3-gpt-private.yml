@@ -1,3 +1,4 @@
+# Runner revision 2: isolate source test protocol environment. Prior run made zero generation attempts.
 name: Private p2r3 authorized GPT batch
 on:
   push:

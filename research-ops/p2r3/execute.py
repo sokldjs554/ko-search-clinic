@@ -36,6 +36,9 @@ def command(argv,cwd,env,log):
  with Path(log).open('xb') as f:r=subprocess.run(argv,cwd=cwd,env=env,stdout=f,stderr=subprocess.STDOUT)
  if r.returncode:raise RuntimeError('private command failed; inspect encrypted log')
 
+def source_test_env(env):
+ return {k:v for k,v in env.items() if not k.startswith('SEARCHCLINIC_PHASE2_') and k!='KSC_INPUT'}
+
 def prepare(base):
  base=Path(base);inp=base/'input';out=base/'out';out.mkdir(exist_ok=False)
  verify_files(inp,read(inp/'MANIFEST.json'))
@@ -50,7 +53,7 @@ def prepare(base):
  if hashlib.sha256(data).hexdigest()!=CACHE_SHA:raise ValueError('official tokenizer hash mismatch')
  (cache/hashlib.sha1(CACHE_URL.encode()).hexdigest()).write_bytes(data)
  save(out/'cache-provenance.json',dict(url=CACHE_URL,sha256=CACHE_SHA,origin='official fixed URL',verified=True))
- command([sys.executable,'-m','pytest','-q','-rs','-o','addopts=','--junitxml='+str(out/'source-tests.xml')],repo,env,out/'source-tests.log')
+ command([sys.executable,'-m','pytest','-q','-rs','-o','addopts=','--junitxml='+str(out/'source-tests.xml')],repo,source_test_env(env),out/'source-tests.log')
  command([sys.executable,'-m','pytest',str(Path(__file__).parent/'tests'),'-q','-rs','--junitxml='+str(out/'runner-tests.xml')],repo,env,out/'runner-tests.log')
  baseline=inp/'original/generation/rules-preparation.json'
  command([sys.executable,'-m','searchclinic.research.phase2.dev_comparison','freeze','--bundle',str(baseline),'--out',str(out/'plan.json')],repo,env,out/'freeze.log')
