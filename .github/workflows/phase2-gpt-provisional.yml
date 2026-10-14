@@ -1,0 +1,68 @@
+# User-authorized original pooled provisional comparison. Human review incomplete.
+name: Private provisional pooled GPT comparison
+on:
+  push:
+    branches: [ops/phase2-gpt-provisional-20261014]
+    paths: [.github/workflows/phase2-gpt-provisional.yml]
+permissions:
+  contents: write
+concurrency:
+  group: ko-search-clinic-final-miracl12-single-study
+  cancel-in-progress: false
+jobs:
+  final-candidates:
+    # Generation remains blocked until exact provisional protocol and paid authorization arrive.
+    if: ${{ github.run_attempt == 1 }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    env:
+      PYTHONDONTWRITEBYTECODE: '1'
+    steps:
+      # Deliberately no checkout: the repository tree/history contains final qrels.
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+        with:
+          python-version: '3.12'
+      - name: Install envelope dependency without provider credentials
+        run: python -m pip install --retries 0 cryptography==50.0.2
+      - name: Fetch exact public bootstrap helpers only
+        run: |
+          python - <<'PY'
+          import hashlib,os, pathlib,urllib.request
+          files = {'runtime_receiver.py': 'c713d0a5bc0c61a7db85c3099181764f6033cd23c0226ca28321b60d95a6a1fd', 'public_bootstrap/capsule.py': '6a76defe4651e9d2912c6709f30a7262c35efad064f56214d809bb9d4a543bfd', 'public_bootstrap/github_io.py': 'c160fce12a68ba1a7ad400f0eee17a35f9c8e01480d169bcee62942e812b4984'}
+          root=pathlib.Path(os.environ['RUNNER_TEMP'])/'final-bootstrap'
+          root.mkdir(exist_ok=False)
+          for name,expected in files.items():
+              url='https://raw.githubusercontent.com/'+os.environ['GITHUB_REPOSITORY']+'/'+os.environ['GITHUB_SHA']+'/ops/'+name
+              with urllib.request.urlopen(url,timeout=60) as response: data=response.read(1000001)
+              if len(data)>1000000 or hashlib.sha256(data).hexdigest()!=expected: raise ValueError('public bootstrap hash mismatch')
+              target=root/name;target.parent.mkdir(parents=True,exist_ok=True);target.write_bytes(data)
+          PY
+      - name: Receive and verify encrypted filtered runtime
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: >-
+          python "$RUNNER_TEMP/final-bootstrap/runtime_receiver.py"
+          --sha256 37ef6992b8fdc3489be813698a59406bce54b6fee9617279f091b5cbb9f6e914
+          --destination "$RUNNER_TEMP/final-runtime"
+          --verification "$RUNNER_TEMP/final-runtime-verification.json"
+      - name: Install exact runtime dependencies without provider credentials
+        run: python -m pip install --retries 0 -r "$RUNNER_TEMP/final-runtime/requirements.txt"
+      - name: Generate once and preserve encrypted evidence
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          GITHUB_TOKEN: ${{ github.token }}
+          KSC_RECIPIENT: 4e3870bfc72da478499f503fcd9ddb2fa3ead14d3b082551642a913c4e154869
+          PYTHONPATH: ${{ runner.temp }}/final-runtime/overlay:${{ runner.temp }}/final-runtime/source/src
+          TIKTOKEN_CACHE_DIR: ${{ runner.temp }}/final-runtime/cache
+        run: >-
+          python "$RUNNER_TEMP/final-runtime/overlay/ops/bootstrap.py"
+          --approval-reference user-20261014-provisional-pooled-max8-usd015
+          --protected-root "$RUNNER_TEMP/reviewer-only-not-transferred"
+      - name: Preserve encrypted terminal evidence
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: final-encrypted-evidence-${{ github.run_id }}
+          path: ${{ runner.temp }}/final-output.enc
+          if-no-files-found: warn
+          retention-days: 90
