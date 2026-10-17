@@ -91,7 +91,7 @@ jobs:
           TIKTOKEN_CACHE_DIR: ${{ runner.temp }}/v4-package/contents/cache
         run: >-
           python "$RUNNER_TEMP/v4-package/contents/runtime/research_v4/ops/bootstrap_v4.py"
-          --approval-reference user-v4-newdata73-usd06262852
+          --approval-reference user-v4-quota-retry1-73-usd06262852
           --protected-root "$RUNNER_TEMP/reviewer-only-not-transferred"
       - name: Preserve encrypted terminal evidence
         if: always()
@@ -103,3 +103,5 @@ jobs:
           retention-days: 90
 
 # Frozen activation: publish this commit only after separate paid approval.
+
+# Quota retry exception pending: preserve run 39042030830 and its existing lock.
