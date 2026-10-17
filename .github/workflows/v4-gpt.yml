@@ -26,14 +26,14 @@ jobs:
           python - <<'PYFETCH'
           import hashlib,json,os,pathlib,stat,urllib.request,zipfile
           root=pathlib.Path(os.environ['RUNNER_TEMP'])/'v4-package';root.mkdir(exist_ok=False)
-          files={'ops/v4/runtime.zip.part0': '3dabceedebb7a437f54e2733ca0ff8147c3c79fb02ebcf8b62efcad4d918ce0a', 'ops/v4/runtime.zip.part1': '1ed6d96d3fb222cf2b234b7de9d120dcb587daa27bf56e6175684093c21a8120', 'ops/v4/runtime.zip.part2': '0c0d6915575a688efc6a9c25cb609f932f0795a0b05d0c7cee8ad286d1f34e57', 'ops/v4/runtime.zip.part3': 'a8b0ad7c3d3a32c996893d4efd1afc9307a5412ee42aceb0b13daa6fabb7664c', 'ops/v4/runtime.zip.part4': '6014ef3aa561e29bd6f55a6e4252494764edff124e07f792b42550995f927790', 'ops/v4/preflight_v4.py': 'd55e1f86bbb654b18cf08bf4b7feb00ee70be5fa083efaa0d51104ca4d5ffc74'}
+          files={'ops/v4/runtime.zip.part0': '08d2b674f3f69fcae169547b972d2d6ddb2e19dbe1c7acedd63dd267a058274a', 'ops/v4/runtime.zip.part1': 'b593de9d7eb3c2d040568a987e57598fb4d06eb2cd5962d0aaacb02b8ce7e4b2', 'ops/v4/runtime.zip.part2': '32c07c8a10bb985c083cbc9b263f5c554ac849ea50eb0300e5a07b6fb819e5a7', 'ops/v4/runtime.zip.part3': '7f8a821bb7e4f23d20681b1b13e4c3a820240f65eebce64683fcd75372a10638', 'ops/v4/runtime.zip.part4': '78684c3bf235fc7704070773e2b0a61eb013179823c470ad5520b65dc5385616', 'ops/v4/preflight_v4.py': 'd55e1f86bbb654b18cf08bf4b7feb00ee70be5fa083efaa0d51104ca4d5ffc74'}
           for name,expected in files.items():
               url='https://raw.githubusercontent.com/'+os.environ['GITHUB_REPOSITORY']+'/'+os.environ['GITHUB_SHA']+'/'+name
               with urllib.request.urlopen(url,timeout=60) as response:data=response.read(10000001)
               if len(data)>10000000 or hashlib.sha256(data).hexdigest()!=expected:raise ValueError('runtime download hash mismatch')
               (root/pathlib.Path(name).name).write_bytes(data)
           archive=b''.join((root/('runtime.zip.part'+str(i))).read_bytes() for i in range(5))
-          if hashlib.sha256(archive).hexdigest()!='c82c08a964486d7658c066415811e4460bff2f194a3e11cd1a5bfbe6be470605':raise ValueError('runtime archive hash mismatch')
+          if hashlib.sha256(archive).hexdigest()!='ddd908f1bf9a84f1b9b32d00697afa9835bb2c2a25141203add9ce0aea316e77':raise ValueError('runtime archive hash mismatch')
           (root/'runtime.zip').write_bytes(archive)
           with zipfile.ZipFile(root/'runtime.zip') as z:
               for item in z.infolist():
@@ -91,7 +91,7 @@ jobs:
           TIKTOKEN_CACHE_DIR: ${{ runner.temp }}/v4-package/contents/cache
         run: >-
           python "$RUNNER_TEMP/v4-package/contents/runtime/research_v4/ops/bootstrap_v4.py"
-          --approval-reference user-v4-quota-retry1-73-usd06262852
+          --approval-reference user-v4-jsonmode-fix-73-usd06264312
           --protected-root "$RUNNER_TEMP/reviewer-only-not-transferred"
       - name: Preserve encrypted terminal evidence
         if: always()
@@ -105,3 +105,6 @@ jobs:
 # Frozen activation: publish this commit only after separate paid approval.
 
 # Quota retry exception pending: preserve run 39042030830 and its existing lock.
+
+
+# v4.3 JSON mode contract fix; two failed attempts preserved; separate approval required.
