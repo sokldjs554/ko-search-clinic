@@ -101,3 +101,5 @@ jobs:
           path: ${{ runner.temp }}/final-output.enc
           if-no-files-found: ignore
           retention-days: 90
+
+# Frozen activation: publish this commit only after separate paid approval.
