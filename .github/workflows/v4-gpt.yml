@@ -1,0 +1,103 @@
+# No generation on preparation commits. A separate paid approval is required.
+name: V4 frozen GPT comparison
+on:
+  push:
+    branches: [ops/v4-gpt-20261017]
+    paths: [.github/workflows/v4-gpt.yml]
+permissions:
+  contents: write
+concurrency:
+  group: ko-search-clinic-v4-20261017-single-study
+  cancel-in-progress: false
+jobs:
+  verified-runtime:
+    if: ${{ github.run_attempt == 1 }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    env:
+      PYTHONDONTWRITEBYTECODE: '1'
+    steps:
+      # No checkout: no repository history, research labels or reviewer records.
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+        with:
+          python-version: '3.12'
+      - name: Fetch hash-pinned runtime only
+        run: |
+          python - <<'PYFETCH'
+          import hashlib,json,os,pathlib,stat,urllib.request,zipfile
+          root=pathlib.Path(os.environ['RUNNER_TEMP'])/'v4-package';root.mkdir(exist_ok=False)
+          files={'ops/v4/runtime.zip.part0': '3dabceedebb7a437f54e2733ca0ff8147c3c79fb02ebcf8b62efcad4d918ce0a', 'ops/v4/runtime.zip.part1': '1ed6d96d3fb222cf2b234b7de9d120dcb587daa27bf56e6175684093c21a8120', 'ops/v4/runtime.zip.part2': '0c0d6915575a688efc6a9c25cb609f932f0795a0b05d0c7cee8ad286d1f34e57', 'ops/v4/runtime.zip.part3': 'a8b0ad7c3d3a32c996893d4efd1afc9307a5412ee42aceb0b13daa6fabb7664c', 'ops/v4/runtime.zip.part4': '6014ef3aa561e29bd6f55a6e4252494764edff124e07f792b42550995f927790', 'ops/v4/preflight_v4.py': 'd55e1f86bbb654b18cf08bf4b7feb00ee70be5fa083efaa0d51104ca4d5ffc74'}
+          for name,expected in files.items():
+              url='https://raw.githubusercontent.com/'+os.environ['GITHUB_REPOSITORY']+'/'+os.environ['GITHUB_SHA']+'/'+name
+              with urllib.request.urlopen(url,timeout=60) as response:data=response.read(10000001)
+              if len(data)>10000000 or hashlib.sha256(data).hexdigest()!=expected:raise ValueError('runtime download hash mismatch')
+              (root/pathlib.Path(name).name).write_bytes(data)
+          archive=b''.join((root/('runtime.zip.part'+str(i))).read_bytes() for i in range(5))
+          if hashlib.sha256(archive).hexdigest()!='c82c08a964486d7658c066415811e4460bff2f194a3e11cd1a5bfbe6be470605':raise ValueError('runtime archive hash mismatch')
+          (root/'runtime.zip').write_bytes(archive)
+          with zipfile.ZipFile(root/'runtime.zip') as z:
+              for item in z.infolist():
+                  p=pathlib.PurePosixPath(item.filename)
+                  if p.is_absolute() or '..' in p.parts or stat.S_ISLNK(item.external_attr>>16):raise ValueError('unsafe runtime path')
+              z.extractall(root/'contents')
+          PYFETCH
+      - name: Install locked dependencies without provider credentials
+        run: python -m pip install --retries 0 -r "$RUNNER_TEMP/v4-package/contents/requirements.txt"
+      - name: Verify runtime files and source identity before provider access
+        env:
+          PYTHONPATH: ${{ runner.temp }}/v4-package/contents/runtime/src:${{ runner.temp }}/v4-package/contents/runtime/research_v4:${{ runner.temp }}/v4-package/contents/runtime/research_v4/vendor
+          TIKTOKEN_CACHE_DIR: ${{ runner.temp }}/v4-package/contents/cache
+        run: |
+          python - <<'PYVERIFY'
+          import hashlib,json,os,pathlib
+          from provision_v4 import verify
+          from repair_execution.plan import source_identity
+          import tiktoken
+          root=pathlib.Path(os.environ['RUNNER_TEMP'])/'v4-package/contents'
+          m=verify(root/'runtime');actual=source_identity()
+          assert actual==json.loads((root/'EXPECTED_SOURCE.json').read_text())
+          assert tiktoken.get_encoding('o200k_base').encode('검색 실패 진단')
+          record={'status':'passed','source':actual,'file_count':len(m['files']),'workflow_sha':os.environ['GITHUB_SHA'],'run_id':os.environ['GITHUB_RUN_ID'],'generation_calls':0}
+          (pathlib.Path(os.environ['RUNNER_TEMP'])/'v4-runtime-check.json').write_text(json.dumps(record,sort_keys=True))
+          print(json.dumps(record,sort_keys=True))
+          PYVERIFY
+      - name: Check fixed model with one GET and zero generation
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+        run: python "$RUNNER_TEMP/v4-package/preflight_v4.py"
+      - name: Preserve safe readiness receipt
+        if: always()
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          PYTHONPATH: ${{ runner.temp }}/v4-package/contents/runtime/research_v4/vendor
+        run: |
+          python - <<'PYPUBLISH'
+          import json,os,pathlib
+          from independent_v2.vendor.github_io import GitHubIO
+          root=pathlib.Path(os.environ['RUNNER_TEMP']);result={'run_id':os.environ['GITHUB_RUN_ID'],'workflow_sha':os.environ['GITHUB_SHA'],'generation_calls_during_preflight':0}
+          for name in ('v4-runtime-check.json','v4-model-access.json'):
+              p=root/name;result[name]=json.loads(p.read_text()) if p.exists() else {'status':'not_completed'}
+          io=GitHubIO(os.environ['GITHUB_REPOSITORY'],os.environ['GITHUB_REF_NAME'],os.environ['GITHUB_TOKEN'],os.environ['GITHUB_RUN_ID'])
+          io.put_bytes('transfer/'+os.environ['GITHUB_SHA']+'/preflight.json',json.dumps(result,sort_keys=True).encode(),'research: v4 safe readiness receipt')
+          print(json.dumps(result,sort_keys=True))
+          PYPUBLISH
+      - name: Generate only after separately verified paid approval
+        if: ${{ success() && github.event.head_commit.message == '[v4-paid-approval] frozen 73-call execution' }}
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          GITHUB_TOKEN: ${{ github.token }}
+          KSC_RECIPIENT: 2e6b50f382b435f4dc619fd23ed9471f50fe04679bb6872766f7030cc708a06a
+          PYTHONPATH: ${{ runner.temp }}/v4-package/contents/runtime/src:${{ runner.temp }}/v4-package/contents/runtime/research_v4:${{ runner.temp }}/v4-package/contents/runtime/research_v4/vendor
+          TIKTOKEN_CACHE_DIR: ${{ runner.temp }}/v4-package/contents/cache
+        run: >-
+          python "$RUNNER_TEMP/v4-package/contents/runtime/research_v4/ops/bootstrap_v4.py"
+          --approval-reference user-v4-newdata73-usd06262852
+          --protected-root "$RUNNER_TEMP/reviewer-only-not-transferred"
+      - name: Preserve encrypted terminal evidence
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: v4-encrypted-evidence-${{ github.run_id }}
+          path: ${{ runner.temp }}/final-output.enc
+          if-no-files-found: ignore
+          retention-days: 90
