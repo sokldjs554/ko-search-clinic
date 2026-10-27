@@ -28,3 +28,4 @@ No live API calls made at plan creation. No application claims finalized before 
 - R5: Remove a test that equated README's historical test count with the current collection count. Optional dependencies and --ignore make this equality invalid. Record actual commands, environments and counts in dated verification results; retain behavioral corpus tests.
 
 - R6: Shell git push has no credentials. Publish through the connected GitHub Git Data API; no new tokens requested or secret extraction.
+- Review: fresh reviewer found stale input/apply state, evaluator misclassification of invalid patches, and p95 floor bias. Inputs now invalidate the current report/citations and are locked during generation; duplicate patches fail validation; unknown-query and malformed-candidate failures are distinct; p95 uses nearest rank. Follow-up tests added.

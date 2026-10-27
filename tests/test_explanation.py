@@ -46,3 +46,9 @@ def test_model_cannot_override_target_or_smuggle_extra_fields():
 
 def test_malformed_output_is_visible_not_a_fake_abstention():
     assert validate_explanation({'oops':True}, [DOC], '후라이팬')['status'] == 'invalid'
+
+def test_duplicate_patches_fail_before_attempting_gate():
+    raw={**GOOD,'patches':[GOOD['patches'][0],GOOD['patches'][0]]}
+    result=validate_explanation(raw,[DOC],'후라이팬')
+    assert result['status']=='invalid'
+    assert result['prescription'] is None

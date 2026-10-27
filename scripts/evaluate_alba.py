@@ -49,10 +49,15 @@ def main():
                         if answer['prescription']:
                             sid=svc.clinic.create_session(label=case['id'])['session_id']
                             try:
-                                svc.clinic.open_query(sid,case['query'])
-                                row['gate']=svc.clinic.submit_prescription(sid,answer['prescription'])
-                            except ToolFailed:
-                                row['gate_error']='query_not_evaluable'
+                                try:
+                                    svc.clinic.open_query(sid,case['query'])
+                                except ToolFailed:
+                                    row['gate_error']='query_not_evaluable'
+                                else:
+                                    try:
+                                        row['gate']=svc.clinic.submit_prescription(sid,answer['prescription'])
+                                    except ToolFailed:
+                                        row['gate_error']='candidate_rejected_before_evaluation'
                             finally:
                                 svc.clinic.delete_session(sid)
                     except ProviderError as exc:

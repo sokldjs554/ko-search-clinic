@@ -5,7 +5,8 @@ const labels={supported:'원문 인용 확인',abstain:'판단 보류',invalid:'
 function text(id,value){$(id).textContent=value;}
 function node(tag,value,cls){const n=document.createElement(tag);n.textContent=value;if(cls)n.className=cls;return n;}
 function status(value){text('status',value);}
-function busy(value){$('generate').disabled=value;$('cancel').hidden=!value;$('mode').disabled=value;$('apply').disabled=value||!current?.answer?.prescription||current?.mode!=='live';}
+function clearResult(){current=null;$('result').hidden=true;$('download').disabled=true;$('apply').disabled=true;$('citations').replaceChildren(node('p','새 진단을 실행하면 근거가 표시됩니다.','empty'));}
+function busy(value){$('query').disabled=value;$('problem').disabled=value;$('generate').disabled=value;$('cancel').hidden=!value;$('mode').disabled=value;$('apply').disabled=value||!current?.answer?.prescription||current?.mode!=='live';}
 function render(report){
  current=report;$('result').hidden=false;$('download').disabled=false;
  const answer=report.answer||{};const context=report.context||{};const generation=report.generation||{};
@@ -17,7 +18,7 @@ function render(report){
  text('summary',answer.summary||report.error||'응답을 받지 못했습니다.');
  $('patches').replaceChildren(...(answer.patches||[]).map(p=>node('div',`${p.kind}  ${p.terms.join(' → ')}`,'patch')));
  const gate=report.gate;
- text('gate-text',gate?`${gate.accepted?'채택':'기각'} · 표적 nDCG ${gate.target_ndcg_before} → ${gate.target_ndcg_after}\n${gate.feedback||''}`:report.gate_error?'이 질의는 평가셋 밖이므로 검증할 수 없습니다.':answer.prescription?'수정 후보가 있습니다. 전체 평가셋 검사를 거쳐야 적용됩니다.':'검증할 수정 후보가 없습니다.');
+ text('gate-text',gate?`${gate.accepted?'채택':'기각'} · 표적 nDCG ${gate.target_ndcg_before} → ${gate.target_ndcg_after}\n${gate.feedback||''}`:report.gate_error?(report.gate_error==='query_not_evaluable'?'이 질의는 평가셋 밖이므로 검증할 수 없습니다.':'수정 후보가 적용 조건을 만족하지 못했습니다.'):answer.prescription?'수정 후보가 있습니다. 전체 평가셋 검사를 거쳐야 적용됩니다.':'검증할 수정 후보가 없습니다.');
  $('apply').hidden=report.mode!=='live';$('apply').disabled=!answer.prescription||Boolean(gate);
  $('citations').replaceChildren();
  for(const doc of context.documents||[]){
@@ -41,7 +42,7 @@ async function load(){
  setMode();
 }
 function setMode(){
- const live=$('mode').value==='live';epoch++;current=null;$('result').hidden=true;$('download').disabled=true;
+ const live=$('mode').value==='live';epoch++;clearResult();
  $('live-controls').hidden=!live;$('query').readOnly=!live;$('problem').readOnly=!live;
  $('cases').inert=live;
  text('mode-note',live?'로컬 서버에서 새 API 요청이 발생합니다. 승인된 예산 범위에서만 실행하세요.':'이 화면에서는 새 API 요청이 발생하지 않습니다.');
@@ -49,6 +50,7 @@ function setMode(){
  else if(records.length)selectRecord(0);
 }
 $('mode').addEventListener('change',setMode);
+for(const field of ['query','problem'])$(field).addEventListener('input',()=>{if($('mode').value==='live'){epoch++;clearResult();status('입력이 변경됐습니다. 새 조건으로 진단을 실행해 주세요.');}});
 async function request(path,body,signal){
  const response=await fetch(path,{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+$('token').value},body:body?JSON.stringify(body):undefined,signal});
  let data;try{data=await response.json();}catch{throw Error('로컬 API 응답을 받지 못했습니다. 로컬 서버 주소에서 실행해 주세요.');}
@@ -56,7 +58,7 @@ async function request(path,body,signal){
 }
 $('query-form').addEventListener('submit',async event=>{
  event.preventDefault();if($('mode').value!=='live'||controller)return;
- current=null;$('result').hidden=true;$('download').disabled=true;
+ clearResult();
  const id=++epoch;controller=new AbortController();busy(true);status('운영 지식을 검색하고 설명을 생성하고 있습니다.');
  try{const r=await request('/explanations',{query:$('query').value,problem:$('problem').value},controller.signal);if(id===epoch)render(r);}
  catch(e){if(id===epoch)status(e.name==='AbortError'?'수신을 취소했습니다. 서버에서 이미 시작한 생성과 비용은 취소되지 않을 수 있습니다.':e.message);}

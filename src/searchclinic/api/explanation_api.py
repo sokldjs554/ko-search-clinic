@@ -1,6 +1,7 @@
 """Local workbench. Paid requests require explicit server setup and a local token."""
 from __future__ import annotations
 import hmac
+import math
 import os
 import threading
 import time
@@ -13,6 +14,11 @@ from searchclinic.api.rest import create_app
 from searchclinic.rag.explanation_service import ExplanationService
 from searchclinic.rag.openai_provider import Budget, OpenAIExplainer, ProviderError
 from searchclinic.service import ClinicService
+
+def latency_p95(values):
+    """Nearest-rank percentile; retain the tail even for small samples."""
+    values=sorted(values)
+    return values[math.ceil(.95*len(values))-1] if values else None
 
 class Request(BaseModel):
     query: str = Field(min_length=1,max_length=100)
@@ -44,7 +50,7 @@ def create_explanation_app(*, provider=None, token: str | None=None):
         with stats_lock:
             values=sorted(latencies)
             return {'live_enabled':provider is not None,'metrics':dict(stats),
-                    'latency_ms_p95':values[max(0,int(len(values)*.95)-1)] if values else None,
+                    'latency_ms_p95':latency_p95(values),
                     'scope':'현재 프로세스 / 최근 100회, 고객 서비스 SLA 아님'}
 
     @app.post('/explanations')

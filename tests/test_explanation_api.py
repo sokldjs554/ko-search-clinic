@@ -35,3 +35,9 @@ def test_failure_returns_safe_error_and_operational_counter(live):
 @pytest.mark.parametrize('query',['',' '*5,'가'*101])
 def test_input_limits_before_model_call(live,query):
     assert live.post('/explanations',json={'query':query},headers={'Authorization':'Bearer '+'x'*24}).status_code == 422
+
+def test_p95_nearest_rank_keeps_slow_tail_for_small_samples():
+    from searchclinic.api.explanation_api import latency_p95
+    assert latency_p95([100,10000]) == 10000
+    assert latency_p95(list(range(1,25))) == 23
+    assert latency_p95([]) is None

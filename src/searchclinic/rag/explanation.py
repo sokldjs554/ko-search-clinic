@@ -7,6 +7,7 @@ from __future__ import annotations
 from typing import Literal
 from pydantic import BaseModel, ConfigDict, Field, ValidationError
 from searchclinic.patch.ir import Prescription
+from searchclinic.analysis.config import AnalyzerConfig
 from searchclinic.rag.knowledge import KnowledgeDoc
 
 class StrictModel(BaseModel):
@@ -53,7 +54,11 @@ def validate_explanation(raw: dict, docs: list[KnowledgeDoc], query: str) -> dic
                 payload['user_words'].append({'form': patch.terms[0]})
             else:
                 payload['compound_expansions'].append({'word': patch.terms[0], 'parts': patch.terms[1:]})
-        prescription = Prescription.model_validate(payload).model_dump() if answer.patches else None
+        prescription = None
+        if answer.patches:
+            candidate = Prescription.model_validate(payload)
+            candidate.apply_to(AnalyzerConfig())  # reject conflicting/duplicate patches before a gate
+            prescription = candidate.model_dump()
         return {**answer.model_dump(), 'prescription': prescription, 'validation_error': None}
     except (ValidationError, ValueError, TypeError):
         return {'status':'invalid', 'summary':'생성 결과의 형식 또는 원문 인용을 확인하지 못했습니다.',
