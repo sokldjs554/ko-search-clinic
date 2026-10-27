@@ -52,3 +52,23 @@ def test_duplicate_patches_fail_before_attempting_gate():
     result=validate_explanation(raw,[DOC],'후라이팬')
     assert result['status']=='invalid'
     assert result['prescription'] is None
+
+def test_display_only_whitespace_and_bold_changes_resolve_to_exact_source():
+    doc=KnowledgeDoc('K1','동의어','표기 변형은\n**좁은 동의어**로 연결한다.','프로젝트 문서')
+    result=validate_explanation(GOOD,[doc],'후라이팬')
+    assert result['status']=='supported'
+    quote=result['evidence'][0]['quote']
+    assert quote in doc.body
+    assert '\n' in quote
+    assert result['citation_format_recovered'] is True
+
+def test_word_or_punctuation_change_is_not_format_recovery():
+    doc=KnowledgeDoc('K1','동의어','표기 변형은 좁은 동의어로 연결하지만 예외가 있다.','프로젝트 문서')
+    assert validate_explanation(GOOD,[doc],'후라이팬')['status']=='invalid'
+
+@pytest.mark.parametrize('quote,body',[
+    ('It is now here.','It is nowhere.'),
+    ('아버지가 방에 들어가신다.','아버지 가방에 들어가신다.')])
+def test_quote_recovery_preserves_word_boundaries(quote,body):
+    from searchclinic.rag.explanation import source_quote
+    with pytest.raises(ValueError): source_quote(quote,body)

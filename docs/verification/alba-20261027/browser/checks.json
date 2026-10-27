@@ -1,0 +1,23 @@
+{
+  "passed": true,
+  "viewports": [
+    1440,
+    320,
+    390,
+    650
+  ],
+  "checks": [
+    "24 measured replay rows",
+    "accepted and blocked measured results",
+    "no horizontal overflow",
+    "stale input invalidation",
+    "pending input lock",
+    "cancel",
+    "provider error",
+    "gate application",
+    "mode switch",
+    "download",
+    "no page errors"
+  ],
+  "live_route": "test double; no paid API requests"
+}

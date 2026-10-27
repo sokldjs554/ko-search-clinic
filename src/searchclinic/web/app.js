@@ -16,6 +16,8 @@ function render(report){
  text('hits',(context.search?.results||[]).map(h=>h.name).join(' / ')||'검색 결과 없음');
  text('metadata',`${generation.model||'모델 응답 없음'} · ${generation.latency_ms??'—'}ms · 추정 $${generation.estimated_usd??'—'} · ${report.condition||'retrieved'}`);
  text('summary',answer.summary||report.error||'응답을 받지 못했습니다.');
+ if(answer.citation_format_recovered)$('summary').append(node('p','인용의 줄바꿈·강조 기호 차이를 원문 위치로 대응했습니다.','small'));
+ if(answer.validation_error)$('summary').append(node('p','차단 단계: '+answer.validation_error,'small'));
  $('patches').replaceChildren(...(answer.patches||[]).map(p=>node('div',`${p.kind}  ${p.terms.join(' → ')}`,'patch')));
  const gate=report.gate;
  text('gate-text',gate?`${gate.accepted?'채택':'기각'} · 표적 nDCG ${gate.target_ndcg_before} → ${gate.target_ndcg_after}\n${gate.feedback||''}`:report.gate_error?(report.gate_error==='query_not_evaluable'?'이 질의는 평가셋 밖이므로 검증할 수 없습니다.':'수정 후보가 적용 조건을 만족하지 못했습니다.'):answer.prescription?'수정 후보가 있습니다. 전체 평가셋 검사를 거쳐야 적용됩니다.':'검증할 수정 후보가 없습니다.');
@@ -29,7 +31,7 @@ function render(report){
   const detail=node('details','');detail.append(node('summary','제공된 본문 보기'),node('pre',doc.body));section.append(detail,node('p',doc.source,'small'));$('citations').append(section);
  }
  if(!(context.documents||[]).length)$('citations').append(node('p','이 조건에서는 문서를 제공하지 않았습니다.','empty'));
- status(report.mode==='live'?'새 API 생성 결과입니다. 원문 확인과 수정안 검증 결과를 구분해 보세요.':'저장된 실제 실행 기록입니다. 현재 새 계산을 수행하지 않습니다.');
+ status(report.mode==='live'?'새 API 생성 결과입니다. 원문 확인과 수정안 검증 결과를 구분해 보세요.':report.revalidated_offline?'저장된 실제 실행 응답을 보완한 검증기로 재검사한 기록입니다. 새 API 생성은 아닙니다.':'저장된 실제 실행 기록입니다. 현재 새 계산을 수행하지 않습니다.');
 }
 function selectRecord(index){epoch++;current=null;document.querySelectorAll('#cases button').forEach((b,i)=>b.setAttribute('aria-pressed',String(i===index)));render({...records[index],mode:'replay'});}
 async function load(){
