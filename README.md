@@ -337,7 +337,7 @@ clinic build-lake --docs 50000 --log-rows 500000
 clinic mine-logs --engine duckdb
 clinic scale-bench --sizes 0 1000 10000 50000
 
-# 테스트 308개, 전부 오프라인
+# 오프라인 테스트 (설치한 선택 의존성에 따라 수집 범위가 달라집니다)
 pytest
 ```
 
@@ -416,7 +416,7 @@ src/searchclinic/
 ├── store/         # PostgreSQL 영속 저장소 (선택)
 └── cli.py         # analyze/search/evaluate/diagnose/heal/demo-trap/baseline 등
 .github/workflows/ # CI — 테스트(우분투·윈도우) + 검색 품질 게이트
-tests/             # 308개 테스트 (전부 오프라인)
+tests/             # 오프라인 회귀 검사
 docker/            # ES + analysis-nori 이미지와 compose
 docs/              # 설계 문서 + CLI가 생성한 리포트/원장/ES 설정
 ```
