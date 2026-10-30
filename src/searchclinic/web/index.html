@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>검색 점검실 · ko-search-clinic</title><link rel="stylesheet" href="style.css"></head>
+<body>
+<header><a class="brand" href="./">검색 점검실<span>KO–SEARCH / CLINIC</span></a><div class="edition">운영 도구 연구<br><strong>01 — 검색과 근거</strong></div></header>
+<main>
+<section class="intro"><div><p class="eyebrow">SEARCH QUALITY WORKBENCH</p><h1>검색이 끊긴 자리</h1><p>입력한 말, 분석된 토큰, 수정 근거를 한 화면에서 살펴봅니다.</p></div><p class="scope">상품 카탈로그를 이용한 기술 데모입니다.<br>알바천국의 실제 데이터·검색 시스템이 아닙니다.</p></section>
+<p><a href="research.html">v5 저장 후보 검색 효과 · 실제 개발 진단 보기 →</a></p>
+<div class="toolbar"><label>실행 방식 <select id="mode"><option value="replay">저장 결과 열람</option><option value="live">로컬 실제 생성</option></select></label><span id="mode-note">이 화면에서는 새 API 요청이 발생하지 않습니다.</span><button id="download" disabled>기록 내려받기 ↓</button></div>
+<div class="workspace">
+<aside><div class="section-label">01 / 점검 목록</div><div id="cases"><p>기록을 불러오는 중입니다.</p></div><p class="aside-note">목록의 점수는 전체 서비스 성능이 아닙니다. 각 기록에서 입력 조건과 회귀 검사 결과를 확인하세요.</p></aside>
+<section class="inspection"><div class="section-label">02 / 검색 진단</div>
+<form id="query-form"><label for="query">검색어</label><input id="query" value="후라이팬" maxlength="100" required><label for="problem">관찰한 문제</label><textarea id="problem" maxlength="500" rows="3">표기가 다른 같은 물건을 검색하면 결과가 없습니다.</textarea><div id="live-controls" hidden><label for="token">로컬 운영 토큰</label><input id="token" type="password" autocomplete="off" placeholder="서버에 설정한 CLINIC_LIVE_TOKEN"><p class="small">토큰은 저장하지 않습니다. API 키를 여기에 입력하지 마세요.</p><button type="submit" id="generate">근거 검색 · 설명 생성</button><button type="button" id="cancel" hidden>수신 취소</button></div></form>
+<div id="status" role="status" aria-live="polite">저장 기록을 선택해 주세요.</div>
+<div id="result" hidden><div class="result-heading"><h2>분석 결과</h2><span id="result-state"></span></div><dl><dt>형태소</dt><dd id="tokens"></dd><dt>검색 결과</dt><dd id="hits"></dd><dt>실행 조건</dt><dd id="metadata"></dd></dl><p id="summary" class="summary"></p><div id="patches"></div><div class="gate"><h2>수정안 검증</h2><p id="gate-text"></p><button id="apply" disabled>전체 평가셋으로 검사</button><p class="small">검사를 통과한 수정만 별도 세션에 반영합니다. 기본 검색 설정은 보존됩니다.</p></div></div>
+</section>
+<section class="sources"><div class="section-label">03 / 판단 근거</div><h2>운영 지식과 인용</h2><p class="small">프로젝트에서 작성한 운영 지식입니다. 인용 일치 검사는 설명의 의미적 타당성을 보증하지 않습니다.</p><div id="citations"><p class="empty">기록을 선택하면 인용문과 검색한 문서가 표시됩니다.</p></div></section>
+</div>
+<section class="reading"><h2>이 기록을 읽는 방법</h2><p><strong>생성</strong>은 관측과 검색 문서로 수정 후보를 만듭니다. <strong>원문 검사</strong>는 인용한 문장이 문서에 있는지 확인합니다. <strong>회귀 검사</strong>는 기존 36개 질의의 변화를 확인합니다. 어느 단계도 실제 고객 효과를 증명하지는 않습니다.</p></section>
+</main><footer><span>ko-search-clinic</span><a href="https://github.com/sokldjs554/ko-search-clinic">소스 · 평가 기록 ↗</a><span>Python / RAG / 검색 회귀 검사</span></footer><script src="app.js"></script></body></html>

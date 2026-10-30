@@ -1,0 +1,24 @@
+..F                                                                      [100%]
+=================================== FAILURES ===================================
+________ test_request_export_preserves_generation_failure_without_retry ________
+
+tmp_path = PosixPath('/tmp/pytest-of-agent/pytest-13/test_request_export_preserves_0')
+
+    def test_request_export_preserves_generation_failure_without_retry(tmp_path):
+        from test_v5_pipeline import bundle
+        from searchclinic.research_v5.pipeline import freeze
+        raw = bundle()
+        raw['records'][0].update(generation_error='provider timed out', candidates=[])
+        source, out = tmp_path/'bundle.json', tmp_path/'requests.json'
+        source.write_text(json.dumps(freeze(raw)))
+        result = run('requests', source, '--out', out, '--protected-root', tmp_path/'private')
+        assert result.returncode == 0, result.stderr
+        exported = json.loads(out.read_text())['body']
+>       assert exported['generation_errors']['q1'] == 'provider timed out'
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       KeyError: 'generation_errors'
+
+tests/test_v5_cli.py:44: KeyError
+=========================== short test summary info ============================
+FAILED tests/test_v5_cli.py::test_request_export_preserves_generation_failure_without_retry
+1 failed, 2 passed in 0.97s

@@ -6,3 +6,16 @@ build/
 dist/
 .pytest_cache/
 .env
+
+work/
+.clinic-budget.json
+.clinic-budget.json.lock
+test-results.xml
+# Local evaluator-only labels are generated after public requests; never publish.
+artifacts/research/v5-prepared/private/
+
+# Detailed development evaluation remains local pending explicit publication approval.
+artifacts/research/v5-prepared
+docs/research/v5/development-funnel.csv
+docs/research/v5/development-replay.json
+src/searchclinic/web/research-replay.json

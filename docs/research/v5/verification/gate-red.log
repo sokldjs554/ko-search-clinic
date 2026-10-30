@@ -1,0 +1,153 @@
+FFFFF                                                                    [100%]
+=================================== FAILURES ===================================
+_______________ test_distributed_small_losses_cannot_reduce_mean _______________
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7f82bb5e0800>
+
+    def test_distributed_small_losses_cannot_reduce_mean(monkeypatch):
+        verdict = exercise(monkeypatch)
+        assert verdict.target_after.ndcg > verdict.target_before.ndcg
+        assert not verdict.regressions  # each loss is within 0.02
+        assert verdict.mean_after < verdict.mean_before
+>       assert not verdict.accepted
+E       AssertionError: assert not True
+E        +  where True = GateVerdict(accepted=True, reason='표적 개선 + 무회귀 + 전체 보존', target_query='q0', target_before=QueryMetrics(query='q0', ndc...cg=0.55, recall=0.5, precision5=0.5, n_results=1, hits_top=('d',)), mean_before=0.5, mean_after=0.4948, regressions=[]).accepted
+
+tests/test_gate_mean_preservation.py:31: AssertionError
+_____________ test_legacy_mean_tolerance_requires_explicit_opt_in ______________
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7f82bb5e0b60>
+
+    def test_legacy_mean_tolerance_requires_explicit_opt_in(monkeypatch):
+>       assert exercise(monkeypatch, mean_epsilon=.02).accepted
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_gate_mean_preservation.py:36: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7f82bb5e0b60>
+kwargs = {'mean_epsilon': 0.02}
+
+    def exercise(monkeypatch, **kwargs):
+        import searchclinic.patch.gate as gate
+        queries = [EvalQuery(query=f'q{i}', qrels={'d': 1}) for i in range(5)]
+        before = {q.query: QueryMetrics(q.query, .5, .5, .5, 1, ('d',)) for q in queries}
+        after = {q.query: QueryMetrics(q.query, .55 if i == 0 else .481, .5, .5, 1, ('d',))
+                 for i, q in enumerate(queries)}
+        sandbox = object()
+        engine = SimpleNamespace(config=AnalyzerConfig(), with_config=lambda _: sandbox)
+        monkeypatch.setattr(gate, 'evaluate_all', lambda e, _: before if e is engine else after)
+        rx = Prescription(target_query='q0', diagnosis_family='spelling_variant',
+                          reasoning='controlled aggregate regression example',
+                          synonym_groups=[{'terms': ['a', 'b']}])
+>       return run_gate(engine, queries, rx, **kwargs)[0]
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       TypeError: run_gate() got an unexpected keyword argument 'mean_epsilon'
+
+tests/test_gate_mean_preservation.py:23: TypeError
+__________________ test_invalid_mean_tolerances_rejected[nan] __________________
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7f82bb5e1760>
+bad = nan
+
+    @pytest.mark.parametrize('bad', [float('nan'), float('inf'), -.01])
+    def test_invalid_mean_tolerances_rejected(monkeypatch, bad):
+        with pytest.raises(ValueError):
+>           exercise(monkeypatch, mean_epsilon=bad)
+
+tests/test_gate_mean_preservation.py:42: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7f82bb5e1760>
+kwargs = {'mean_epsilon': nan}
+
+    def exercise(monkeypatch, **kwargs):
+        import searchclinic.patch.gate as gate
+        queries = [EvalQuery(query=f'q{i}', qrels={'d': 1}) for i in range(5)]
+        before = {q.query: QueryMetrics(q.query, .5, .5, .5, 1, ('d',)) for q in queries}
+        after = {q.query: QueryMetrics(q.query, .55 if i == 0 else .481, .5, .5, 1, ('d',))
+                 for i, q in enumerate(queries)}
+        sandbox = object()
+        engine = SimpleNamespace(config=AnalyzerConfig(), with_config=lambda _: sandbox)
+        monkeypatch.setattr(gate, 'evaluate_all', lambda e, _: before if e is engine else after)
+        rx = Prescription(target_query='q0', diagnosis_family='spelling_variant',
+                          reasoning='controlled aggregate regression example',
+                          synonym_groups=[{'terms': ['a', 'b']}])
+>       return run_gate(engine, queries, rx, **kwargs)[0]
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       TypeError: run_gate() got an unexpected keyword argument 'mean_epsilon'
+
+tests/test_gate_mean_preservation.py:23: TypeError
+__________________ test_invalid_mean_tolerances_rejected[inf] __________________
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7f82bb5e2660>
+bad = inf
+
+    @pytest.mark.parametrize('bad', [float('nan'), float('inf'), -.01])
+    def test_invalid_mean_tolerances_rejected(monkeypatch, bad):
+        with pytest.raises(ValueError):
+>           exercise(monkeypatch, mean_epsilon=bad)
+
+tests/test_gate_mean_preservation.py:42: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7f82bb5e2660>
+kwargs = {'mean_epsilon': inf}
+
+    def exercise(monkeypatch, **kwargs):
+        import searchclinic.patch.gate as gate
+        queries = [EvalQuery(query=f'q{i}', qrels={'d': 1}) for i in range(5)]
+        before = {q.query: QueryMetrics(q.query, .5, .5, .5, 1, ('d',)) for q in queries}
+        after = {q.query: QueryMetrics(q.query, .55 if i == 0 else .481, .5, .5, 1, ('d',))
+                 for i, q in enumerate(queries)}
+        sandbox = object()
+        engine = SimpleNamespace(config=AnalyzerConfig(), with_config=lambda _: sandbox)
+        monkeypatch.setattr(gate, 'evaluate_all', lambda e, _: before if e is engine else after)
+        rx = Prescription(target_query='q0', diagnosis_family='spelling_variant',
+                          reasoning='controlled aggregate regression example',
+                          synonym_groups=[{'terms': ['a', 'b']}])
+>       return run_gate(engine, queries, rx, **kwargs)[0]
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       TypeError: run_gate() got an unexpected keyword argument 'mean_epsilon'
+
+tests/test_gate_mean_preservation.py:23: TypeError
+_________________ test_invalid_mean_tolerances_rejected[-0.01] _________________
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7f82bb5e36b0>
+bad = -0.01
+
+    @pytest.mark.parametrize('bad', [float('nan'), float('inf'), -.01])
+    def test_invalid_mean_tolerances_rejected(monkeypatch, bad):
+        with pytest.raises(ValueError):
+>           exercise(monkeypatch, mean_epsilon=bad)
+
+tests/test_gate_mean_preservation.py:42: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7f82bb5e36b0>
+kwargs = {'mean_epsilon': -0.01}
+
+    def exercise(monkeypatch, **kwargs):
+        import searchclinic.patch.gate as gate
+        queries = [EvalQuery(query=f'q{i}', qrels={'d': 1}) for i in range(5)]
+        before = {q.query: QueryMetrics(q.query, .5, .5, .5, 1, ('d',)) for q in queries}
+        after = {q.query: QueryMetrics(q.query, .55 if i == 0 else .481, .5, .5, 1, ('d',))
+                 for i, q in enumerate(queries)}
+        sandbox = object()
+        engine = SimpleNamespace(config=AnalyzerConfig(), with_config=lambda _: sandbox)
+        monkeypatch.setattr(gate, 'evaluate_all', lambda e, _: before if e is engine else after)
+        rx = Prescription(target_query='q0', diagnosis_family='spelling_variant',
+                          reasoning='controlled aggregate regression example',
+                          synonym_groups=[{'terms': ['a', 'b']}])
+>       return run_gate(engine, queries, rx, **kwargs)[0]
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       TypeError: run_gate() got an unexpected keyword argument 'mean_epsilon'
+
+tests/test_gate_mean_preservation.py:23: TypeError
+=========================== short test summary info ============================
+FAILED tests/test_gate_mean_preservation.py::test_distributed_small_losses_cannot_reduce_mean
+FAILED tests/test_gate_mean_preservation.py::test_legacy_mean_tolerance_requires_explicit_opt_in
+FAILED tests/test_gate_mean_preservation.py::test_invalid_mean_tolerances_rejected[nan]
+FAILED tests/test_gate_mean_preservation.py::test_invalid_mean_tolerances_rejected[inf]
+FAILED tests/test_gate_mean_preservation.py::test_invalid_mean_tolerances_rejected[-0.01]
+5 failed in 0.14s

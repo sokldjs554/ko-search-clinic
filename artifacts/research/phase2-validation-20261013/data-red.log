@@ -1,0 +1,16 @@
+
+==================================== ERRORS ====================================
+_____________ ERROR collecting tests/test_phase2_external_data.py ______________
+ImportError while importing test module '/workspace/scratch/9fe70959393f/ko-search-clinic-phase2/tests/test_phase2_external_data.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/importlib/__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests/test_phase2_external_data.py:3: in <module>
+    from searchclinic.research.phase2.external_data import select_miracl
+E   ModuleNotFoundError: No module named 'searchclinic.research.phase2.external_data'
+=========================== short test summary info ============================
+ERROR tests/test_phase2_external_data.py
+!!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!
+1 error in 0.08s

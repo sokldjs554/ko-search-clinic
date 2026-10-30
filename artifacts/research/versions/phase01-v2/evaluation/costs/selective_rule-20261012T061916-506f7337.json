@@ -1,0 +1,9 @@
+{
+  "search_calls": 1067,
+  "reindexes": 14,
+  "model_calls": 0,
+  "input_tokens": 0,
+  "output_tokens": 0,
+  "latency_ms": 686.0226210010296,
+  "api_cost_usd": 0.0
+}

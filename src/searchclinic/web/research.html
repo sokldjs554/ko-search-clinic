@@ -1,0 +1,11 @@
+<!doctype html>
+<html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>검색 수정 연구 · v5</title><link rel="stylesheet" href="style.css"><style>main,header{overflow-wrap:anywhere;min-width:0}header{gap:12px}header>a{min-width:0}@media(max-width:500px){header{padding:18px}.brand{font-size:20px}}main{max-width:1100px;margin:auto;padding:24px}table{border-collapse:collapse;width:100%;margin:20px 0}th,td{border-bottom:1px solid #ddd;text-align:left;padding:10px}pre{white-space:pre-wrap;overflow-wrap:anywhere;background:#f4f3ee;padding:16px}select{max-width:100%;padding:8px}article{border-top:1px solid #bbb;margin-top:20px;padding-top:16px}.scroll{overflow:auto}.notice{border-left:4px solid #715a3b;padding:16px;background:#f7f4eb}h1{font-size:2rem}h2{font-size:1.25rem}</style></head>
+<body><header><a class="brand" href="./">검색 점검실<span>KO–SEARCH / CLINIC</span></a><a href="./">RAG 저장 응답</a></header><main>
+<h1>저장 후보는 실제 검색에 도움이 됐나</h1>
+<p class="notice">제출 이후 v5 개발 진단입니다. 과거에 제출·저장된 후보만 재실행했으므로 독립 평가나 새 의미 선택기의 성능이 아닙니다. 실제 의미 판정 비교는 미실행입니다.</p>
+<p id="load" role="status">실제 기록을 불러오는 중입니다.</p>
+<section id="report" hidden><h2>36질의 비교 · 같은 원래 검색 설정에서 개별 적용</h2><div class="scroll"><table><thead><tr><th>조건</th><th>nDCG@10</th><th>Recall@10</th><th>Precision@5</th></tr></thead><tbody id="summary"></tbody></table></div>
+<p>Oracle은 정답으로 최선 후보 또는 수정 없음을 고른 진단 상한입니다. 운영 선택기가 아닙니다. Precision@5의 분모는 5입니다.</p>
+<section id="query-section"><label for="queries">질의별 후보·전후 결과</label> <select id="queries"></select><div id="detail"></div></section>
+<h2>실행 근거와 한계</h2><p id="run-summary"></p><p>이미 관측한 개발 자료이며, 미제출 후보는 포함되지 않습니다. 독립 성능 우위는 미검증입니다.</p><details><summary>해시·환경·원본 출처 확인</summary><pre id="evidence"></pre></details><a id="download" href="research-replay.json" download>실제 기록 JSON 내려받기</a>
+<p><a href="https://github.com/sokldjs554/ko-search-clinic/tree/feat/research-verification-v5-20261030/docs/research/v5">감사·프로토콜·한계</a></p></section></main><script src="research.js"></script></body></html>

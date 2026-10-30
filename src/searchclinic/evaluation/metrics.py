@@ -37,7 +37,7 @@ def _dcg(grades: list[int], k: int) -> float:
 
 
 def evaluate_query(
-    engine: SearchEngine, eq: EvalQuery, k: int = DEFAULT_K
+    engine: SearchEngine, eq: EvalQuery, k: int = DEFAULT_K, *, round_metrics: bool = True
 ) -> QueryMetrics:
     hits = engine.search(eq.query, k=k)
     got = [h.doc_id for h in hits]
@@ -57,18 +57,18 @@ def evaluate_query(
 
     return QueryMetrics(
         query=eq.query,
-        ndcg=round(ndcg, 4),
-        recall=round(recall, 4),
-        precision5=round(precision5, 4),
+        ndcg=round(ndcg, 4) if round_metrics else ndcg,
+        recall=round(recall, 4) if round_metrics else recall,
+        precision5=round(precision5, 4) if round_metrics else precision5,
         n_results=len(got),
         hits_top=tuple(got[:5]),
     )
 
 
 def evaluate_all(
-    engine: SearchEngine, queries: list[EvalQuery], k: int = DEFAULT_K
+    engine: SearchEngine, queries: list[EvalQuery], k: int = DEFAULT_K, *, round_metrics: bool = True
 ) -> dict[str, QueryMetrics]:
-    return {eq.query: evaluate_query(engine, eq, k) for eq in queries}
+    return {eq.query: evaluate_query(engine, eq, k, round_metrics=round_metrics) for eq in queries}
 
 
 def mean_ndcg(metrics: dict[str, QueryMetrics]) -> float:

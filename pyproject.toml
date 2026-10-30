@@ -9,7 +9,8 @@ description = "한국어 검색 품질 자가 치유 에이전트 — 진단·�
 readme = "README.md"
 requires-python = ">=3.10"
 dependencies = [
-    "kiwipiepy>=0.18",
+    "kiwipiepy==0.24.1",
+    "kiwipiepy_model==0.24.0",
     "pydantic>=2.5",
 ]
 
@@ -20,7 +21,8 @@ llm = ["anthropic>=0.40"]
 vector = ["sentence-transformers>=3.0"]
 # REST/MCP는 진료소를 프로세스 밖으로 여는 **껍데기**다. 없어도 CLI와 평가는
 # 그대로 돌고, 서비스 계층 테스트도 이것들 없이 전부 통과한다.
-api = ["fastapi>=0.115", "uvicorn>=0.30"]
+api = ["fastapi>=0.115", "uvicorn>=0.30",
+    "httpx>=0.27"]
 mcp = ["mcp>=2.0"]
 # 규모 실험 — 데이터 레이크(Parquet)와 로그 마이닝. 본체는 이것 없이 돈다.
 # pyspark를 여기 묶지 않는 이유: 소스 배포판이라 빌드 환경이 필요하고,
@@ -40,7 +42,7 @@ clinic-mcp = "searchclinic.api.mcp_server:main"
 where = ["src"]
 
 [tool.setuptools.package-data]
-searchclinic = ["data/*.json"]
+searchclinic = ["data/*.json", "web/*"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
