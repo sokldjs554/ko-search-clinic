@@ -4,7 +4,10 @@
     "command": "python -m pytest -q -rs",
     "python": "Python 3.12.14",
     "log": "pytest-local.log",
-    "baseline": "0.5839; existing baseline unchanged"
+    "baseline": "0.5839; existing baseline unchanged",
+    "console_command": "pytest -q -rs",
+    "console_log": "pytest-console-local.log",
+    "console_result": "561 passed, 2 skipped in 71.17s"
   },
   "browser": {
     "research_queries": 36,
@@ -18,10 +21,41 @@
     "page_errors": []
   },
   "remote_ci": {
-    "status": "rerun_required_after_test_import_fix",
-    "initial_source_commit": "1055e2dcdd3563518edb210cfd38cbe2de43f62e",
-    "first_run_url": "https://github.com/sokldjs554/ko-search-clinic/actions/runs/41043173402",
-    "first_failure": "6 preparation tests could not import scripts through console pytest; targeted fix passed",
+    "source_commit": "fd073c5efd48ea94ab290ae1439b8e99155f133c",
+    "run_id": 41043768505,
+    "url": "https://github.com/sokldjs554/ko-search-clinic/actions/runs/41043768505",
+    "status": "completed",
+    "conclusion": "success",
+    "jobs": [
+      {
+        "id": 124022668156,
+        "name": "검색 품질 게이트",
+        "status": "completed",
+        "conclusion": "success",
+        "url": "https://github.com/sokldjs554/ko-search-clinic/actions/runs/41043768505/job/124022668156",
+        "started_at": "2026-10-30T10:51:09Z",
+        "completed_at": "2026-10-30T10:51:26Z"
+      },
+      {
+        "id": 124022668308,
+        "name": "테스트 (ubuntu-latest)",
+        "status": "completed",
+        "conclusion": "success",
+        "url": "https://github.com/sokldjs554/ko-search-clinic/actions/runs/41043768505/job/124022668308",
+        "started_at": "2026-10-30T10:51:10Z",
+        "completed_at": "2026-10-30T10:52:59Z"
+      },
+      {
+        "id": 124022668531,
+        "name": "테스트 (windows-latest)",
+        "status": "completed",
+        "conclusion": "success",
+        "url": "https://github.com/sokldjs554/ko-search-clinic/actions/runs/41043768505/job/124022668531",
+        "started_at": "2026-10-30T10:51:09Z",
+        "completed_at": "2026-10-30T10:54:07Z"
+      }
+    ],
+    "first_failure_run": "https://github.com/sokldjs554/ko-search-clinic/actions/runs/41043173402",
     "current_checks": "https://github.com/sokldjs554/ko-search-clinic/pull/3/checks"
   },
   "paid_api_calls": 0,
@@ -42,5 +76,11 @@
       390
     ],
     "page_errors": []
+  },
+  "publication": {
+    "pull_request": "https://github.com/sokldjs554/ko-search-clinic/pull/3",
+    "source_commit": "1055e2dcdd3563518edb210cfd38cbe2de43f62e",
+    "test_import_fix": "fd073c5efd48ea94ab290ae1439b8e99155f133c",
+    "detailed_outputs": "excluded pending explicit publication approval"
   }
 }

@@ -4,7 +4,7 @@
 
 **2026-10-30 제출 이후 추가 연구(v5). 새 방법의 독립 평가 성능 우위는 아직 입증하지 못했습니다.** 기존 v3·v4 결과는 변경하지 않았습니다. 이 통합 브랜치는 최신 `main`에서 PR #1/Phase 2 연구 모듈과 PR #2 RAG 서비스를 필요한 파일 단위로 통합했습니다. 기존 Draft PR을 병합하지 않았습니다.
 
-[현재 감사·결과·한계](docs/research/v5/REPORT.md) · [14개 브랜치 감사](docs/research/v5/AUDIT.md) · [실행 가능한 평가 프로토콜](docs/research/v5/PROTOCOL.md)
+[통합 PR #3](https://github.com/sokldjs554/ko-search-clinic/pull/3) · [검증된 Ubuntu·Windows CI](https://github.com/sokldjs554/ko-search-clinic/actions/runs/41043768505) · [현재 감사·결과·한계](docs/research/v5/REPORT.md) · [14개 브랜치 감사](docs/research/v5/AUDIT.md) · [실행 가능한 평가 프로토콜](docs/research/v5/PROTOCOL.md)
 
 ## 방법과 확인한 병목
 

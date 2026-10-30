@@ -1,0 +1,3 @@
+2026-10-30T10:54:00.4006351Z SKIPPED [1] tests\\test_postgres_store.py:20: PostgreSQL\uc740 \uc120\ud0dd \uc758\uc874\uc131\uc774\ub2e4
+2026-10-30T10:54:00.4007526Z SKIPPED [1] tests\\test_scale.py:21: \uaddc\ubaa8 \uacc4\uce35\uc740 \uc120\ud0dd \uc758\uc874\uc131\uc774\ub2e4
+2026-10-30T10:54:00.4008385Z 561 passed, 2 skipped in 105.14s (0:01:45)

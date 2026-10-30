@@ -63,7 +63,7 @@ PR1 trace의 **실제 제출 후보15개 / 가용14질의 / 전체36질의**를 
 
 ## 5. 테스트·CI·재현
 
-검증 로그는 [verification](verification/)에 보존한다. Kiwi 기존 실패, gate 평균손실/정밀도 실패와 수정 후 통과를 기록했다. Linux 전체 pytest, baseline, offline prepare/apply/score, 실제 headless Chromium에서 연구36질의·3비교군·1440/320/390px·RAG replay와 JS오류를 검사했다. 최종 테스트 수와 원격 CI URL/SHA는 `verification/final-status.json`을 기준으로 한다. 초기 통합540pass 기록보다 뒤의 수정이 있으므로 초기 수치만으로 최종 완료를 주장하지 않는다.
+검증 로그는 [verification](verification/)에 보존한다. 수정 커밋 `fd073c5`의 [원격 CI](https://github.com/sokldjs554/ko-search-clinic/actions/runs/41043768505)는 Ubuntu·Windows 각각 **561 passed, 2 skipped**, 검색 품질 게이트 성공이다. 첫 실행의 준비 테스트 경로 실패도 숨기지 않고 보존했다. [통합 Draft PR #3](https://github.com/sokldjs554/ko-search-clinic/pull/3)에서 최신 문서 커밋의 checks도 확인할 수 있다. Kiwi 기존 실패, gate 평균손실/정밀도 실패와 수정 후 통과를 기록했다. Linux 전체 pytest, baseline, offline prepare/apply/score, 실제 headless Chromium에서 연구36질의·3비교군·1440/320/390px·RAG replay와 JS오류를 검사했다. 최종 테스트 수와 원격 CI URL/SHA는 `verification/final-status.json`을 기준으로 한다. 초기 통합540pass 기록보다 뒤의 수정이 있으므로 초기 수치만으로 최종 완료를 주장하지 않는다.
 
 의존성은 `requirements/ci-py311-312.txt`; 역사적 Kiwi0.23.2 환경은 별도보존이다. 기본 36질의 baseline 평균0.5839가 유지됐고 `docs/BASELINE.json`은 그대로다. 선택적 PostgreSQL/규모(PyArrow) 테스트는 설치하지 않은 의존성 때문에 skip되며 해당 외부서비스 성공을 주장하지 않는다.
 
