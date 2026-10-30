@@ -17,6 +17,7 @@
 | 누락·중복·모호한 qrels | 평가 입력 경계 | 전 질의 coverage, rank중복, null정답, finite값, split문서/개념 중복 검사 |
 | PR2 main 충돌·기능 분산 | PR1/Phase2/PR2 diff | 최신main 기반 파일 단위 통합. 기존Draft/ops원본·커밋 보존, 유료workflow/대형전송 archive 제외 |
 | RAG 재검증 원본 덮어쓰기 | `scripts/revalidate_alba.py` | 새 출력 디렉터리만 허용, 역사적 결과 경로 보호, 재실행 거부 테스트 |
+| CI console pytest에서 스크립트 import 실패 | 초기 양 OS 실행41043173402, 준비 테스트6건 | 파일 경로로 테스트 대상 로드, console pytest로 RED→GREEN 검증 |
 | README와 실제 기능 불일치 | main과 별도 브랜치 설명 혼재 | v5·v3/v4·RAG 구분, 연구 진단 화면을 기존 데모에 연결 |
 
 [14개 브랜치 상세 감사](AUDIT.md), [통합 파일 출처](integration-sources.json), [GitHub 조회 기록](github-audit.json).

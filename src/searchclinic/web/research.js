@@ -2,7 +2,7 @@
 const element = (tag, text) => { const node = document.createElement(tag); node.textContent = text; return node; };
 const labels = {no_repair:'수정 없음',saved_first_candidate:'저장 첫 후보',oracle_submitted_candidates_with_noop:'관측 후보 Oracle + 수정 없음'};
 fetch('research-replay.json').then(response => response.ok ? response : fetch('research-summary.json')).then(response => {if (!response.ok) throw new Error('기록을 읽을 수 없습니다.'); return response.json();}).then(data => {
-  for (const [name, value] of Object.entries(data.score_report.summaries)) {
+  for (const [name, value] of Object.entries(labels).map(([name]) => [name, data.score_report.summaries[name]])) {
     const row = document.createElement('tr'); row.append(element('td', labels[name] || name));
     for (const metric of ['ndcg10','recall10','precision5']) row.append(element('td',value.overall[metric].toFixed(6)));
     document.querySelector('#summary').append(row);

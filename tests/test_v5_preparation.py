@@ -1,8 +1,8 @@
 """Offline preparation keeps replay outcomes outside fixed judge inputs."""
-import importlib
 import importlib.util
 import json
 import socket
+from pathlib import Path
 
 import pytest
 
@@ -12,8 +12,11 @@ from searchclinic.research_v5.pipeline import verify
 
 
 def preparation():
-    assert importlib.util.find_spec("scripts.prepare_v5_development") is not None, "Offline preparation is missing"
-    return importlib.import_module("scripts.prepare_v5_development")
+    path = Path(__file__).parents[1] / "scripts/prepare_v5_development.py"
+    spec = importlib.util.spec_from_file_location("prepare_v5_development", path)
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
 
 
 def rx(terms=None):

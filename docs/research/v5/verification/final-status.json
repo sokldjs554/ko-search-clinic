@@ -18,7 +18,11 @@
     "page_errors": []
   },
   "remote_ci": {
-    "status": "pending_publication"
+    "status": "rerun_required_after_test_import_fix",
+    "initial_source_commit": "1055e2dcdd3563518edb210cfd38cbe2de43f62e",
+    "first_run_url": "https://github.com/sokldjs554/ko-search-clinic/actions/runs/41043173402",
+    "first_failure": "6 preparation tests could not import scripts through console pytest; targeted fix passed",
+    "current_checks": "https://github.com/sokldjs554/ko-search-clinic/pull/3/checks"
   },
   "paid_api_calls": 0,
   "review": {
@@ -28,5 +32,15 @@
       "full precision metrics for mean gate"
     ],
     "minor_deferred": []
+  },
+  "browser_public": {
+    "research_queries": 0,
+    "summary_arms": 3,
+    "viewports": [
+      1440,
+      320,
+      390
+    ],
+    "page_errors": []
   }
 }
