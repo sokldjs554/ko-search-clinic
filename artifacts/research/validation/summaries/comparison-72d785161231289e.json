@@ -1,0 +1,15 @@
+{
+  "status": "executed_controlled_dev",
+  "H1": "supported",
+  "H2": "supported",
+  "H3": "rejected",
+  "paired_ndcg": {
+    "mean_delta": 0.0,
+    "ci95": [
+      0.0,
+      0.0
+    ],
+    "samples": 2000,
+    "interpretation": "descriptive controlled-dev only"
+  }
+}

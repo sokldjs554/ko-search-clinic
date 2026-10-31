@@ -1,0 +1,817 @@
+{
+  "observed_at": "2026-10-30",
+  "repository": "sokldjs554/ko-search-clinic",
+  "repo": {
+    "id": "1335765837",
+    "name": "ko-search-clinic",
+    "owner": {
+      "login": "sokldjs554",
+      "id": 97650034,
+      "type": "User",
+      "avatar_url": "https://avatars.githubusercontent.com/u/97650034?v=4",
+      "url": "https://api.github.com/users/sokldjs554"
+    },
+    "repository_full_name": "sokldjs554/ko-search-clinic",
+    "permissions": {
+      "admin": true,
+      "maintain": true,
+      "pull": true,
+      "push": true,
+      "triage": true
+    },
+    "allow_auto_merge": false,
+    "allow_merge_commit": true,
+    "allow_rebase_merge": true,
+    "allow_squash_merge": true,
+    "allow_update_branch": false,
+    "clone_url": "https://github.com/sokldjs554/ko-search-clinic.git",
+    "size": 67189,
+    "default_branch": "main",
+    "git_commits_url": "https://api.github.com/repos/sokldjs554/ko-search-clinic/git/commits{/sha}",
+    "git_refs_url": "https://api.github.com/repos/sokldjs554/ko-search-clinic/git/refs{/sha}",
+    "git_url": "git://github.com/sokldjs554/ko-search-clinic.git",
+    "master_branch": null,
+    "visibility": "public",
+    "archived": false,
+    "is_code_search_indexed": null
+  },
+  "prs": [
+    {
+      "url": "https://github.com/sokldjs554/ko-search-clinic/pull/1",
+      "number": 1,
+      "state": "open",
+      "merged": false,
+      "mergeable": true,
+      "draft": true,
+      "body": "기존 진단 → 타입 처방 → 전체 회귀 게이트 → 채택/기각 → 증거 원장과 a0fc8c7 결과를 보존했습니다. Phase 2 기능이나 채팅 UI는 추가하지 않았습니다. 이 PR은 draft이며 병합하지 않습니다.\n\n## 실제 원격 검증\n\n최종 PR head: `3238d58a69a8bc7881f971138f4c1278e46dc402`\n실제 checkout/result SHA: `fd6cf1955bca25843bf85fb662acb800531e49a0` (PR merge commit)\nbase main: `80ea3bcf2fffb395b27abc3d38db4e9876a9c2d1`\n\n[최종 CI run 38213317359](https://github.com/sokldjs554/ko-search-clinic/actions/runs/38213317359): Ubuntu 353 passed, 2 skipped / Windows 353 passed, 2 skipped / 검색 품질 게이트 success. skip 사유는 CI extras에 없는 psycopg2와 pyarrow입니다. quality gate의 failure() 진단 단계는 성공 조건 때문에 skip됐습니다.\n\n[연구 artifact 11729913472](https://github.com/sokldjs554/ko-search-clinic/actions/runs/38213317359/artifacts/11729913472): v1/v2 각각 no repair·always typed patch·selective rule 실제 실행. ZIP SHA256 `81f027fedeb070e4ec420ceaf50d900142fa4b67966ecb1ca29634ff1a0dbf67`.\n실제 run JSON provenance를 로그에 출력한 source hash: `b6ee792476f148a0e3eb4ac37002ad23d1c194f6123f8b2db793b05f22b73e85`. 로컬 최종 평가 source `73a9fcc379d37729cbe1ec8df8bbcb340511d28f`의 hash와 일치합니다. 초기 artifact ZIP 로컬 다운로드가 HTTP 403으로 막혀 반복하지 않았으며 서버 업로드 digest와 로컬 read-back을 구분합니다.\n\n[a0fc8c7 원격 CI run 38211127720](https://github.com/sokldjs554/ko-search-clinic/actions/runs/38211127720)도 세 job 모두 success였습니다. 당시 PR head a0fc8c7와 checkout `0a4476d49428582398ea7a066c873e45f965bda0`을 별도 기록했습니다. 그때 테스트는 각 OS 333 passed, 2 skipped였습니다.\n\n## 재현성 보완\n\n실측 후보 생성 지연만 바꾸면 v1이 4249ms에서 실행, 4250ms에서 abstain했습니다. 두 경우 실패 판정은 true입니다. v1 프로토콜/결과/threshold는 변경하지 않았습니다. 사후 `phase01-v2`는 expected cost와 measured cost를 분리합니다. 미래 지연 모델이 미보정이라 expected latency=null, 해당 weight=0으로 제외하며 실제 latency는 기록합니다. null 필수 비용은 보류하고 보류를 정상으로 분류하지 않습니다.\n\n로컬 최종 전체 검증: 373 passed, 2 skipped. 신규 지연/버전 테스트 20개 포함 연구 suite 76 passed. 기본 v1 경로와 기존 명령을 유지했으며 모든 baseline provenance/버전 root 혼합을 차단했습니다. 보존된 문서·artifact 77개가 a0fc8c7과 바이트 동일합니다.\n\n건강 개입은 진단 시도이며 실제 제출·채택과 분리합니다. selective의 건강 진단 9건 중 실제 제출은 케이크 1건, 채택 0건입니다. 아답터는 RulesPlus의 사전 순서 후보 재시도이며 LLM 피드백 이해 실험이 아닙니다. 검색 호출 감소는 토큰/API 절감이나 속도 우위 증거가 아닙니다. 오탐 9건/미탐 2건은 `docs/research/DETECTOR_ERROR_ANALYSIS.md`에 원본 관측과 함께 보존했습니다.\n\n## Phase 2 계획만\n\n`docs/research/PHASE2_NARROW_PLAN.md`: 독립 평가 질의와 동일 조건 RulesPlus/실제 LLM selective 비교만 계획합니다. final qrels/회귀 판정은 후보 생성기와 반복 피드백에서 격리합니다. 제안은 `gpt-4.1-mini-2025-04-14`, 최대 132회, USD 5.00 상한이며 단가·모델 확인과 승인 전 유료 호출은 하지 않습니다.",
+      "title": "Phase 0–1 선택적 검색 복구: 원격 검증과 재현성 점검",
+      "base": "main",
+      "base_sha": "80ea3bcf2fffb395b27abc3d38db4e9876a9c2d1",
+      "head": "feat/selective-retrieval-repair-v2",
+      "head_sha": "3238d58a69a8bc7881f971138f4c1278e46dc402",
+      "head_repo_id": 1335765837,
+      "head_repo_full_name": "sokldjs554/ko-search-clinic",
+      "merge_commit_sha": "fd6cf1955bca25843bf85fb662acb800531e49a0",
+      "user": {
+        "login": "sokldjs554",
+        "name": "sokldjs554",
+        "email": null,
+        "avatar_url": "https://avatars.githubusercontent.com/u/97650034?v=4",
+        "id": 97650034
+      },
+      "requested_reviewers": null,
+      "requested_team_reviewers": null,
+      "diff": null,
+      "comments": null,
+      "created_at": "2026-10-12T06:08:47Z",
+      "updated_at": "2026-10-12T06:40:53Z",
+      "closed_at": null,
+      "merged_at": null,
+      "commits": 9,
+      "changed_files": 129,
+      "additions": 67239,
+      "deletions": 6,
+      "display_url": "https://github.com/sokldjs554/ko-search-clinic/pull/1",
+      "display_title": "Phase 0–1 선택적 검색 복구: 원격 검증과 재현성 점검"
+    },
+    {
+      "url": "https://github.com/sokldjs554/ko-search-clinic/pull/2",
+      "number": 2,
+      "state": "open",
+      "merged": false,
+      "mergeable": false,
+      "draft": true,
+      "body": "한국어 검색 실패를 운영 문서와 검색 관측으로 설명하고, 원문 인용과 전체 회귀 게이트를 통과한 수정 후보만 별도 세션에 적용합니다.\n\n실제 GPT API 24회(추정 $0.02903175) 실행. 최초 차단 12건에서 표시 형식의 차이만 원문 위치로 대응한 후 같은 응답을 오프라인 재검증했습니다. 지원 6·보류 12·차단 6건, 후보 4건 채택·2건 기각입니다. 사후 검증이며 독립 사례의 개선으로 주장하지 않습니다. 추가 유료 호출 없음.\n\n최종 로컬 318 passed, 2 skipped. 실제 회귀 게이트·API·1440/320/390/650px 브라우저 상태 전환·오류·취소·다운로드 검사 통과. 새 생성 브라우저 전환만 테스트 응답이며 캡처는 실제 저장 응답입니다.\n\n근거: docs/verification/alba-20261027/README.md\n공고 대조: docs/alba-job-audit.md\n실행: README.md / docs/alba-operation.md\n\n실제 채용·고객 데이터, 장기 공개 운영, 독립 평가셋 일반화는 미검증. Codex 지원으로 구현·실험·문서 작성.",
+      "title": "한국어 검색 진단 RAG 서비스와 실제 API 평가·검증 기록",
+      "base": "main",
+      "base_sha": "80ea3bcf2fffb395b27abc3d38db4e9876a9c2d1",
+      "head": "feat/alba-rag-service-20261027",
+      "head_sha": "493935f6b7ddd9201e67125a4897e8e76ffd67f8",
+      "head_repo_id": 1335765837,
+      "head_repo_full_name": "sokldjs554/ko-search-clinic",
+      "merge_commit_sha": null,
+      "user": {
+        "login": "sokldjs554",
+        "name": "sokldjs554",
+        "email": null,
+        "avatar_url": "https://avatars.githubusercontent.com/u/97650034?v=4",
+        "id": 97650034
+      },
+      "requested_reviewers": null,
+      "requested_team_reviewers": null,
+      "diff": null,
+      "comments": null,
+      "created_at": "2026-10-27T06:47:03Z",
+      "updated_at": "2026-10-27T07:22:33Z",
+      "closed_at": null,
+      "merged_at": null,
+      "commits": 3,
+      "changed_files": 43,
+      "additions": 9716,
+      "deletions": 455,
+      "display_url": "https://github.com/sokldjs554/ko-search-clinic/pull/2",
+      "display_title": "한국어 검색 진단 RAG 서비스와 실제 API 평가·검증 기록"
+    }
+  ],
+  "runs": [
+    {
+      "id": 40650843416,
+      "branch": "main",
+      "sha": "f3ca14a68329cd3ef95e5b362f6224d35fe397ca",
+      "status": "failure",
+      "url": "https://github.com/sokldjs554/ko-search-clinic/actions/runs/40650843416"
+    },
+    {
+      "id": 40649361943,
+      "branch": "main",
+      "sha": "a17f2e73be2a8c6bb2c3a81f4bd40e41321f6afb",
+      "status": "failure",
+      "url": "https://github.com/sokldjs554/ko-search-clinic/actions/runs/40649361943"
+    },
+    {
+      "id": 40645666557,
+      "branch": "main",
+      "sha": "1bc0e8dcb728c9abd4e992ef2f31c8ec17a3366b",
+      "status": "failure",
+      "url": "https://github.com/sokldjs554/ko-search-clinic/actions/runs/40645666557"
+    },
+    {
+      "id": 40466724243,
+      "branch": "feat/alba-rag-service-20261027",
+      "sha": "493935f6b7ddd9201e67125a4897e8e76ffd67f8",
+      "status": "success",
+      "url": "https://github.com/sokldjs554/ko-search-clinic/actions/runs/40466724243"
+    },
+    {
+      "id": 40463356460,
+      "branch": "eval/alba-20261027-once",
+      "sha": "565c0c6e3aa58ff46167aa3038e914af9eeb0f19",
+      "status": "success",
+      "url": "https://github.com/sokldjs554/ko-search-clinic/actions/runs/40463356460"
+    },
+    {
+      "id": 40463323213,
+      "branch": "feat/alba-rag-service-20261027",
+      "sha": "565c0c6e3aa58ff46167aa3038e914af9eeb0f19",
+      "status": "success",
+      "url": "https://github.com/sokldjs554/ko-search-clinic/actions/runs/40463323213"
+    },
+    {
+      "id": 40463160538,
+      "branch": "feat/alba-rag-service-20261027",
+      "sha": "90bfa36b74eb8d4c7338886ca4fe33052c6aa82b",
+      "status": "success",
+      "url": "https://github.com/sokldjs554/ko-search-clinic/actions/runs/40463160538"
+    },
+    {
+      "id": 39044121771,
+      "branch": "ops/v4-gpt-20261017",
+      "sha": "73f8edc422dd3b463c3b79f5a18f9b1a58befe0b",
+      "status": "success",
+      "url": "https://github.com/sokldjs554/ko-search-clinic/actions/runs/39044121771"
+    },
+    {
+      "id": 39043069298,
+      "branch": "ops/v4-gpt-20261017",
+      "sha": "b7e32f7981f8504dcf12ae14b78baa3a00e4a25f",
+      "status": "failure",
+      "url": "https://github.com/sokldjs554/ko-search-clinic/actions/runs/39043069298"
+    },
+    {
+      "id": 39042030830,
+      "branch": "ops/v4-gpt-20261017",
+      "sha": "e1b401672ef33cab957623190cdaec77a2a72508",
+      "status": "failure",
+      "url": "https://github.com/sokldjs554/ko-search-clinic/actions/runs/39042030830"
+    },
+    {
+      "id": 39040260293,
+      "branch": "ops/v4-gpt-20261017",
+      "sha": "395af66c46c550e6353788b1f67c5437655f3576",
+      "status": "success",
+      "url": "https://github.com/sokldjs554/ko-search-clinic/actions/runs/39040260293"
+    },
+    {
+      "id": 38842054422,
+      "branch": "ops/independent120-v3-20261016",
+      "sha": "41effd34858e94b7e904df5a0c39c7cdc77f56f9",
+      "status": "success",
+      "url": "https://github.com/sokldjs554/ko-search-clinic/actions/runs/38842054422"
+    },
+    {
+      "id": 38534947423,
+      "branch": "ops/phase2-gpt-provisional-20261014",
+      "sha": "2f3f85ade8b0c939a3b0ff8477f603cec265af24",
+      "status": "success",
+      "url": "https://github.com/sokldjs554/ko-search-clinic/actions/runs/38534947423"
+    },
+    {
+      "id": 38514371500,
+      "branch": "ops/p2r3-gpt-continuation-20261014",
+      "sha": "7a8e4bbe657eec37ff59316f84fe413e5dfd5155",
+      "status": "success",
+      "url": "https://github.com/sokldjs554/ko-search-clinic/actions/runs/38514371500"
+    },
+    {
+      "id": 38513270234,
+      "branch": "ops/p2r3-gpt-continuation-20261014",
+      "sha": "4ec25957105b2da668c1f8cdf003479718431632",
+      "status": "failure",
+      "url": "https://github.com/sokldjs554/ko-search-clinic/actions/runs/38513270234"
+    },
+    {
+      "id": 38512396591,
+      "branch": "ops/phase2-miracl-restore-20261014",
+      "sha": "ac50e296fa998bb862aef8feda7a9c95b267a5de",
+      "status": "failure",
+      "url": "https://github.com/sokldjs554/ko-search-clinic/actions/runs/38512396591"
+    },
+    {
+      "id": 38512112841,
+      "branch": "ops/phase2-miracl-restore-20261014",
+      "sha": "9d20b95bf8674d0c51d51f0211dfb8f4016f16e3",
+      "status": "failure",
+      "url": "https://github.com/sokldjs554/ko-search-clinic/actions/runs/38512112841"
+    },
+    {
+      "id": 38509640378,
+      "branch": "ops/phase2-miracl-restore-20261014",
+      "sha": "cf5095bbc44de1e19708b94d268dbd7134c75cb2",
+      "status": "failure",
+      "url": "https://github.com/sokldjs554/ko-search-clinic/actions/runs/38509640378"
+    },
+    {
+      "id": 38508730307,
+      "branch": "ops/p2r3-gpt-run-20261014",
+      "sha": "0717ee6c2be8ba88d7002f0aff178c017d7ed6d9",
+      "status": "failure",
+      "url": "https://github.com/sokldjs554/ko-search-clinic/actions/runs/38508730307"
+    },
+    {
+      "id": 38506764660,
+      "branch": "ops/p2r3-gpt-run-20261014",
+      "sha": "8fbba30ffd2b8a4330c41ef9f3cbc4c016bd70e3",
+      "status": "failure",
+      "url": "https://github.com/sokldjs554/ko-search-clinic/actions/runs/38506764660"
+    },
+    {
+      "id": 38502957986,
+      "branch": "ops/p2r3-gpt-actions-preflight",
+      "sha": "cb283a2912bcdd9b24bf4709586bc0b5e1e507e4",
+      "status": "success",
+      "url": "https://github.com/sokldjs554/ko-search-clinic/actions/runs/38502957986"
+    },
+    {
+      "id": 38371306888,
+      "branch": "feat/phase2-llm-validation-20261013",
+      "sha": "9e1ff62a501b26b0c6e64866f8a72cb369468402",
+      "status": "success",
+      "url": "https://github.com/sokldjs554/ko-search-clinic/actions/runs/38371306888"
+    },
+    {
+      "id": 38370700803,
+      "branch": "feat/phase2-llm-validation-20261013",
+      "sha": "1b0ba474e7b4f2e06162d4af73df2006a0261ac2",
+      "status": "failure",
+      "url": "https://github.com/sokldjs554/ko-search-clinic/actions/runs/38370700803"
+    },
+    {
+      "id": 38213317359,
+      "branch": "feat/selective-retrieval-repair-v2",
+      "sha": "3238d58a69a8bc7881f971138f4c1278e46dc402",
+      "status": "success",
+      "url": "https://github.com/sokldjs554/ko-search-clinic/actions/runs/38213317359"
+    },
+    {
+      "id": 38211127720,
+      "branch": "feat/selective-retrieval-repair-v2",
+      "sha": "a0fc8c7abe8a04d932de382e28e5ccd93b3cdc1f",
+      "status": "success",
+      "url": "https://github.com/sokldjs554/ko-search-clinic/actions/runs/38211127720"
+    },
+    {
+      "id": 32585721558,
+      "branch": "main",
+      "sha": "80ea3bcf2fffb395b27abc3d38db4e9876a9c2d1",
+      "status": "success",
+      "url": "https://github.com/sokldjs554/ko-search-clinic/actions/runs/32585721558"
+    },
+    {
+      "id": 32585720148,
+      "branch": "main",
+      "sha": "80ea3bcf2fffb395b27abc3d38db4e9876a9c2d1",
+      "status": "failure",
+      "url": "https://github.com/sokldjs554/ko-search-clinic/actions/runs/32585720148"
+    },
+    {
+      "id": 32585714859,
+      "branch": "main1",
+      "sha": "80ea3bcf2fffb395b27abc3d38db4e9876a9c2d1",
+      "status": "success",
+      "url": "https://github.com/sokldjs554/ko-search-clinic/actions/runs/32585714859"
+    },
+    {
+      "id": 32585485653,
+      "branch": "main",
+      "sha": "80ea3bcf2fffb395b27abc3d38db4e9876a9c2d1",
+      "status": "failure",
+      "url": "https://github.com/sokldjs554/ko-search-clinic/actions/runs/32585485653"
+    },
+    {
+      "id": 32585194543,
+      "branch": "main",
+      "sha": "95cd7ed697bc751849e0806cb079862de99a939b",
+      "status": "failure",
+      "url": "https://github.com/sokldjs554/ko-search-clinic/actions/runs/32585194543"
+    }
+  ],
+  "jobs": [
+    {
+      "jobs": [
+        {
+          "id": 122690280901,
+          "name": "검색 품질 게이트",
+          "status": "completed",
+          "conclusion": "success",
+          "run_id": 40650843416,
+          "logs_url": null,
+          "steps": [
+            {
+              "name": "Set up job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 1
+            },
+            {
+              "name": "Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 2
+            },
+            {
+              "name": "Run actions/setup-python@v5",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 3
+            },
+            {
+              "name": "설치",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 4
+            },
+            {
+              "name": "평가셋 재실행 및 기준선 대조",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 5
+            },
+            {
+              "name": "실패 시 현재 지표 전체",
+              "status": "completed",
+              "conclusion": "skipped",
+              "number": 6
+            },
+            {
+              "name": "Post Run actions/setup-python@v5",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 11
+            },
+            {
+              "name": "Post Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 12
+            },
+            {
+              "name": "Complete job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 13
+            }
+          ]
+        },
+        {
+          "id": 122690281224,
+          "name": "테스트 (ubuntu-latest)",
+          "status": "completed",
+          "conclusion": "failure",
+          "run_id": 40650843416,
+          "logs_url": null,
+          "steps": [
+            {
+              "name": "Set up job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 1
+            },
+            {
+              "name": "Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 2
+            },
+            {
+              "name": "Run actions/setup-python@v5",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 3
+            },
+            {
+              "name": "설치",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 4
+            },
+            {
+              "name": "테스트",
+              "status": "completed",
+              "conclusion": "failure",
+              "number": 5
+            },
+            {
+              "name": "Post Run actions/setup-python@v5",
+              "status": "completed",
+              "conclusion": "skipped",
+              "number": 9
+            },
+            {
+              "name": "Post Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 10
+            },
+            {
+              "name": "Complete job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 11
+            }
+          ]
+        },
+        {
+          "id": 122690281769,
+          "name": "테스트 (windows-latest)",
+          "status": "completed",
+          "conclusion": "failure",
+          "run_id": 40650843416,
+          "logs_url": null,
+          "steps": [
+            {
+              "name": "Set up job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 1
+            },
+            {
+              "name": "Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 2
+            },
+            {
+              "name": "Run actions/setup-python@v5",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 3
+            },
+            {
+              "name": "설치",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 4
+            },
+            {
+              "name": "테스트",
+              "status": "completed",
+              "conclusion": "failure",
+              "number": 5
+            },
+            {
+              "name": "Post Run actions/setup-python@v5",
+              "status": "completed",
+              "conclusion": "skipped",
+              "number": 9
+            },
+            {
+              "name": "Post Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 10
+            },
+            {
+              "name": "Complete job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 11
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "jobs": [
+        {
+          "id": 117429340271,
+          "name": "verified-runtime",
+          "status": "completed",
+          "conclusion": "success",
+          "run_id": 39044121771,
+          "logs_url": null,
+          "steps": [
+            {
+              "name": "Set up job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 1
+            },
+            {
+              "name": "Run actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 2
+            },
+            {
+              "name": "Fetch hash-pinned runtime only",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 3
+            },
+            {
+              "name": "Install locked dependencies without provider credentials",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 4
+            },
+            {
+              "name": "Verify runtime files and source identity before provider access",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 5
+            },
+            {
+              "name": "Check fixed model with one GET and zero generation",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 6
+            },
+            {
+              "name": "Preserve safe readiness receipt",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 7
+            },
+            {
+              "name": "Generate only after separately verified paid approval",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 8
+            },
+            {
+              "name": "Preserve encrypted terminal evidence",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 9
+            },
+            {
+              "name": "Post Run actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 18
+            },
+            {
+              "name": "Complete job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 19
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "jobs": [
+        {
+          "id": 116784147700,
+          "name": "full-regression",
+          "status": "completed",
+          "conclusion": "success",
+          "run_id": 38842054422,
+          "logs_url": null,
+          "steps": [
+            {
+              "name": "Set up job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 1
+            },
+            {
+              "name": "Run actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 2
+            },
+            {
+              "name": "Install envelope dependency without provider credentials",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 3
+            },
+            {
+              "name": "Fetch exact public bootstrap helpers only",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 4
+            },
+            {
+              "name": "Receive encrypted exact-source regression package",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 5
+            },
+            {
+              "name": "Restore exact source and locked dependencies without provider credentials",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 6
+            },
+            {
+              "name": "Run unchanged complete base test suite",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 7
+            },
+            {
+              "name": "Encrypt regression evidence",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 8
+            },
+            {
+              "name": "Preserve encrypted full-regression evidence",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 9
+            },
+            {
+              "name": "Post Run actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 18
+            },
+            {
+              "name": "Complete job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 19
+            }
+          ]
+        },
+        {
+          "id": 116789031153,
+          "name": "final-candidates",
+          "status": "completed",
+          "conclusion": "success",
+          "run_id": 38842054422,
+          "logs_url": null,
+          "steps": [
+            {
+              "name": "Set up job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 1
+            },
+            {
+              "name": "Run actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 2
+            },
+            {
+              "name": "Install envelope dependency without provider credentials",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 3
+            },
+            {
+              "name": "Fetch exact public bootstrap helpers only",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 4
+            },
+            {
+              "name": "Receive and verify encrypted filtered runtime",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 5
+            },
+            {
+              "name": "Install exact runtime dependencies without provider credentials",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 6
+            },
+            {
+              "name": "Verify fixed model access with one GET and no generation",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 7
+            },
+            {
+              "name": "Generate once and preserve encrypted evidence",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 8
+            },
+            {
+              "name": "Preserve encrypted terminal evidence",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 9
+            },
+            {
+              "name": "Post Run actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 18
+            },
+            {
+              "name": "Complete job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 19
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "artifacts": [
+    {
+      "artifacts": [
+        {
+          "id": 12105496253,
+          "name": "v4-encrypted-evidence-39044121771",
+          "size_in_bytes": 214381,
+          "url": "https://api.github.com/repos/sokldjs554/ko-search-clinic/actions/artifacts/12105496253",
+          "archive_download_url": "https://api.github.com/repos/sokldjs554/ko-search-clinic/actions/artifacts/12105496253/zip",
+          "expired": false,
+          "created_at": "2026-10-17T15:26:02Z",
+          "expires_at": "2027-01-15T15:13:47Z",
+          "updated_at": "2026-10-17T15:26:02Z",
+          "digest": "sha256:fb7ff1e144f1272fc515297884d67a4afe780f29f27cc9453070d52ef1cb58ba",
+          "workflow_run": {
+            "id": 39044121771,
+            "repository_id": 1335765837,
+            "head_repository_id": 1335765837,
+            "head_branch": "ops/v4-gpt-20261017",
+            "head_sha": "73f8edc422dd3b463c3b79f5a18f9b1a58befe0b"
+          }
+        }
+      ]
+    },
+    {
+      "artifacts": [
+        {
+          "id": 12023046225,
+          "name": "final-encrypted-evidence-38842054422",
+          "size_in_bytes": 191517,
+          "url": "https://api.github.com/repos/sokldjs554/ko-search-clinic/actions/artifacts/12023046225",
+          "archive_download_url": "https://api.github.com/repos/sokldjs554/ko-search-clinic/actions/artifacts/12023046225/zip",
+          "expired": false,
+          "created_at": "2026-10-16T03:19:25Z",
+          "expires_at": "2027-01-14T02:45:25Z",
+          "updated_at": "2026-10-16T03:19:25Z",
+          "digest": "sha256:8e127bcfca66e2882fac493fa320f25865843be40168a2c73dd3efb1121f4020",
+          "workflow_run": {
+            "id": 38842054422,
+            "repository_id": 1335765837,
+            "head_repository_id": 1335765837,
+            "head_branch": "ops/independent120-v3-20261016",
+            "head_sha": "41effd34858e94b7e904df5a0c39c7cdc77f56f9"
+          }
+        },
+        {
+          "id": 12022631457,
+          "name": "independent120-v3-regression-38842054422",
+          "size_in_bytes": 10404,
+          "url": "https://api.github.com/repos/sokldjs554/ko-search-clinic/actions/artifacts/12022631457",
+          "archive_download_url": "https://api.github.com/repos/sokldjs554/ko-search-clinic/actions/artifacts/12022631457/zip",
+          "expired": false,
+          "created_at": "2026-10-16T03:03:44Z",
+          "expires_at": "2027-01-14T02:45:25Z",
+          "updated_at": "2026-10-16T03:03:44Z",
+          "digest": "sha256:403bfd4ef61615788bb2a87d130cf1a394cf72a7cb6737af10de924ab4026a53",
+          "workflow_run": {
+            "id": 38842054422,
+            "repository_id": 1335765837,
+            "head_repository_id": 1335765837,
+            "head_branch": "ops/independent120-v3-20261016",
+            "head_sha": "41effd34858e94b7e904df5a0c39c7cdc77f56f9"
+          }
+        }
+      ]
+    }
+  ]
+}

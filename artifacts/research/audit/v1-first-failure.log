@@ -1,0 +1,15 @@
+F
+=================================== FAILURES ===================================
+____________________ test_base_analysis_keeps_content_words ____________________
+
+    def test_base_analysis_keeps_content_words():
+        tokens = KoreanAnalyzer().tokens("달콤한 샤인머스캣 포도 2kg")
+        assert "샤인머스캣" in tokens
+>       assert "포도" in tokens
+E       AssertionError: assert '포도' in ['달콤하', '샤인머스캣', '포', '2', 'kg']
+
+tests/test_analyzer.py:15: AssertionError
+=========================== short test summary info ============================
+FAILED tests/test_analyzer.py::test_base_analysis_keeps_content_words - Asser...
+!!!!!!!!!!!!!!!!!!!!!!!!!! stopping after 1 failures !!!!!!!!!!!!!!!!!!!!!!!!!!!
+1 failed, 1 skipped, 2 deselected in 3.10s

@@ -1,0 +1,11 @@
+{
+  "research_queries": 0,
+  "summary_arms": 3,
+  "viewports": [
+    1440,
+    320,
+    390
+  ],
+  "rag_replay_loaded": true,
+  "page_errors": []
+}

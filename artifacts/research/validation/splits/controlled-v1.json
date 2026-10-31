@@ -1,0 +1,508 @@
+{
+  "schema_version": 1,
+  "dataset": "controlled-v1",
+  "seed": 20261012,
+  "counts": {
+    "train": 0,
+    "dev": 36,
+    "test": 0
+  },
+  "heldout_status": "not_collected",
+  "corpus_hash": "0fc66c40b278ec0f8a357f177a1db3945581da9776043c0532ce663281aef62f",
+  "evalset_hash": "4163f6921755ade3c8ca03b579bc6e3b272c34c0b14a0ce59fd3a192569e386f",
+  "split_hash": "43f8dc393b9686d4cae2bee1d7f4cedcb432ecf5143141afa1b6f34a2f31212b",
+  "rows": [
+    {
+      "query_id": "q-129b2d9aadcac3af",
+      "query": "프라이팬",
+      "split": "dev",
+      "document_ids": [
+        "P001",
+        "P002"
+      ],
+      "template_id": "v1:q-129b2d9aadcac3af",
+      "synonym_group_ids": [
+        "concept:P001",
+        "concept:P002"
+      ]
+    },
+    {
+      "query_id": "q-0d07085ffc1431f5",
+      "query": "케이크",
+      "split": "dev",
+      "document_ids": [
+        "P006",
+        "P007"
+      ],
+      "template_id": "v1:q-0d07085ffc1431f5",
+      "synonym_group_ids": [
+        "concept:P006",
+        "concept:P007"
+      ]
+    },
+    {
+      "query_id": "q-b16975b5e92136fb",
+      "query": "도넛",
+      "split": "dev",
+      "document_ids": [
+        "P004",
+        "P005"
+      ],
+      "template_id": "v1:q-b16975b5e92136fb",
+      "synonym_group_ids": [
+        "concept:P004",
+        "concept:P005"
+      ]
+    },
+    {
+      "query_id": "q-97b5185478205eae",
+      "query": "주스",
+      "split": "dev",
+      "document_ids": [
+        "P009",
+        "P010"
+      ],
+      "template_id": "v1:q-97b5185478205eae",
+      "synonym_group_ids": [
+        "concept:P009",
+        "concept:P010"
+      ]
+    },
+    {
+      "query_id": "q-5989d0466d73a649",
+      "query": "소시지",
+      "split": "dev",
+      "document_ids": [
+        "P011",
+        "P012"
+      ],
+      "template_id": "v1:q-5989d0466d73a649",
+      "synonym_group_ids": [
+        "concept:P011",
+        "concept:P012"
+      ]
+    },
+    {
+      "query_id": "q-7d69e7ddd510b949",
+      "query": "어댑터",
+      "split": "dev",
+      "document_ids": [
+        "P035",
+        "P036"
+      ],
+      "template_id": "v1:q-7d69e7ddd510b949",
+      "synonym_group_ids": [
+        "concept:P035",
+        "concept:P036"
+      ]
+    },
+    {
+      "query_id": "q-a4f32f03899e2605",
+      "query": "물티슈",
+      "split": "dev",
+      "document_ids": [
+        "P020",
+        "P021"
+      ],
+      "template_id": "v1:q-a4f32f03899e2605",
+      "synonym_group_ids": [
+        "concept:P020",
+        "concept:P021"
+      ]
+    },
+    {
+      "query_id": "q-5a28e9d0f68e877b",
+      "query": "샤인머스캣",
+      "split": "dev",
+      "document_ids": [
+        "P050",
+        "P051"
+      ],
+      "template_id": "v1:q-5a28e9d0f68e877b",
+      "synonym_group_ids": [
+        "concept:P050",
+        "concept:P051"
+      ]
+    },
+    {
+      "query_id": "q-e6c7b7f2cd651483",
+      "query": "트레이닝복",
+      "split": "dev",
+      "document_ids": [
+        "P060",
+        "P061"
+      ],
+      "template_id": "v1:q-e6c7b7f2cd651483",
+      "synonym_group_ids": [
+        "concept:P060",
+        "concept:P061"
+      ]
+    },
+    {
+      "query_id": "q-32587ea7a904024b",
+      "query": "휴대폰 거치대",
+      "split": "dev",
+      "document_ids": [
+        "P038",
+        "P040"
+      ],
+      "template_id": "v1:q-32587ea7a904024b",
+      "synonym_group_ids": [
+        "concept:P038",
+        "concept:P040"
+      ]
+    },
+    {
+      "query_id": "q-0eb7498787af2887",
+      "query": "무선 이어폰",
+      "split": "dev",
+      "document_ids": [
+        "P030"
+      ],
+      "template_id": "v1:q-0eb7498787af2887",
+      "synonym_group_ids": [
+        "concept:P030"
+      ]
+    },
+    {
+      "query_id": "q-5f53517410799af3",
+      "query": "노트북 파우치",
+      "split": "dev",
+      "document_ids": [
+        "P031"
+      ],
+      "template_id": "v1:q-5f53517410799af3",
+      "synonym_group_ids": [
+        "concept:P031"
+      ]
+    },
+    {
+      "query_id": "q-f5c9fa6d4a6f5faf",
+      "query": "팬미팅 굿즈",
+      "split": "dev",
+      "document_ids": [
+        "P070",
+        "P071"
+      ],
+      "template_id": "v1:q-f5c9fa6d4a6f5faf",
+      "synonym_group_ids": [
+        "concept:P070",
+        "concept:P071"
+      ]
+    },
+    {
+      "query_id": "q-5dbc68bc8092ac47",
+      "query": "선풍기",
+      "split": "dev",
+      "document_ids": [
+        "P072"
+      ],
+      "template_id": "v1:q-5dbc68bc8092ac47",
+      "synonym_group_ids": [
+        "concept:P072"
+      ]
+    },
+    {
+      "query_id": "q-4117bc485676ce82",
+      "query": "캠핑 의자",
+      "split": "dev",
+      "document_ids": [
+        "P090",
+        "P091"
+      ],
+      "template_id": "v1:q-4117bc485676ce82",
+      "synonym_group_ids": [
+        "concept:P090",
+        "concept:P091"
+      ]
+    },
+    {
+      "query_id": "q-bf388b5681fa55e0",
+      "query": "운동화",
+      "split": "dev",
+      "document_ids": [
+        "P062"
+      ],
+      "template_id": "v1:q-bf388b5681fa55e0",
+      "synonym_group_ids": [
+        "concept:P062"
+      ]
+    },
+    {
+      "query_id": "q-1cc9af90e7863890",
+      "query": "카펫",
+      "split": "dev",
+      "document_ids": [
+        "P016",
+        "P017"
+      ],
+      "template_id": "v1:q-1cc9af90e7863890",
+      "synonym_group_ids": [
+        "concept:P016",
+        "concept:P017"
+      ]
+    },
+    {
+      "query_id": "q-12d0faaff2200094",
+      "query": "리모컨",
+      "split": "dev",
+      "document_ids": [
+        "P041",
+        "P042"
+      ],
+      "template_id": "v1:q-12d0faaff2200094",
+      "synonym_group_ids": [
+        "concept:P041",
+        "concept:P042"
+      ]
+    },
+    {
+      "query_id": "q-dbebe5ad2225d772",
+      "query": "가습기",
+      "split": "dev",
+      "document_ids": [
+        "P097"
+      ],
+      "template_id": "v1:q-dbebe5ad2225d772",
+      "synonym_group_ids": [
+        "concept:P097"
+      ]
+    },
+    {
+      "query_id": "q-48037bb1b5612105",
+      "query": "김치",
+      "split": "dev",
+      "document_ids": [
+        "P052"
+      ],
+      "template_id": "v1:q-48037bb1b5612105",
+      "synonym_group_ids": [
+        "concept:P052"
+      ]
+    },
+    {
+      "query_id": "q-c973645c424d51d7",
+      "query": "후라이팬",
+      "split": "dev",
+      "document_ids": [
+        "P001",
+        "P002"
+      ],
+      "template_id": "v1:q-c973645c424d51d7",
+      "synonym_group_ids": [
+        "concept:P001",
+        "concept:P002"
+      ]
+    },
+    {
+      "query_id": "q-f87dc1fe3de9b4c4",
+      "query": "케잌 주문",
+      "split": "dev",
+      "document_ids": [
+        "P006",
+        "P007"
+      ],
+      "template_id": "v1:q-f87dc1fe3de9b4c4",
+      "synonym_group_ids": [
+        "concept:P006",
+        "concept:P007"
+      ]
+    },
+    {
+      "query_id": "q-2750d65ecf4b4253",
+      "query": "도너츠",
+      "split": "dev",
+      "document_ids": [
+        "P004",
+        "P005"
+      ],
+      "template_id": "v1:q-2750d65ecf4b4253",
+      "synonym_group_ids": [
+        "concept:P004",
+        "concept:P005"
+      ]
+    },
+    {
+      "query_id": "q-f9250410ae8e2a24",
+      "query": "쥬스",
+      "split": "dev",
+      "document_ids": [
+        "P009",
+        "P010"
+      ],
+      "template_id": "v1:q-f9250410ae8e2a24",
+      "synonym_group_ids": [
+        "concept:P009",
+        "concept:P010"
+      ]
+    },
+    {
+      "query_id": "q-a5afb88c7f0fd72c",
+      "query": "소세지",
+      "split": "dev",
+      "document_ids": [
+        "P011",
+        "P012"
+      ],
+      "template_id": "v1:q-a5afb88c7f0fd72c",
+      "synonym_group_ids": [
+        "concept:P011",
+        "concept:P012"
+      ]
+    },
+    {
+      "query_id": "q-71f94e1004027d8c",
+      "query": "카페트",
+      "split": "dev",
+      "document_ids": [
+        "P016",
+        "P017"
+      ],
+      "template_id": "v1:q-71f94e1004027d8c",
+      "synonym_group_ids": [
+        "concept:P016",
+        "concept:P017"
+      ]
+    },
+    {
+      "query_id": "q-f1bdc8428b8323d7",
+      "query": "초콜렛",
+      "split": "dev",
+      "document_ids": [
+        "P005",
+        "P007",
+        "P008"
+      ],
+      "template_id": "v1:q-f1bdc8428b8323d7",
+      "synonym_group_ids": [
+        "concept:P005",
+        "concept:P007",
+        "concept:P008"
+      ]
+    },
+    {
+      "query_id": "q-fa86f375066072e0",
+      "query": "리모콘",
+      "split": "dev",
+      "document_ids": [
+        "P041",
+        "P042"
+      ],
+      "template_id": "v1:q-fa86f375066072e0",
+      "synonym_group_ids": [
+        "concept:P041",
+        "concept:P042"
+      ]
+    },
+    {
+      "query_id": "q-cde5d622966a4aba",
+      "query": "블루투스 스피커",
+      "split": "dev",
+      "document_ids": [
+        "P032"
+      ],
+      "template_id": "v1:q-cde5d622966a4aba",
+      "synonym_group_ids": [
+        "concept:P032"
+      ]
+    },
+    {
+      "query_id": "q-b1da87818f8d293d",
+      "query": "텀블러",
+      "split": "dev",
+      "document_ids": [
+        "P080",
+        "P081"
+      ],
+      "template_id": "v1:q-b1da87818f8d293d",
+      "synonym_group_ids": [
+        "concept:P080",
+        "concept:P081"
+      ]
+    },
+    {
+      "query_id": "q-a16cbcda6b6ad4d2",
+      "query": "핸드폰",
+      "split": "dev",
+      "document_ids": [
+        "P038",
+        "P039",
+        "P040"
+      ],
+      "template_id": "v1:q-a16cbcda6b6ad4d2",
+      "synonym_group_ids": [
+        "concept:P038",
+        "concept:P039",
+        "concept:P040"
+      ]
+    },
+    {
+      "query_id": "q-92d9adfb92879d87",
+      "query": "츄리닝",
+      "split": "dev",
+      "document_ids": [
+        "P060",
+        "P061"
+      ],
+      "template_id": "v1:q-92d9adfb92879d87",
+      "synonym_group_ids": [
+        "concept:P060",
+        "concept:P061"
+      ]
+    },
+    {
+      "query_id": "q-92d153f5398c2c94",
+      "query": "티슈",
+      "split": "dev",
+      "document_ids": [
+        "P020",
+        "P021"
+      ],
+      "template_id": "v1:q-92d153f5398c2c94",
+      "synonym_group_ids": [
+        "concept:P020",
+        "concept:P021"
+      ]
+    },
+    {
+      "query_id": "q-5de3ac070f459ac2",
+      "query": "머스캣",
+      "split": "dev",
+      "document_ids": [
+        "P050",
+        "P051"
+      ],
+      "template_id": "v1:q-5de3ac070f459ac2",
+      "synonym_group_ids": [
+        "concept:P050",
+        "concept:P051"
+      ]
+    },
+    {
+      "query_id": "q-ff65fc04a1229a8c",
+      "query": "아답터",
+      "split": "dev",
+      "document_ids": [
+        "P035",
+        "P036"
+      ],
+      "template_id": "v1:q-ff65fc04a1229a8c",
+      "synonym_group_ids": [
+        "concept:P035",
+        "concept:P036"
+      ]
+    },
+    {
+      "query_id": "q-f2ce19b5e2f37a0d",
+      "query": "백팩",
+      "split": "dev",
+      "document_ids": [
+        "P110"
+      ],
+      "template_id": "v1:q-f2ce19b5e2f37a0d",
+      "synonym_group_ids": [
+        "concept:P110"
+      ]
+    }
+  ]
+}

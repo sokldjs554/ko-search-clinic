@@ -1,0 +1,60 @@
+{
+  "schema_version": 1,
+  "version": "phase01-v2",
+  "start_sha": "80ea3bcf2fffb395b27abc3d38db4e9876a9c2d1",
+  "seed": 20261012,
+  "dataset": "controlled-v1",
+  "evaluation_split": "dev",
+  "heldout_status": "not_collected",
+  "detector": {
+    "version": "rule-v1",
+    "threshold": 0.5,
+    "coverage_threshold": 0.5,
+    "margin_threshold": 0.1,
+    "zero_score": 0.95,
+    "coverage_score": 0.8,
+    "margin_score": 0.6,
+    "healthy_score": 0.1
+  },
+  "policy": {
+    "max_actions": 3,
+    "max_submits": 3,
+    "min_gain": 0.05,
+    "epsilon": 0.02,
+    "weights": {
+      "regression": 1.0,
+      "model_calls": 0.01,
+      "tokens": 1e-06,
+      "latency_ms": 0.0,
+      "unnecessary_actions": 0.005
+    },
+    "cost_semantics": "expected-v2",
+    "expected_action_cost": {
+      "search_calls": 0,
+      "reindexes": 0,
+      "model_calls": 0,
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "latency_ms": null,
+      "api_cost_usd": 0.0
+    }
+  },
+  "baselines": [
+    "no_repair",
+    "always_typed_patch",
+    "selective_rule"
+  ],
+  "bootstrap_samples": 2000,
+  "success": {
+    "H1": "fewer healthy interventions AND fewer measured search calls",
+    "H2": "no decrease in recovered cases OR mean failing nDCG; zero healthy regressions over epsilon",
+    "H3": "all labeled failures have zero results"
+  },
+  "phase_limit": 1,
+  "parent_version": "phase01-v1",
+  "change_class": "posthoc_reproducibility_correction",
+  "preserved_baseline_sha": "a0fc8c7abe8a04d932de382e28e5ccd93b3cdc1f",
+  "change_reason": "Measured candidate generation latency is sunk diagnostic cost, not predicted future repair cost; separate selection inputs from measurement.",
+  "expected_cost_scope": "Selection model: declared external usage of offline typed patch; future latency uncalibrated/null and excluded via zero weight. Actual searches, reindexes and wall-clock remain measured separately.",
+  "reproducibility_contract": "Same observation/candidate content/expected cost/config yields same decision regardless of measured diagnostic latency."
+}

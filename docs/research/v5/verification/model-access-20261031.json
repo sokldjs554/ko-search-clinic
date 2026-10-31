@@ -1,0 +1,11 @@
+{
+  "checked_at": "2026-10-31T07:13:47.292409+00:00",
+  "generation_authorized": false,
+  "generation_calls": 0,
+  "http_status": 200,
+  "method": "GET",
+  "model_id": "gpt-4.1-mini-2025-04-14",
+  "status": "accessible",
+  "run_url": "https://github.com/sokldjs554/ko-search-clinic/actions/runs/41179770206",
+  "source_commit": "e430011d7890a6d6e61547e48679618c6a0c96b9"
+}

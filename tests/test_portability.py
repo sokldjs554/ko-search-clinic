@@ -65,6 +65,10 @@ def find_unencoded_opens(source: str, label: str = "<source>") -> list[str]:
     for node in ast.walk(ast.parse(source, filename=label)):
         if not isinstance(node, ast.Call):
             continue
+        # os.open returns an unencoded file descriptor and accepts integer flags.
+        if (isinstance(node.func, ast.Attribute) and node.func.attr == "open"
+                and isinstance(node.func.value, ast.Name) and node.func.value.id == "os"):
+            continue
         name = _called_name(node)
         if name not in _TEXT_OPENERS or _is_binary_mode(node):
             continue
@@ -84,6 +88,8 @@ def test_the_checker_actually_catches_violations():
     assert not find_unencoded_opens('open("a.txt", encoding="utf-8")')
     assert not find_unencoded_opens('open("a.bin", "rb")')
     assert not find_unencoded_opens('open("a.bin", mode="wb")')
+    assert not find_unencoded_opens('os.open(path, os.O_WRONLY | os.O_CREAT, 0o600)')
+    assert find_unencoded_opens('document.open()')
     assert not find_unencoded_opens('urllib.request.urlopen(req)')
     assert not find_unencoded_opens('Path("a.bin").read_bytes()')
     assert not find_unencoded_opens('"open() 없이 쓰면 안 된다"  # 산문은 무시')

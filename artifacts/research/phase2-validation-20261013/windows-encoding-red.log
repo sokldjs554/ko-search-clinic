@@ -1,0 +1,38 @@
+F                                                                        [100%]
+=================================== FAILURES ===================================
+______ test_worker_roundtrips_korean_with_legacy_default_stream_encoding _______
+
+context = Context(query_id='synthetic-1', query='수믄', observation=PolicyObservation(query_id='synthetic-1', query='수믄', split='t...ocuments=[PublicDocument(doc_id='S1', text='수문 강의 물을 조절하는 시설', tokens=['수문', '강', '물', '조절', '시설'])], max_candidates=3)
+
+    def test_worker_roundtrips_korean_with_legacy_default_stream_encoding(context):
+        """Emulate Windows pipe encoding under -I, which ignores PYTHONIOENCODING."""
+        import subprocess
+        import sys
+        from searchclinic.research.phase2.contracts import ROOT
+        code = (f"import sys; sys.path.insert(0,{str(ROOT/'src')!r}); "
+                "[s.reconfigure(encoding='cp1252') for s in (sys.stdin,sys.stdout,sys.stderr)]; "
+                "from searchclinic.research.phase2.worker import main; main()")
+        completed = subprocess.run([sys.executable, '-I', '-c', code],
+            input=json.dumps({'context':context.model_dump()},ensure_ascii=False).encode('utf-8'),
+            capture_output=True, timeout=60)
+>       assert completed.returncode == 0, completed.stderr.decode('utf-8', errors='replace')
+E       AssertionError: Traceback (most recent call last):
+E           File "<string>", line 1, in <module>
+E           File "/workspace/scratch/9fe70959393f/ko-search-clinic-phase2/src/searchclinic/research/phase2/worker.py", line 24, in main
+E             payload = json.load(sys.stdin)
+E                       ^^^^^^^^^^^^^^^^^^^^
+E           File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/json/__init__.py", line 293, in load
+E             return loads(fp.read(),
+E                          ^^^^^^^^^
+E           File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/encodings/cp1252.py", line 23, in decode
+E             return codecs.charmap_decode(input,self.errors,decoding_table)[0]
+E                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E         UnicodeDecodeError: 'charmap' codec can't decode byte 0x9d in position 683: character maps to <undefined>
+E         
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['/workspace/scratch/9fe70959393f/ko-search-clinic-phase2/.venv/bin/python', '-I', '-c', "import...^^^^^\nUnicodeDecodeError: \'charmap\' codec can\'t decode byte 0x9d in position 683: character maps to <undefined>\n').returncode
+
+tests/test_phase2_boundary.py:54: AssertionError
+=========================== short test summary info ============================
+FAILED tests/test_phase2_boundary.py::test_worker_roundtrips_korean_with_legacy_default_stream_encoding
+1 failed in 2.02s

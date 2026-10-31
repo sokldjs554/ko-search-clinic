@@ -1,0 +1,16 @@
+..F...                                                                   [100%]
+=================================== FAILURES ===================================
+_______________ test_rounding_the_report_mean_must_not_hide_loss _______________
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7f0f56ee9370>
+
+    def test_rounding_the_report_mean_must_not_hide_loss(monkeypatch):
+        verdict = exercise(monkeypatch, after_values=[.55, .4875, .4875, .4875, .4874])
+>       assert not verdict.accepted
+E       AssertionError: assert not True
+E        +  where True = GateVerdict(accepted=True, reason='표적 개선 + 무회귀 + 전체 보존', target_query='q0', target_before=QueryMetrics(query='q0', ndc... ndcg=0.55, recall=0.5, precision5=0.5, n_results=1, hits_top=('d',)), mean_before=0.5, mean_after=0.5, regressions=[]).accepted
+
+tests/test_gate_mean_preservation.py:42: AssertionError
+=========================== short test summary info ============================
+FAILED tests/test_gate_mean_preservation.py::test_rounding_the_report_mean_must_not_hide_loss
+1 failed, 5 passed in 0.14s

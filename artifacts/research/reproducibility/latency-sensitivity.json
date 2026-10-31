@@ -1,0 +1,162 @@
+{
+  "source_sha": "73a9fcc379d37729cbe1ec8df8bbcb340511d28f",
+  "probe_kind": "controlled latency input, not measured performance",
+  "rows": [
+    {
+      "version": "phase01-v1",
+      "controlled_measured_latency_ms": 0,
+      "action": "typed_patch",
+      "reason": "positive_utility",
+      "utility": 0.0425,
+      "predicted_failure": true,
+      "expected_cost": null
+    },
+    {
+      "version": "phase01-v2",
+      "controlled_measured_latency_ms": 0,
+      "action": "typed_patch",
+      "reason": "positive_utility",
+      "utility": 0.0425,
+      "predicted_failure": true,
+      "expected_cost": {
+        "search_calls": 0,
+        "reindexes": 0,
+        "model_calls": 0,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "latency_ms": null,
+        "api_cost_usd": 0.0
+      }
+    },
+    {
+      "version": "phase01-v1",
+      "controlled_measured_latency_ms": 4249,
+      "action": "typed_patch",
+      "reason": "positive_utility",
+      "utility": 9.999999999993521e-06,
+      "predicted_failure": true,
+      "expected_cost": null
+    },
+    {
+      "version": "phase01-v2",
+      "controlled_measured_latency_ms": 4249,
+      "action": "typed_patch",
+      "reason": "positive_utility",
+      "utility": 0.0425,
+      "predicted_failure": true,
+      "expected_cost": {
+        "search_calls": 0,
+        "reindexes": 0,
+        "model_calls": 0,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "latency_ms": null,
+        "api_cost_usd": 0.0
+      }
+    },
+    {
+      "version": "phase01-v1",
+      "controlled_measured_latency_ms": 4250,
+      "action": "abstain",
+      "reason": "nonpositive_utility",
+      "utility": -2.6020852139652106e-18,
+      "predicted_failure": true,
+      "expected_cost": null
+    },
+    {
+      "version": "phase01-v2",
+      "controlled_measured_latency_ms": 4250,
+      "action": "typed_patch",
+      "reason": "positive_utility",
+      "utility": 0.0425,
+      "predicted_failure": true,
+      "expected_cost": {
+        "search_calls": 0,
+        "reindexes": 0,
+        "model_calls": 0,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "latency_ms": null,
+        "api_cost_usd": 0.0
+      }
+    },
+    {
+      "version": "phase01-v1",
+      "controlled_measured_latency_ms": 4251,
+      "action": "abstain",
+      "reason": "nonpositive_utility",
+      "utility": -1.0000000000005664e-05,
+      "predicted_failure": true,
+      "expected_cost": null
+    },
+    {
+      "version": "phase01-v2",
+      "controlled_measured_latency_ms": 4251,
+      "action": "typed_patch",
+      "reason": "positive_utility",
+      "utility": 0.0425,
+      "predicted_failure": true,
+      "expected_cost": {
+        "search_calls": 0,
+        "reindexes": 0,
+        "model_calls": 0,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "latency_ms": null,
+        "api_cost_usd": 0.0
+      }
+    },
+    {
+      "version": "phase01-v1",
+      "controlled_measured_latency_ms": 6000,
+      "action": "abstain",
+      "reason": "nonpositive_utility",
+      "utility": -0.017500000000000005,
+      "predicted_failure": true,
+      "expected_cost": null
+    },
+    {
+      "version": "phase01-v2",
+      "controlled_measured_latency_ms": 6000,
+      "action": "typed_patch",
+      "reason": "positive_utility",
+      "utility": 0.0425,
+      "predicted_failure": true,
+      "expected_cost": {
+        "search_calls": 0,
+        "reindexes": 0,
+        "model_calls": 0,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "latency_ms": null,
+        "api_cost_usd": 0.0
+      }
+    },
+    {
+      "version": "phase01-v1",
+      "controlled_measured_latency_ms": 1000000,
+      "action": "abstain",
+      "reason": "nonpositive_utility",
+      "utility": -9.957500000000001,
+      "predicted_failure": true,
+      "expected_cost": null
+    },
+    {
+      "version": "phase01-v2",
+      "controlled_measured_latency_ms": 1000000,
+      "action": "typed_patch",
+      "reason": "positive_utility",
+      "utility": 0.0425,
+      "predicted_failure": true,
+      "expected_cost": {
+        "search_calls": 0,
+        "reindexes": 0,
+        "model_calls": 0,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "latency_ms": null,
+        "api_cost_usd": 0.0
+      }
+    }
+  ]
+}

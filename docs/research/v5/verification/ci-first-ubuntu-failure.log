@@ -1,0 +1,138 @@
+==================================== ERRORS ====================================
+2026-10-30T10:47:33.5508203Z _ ERROR at setup of test_preparation_has_fixed_candidates_all_queries_and_sorted_bounded_evidence _
+2026-10-30T10:47:33.5508930Z
+2026-10-30T10:47:33.5509232Z monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7f185fd20050>
+2026-10-30T10:47:33.5510059Z
+2026-10-30T10:47:33.5510159Z     @pytest.fixture
+2026-10-30T10:47:33.5510448Z     def prepared_inputs(monkeypatch):
+2026-10-30T10:47:33.5510772Z >       api = preparation()
+2026-10-30T10:47:33.5511032Z               ^^^^^^^^^^^^^
+2026-10-30T10:47:33.5511197Z
+2026-10-30T10:47:33.5511314Z tests/test_v5_preparation.py:54:
+2026-10-30T10:47:33.5511688Z _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+2026-10-30T10:47:33.5512103Z tests/test_v5_preparation.py:15: in preparation
+2026-10-30T10:47:33.5512775Z     assert importlib.util.find_spec("scripts.prepare_v5_development") is not None, "Offline preparation is missing"
+2026-10-30T10:47:33.5513406Z            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-10-30T10:47:33.5513803Z _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+2026-10-30T10:47:33.5514076Z
+2026-10-30T10:47:33.5514268Z name = 'scripts.prepare_v5_development', package = None
+2026-10-30T10:47:33.5514592Z
+2026-10-30T10:47:33.5514696Z >   ???
+2026-10-30T10:47:33.5514955Z E   ModuleNotFoundError: No module named 'scripts'
+2026-10-30T10:47:33.5515202Z
+2026-10-30T10:47:33.5515346Z <frozen importlib.util>:95: ModuleNotFoundError
+2026-10-30T10:47:33.5515888Z _ ERROR at setup of test_public_files_exclude_outcomes_and_labels_load_only_after_requests_saved _
+2026-10-30T10:47:33.5516322Z
+2026-10-30T10:47:33.5516563Z monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7f187a597f90>
+2026-10-30T10:47:33.5516894Z
+2026-10-30T10:47:33.5516998Z     @pytest.fixture
+2026-10-30T10:47:33.5517267Z     def prepared_inputs(monkeypatch):
+2026-10-30T10:47:33.5517583Z >       api = preparation()
+2026-10-30T10:47:33.5517855Z               ^^^^^^^^^^^^^
+2026-10-30T10:47:33.5518009Z
+2026-10-30T10:47:33.5518133Z tests/test_v5_preparation.py:54:
+2026-10-30T10:47:33.5518496Z _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+2026-10-30T10:47:33.5519420Z tests/test_v5_preparation.py:15: in preparation
+2026-10-30T10:47:33.5520087Z     assert importlib.util.find_spec("scripts.prepare_v5_development") is not None, "Offline preparation is missing"
+2026-10-30T10:47:33.5520707Z            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-10-30T10:47:33.5521088Z _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+2026-10-30T10:47:33.5521360Z
+2026-10-30T10:47:33.5521531Z name = 'scripts.prepare_v5_development', package = None
+2026-10-30T10:47:33.5521791Z
+2026-10-30T10:47:33.5521876Z >   ???
+2026-10-30T10:47:33.5522130Z E   ModuleNotFoundError: No module named 'scripts'
+2026-10-30T10:47:33.5522387Z
+2026-10-30T10:47:33.5522517Z <frozen importlib.util>:95: ModuleNotFoundError
+2026-10-30T10:47:33.5523087Z _ ERROR at setup of test_requests_share_candidate_hashes_and_budget_is_not_a_tokenizer _
+2026-10-30T10:47:33.5523468Z
+2026-10-30T10:47:33.5523712Z monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7f185fcab590>
+2026-10-30T10:47:33.5524061Z
+2026-10-30T10:47:33.5524149Z     @pytest.fixture
+2026-10-30T10:47:33.5524405Z     def prepared_inputs(monkeypatch):
+2026-10-30T10:47:33.5524719Z >       api = preparation()
+2026-10-30T10:47:33.5524979Z               ^^^^^^^^^^^^^
+2026-10-30T10:47:33.5525142Z
+2026-10-30T10:47:33.5525246Z tests/test_v5_preparation.py:54:
+2026-10-30T10:47:33.5525600Z _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+2026-10-30T10:47:33.5526032Z tests/test_v5_preparation.py:15: in preparation
+2026-10-30T10:47:33.5526651Z     assert importlib.util.find_spec("scripts.prepare_v5_development") is not None, "Offline preparation is missing"
+2026-10-30T10:47:33.5527287Z            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-10-30T10:47:33.5527691Z _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+2026-10-30T10:47:33.5527969Z
+2026-10-30T10:47:33.5528139Z name = 'scripts.prepare_v5_development', package = None
+2026-10-30T10:47:33.5528415Z
+2026-10-30T10:47:33.5528497Z >   ???
+2026-10-30T10:47:33.5529052Z E   ModuleNotFoundError: No module named 'scripts'
+2026-10-30T10:47:33.5529299Z
+2026-10-30T10:47:33.5529441Z <frozen importlib.util>:95: ModuleNotFoundError
+2026-10-30T10:47:33.5529891Z _____ ERROR at setup of test_large_requests_are_flagged_without_truncation _____
+2026-10-30T10:47:33.5530244Z
+2026-10-30T10:47:33.5530461Z monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7f185fcde750>
+2026-10-30T10:47:33.5530804Z
+2026-10-30T10:47:33.5530902Z     @pytest.fixture
+2026-10-30T10:47:33.5531154Z     def prepared_inputs(monkeypatch):
+2026-10-30T10:47:33.5531444Z >       api = preparation()
+2026-10-30T10:47:33.5531687Z               ^^^^^^^^^^^^^
+2026-10-30T10:47:33.5531841Z
+2026-10-30T10:47:33.5531951Z tests/test_v5_preparation.py:54:
+2026-10-30T10:47:33.5532294Z _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+2026-10-30T10:47:33.5532710Z tests/test_v5_preparation.py:15: in preparation
+2026-10-30T10:47:33.5533324Z     assert importlib.util.find_spec("scripts.prepare_v5_development") is not None, "Offline preparation is missing"
+2026-10-30T10:47:33.5533960Z            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-10-30T10:47:33.5534344Z _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+2026-10-30T10:47:33.5534611Z
+2026-10-30T10:47:33.5534765Z name = 'scripts.prepare_v5_development', package = None
+2026-10-30T10:47:33.5535037Z
+2026-10-30T10:47:33.5535119Z >   ???
+2026-10-30T10:47:33.5535370Z E   ModuleNotFoundError: No module named 'scripts'
+2026-10-30T10:47:33.5535608Z
+2026-10-30T10:47:33.5535748Z <frozen importlib.util>:95: ModuleNotFoundError
+2026-10-30T10:47:33.5536233Z _ ERROR at setup of test_output_directory_is_write_once_and_network_is_never_opened _
+2026-10-30T10:47:33.5536615Z
+2026-10-30T10:47:33.5536840Z monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7f186c07b450>
+2026-10-30T10:47:33.5537170Z
+2026-10-30T10:47:33.5537453Z     @pytest.fixture
+2026-10-30T10:47:33.5537711Z     def prepared_inputs(monkeypatch):
+2026-10-30T10:47:33.5538010Z >       api = preparation()
+2026-10-30T10:47:33.5538266Z               ^^^^^^^^^^^^^
+2026-10-30T10:47:33.5538410Z
+2026-10-30T10:47:33.5538528Z tests/test_v5_preparation.py:54:
+2026-10-30T10:47:33.5539004Z _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+2026-10-30T10:47:33.5539397Z tests/test_v5_preparation.py:15: in preparation
+2026-10-30T10:47:33.5540015Z     assert importlib.util.find_spec("scripts.prepare_v5_development") is not None, "Offline preparation is missing"
+2026-10-30T10:47:33.5540653Z            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-10-30T10:47:33.5541065Z _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+2026-10-30T10:47:33.5541377Z
+2026-10-30T10:47:33.5541555Z name = 'scripts.prepare_v5_development', package = None
+2026-10-30T10:47:33.5541831Z
+2026-10-30T10:47:33.5541922Z >   ???
+2026-10-30T10:47:33.5542201Z E   ModuleNotFoundError: No module named 'scripts'
+2026-10-30T10:47:33.5542466Z
+2026-10-30T10:47:33.5542608Z <frozen importlib.util>:95: ModuleNotFoundError
+2026-10-30T10:47:33.5542993Z =================================== FAILURES ===================================
+2026-10-30T10:47:33.5543505Z ______ test_raw_loader_uses_only_source_identity_and_prescription_fields _______
+2026-10-30T10:47:33.5543859Z
+2026-10-30T10:47:33.5544132Z tmp_path = PosixPath('/tmp/pytest-of-runner/pytest-0/test_raw_loader_uses_only_sour0')
+2026-10-30T10:47:33.5544526Z
+2026-10-30T10:47:33.5544776Z     def test_raw_loader_uses_only_source_identity_and_prescription_fields(tmp_path):
+2026-10-30T10:47:33.5545251Z >       api = preparation()
+2026-10-30T10:47:33.5545510Z               ^^^^^^^^^^^^^
+2026-10-30T10:47:33.5545666Z
+2026-10-30T10:47:33.5545778Z tests/test_v5_preparation.py:190:
+2026-10-30T10:47:33.5546141Z _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+2026-10-30T10:47:33.5546554Z tests/test_v5_preparation.py:15: in preparation
+2026-10-30T10:47:33.5547326Z     assert importlib.util.find_spec("scripts.prepare_v5_development") is not None, "Offline preparation is missing"
+2026-10-30T10:47:33.5547954Z            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-10-30T10:47:33.5548364Z _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+2026-10-30T10:47:33.5548824Z
+2026-10-30T10:47:33.5549009Z name = 'scripts.prepare_v5_development', package = None
+2026-10-30T10:47:33.5549286Z
+2026-10-30T10:47:33.5549379Z >   ???
+2026-10-30T10:47:33.5549628Z E   ModuleNotFoundError: No module named 'scripts'
+2026-10-30T10:47:33.5549872Z
+2026-10-30T10:47:33.5550010Z <frozen importlib.util>:95: ModuleNotFoundError
+2026-10-30T10:47:33.5550404Z =========================== short test summary info ============================
+2026-10-30T10:47:33.5551535Z SKIPPED [1] tests/test_postgres_store.py:20: PostgreSQL은 선택 의존성이다
+2026-10-30T10:47:33.5552063Z SKIPPED [1] tests/test_scale.py:21: 규모 계층은 선택 의존성이다
+2026-10-30T10:47:33.5552493Z 1 failed, 555 passed, 2 skipped, 5 errors in 60.72s (0:01:00)
+2026-10-30T10:47:33.8653678Z
