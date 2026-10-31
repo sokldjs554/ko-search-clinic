@@ -214,7 +214,8 @@ def extract_archive(data, destination):
         for item in archive.infolist():
             path = PurePosixPath(item.filename)
             mode = item.external_attr >> 16
-            if (not item.filename or path.is_absolute() or '..' in path.parts
+            # Check wire names before ZipInfo's Windows separator/NUL cleanup.
+            if (item.orig_filename != item.filename or not item.filename or path.is_absolute() or '..' in path.parts
                     or '\\' in item.filename or ':' in item.filename or path.as_posix() != item.filename.rstrip('/')
                     or path.as_posix() in names or stat.S_ISLNK(mode)
                     or stat.S_IFMT(mode) not in (0, stat.S_IFREG, stat.S_IFDIR)):

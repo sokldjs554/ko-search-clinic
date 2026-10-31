@@ -96,7 +96,7 @@
     "current_checks": "https://github.com/sokldjs554/ko-search-clinic/pull/3/checks"
   },
   "followup_20261031": {
-    "local_pytest": "652 passed, 2 skipped in 85.87s; Python 3.12.14",
+    "local_pytest": "654 passed, 2 skipped in 90.31s before ZIP normalization fix; final rerun pending",
     "focused_regressions": "98 passed",
     "browser": {
       "detailed_queries": 36,
@@ -139,7 +139,8 @@
         "Windows private key ACL policy; deny private writes if unavailable"
       ],
       "portability_fix": "explicit UTF-8 fixtures; file-descriptor os.open excluded from text-only encoding check",
-      "windows_environment_fix": "Remove inherited PSModulePath case-insensitively for the fixed powershell.exe child; keep fail-closed ACL verification"
+      "windows_environment_fix": "Remove inherited PSModulePath case-insensitively for the fixed powershell.exe child; keep fail-closed ACL verification",
+      "zip_normalization_fix": "Validate ZipInfo.orig_filename before normalized filename; preserve raw fixture names; test backslash/NUL normalization on both platforms"
     },
     "remote_ci": {
       "status": "pending Windows ACL environment fix verification",
@@ -149,7 +150,11 @@
       "windows": "12 failed, 640 passed, 2 skipped; PowerShell module path mismatch",
       "baseline": "success",
       "diagnostic_run": "https://github.com/sokldjs554/ko-search-clinic/actions/runs/41181718593",
-      "diagnosis": "PowerShell 7 PSModulePath inherited by Windows PowerShell 5.1 prevented Set-Acl module import; empty-file parent-shell differential reproduced"
+      "diagnosis": "PowerShell 7 PSModulePath inherited by Windows PowerShell 5.1 prevented Set-Acl module import; empty-file parent-shell differential reproduced",
+      "second_run_id": 41181873954,
+      "second_source_commit": "2fe790f1ebec0954300325fdf040649d35598463",
+      "second_ubuntu": "654 passed, 2 skipped",
+      "second_windows": "1 failed, 653 passed, 2 skipped; ZIP wire-name normalization"
     },
     "research_complete": false,
     "superiority_claim": false,

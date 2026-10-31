@@ -94,7 +94,10 @@ def test_unsafe_zip_entry_has_no_partial_extraction(work, name):
     buf = io.BytesIO()
     with zipfile.ZipFile(buf, 'w') as archive:
         archive.writestr('valid', 'safe')
-        archive.writestr(name, 'unsafe')
+        item = zipfile.ZipInfo('placeholder')
+        # Preserve the wire name: Windows ZipInfo construction normalizes it.
+        item.filename = item.orig_filename = name
+        archive.writestr(item, 'unsafe')
     with pytest.raises(ValueError):
         evidence.extract_archive(buf.getvalue(), work / 'restored')
     assert not (work / 'restored').exists()
@@ -169,3 +172,17 @@ def test_cli_keygen_never_prints_private_material_and_denies_overwrite(work, cap
     assert cli.main(['gate', '--approval', str(work / 'absent.json'), '--recipient', 'absent',
                      '--plan-hash', PLAN, '--out', str(work / 'approval.json')]) == 0
     assert capsys.readouterr().out.strip() == 'authorized=false'
+
+
+@pytest.mark.parametrize('name', ['a\\escape', 'safe\x00hidden'])
+def test_original_archive_names_are_checked_before_library_normalization(work, monkeypatch, name):
+    buf = io.BytesIO()
+    with zipfile.ZipFile(buf, 'w') as archive:
+        item = zipfile.ZipInfo('placeholder')
+        item.filename = item.orig_filename = name
+        archive.writestr(item, 'unsafe')
+    # Emulate the Windows ZIP reader on Linux too.
+    monkeypatch.setattr(zipfile.os, 'sep', '\\')
+    with pytest.raises(ValueError, match='unsafe archive entry'):
+        evidence.extract_archive(buf.getvalue(), work / 'restored')
+    assert not (work / 'restored').exists()
