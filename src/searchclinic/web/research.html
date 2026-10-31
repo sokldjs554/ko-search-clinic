@@ -3,6 +3,10 @@
 <body><header><a class="brand" href="./">검색 점검실<span>KO–SEARCH / CLINIC</span></a><a href="./">RAG 저장 응답</a></header><main>
 <h1>저장 후보는 실제 검색에 도움이 됐나</h1>
 <p class="notice">제출 이후 v5 개발 진단입니다. 과거에 제출·저장된 후보만 재실행했으므로 독립 평가나 새 의미 선택기의 성능이 아닙니다. 실제 의미 판정 비교는 미실행입니다.</p>
+<section aria-labelledby="followup-title"><h2 id="followup-title">10월 31일 후속 실험 상태</h2>
+<p class="notice">고정 모델 접근 확인 완료 · 유료 생성 0회. Pair / Context / Rubric의 실제 판정 결과는 아직 없습니다. 새 평가 후보 200질의·300문서는 사람 검수와 노출 확인 전입니다.</p>
+<p>무료로 실행한 기존 36질의의 개발 기준선: 수정 없음 nDCG@10 0.583943, 새로 생성한 RulesPlus 후보의 첫 유효 처방 적용 0.859490. RulesPlus에서 정상 질의 1건이 악화됐습니다. 이는 새 의미 선택기의 성과나 독립 평가 결과가 아닙니다.</p>
+<p><a href="https://github.com/sokldjs554/ko-search-clinic/blob/feat/research-verification-v5-20261030/docs/research/v5/FOLLOWUP_20261031.md">실제 호출·비교·검수 상태와 재현</a></p></section>
 <p id="load" role="status">실제 기록을 불러오는 중입니다.</p>
 <section id="report" hidden><h2>36질의 비교 · 같은 원래 검색 설정에서 개별 적용</h2><div class="scroll"><table><thead><tr><th>조건</th><th>nDCG@10</th><th>Recall@10</th><th>Precision@5</th></tr></thead><tbody id="summary"></tbody></table></div>
 <p>Oracle은 정답으로 최선 후보 또는 수정 없음을 고른 진단 상한입니다. 운영 선택기가 아닙니다. Precision@5의 분모는 5입니다.</p>

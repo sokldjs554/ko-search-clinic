@@ -4,7 +4,7 @@
 
 **2026-10-30 제출 이후 추가 연구(v5). 새 방법의 독립 평가 성능 우위는 아직 입증하지 못했습니다.** 기존 v3·v4 결과는 변경하지 않았습니다. 이 통합 브랜치는 최신 `main`에서 PR #1/Phase 2 연구 모듈과 PR #2 RAG 서비스를 필요한 파일 단위로 통합했습니다. 기존 Draft PR을 병합하지 않았습니다.
 
-[통합 PR #3](https://github.com/sokldjs554/ko-search-clinic/pull/3) · [검증된 Ubuntu·Windows CI](https://github.com/sokldjs554/ko-search-clinic/actions/runs/41043768505) · [현재 감사·결과·한계](docs/research/v5/REPORT.md) · [14개 브랜치 감사](docs/research/v5/AUDIT.md) · [실행 가능한 평가 프로토콜](docs/research/v5/PROTOCOL.md)
+[통합 PR #3](https://github.com/sokldjs554/ko-search-clinic/pull/3) · [검증된 Ubuntu·Windows CI](https://github.com/sokldjs554/ko-search-clinic/actions/runs/41043768505) · [10월31일 실제 호출·독립 평가 준비 상태](docs/research/v5/FOLLOWUP_20261031.md) · [현재 감사·결과·한계](docs/research/v5/REPORT.md) · [14개 브랜치 감사](docs/research/v5/AUDIT.md) · [실행 가능한 평가 프로토콜](docs/research/v5/PROTOCOL.md)
 
 ## 방법과 확인한 병목
 
@@ -82,8 +82,8 @@ RAG24는 별도 모델·과제의 사후 인용 검증입니다. 지원 6·보�
 ## 아직 확인하지 못한 것
 
 - v3·v4 암호화 원시 결과의 질의별 퍼널·전체 후보 Oracle: 복호화 자료 없음.
-- 표현 쌍/문맥/루브릭의 실제 LLM 비교: 새 호출 승인·키 사용 결정 전.
-- 새 최종 평가: 문서·개념 중복 검수, 독립 정답 판정 및 미공개 자료가 아직 준비되지 않음. 기존 120질의를 새 맹검 자료로 재사용하지 않음.
+- 표현 쌍/문맥/루브릭의 실제 LLM 비교: 기존 GitHub Secret의 모델 접근 확인 완료, 새 유료 생성 승인 전.
+- 새 최종 평가: KLUE200질의·300문서 후보 확보, 독립 관련성·개념 검수와 완전 노출 감사 미완료. 기존 120질의를 새 맹검 자료로 재사용하지 않음.
 - 새 방법 대 RulesPlus·GPT의 독립 성능·지연·비용·반복 변동성: 미측정.
 - RFL 학습: 검수된 충분한 후보 판정 자료가 없어 수행하지 않음. [논문 검토와 후속 실험 조건](docs/research/v5/PROTOCOL.md).
 

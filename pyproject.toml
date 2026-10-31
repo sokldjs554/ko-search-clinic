@@ -31,7 +31,8 @@ scale = ["pyarrow>=15", "duckdb>=1.0"]
 # Spark는 로그가 한 대 메모리를 넘을 때만 값을 한다. 그 전에는 비용만 내므로
 # 기본에서 뺀다 — 실측에서 이 규모에서는 DuckDB가 48배 빨랐다.
 spark = ["pyspark>=3.5"]
-dev = ["pytest>=8.0", "pyflakes>=3.2", "httpx>=0.27"]
+research = ["httpx>=0.27", "cryptography>=46"]
+dev = ["pytest>=8.0", "pyflakes>=3.2", "httpx>=0.27", "cryptography>=46"]
 
 [project.scripts]
 clinic = "searchclinic.cli:main"

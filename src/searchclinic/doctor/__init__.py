@@ -1,7 +1,6 @@
 """진료 계층 — 도구, 진료 루프, 의사 엔진들."""
 
 from searchclinic.doctor.llm import AnthropicLLM, LLMClient, LLMResponse
-from searchclinic.doctor.loop import SessionResult, run_doctor_session
 from searchclinic.doctor.rules_plus import RulesPlusDoctor
 from searchclinic.doctor.scripted import ScriptedDoctor
 from searchclinic.doctor.tools import (
@@ -10,6 +9,16 @@ from searchclinic.doctor.tools import (
     ClinicExecutor,
     build_tool_definitions,
 )
+
+
+def __getattr__(name):
+    # Public generation must not import the private-label session/gate layer.
+    if name in {'SessionResult', 'run_doctor_session'}:
+        from importlib import import_module
+        value = getattr(import_module('searchclinic.doctor.loop'), name)
+        globals()[name] = value
+        return value
+    raise AttributeError(name)
 
 
 #: 의사 엔진 네 지점. 같은 상태 기계에 자를 하나씩 더 주는 구성이라,

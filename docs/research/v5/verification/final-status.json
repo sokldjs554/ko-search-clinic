@@ -21,6 +21,43 @@
     "page_errors": []
   },
   "remote_ci": {
+    "source_commit": "bda6b7cc48293a825b2f955bdae73b5a288f5a94",
+    "run_id": 41044314890,
+    "url": "https://github.com/sokldjs554/ko-search-clinic/actions/runs/41044314890",
+    "status": "completed",
+    "conclusion": "success",
+    "ubuntu": "561 passed, 2 skipped",
+    "windows": "561 passed, 2 skipped",
+    "baseline": "success",
+    "rechecked_at": "2026-10-31",
+    "note": "Previous turn final commit; follow-up changes require new CI."
+  },
+  "paid_api_calls": 0,
+  "review": {
+    "type": "independent AI code review, not relevance adjudication",
+    "findings_fixed": [
+      "generation_error preservation in diagnostic and request exports",
+      "full precision metrics for mean gate"
+    ],
+    "minor_deferred": []
+  },
+  "browser_public": {
+    "research_queries": 0,
+    "summary_arms": 3,
+    "viewports": [
+      1440,
+      320,
+      390
+    ],
+    "page_errors": []
+  },
+  "publication": {
+    "pull_request": "https://github.com/sokldjs554/ko-search-clinic/pull/3",
+    "source_commit": "1055e2dcdd3563518edb210cfd38cbe2de43f62e",
+    "test_import_fix": "fd073c5efd48ea94ab290ae1439b8e99155f133c",
+    "detailed_outputs": "excluded pending explicit publication approval"
+  },
+  "previous_verified_ci": {
     "source_commit": "fd073c5efd48ea94ab290ae1439b8e99155f133c",
     "run_id": 41043768505,
     "url": "https://github.com/sokldjs554/ko-search-clinic/actions/runs/41043768505",
@@ -58,29 +95,55 @@
     "first_failure_run": "https://github.com/sokldjs554/ko-search-clinic/actions/runs/41043173402",
     "current_checks": "https://github.com/sokldjs554/ko-search-clinic/pull/3/checks"
   },
-  "paid_api_calls": 0,
-  "review": {
-    "type": "independent AI code review, not relevance adjudication",
-    "findings_fixed": [
-      "generation_error preservation in diagnostic and request exports",
-      "full precision metrics for mean gate"
-    ],
-    "minor_deferred": []
-  },
-  "browser_public": {
-    "research_queries": 0,
-    "summary_arms": 3,
-    "viewports": [
-      1440,
-      320,
-      390
-    ],
-    "page_errors": []
-  },
-  "publication": {
-    "pull_request": "https://github.com/sokldjs554/ko-search-clinic/pull/3",
-    "source_commit": "1055e2dcdd3563518edb210cfd38cbe2de43f62e",
-    "test_import_fix": "fd073c5efd48ea94ab290ae1439b8e99155f133c",
-    "detailed_outputs": "excluded pending explicit publication approval"
+  "followup_20261031": {
+    "local_pytest": "652 passed, 2 skipped in 85.87s; Python 3.12.14",
+    "focused_regressions": "98 passed",
+    "browser": {
+      "detailed_queries": 36,
+      "public_queries": 0,
+      "summary_arms": 3,
+      "viewports": [
+        1440,
+        320,
+        390
+      ],
+      "page_errors": []
+    },
+    "baseline": "passed; nDCG10 0.5839426550733804",
+    "transport_mock": {
+      "completed_calls": 90,
+      "provider_calls": 0,
+      "raw_evidence_rederived": true,
+      "encrypted_roundtrip_files": 368,
+      "byte_exact": true
+    },
+    "paid_generation_calls": 0,
+    "actual_charge_usd": 0,
+    "model_access_receipt": "model-access-20261031.json",
+    "model_pricing_receipt": "model-pricing-20261031.json",
+    "development_aggregates": "development-baselines-20261031.json",
+    "independent_data": {
+      "source": "KLUE MRC dev v1.1",
+      "queries": 200,
+      "documents": 300,
+      "human_review_complete": false,
+      "exposure_audit_complete": false,
+      "final_evaluation_ready": false
+    },
+    "review": {
+      "type": "independent AI code review, not human relevance/semantic review",
+      "important_fixed": [
+        "raw request/response/outcome linkage required for final provider evidence",
+        "stopped runs retain missing verdicts in development only",
+        "comparison detail outputs confined to ignored work directory",
+        "Windows private key ACL policy; deny private writes if unavailable"
+      ],
+      "portability_fix": "explicit UTF-8 fixtures; file-descriptor os.open excluded from text-only encoding check"
+    },
+    "remote_ci": {
+      "status": "pending publication"
+    },
+    "research_complete": false,
+    "superiority_claim": false
   }
 }
