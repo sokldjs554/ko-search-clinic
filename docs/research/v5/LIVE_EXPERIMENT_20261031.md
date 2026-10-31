@@ -166,7 +166,7 @@ python -m searchclinic.api.explanation_api
 
 `/demo/research.html`에서 실제9개 조건 집계와 비용·실패 원인을 본다. 로컬 상세 exporter 결과를 무시 목록의 `research-v5-live-details.json`에 두면36질의·6조건의 모델 판정, 원문, 인용 위치, 선택/보류 이유와 검색 전후가 표시된다. 공개 GitHub에는 상세 파일이 없으므로 공개 데모는 집계만 표시한다. 프론트엔드는 모델을 호출하지 않는다. 이전 저장 후보 재생과 RAG24 데모도 유지했다.
 
-실제 저장 응답을 다시 적용해6개 의미 조건과 first_valid의 봉인된 application이 정확히 일치함을 확인했다. RulesPlus는 새 생성 실행의 메타데이터로 input hash가 달랐지만 순위·선택·후보별 결과는 같았다. 전체 assembly의 지연 값까지 byte-identical하다고 주장하지 않는다. 최신 전체 pytest/Ubuntu·Windows CI/baseline/브라우저 검증 결과는 [final-status.json](verification/final-status.json)에 기록한다. 테스트 통과는 연구 우위 입증이 아니다.
+실제 저장 응답을 다시 적용해6개 의미 조건과 first_valid의 봉인된 application이 정확히 일치함을 확인했다. RulesPlus는 새 생성 실행의 메타데이터로 input hash가 달랐지만 순위·선택·후보별 결과는 같았다. 전체 assembly의 지연 값까지 byte-identical하다고 주장하지 않는다. 최신 전체 pytest/Ubuntu·Windows CI/baseline/브라우저 검증 결과는 [final-status.json](verification/final-status.json)에 기록한다. 실제 코드 커밋 `dfd2f8c`의 로컬 pytest는671통과/2skip(95.85초), [Ubuntu·Windows CI](https://github.com/sokldjs554/ko-search-clinic/actions/runs/41201460882)는 각각671통과/2skip(74.06/129.18초), 검색 품질 gate도 통과했다. 브라우저는1440/320/390px, 공개/로컬 두 모드, 실제9개 arm·로컬36질의/6조건·RAG 재생을 확인했고 JS 오류0건이었다. 테스트 통과는 연구 우위 입증이 아니다.
 
 ## 면접에서 설명할 수 있는 새로운 성과
 

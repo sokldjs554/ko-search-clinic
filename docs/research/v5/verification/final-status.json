@@ -20,14 +20,44 @@
       390
     ],
     "rag_replay_loaded": true,
-    "page_errors": [],
-    "private_screenshots": "work/v5-live-41198330827/browser-readable"
+    "page_errors": []
   },
   "remote_ci": {
-    "status": "pending_new_source_publication",
-    "previous_verified_run": 41198330852,
-    "previous_verified_commit": "0e7dae7ec66bcac5a93aa9b2961547490f145b9f",
-    "latest_branch_checks_url": "https://github.com/sokldjs554/ko-search-clinic/pull/3/checks"
+    "source_commit": "dfd2f8caf243c4c9d3a1b00b15cfb56b64ddfbf8",
+    "run_id": 41201460882,
+    "url": "https://github.com/sokldjs554/ko-search-clinic/actions/runs/41201460882",
+    "status": "completed",
+    "conclusion": "success",
+    "ubuntu": "671 passed, 2 skipped in 74.06s",
+    "windows": "671 passed, 2 skipped in 129.18s",
+    "baseline": "success",
+    "jobs": [
+      {
+        "id": 124537929207,
+        "name": "검색 품질 게이트",
+        "status": "completed",
+        "conclusion": "success",
+        "url": "https://github.com/sokldjs554/ko-search-clinic/actions/runs/41201460882/job/124537929207"
+      },
+      {
+        "id": 124537929459,
+        "name": "테스트 (ubuntu-latest)",
+        "status": "completed",
+        "conclusion": "success",
+        "url": "https://github.com/sokldjs554/ko-search-clinic/actions/runs/41201460882/job/124537929459"
+      },
+      {
+        "id": 124537929480,
+        "name": "테스트 (windows-latest)",
+        "status": "completed",
+        "conclusion": "success",
+        "url": "https://github.com/sokldjs554/ko-search-clinic/actions/runs/41201460882/job/124537929480"
+      }
+    ],
+    "pr_run_id": 41201464425,
+    "pr_checks": "success",
+    "latest_branch_checks_url": "https://github.com/sokldjs554/ko-search-clinic/pull/3/checks",
+    "note": "Verified implementation commit. This record is added in a subsequent documentation-only commit; its final head CI is recorded in the PR body and linked checks to avoid a self-referential commit hash."
   },
   "paid_api_calls": 90,
   "review": {
@@ -36,7 +66,8 @@
       "generation_error preservation in diagnostic and request exports",
       "full precision metrics for mean gate"
     ],
-    "minor_deferred": []
+    "minor_deferred": [],
+    "scope": "Historical integration review; new post-hoc modules had local self-review and CI, not human research adjudication"
   },
   "browser_public": {
     "research_queries": 0,
@@ -49,19 +80,18 @@
       390
     ],
     "rag_replay_loaded": true,
-    "page_errors": [],
-    "private_screenshots": "work/v5-live-41198330827/browser-public-readable"
+    "page_errors": []
   },
   "publication": {
     "pull_request": "https://github.com/sokldjs554/ko-search-clinic/pull/3",
-    "source_commit": null,
+    "source_commit": "dfd2f8caf243c4c9d3a1b00b15cfb56b64ddfbf8",
     "test_import_fix": "fd073c5efd48ea94ab290ae1439b8e99155f133c",
     "detailed_outputs": "excluded pending explicit publication approval",
     "initial_source_commit": "1055e2dcdd3563518edb210cfd38cbe2de43f62e",
     "draft": true,
     "merged": false,
     "mergeable_at_code_check": true,
-    "status": "new live analysis awaiting publication and CI"
+    "status": "implemented and CI verified; final documentation commit checked in PR"
   },
   "previous_verified_ci": {
     "source_commit": "fd073c5efd48ea94ab290ae1439b8e99155f133c",
@@ -350,6 +380,7 @@
     "independent_evaluation_complete": false,
     "completed_human_reviews": 0,
     "posthoc_extra_provider_calls": 0,
-    "local_pytest": "671 passed, 2 skipped in 95.85s"
+    "local_pytest": "671 passed, 2 skipped in 95.85s",
+    "verified_ci_run": 41201460882
   }
 }
