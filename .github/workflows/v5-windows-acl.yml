@@ -19,7 +19,7 @@ jobs:
       - name: Probe ACL with empty synthetic files only
         shell: python
         run: |
-          import importlib.util, os, pathlib, subprocess
+          import importlib.util, os, pathlib, subprocess, tempfile
           path=pathlib.Path('src/searchclinic/research_v5/evidence.py')
           spec=importlib.util.spec_from_file_location('acl_evidence',path)
           evidence=importlib.util.module_from_spec(spec)
@@ -44,3 +44,13 @@ jobs:
                   print('EMPTY FILE ACL FAILURE',opened)
               finally:
                   if opened:os.close(fd)
+          with tempfile.TemporaryDirectory(prefix='test_roundtrip_preserves_raw_b0-') as temporary:
+              path=pathlib.Path(temporary)/'work'/'key.json'
+              path.parent.mkdir()
+              print('TEMP FDOPEN EMPTY FILE')
+              try:
+                  evidence._write(path,b'',private_key=True)
+                  evidence.check_key_permissions(path)
+                  print('TEMP FDOPEN SUCCESS')
+              except ValueError:
+                  print('TEMP FDOPEN FAILURE')
