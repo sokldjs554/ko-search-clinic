@@ -7,9 +7,9 @@ The preparation and approval steps never receive `OPENAI_API_KEY`. The sole
 provider-enabled step is separately gated. Existing model-access preflight is a
 GET-only workflow and does not authorize generation.
 
-The proposed experiment is `gpt-4.1-mini-2025-04-14`, at most 90 calls and a
+The approved experiment was `gpt-4.1-mini-2025-04-14`, at most 90 calls and a
 maximum configured reservation of USD 0.72. This is a retrospective controlled
-development experiment. No paid authorization is included in the repository.
+development experiment. The dedicated authorization commit `0e7dae7ec66bcac5a93aa9b2961547490f145b9f` was consumed by run41198330827: 90 calls completed. `ops/v5-approved.json` preserves that authorization record; it does not authorize another run. See [actual results](LIVE_EXPERIMENT_20261031.md).
 
 ## Recipient setup (local only)
 
@@ -56,7 +56,7 @@ re-pushing the same approval commit cannot automatically execute again. Failures
 of that check block generation. Concurrency uses the plan hash and never cancels
 a running experiment. Do not use Actions “Re-run jobs”: reruns are blocked.
 
-Any later code change requires renewed review and a new explicit approval.
+Any later paid execution requires renewed review of its code and a new explicit approval. Free analysis and documentation changes do not authorize or require another paid run.
 Approval files document authorization; they do not authenticate the human who
 provided it. Repository write access remains the administrative trust boundary.
 

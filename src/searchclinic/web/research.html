@@ -1,15 +1,26 @@
 <!doctype html>
-<html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>검색 수정 연구 · v5</title><link rel="stylesheet" href="style.css"><style>main,header{overflow-wrap:anywhere;min-width:0}header{gap:12px}header>a{min-width:0}@media(max-width:500px){header{padding:18px}.brand{font-size:20px}}main{max-width:1100px;margin:auto;padding:24px}table{border-collapse:collapse;width:100%;min-width:550px;margin:20px 0}th,td{border-bottom:1px solid #ddd;text-align:left;padding:10px}th:not(:first-child),td:not(:first-child){white-space:nowrap;overflow-wrap:normal}pre{white-space:pre-wrap;overflow-wrap:anywhere;background:#f4f3ee;padding:16px}select{max-width:100%;padding:8px}article{border-top:1px solid #bbb;margin-top:20px;padding-top:16px}.scroll{overflow:auto}.notice{border-left:4px solid #715a3b;padding:16px;background:#f7f4eb}h1{font-size:2rem}h2{font-size:1.25rem}</style></head>
+<html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>검색 수정 연구 · v5</title><link rel="stylesheet" href="style.css"><style>main,header{overflow-wrap:anywhere;min-width:0}header{gap:12px}header>a{min-width:0}@media(max-width:500px){header{padding:18px}.brand{font-size:20px}}main{max-width:1100px;margin:auto;padding:24px}table{border-collapse:collapse;width:100%;min-width:550px;margin:20px 0}th,td{border-bottom:1px solid #ddd;text-align:left;padding:10px}th:first-child,td:first-child{min-width:170px;overflow-wrap:normal;word-break:keep-all}th:not(:first-child),td:not(:first-child){white-space:nowrap;overflow-wrap:normal}pre{white-space:pre-wrap;overflow-wrap:anywhere;background:#f4f3ee;padding:16px}select{max-width:100%;padding:8px}article{border-top:1px solid #bbb;margin-top:20px;padding-top:16px}.scroll{overflow:auto}.notice{border-left:4px solid #715a3b;padding:16px;background:#f7f4eb}h1{font-size:2rem}h2{font-size:1.25rem}</style></head>
 <body><header><a class="brand" href="./">검색 점검실<span>KO–SEARCH / CLINIC</span></a><a href="./">RAG 저장 응답</a></header><main>
-<h1>저장 후보는 실제 검색에 도움이 됐나</h1>
-<p class="notice">제출 이후 v5 개발 진단입니다. 과거에 제출·저장된 후보만 재실행했으므로 독립 평가나 새 의미 선택기의 성능이 아닙니다. 실제 의미 판정 비교는 미실행입니다.</p>
-<section aria-labelledby="followup-title"><h2 id="followup-title">10월 31일 후속 실험 상태</h2>
-<p class="notice">고정 모델 접근 확인 완료 · 유료 생성 0회. Pair / Context / Rubric의 실제 판정 결과는 아직 없습니다. 새 평가 후보 200질의·300문서는 사람 검수와 노출 확인 전입니다.</p>
-<p>무료로 실행한 기존 36질의의 개발 기준선: 수정 없음 nDCG@10 0.583943, 새로 생성한 RulesPlus 후보의 첫 유효 처방 적용 0.859490. RulesPlus에서 정상 질의 1건이 악화됐습니다. 이는 새 의미 선택기의 성과나 독립 평가 결과가 아닙니다.</p>
-<p><a href="https://github.com/sokldjs554/ko-search-clinic/blob/feat/research-verification-v5-20261030/docs/research/v5/FOLLOWUP_20261031.md">실제 호출·비교·검수 상태와 재현</a></p></section>
+<h1>한국어 검색 수정 후보의 실제 LLM 의미 검증</h1>
+<p class="notice">동일한 저장 후보 15개를 Pair·Context·Rubric으로 각 2회 판단한 실제 개발 실험입니다. 후보는 과거 scripted 자료이며, 독립 평가나 GPT 후보 생성 성능을 입증하지 않습니다.</p>
+<p id="live-load" role="status">실제 LLM 실험 집계를 불러오는 중입니다.</p>
+<section id="live-report" hidden aria-labelledby="live-title"><h2 id="live-title">실제 90회 판정 · 고정된 원래 선택 규칙</h2>
+<p id="live-cost"></p><p class="notice">Context와 Rubric은 인용 위치 오류와 의미 조건 미충족으로 모두 보류됐습니다. Pair는 무수정보다 개선됐지만 RulesPlus보다 낮았습니다. 새 방법의 독립 성능 우위는 입증되지 않았습니다.</p>
+<div class="scroll"><table><thead><tr><th>조건 / 반복</th><th>nDCG@10</th><th>Recall@10</th><th>P@5</th><th>적용/보류</th><th>정상 악화</th><th>유용 후보 미선택</th></tr></thead><tbody id="live-summary"></tbody></table></div>
+<p id="live-random"></p><p id="live-grounding"></p>
+<p id="live-zero-hit"></p>
+<p>confidence 0.8은 고정 기준이며 보정된 개선 확률이나 최적 임계값이 아닙니다. 의미의 정오에 대한 독립 사람 검수는 아직 없으며, 검색 효용과 구별합니다.</p>
+<section id="live-query-section" hidden><h2>실제 판정의 선택·보류 사유와 검색 전후</h2>
+<label for="live-queries">질의</label> <select id="live-queries"></select>
+<label for="live-condition">조건 / 반복</label> <select id="live-condition"></select><div id="live-detail"></div></section>
+<p id="live-private-notice">질의별 원시 판정·근거·정답 정보는 공개하지 않습니다. 로컬에서 상세 재현 파일을 생성하면 전후 비교가 표시됩니다.</p>
+<p>새 KLUE 평가 후보 200질의·300문서는 검색 관련성 검수와 완전한 노출 감사 전입니다.</p>
+<p><a href="https://github.com/sokldjs554/ko-search-clinic/blob/feat/research-verification-v5-20261030/docs/research/v5/LIVE_EXPERIMENT_20261031.md">실험 결과·실패 분석·재현 방법</a> · <a id="live-run" href="#">실제 실행 기록</a></p>
+<details><summary>모델·입력·분석 해시</summary><pre id="live-evidence"></pre></details></section>
+<h2>이전 저장 후보 재생 · 실제 의미 판단을 사용하지 않은 진단</h2>
 <p id="load" role="status">실제 기록을 불러오는 중입니다.</p>
 <section id="report" hidden><h2>36질의 비교 · 같은 원래 검색 설정에서 개별 적용</h2><div class="scroll"><table><thead><tr><th>조건</th><th>nDCG@10</th><th>Recall@10</th><th>Precision@5</th></tr></thead><tbody id="summary"></tbody></table></div>
 <p>Oracle은 정답으로 최선 후보 또는 수정 없음을 고른 진단 상한입니다. 운영 선택기가 아닙니다. Precision@5의 분모는 5입니다.</p>
 <section id="query-section"><label for="queries">질의별 후보·전후 결과</label> <select id="queries"></select><div id="detail"></div></section>
 <h2>실행 근거와 한계</h2><p id="run-summary"></p><p>이미 관측한 개발 자료이며, 미제출 후보는 포함되지 않습니다. 독립 성능 우위는 미검증입니다.</p><details><summary>해시·환경·원본 출처 확인</summary><pre id="evidence"></pre></details><a id="download" href="research-replay.json" download>실제 기록 JSON 내려받기</a>
-<p><a href="https://github.com/sokldjs554/ko-search-clinic/tree/feat/research-verification-v5-20261030/docs/research/v5">감사·프로토콜·한계</a></p></section></main><script src="research.js"></script></body></html>
+<p><a href="https://github.com/sokldjs554/ko-search-clinic/tree/feat/research-verification-v5-20261030/docs/research/v5">감사·프로토콜·한계</a></p></section></main><script src="research.js"></script><script src="research-live.js"></script></body></html>

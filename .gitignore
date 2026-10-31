@@ -19,3 +19,6 @@ artifacts/research/v5-prepared
 docs/research/v5/development-funnel.csv
 docs/research/v5/development-replay.json
 src/searchclinic/web/research-replay.json
+
+# Detailed live LLM evidence is local only pending publication approval.
+src/searchclinic/web/research-v5-live-details.json

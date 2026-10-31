@@ -12,7 +12,7 @@ fetch('research-replay.json').then(response => response.ok ? response : fetch('r
   const show = () => {
     const query = data.queries[Number(choices.value)]; const detail = document.querySelector('#detail'); detail.replaceChildren();
     detail.append(element('h2',query.query), element('p',`질의 ID: ${query.query_id} · 기존 nDCG@10 ${query.baseline_metrics.ndcg10.toFixed(6)}`),element('p',`기존 검색 순위: ${query.baseline_ranking.join(' → ') || '결과 없음'}`));
-    detail.append(element('p','의미 검증: 실제 모델 판정 미실행. 아래 선택 표시는 저장 첫 후보를 적용한 개발 비교 조건입니다.'));
+    detail.append(element('p','이 과거 재생 조건은 의미 판정을 사용하지 않았습니다. 위 실제 LLM 실험과 별도로 저장 첫 후보를 적용한 진단입니다.'));
     if (!query.candidates.length) detail.append(element('p','저장된 제출 후보 없음. 미제출 후보까지 없었다는 뜻은 아닙니다.'));
     for (const candidate of query.candidates) {
       const card = document.createElement('article');
