@@ -10,7 +10,7 @@ Spec: user's 2026-10-31 request, sections1–9. User explicitly authorizes API i
 - [x] Parent: verify current branch/CI, official pricing/model documentation, credentials metadata and encryption path availability. Existing keys may only be used after user chooses connection; no secrets in logs.
 - [x] Parent: integrate CLI/docs/demo actual status; execute real offline preparation and simulated end-to-end; frozen prospective final criteria before final selection outcomes. No fabricated condition results.
 - [x] Review: independent AI code review, focused fixes with regression evidence, full pytest and baseline, browser checks.
-- [ ] Publish authorized code/aggregate evidence to PR3; verify Ubuntu/Windows CI and conflict status; preserve raw data privately; no main merge.
+- [x] Publish authorized code/aggregate evidence to PR3; verify Ubuntu/Windows CI and conflict status; preserve raw data privately; no main merge.
 - [ ] Ask exact cost approval only after real plan/token count and model access preflight; if key or human review absent, finish unaffected tasks and report exact remaining input.
 
 Parallel ownership: transport_v5 transport/runner/tests; comparison_v5 comparator/tests/protocol; independent_data_v5 data preparation/tests/review templates. Parent integrates/docs/demo/remote evidence. No shared-file agent edits.

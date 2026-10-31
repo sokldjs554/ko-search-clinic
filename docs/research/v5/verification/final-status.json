@@ -1,13 +1,10 @@
 {
   "local": {
-    "pytest": "561 passed, 2 skipped",
-    "command": "python -m pytest -q -rs",
+    "pytest": "656 passed, 2 skipped in 88.38s",
+    "command": "pytest -q -rs --junitxml=work/v5-followup/local-tests-zip-final.xml",
     "python": "Python 3.12.14",
-    "log": "pytest-local.log",
-    "baseline": "0.5839; existing baseline unchanged",
-    "console_command": "pytest -q -rs",
-    "console_log": "pytest-console-local.log",
-    "console_result": "561 passed, 2 skipped in 71.17s"
+    "baseline": "passed; nDCG10 0.5839426550733804",
+    "private_log": "work/v5-followup/full-pytest-zip-final.log"
   },
   "browser": {
     "research_queries": 36,
@@ -21,16 +18,16 @@
     "page_errors": []
   },
   "remote_ci": {
-    "source_commit": "bda6b7cc48293a825b2f955bdae73b5a288f5a94",
-    "run_id": 41044314890,
-    "url": "https://github.com/sokldjs554/ko-search-clinic/actions/runs/41044314890",
+    "source_commit": "e4d4e5fcdc9e911e8bb0ee44c57665dc84d4ad4e",
+    "run_id": 41182223630,
+    "url": "https://github.com/sokldjs554/ko-search-clinic/actions/runs/41182223630",
     "status": "completed",
     "conclusion": "success",
-    "ubuntu": "561 passed, 2 skipped",
-    "windows": "561 passed, 2 skipped",
+    "ubuntu": "656 passed, 2 skipped in 83.22s",
+    "windows": "656 passed, 2 skipped in 120.42s",
     "baseline": "success",
-    "rechecked_at": "2026-10-31",
-    "note": "Previous turn final commit; follow-up changes require new CI."
+    "latest_branch_checks_url": "https://github.com/sokldjs554/ko-search-clinic/pull/3/checks",
+    "note": "Verified implementation commit; this record is updated in a subsequent documentation-only commit whose CI is linked from PR checks."
   },
   "paid_api_calls": 0,
   "review": {
@@ -53,9 +50,13 @@
   },
   "publication": {
     "pull_request": "https://github.com/sokldjs554/ko-search-clinic/pull/3",
-    "source_commit": "1055e2dcdd3563518edb210cfd38cbe2de43f62e",
+    "source_commit": "e4d4e5fcdc9e911e8bb0ee44c57665dc84d4ad4e",
     "test_import_fix": "fd073c5efd48ea94ab290ae1439b8e99155f133c",
-    "detailed_outputs": "excluded pending explicit publication approval"
+    "detailed_outputs": "excluded pending explicit publication approval",
+    "initial_source_commit": "1055e2dcdd3563518edb210cfd38cbe2de43f62e",
+    "draft": true,
+    "merged": false,
+    "mergeable_at_code_check": true
   },
   "previous_verified_ci": {
     "source_commit": "fd073c5efd48ea94ab290ae1439b8e99155f133c",
@@ -96,7 +97,7 @@
     "current_checks": "https://github.com/sokldjs554/ko-search-clinic/pull/3/checks"
   },
   "followup_20261031": {
-    "local_pytest": "654 passed, 2 skipped in 90.31s before ZIP normalization fix; final rerun pending",
+    "local_pytest": "656 passed, 2 skipped in 88.38s",
     "focused_regressions": "98 passed",
     "browser": {
       "detailed_queries": 36,
@@ -143,18 +144,16 @@
       "zip_normalization_fix": "Validate ZipInfo.orig_filename before normalized filename; preserve raw fixture names; test backslash/NUL normalization on both platforms"
     },
     "remote_ci": {
-      "status": "pending Windows ACL environment fix verification",
-      "first_run_id": 41181102823,
-      "first_source_commit": "9b77e42e1f625bd82730386b462f8685a041d0ee",
-      "ubuntu": "652 passed, 2 skipped",
-      "windows": "12 failed, 640 passed, 2 skipped; PowerShell module path mismatch",
+      "source_commit": "e4d4e5fcdc9e911e8bb0ee44c57665dc84d4ad4e",
+      "run_id": 41182223630,
+      "url": "https://github.com/sokldjs554/ko-search-clinic/actions/runs/41182223630",
+      "status": "completed",
+      "conclusion": "success",
+      "ubuntu": "656 passed, 2 skipped in 83.22s",
+      "windows": "656 passed, 2 skipped in 120.42s",
       "baseline": "success",
-      "diagnostic_run": "https://github.com/sokldjs554/ko-search-clinic/actions/runs/41181718593",
-      "diagnosis": "PowerShell 7 PSModulePath inherited by Windows PowerShell 5.1 prevented Set-Acl module import; empty-file parent-shell differential reproduced",
-      "second_run_id": 41181873954,
-      "second_source_commit": "2fe790f1ebec0954300325fdf040649d35598463",
-      "second_ubuntu": "654 passed, 2 skipped",
-      "second_windows": "1 failed, 653 passed, 2 skipped; ZIP wire-name normalization"
+      "latest_branch_checks_url": "https://github.com/sokldjs554/ko-search-clinic/pull/3/checks",
+      "note": "Verified implementation commit; this record is updated in a subsequent documentation-only commit whose CI is linked from PR checks."
     },
     "research_complete": false,
     "superiority_claim": false,
@@ -162,6 +161,55 @@
       "candidate_count": 15,
       "reviewer_sheets": 2,
       "completed_human_reviews": 0
+    },
+    "free_remote_preparation": {
+      "run_id": 41181102864,
+      "status": "success",
+      "fixed_plan_hash": "e916e357cd7426a6bb50180559b542b33b28f20dda0189dcfb37ae7ed9d6f99c",
+      "generation_step": "skipped_no_paid_approval",
+      "provider_calls_executed": 0
+    },
+    "windows_empty_file_diagnostic": {
+      "fixed_run_id": 41181873936,
+      "status": "success",
+      "python_parent": "success",
+      "powershell7_parent": "success"
     }
+  },
+  "previous_verified_local": {
+    "pytest": "561 passed, 2 skipped",
+    "command": "python -m pytest -q -rs",
+    "python": "Python 3.12.14",
+    "log": "pytest-local.log",
+    "baseline": "0.5839; existing baseline unchanged",
+    "console_command": "pytest -q -rs",
+    "console_log": "pytest-console-local.log",
+    "console_result": "561 passed, 2 skipped in 71.17s"
+  },
+  "previous_verified_final_commit": {
+    "source_commit": "bda6b7cc48293a825b2f955bdae73b5a288f5a94",
+    "run_id": 41044314890,
+    "url": "https://github.com/sokldjs554/ko-search-clinic/actions/runs/41044314890",
+    "status": "completed",
+    "conclusion": "success",
+    "ubuntu": "561 passed, 2 skipped",
+    "windows": "561 passed, 2 skipped",
+    "baseline": "success",
+    "rechecked_at": "2026-10-31",
+    "note": "Previous turn final commit; follow-up changes require new CI."
+  },
+  "failed_followup_ci": {
+    "status": "pending Windows ACL environment fix verification",
+    "first_run_id": 41181102823,
+    "first_source_commit": "9b77e42e1f625bd82730386b462f8685a041d0ee",
+    "ubuntu": "652 passed, 2 skipped",
+    "windows": "12 failed, 640 passed, 2 skipped; PowerShell module path mismatch",
+    "baseline": "success",
+    "diagnostic_run": "https://github.com/sokldjs554/ko-search-clinic/actions/runs/41181718593",
+    "diagnosis": "PowerShell 7 PSModulePath inherited by Windows PowerShell 5.1 prevented Set-Acl module import; empty-file parent-shell differential reproduced",
+    "second_run_id": 41181873954,
+    "second_source_commit": "2fe790f1ebec0954300325fdf040649d35598463",
+    "second_ubuntu": "654 passed, 2 skipped",
+    "second_windows": "1 failed, 653 passed, 2 skipped; ZIP wire-name normalization"
   }
 }

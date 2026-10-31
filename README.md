@@ -4,7 +4,7 @@
 
 **2026-10-30 제출 이후 추가 연구(v5). 새 방법의 독립 평가 성능 우위는 아직 입증하지 못했습니다.** 기존 v3·v4 결과는 변경하지 않았습니다. 이 통합 브랜치는 최신 `main`에서 PR #1/Phase 2 연구 모듈과 PR #2 RAG 서비스를 필요한 파일 단위로 통합했습니다. 기존 Draft PR을 병합하지 않았습니다.
 
-[통합 PR #3](https://github.com/sokldjs554/ko-search-clinic/pull/3) · [검증된 Ubuntu·Windows CI](https://github.com/sokldjs554/ko-search-clinic/actions/runs/41043768505) · [10월31일 실제 호출·독립 평가 준비 상태](docs/research/v5/FOLLOWUP_20261031.md) · [현재 감사·결과·한계](docs/research/v5/REPORT.md) · [14개 브랜치 감사](docs/research/v5/AUDIT.md) · [실행 가능한 평가 프로토콜](docs/research/v5/PROTOCOL.md)
+[통합 PR #3](https://github.com/sokldjs554/ko-search-clinic/pull/3) · [검증된 Ubuntu·Windows CI](https://github.com/sokldjs554/ko-search-clinic/actions/runs/41182223630) · [10월31일 실제 호출·독립 평가 준비 상태](docs/research/v5/FOLLOWUP_20261031.md) · [현재 감사·결과·한계](docs/research/v5/REPORT.md) · [14개 브랜치 감사](docs/research/v5/AUDIT.md) · [실행 가능한 평가 프로토콜](docs/research/v5/PROTOCOL.md)
 
 ## 방법과 확인한 병목
 
@@ -15,6 +15,8 @@
 - **보류의 비용도 측정합니다.** 유용 후보의 미선택, 적용률, 동일 적용 수의 무작위 선택, 구성요소 제거, 개념군 bootstrap을 지원합니다. 모두 보류하는 결과를 우위로 해석하지 않습니다.
 
 v4 소스의 lexical-gap 조건은 전체 근거 토큰 합집합을 사용합니다. 질의 토큰이 어느 근거에든 있으면 후보가 제외될 수 있으며, 이 조건은 의미 검증을 대신하지 못합니다. 다만 암호화된 원시 응답에 접근하지 못해 **73→63→2의 질의별 실제 원인 분해는 미완료**입니다. [공개 실행 소스 해시 확인과 접근 한계](docs/research/v5/AUDIT.md)를 구분해 기록했습니다.
+
+2026-10-31 무료 개발 재계산에서 **정답 gate 없는 RulesPlus 생성+첫 유효 처방**은 nDCG@10 0.859490, 정상 악화1건이었다. No Repair는0.583943, 저장 scripted 첫 후보는0.849239·정상 악화2건이다. Pair/Context/Rubric 실제 모델 판정과 새 GPT 후보 비교는 미실행이며, 이 수치를 새 의미 선택기의 성능으로 사용하지 않는다. 코드 CI는 Ubuntu·Windows 각각656통과/2skip이다. [후속 비교·검수 상태](docs/research/v5/FOLLOWUP_20261031.md).
 
 ## 기존 제출 결과: 120질의
 
