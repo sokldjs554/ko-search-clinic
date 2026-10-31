@@ -54,3 +54,25 @@ jobs:
                   print('TEMP FDOPEN SUCCESS')
               except ValueError:
                   print('TEMP FDOPEN FAILURE')
+      - name: Same empty-file probe under the CI PowerShell parent
+        shell: pwsh
+        run: |
+          @'
+          import importlib.util,pathlib,subprocess
+          spec=importlib.util.spec_from_file_location('acl_evidence','src/searchclinic/research_v5/evidence.py')
+          evidence=importlib.util.module_from_spec(spec)
+          spec.loader.exec_module(evidence)
+          original=subprocess.run
+          def diagnose(*args,**kwargs):
+              result=original(*args,**kwargs)
+              print('PARENT PWSH ACL exit:',result.returncode)
+              print(result.stdout.decode(errors='replace'))
+              print(result.stderr.decode(errors='replace'))
+              return result
+          evidence.subprocess.run=diagnose
+          try:
+              evidence._write(pathlib.Path('work/pwsh-empty'),b'',private_key=True)
+              print('PARENT PWSH EMPTY SUCCESS')
+          except ValueError:
+              print('PARENT PWSH EMPTY FAILURE')
+          '@ | python
