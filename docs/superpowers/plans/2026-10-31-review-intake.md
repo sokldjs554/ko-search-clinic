@@ -51,5 +51,5 @@ Interfaces: `reconcile(review_a, review_b, adjudications=None)` returns sealed p
 ### Task 3: Verification and handoff
 
 - [x] Review the new code in a fresh context; fix substantive findings with regression checks.
-- [ ] Run full pytest, baseline, privacy scan, Ubuntu/Windows CI; publish code and aggregate readiness only to existing PR3.
-- [ ] Update human instructions, README link and final-status; preserve 90-call findings and Draft status.
+- [x] Run full pytest, baseline, privacy scan, Ubuntu/Windows CI; publish code and aggregate readiness only to existing PR3.
+- [x] Update human instructions, README link and final-status; preserve 90-call findings and Draft status.

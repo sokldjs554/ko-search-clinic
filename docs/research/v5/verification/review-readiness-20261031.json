@@ -135,5 +135,14 @@
   "implementation_sha256": {
     "src/searchclinic/research_v5/review.py": "f152e5044f0f84cb247fac39258036cd2b35cc26657ee308f8a901a65bea370b",
     "scripts/review_v5.py": "8495c3c023472066d7a70cf092ad558805b8d2cdd5838b426ed5e6e832f78d91"
+  },
+  "verification": {
+    "local_pytest": "694 passed, 2 skipped in 103.40s",
+    "ubuntu": "694 passed, 2 skipped in 60.98s",
+    "windows": "694 passed, 2 skipped in 134.78s",
+    "ci_url": "https://github.com/sokldjs554/ko-search-clinic/actions/runs/41205762770",
+    "source_commit": "af7da2a16d6e4e1456400c1c8c278555ff29c13d",
+    "baseline": "passed",
+    "original_experiment_protocol_hash_unchanged": true
   }
 }

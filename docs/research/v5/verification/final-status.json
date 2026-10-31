@@ -23,11 +23,41 @@
     "page_errors": []
   },
   "remote_ci": {
-    "status": "pending_review_intake_source_publication",
-    "previous_verified_head": "376280886e4c19f76a130a43cbd1196b3d595912",
-    "previous_push_run": 41201815538,
-    "previous_pr_run": 41201820794,
-    "latest_branch_checks_url": "https://github.com/sokldjs554/ko-search-clinic/pull/3/checks"
+    "source_commit": "af7da2a16d6e4e1456400c1c8c278555ff29c13d",
+    "run_id": 41205762770,
+    "url": "https://github.com/sokldjs554/ko-search-clinic/actions/runs/41205762770",
+    "status": "completed",
+    "conclusion": "success",
+    "ubuntu": "694 passed, 2 skipped in 60.98s",
+    "windows": "694 passed, 2 skipped in 134.78s",
+    "baseline": "success",
+    "pr_run_id": 41205768145,
+    "pr_checks": "success",
+    "jobs": [
+      {
+        "id": 124550411670,
+        "name": "테스트 (windows-latest)",
+        "status": "completed",
+        "conclusion": "success",
+        "url": "https://github.com/sokldjs554/ko-search-clinic/actions/runs/41205762770/job/124550411670"
+      },
+      {
+        "id": 124550411793,
+        "name": "검색 품질 게이트",
+        "status": "completed",
+        "conclusion": "success",
+        "url": "https://github.com/sokldjs554/ko-search-clinic/actions/runs/41205762770/job/124550411793"
+      },
+      {
+        "id": 124550411851,
+        "name": "테스트 (ubuntu-latest)",
+        "status": "completed",
+        "conclusion": "success",
+        "url": "https://github.com/sokldjs554/ko-search-clinic/actions/runs/41205762770/job/124550411851"
+      }
+    ],
+    "latest_branch_checks_url": "https://github.com/sokldjs554/ko-search-clinic/pull/3/checks",
+    "note": "Verified review-intake implementation. A subsequent documentation-only commit records this result; that final head CI is recorded in PR3 to avoid self-referential commit hashes."
   },
   "paid_api_calls": 90,
   "review": {
@@ -54,14 +84,14 @@
   },
   "publication": {
     "pull_request": "https://github.com/sokldjs554/ko-search-clinic/pull/3",
-    "source_commit": null,
+    "source_commit": "af7da2a16d6e4e1456400c1c8c278555ff29c13d",
     "test_import_fix": "fd073c5efd48ea94ab290ae1439b8e99155f133c",
     "detailed_outputs": "excluded pending explicit publication approval",
     "initial_source_commit": "1055e2dcdd3563518edb210cfd38cbe2de43f62e",
     "draft": true,
     "merged": false,
     "mergeable_at_code_check": true,
-    "status": "review intake implementation awaiting new CI"
+    "status": "review intake and actual blank handoffs verified; research awaits humans"
   },
   "previous_verified_ci": {
     "source_commit": "fd073c5efd48ea94ab290ae1439b8e99155f133c",
@@ -568,6 +598,43 @@
       "cause": "Static checker did not recognize positional Path.open binary mode in a new test fixture",
       "fix": "Use explicit mode=ab; no encoding on binary IO",
       "log_preserved": "work/v5-review-next/pytest-reviewed.log"
+    },
+    "remote_ci": {
+      "source_commit": "af7da2a16d6e4e1456400c1c8c278555ff29c13d",
+      "run_id": 41205762770,
+      "url": "https://github.com/sokldjs554/ko-search-clinic/actions/runs/41205762770",
+      "status": "completed",
+      "conclusion": "success",
+      "ubuntu": "694 passed, 2 skipped in 60.98s",
+      "windows": "694 passed, 2 skipped in 134.78s",
+      "baseline": "success",
+      "pr_run_id": 41205768145,
+      "pr_checks": "success",
+      "jobs": [
+        {
+          "id": 124550411670,
+          "name": "테스트 (windows-latest)",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/sokldjs554/ko-search-clinic/actions/runs/41205762770/job/124550411670"
+        },
+        {
+          "id": 124550411793,
+          "name": "검색 품질 게이트",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/sokldjs554/ko-search-clinic/actions/runs/41205762770/job/124550411793"
+        },
+        {
+          "id": 124550411851,
+          "name": "테스트 (ubuntu-latest)",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/sokldjs554/ko-search-clinic/actions/runs/41205762770/job/124550411851"
+        }
+      ],
+      "latest_branch_checks_url": "https://github.com/sokldjs554/ko-search-clinic/pull/3/checks",
+      "note": "Verified review-intake implementation. A subsequent documentation-only commit records this result; that final head CI is recorded in PR3 to avoid self-referential commit hashes."
     }
   }
 }
