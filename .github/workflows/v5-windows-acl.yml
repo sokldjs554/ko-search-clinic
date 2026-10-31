@@ -1,0 +1,46 @@
+name: V5 empty-file Windows ACL diagnostic
+on:
+  push:
+    branches: [feat/research-verification-v5-20261030]
+    paths: [.github/workflows/v5-windows-acl.yml]
+permissions:
+  contents: read
+jobs:
+  empty-file-acl:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: pip install -c requirements/ci-py311-312.txt cryptography
+      - name: Probe ACL with empty synthetic files only
+        shell: python
+        run: |
+          import importlib.util, os, pathlib, subprocess
+          path=pathlib.Path('src/searchclinic/research_v5/evidence.py')
+          spec=importlib.util.spec_from_file_location('acl_evidence',path)
+          evidence=importlib.util.module_from_spec(spec)
+          spec.loader.exec_module(evidence)
+          original=subprocess.run
+          def diagnose(*args,**kwargs):
+              result=original(*args,**kwargs)
+              print('ACL exit:',result.returncode)
+              print(result.stdout.decode(errors='replace'))
+              print(result.stderr.decode(errors='replace'))
+              return result
+          evidence.subprocess.run=diagnose
+          pathlib.Path('work').mkdir(exist_ok=True)
+          for opened in (False,True):
+              path=pathlib.Path('work')/('empty-open' if opened else 'empty-closed')
+              fd=os.open(path,os.O_WRONLY|os.O_CREAT|os.O_EXCL,0o600)
+              if not opened:os.close(fd)
+              try:
+                  evidence.windows_key_acl(path,secure=True)
+                  print('EMPTY FILE ACL SUCCESS',opened)
+              except ValueError:
+                  print('EMPTY FILE ACL FAILURE',opened)
+              finally:
+                  if opened:os.close(fd)
