@@ -1,12 +1,12 @@
 {
   "local": {
-    "pytest": "671 passed, 2 skipped in 95.85s",
-    "command": "pytest -q -rs --junitxml=work/v5-live-41198330827/local-tests-reviewed.xml",
+    "pytest": "694 passed, 2 skipped in 103.40s",
+    "command": "pytest -q -rs --junitxml=work/v5-review-next/local-tests-final.xml",
     "python": "Python 3.12.14",
+    "private_log": "work/v5-review-next/pytest-final.log",
+    "focused_review_and_portability": "30 passed in 2.73s",
     "baseline": "passed; nDCG10 0.5839426550733804",
-    "private_log": "work/v5-live-41198330827/full-pytest-reviewed.log",
-    "pyflakes": "passed for new analysis modules, CLIs and tests",
-    "javascript_syntax": "passed",
+    "pyflakes": "passed for review module, CLI and tests",
     "diff_check": "passed"
   },
   "browser": {
@@ -23,41 +23,11 @@
     "page_errors": []
   },
   "remote_ci": {
-    "source_commit": "dfd2f8caf243c4c9d3a1b00b15cfb56b64ddfbf8",
-    "run_id": 41201460882,
-    "url": "https://github.com/sokldjs554/ko-search-clinic/actions/runs/41201460882",
-    "status": "completed",
-    "conclusion": "success",
-    "ubuntu": "671 passed, 2 skipped in 74.06s",
-    "windows": "671 passed, 2 skipped in 129.18s",
-    "baseline": "success",
-    "jobs": [
-      {
-        "id": 124537929207,
-        "name": "검색 품질 게이트",
-        "status": "completed",
-        "conclusion": "success",
-        "url": "https://github.com/sokldjs554/ko-search-clinic/actions/runs/41201460882/job/124537929207"
-      },
-      {
-        "id": 124537929459,
-        "name": "테스트 (ubuntu-latest)",
-        "status": "completed",
-        "conclusion": "success",
-        "url": "https://github.com/sokldjs554/ko-search-clinic/actions/runs/41201460882/job/124537929459"
-      },
-      {
-        "id": 124537929480,
-        "name": "테스트 (windows-latest)",
-        "status": "completed",
-        "conclusion": "success",
-        "url": "https://github.com/sokldjs554/ko-search-clinic/actions/runs/41201460882/job/124537929480"
-      }
-    ],
-    "pr_run_id": 41201464425,
-    "pr_checks": "success",
-    "latest_branch_checks_url": "https://github.com/sokldjs554/ko-search-clinic/pull/3/checks",
-    "note": "Verified implementation commit. This record is added in a subsequent documentation-only commit; its final head CI is recorded in the PR body and linked checks to avoid a self-referential commit hash."
+    "status": "pending_review_intake_source_publication",
+    "previous_verified_head": "376280886e4c19f76a130a43cbd1196b3d595912",
+    "previous_push_run": 41201815538,
+    "previous_pr_run": 41201820794,
+    "latest_branch_checks_url": "https://github.com/sokldjs554/ko-search-clinic/pull/3/checks"
   },
   "paid_api_calls": 90,
   "review": {
@@ -84,14 +54,14 @@
   },
   "publication": {
     "pull_request": "https://github.com/sokldjs554/ko-search-clinic/pull/3",
-    "source_commit": "dfd2f8caf243c4c9d3a1b00b15cfb56b64ddfbf8",
+    "source_commit": null,
     "test_import_fix": "fd073c5efd48ea94ab290ae1439b8e99155f133c",
     "detailed_outputs": "excluded pending explicit publication approval",
     "initial_source_commit": "1055e2dcdd3563518edb210cfd38cbe2de43f62e",
     "draft": true,
     "merged": false,
     "mergeable_at_code_check": true,
-    "status": "implemented and CI verified; final documentation commit checked in PR"
+    "status": "review intake implementation awaiting new CI"
   },
   "previous_verified_ci": {
     "source_commit": "fd073c5efd48ea94ab290ae1439b8e99155f133c",
@@ -382,5 +352,222 @@
     "posthoc_extra_provider_calls": 0,
     "local_pytest": "671 passed, 2 skipped in 95.85s",
     "verified_ci_run": 41201460882
+  },
+  "previous_before_review_intake": {
+    "local": {
+      "pytest": "671 passed, 2 skipped in 95.85s",
+      "command": "pytest -q -rs --junitxml=work/v5-live-41198330827/local-tests-reviewed.xml",
+      "python": "Python 3.12.14",
+      "baseline": "passed; nDCG10 0.5839426550733804",
+      "private_log": "work/v5-live-41198330827/full-pytest-reviewed.log",
+      "pyflakes": "passed for new analysis modules, CLIs and tests",
+      "javascript_syntax": "passed",
+      "diff_check": "passed"
+    },
+    "remote_ci": {
+      "source_commit": "dfd2f8caf243c4c9d3a1b00b15cfb56b64ddfbf8",
+      "run_id": 41201460882,
+      "url": "https://github.com/sokldjs554/ko-search-clinic/actions/runs/41201460882",
+      "status": "completed",
+      "conclusion": "success",
+      "ubuntu": "671 passed, 2 skipped in 74.06s",
+      "windows": "671 passed, 2 skipped in 129.18s",
+      "baseline": "success",
+      "jobs": [
+        {
+          "id": 124537929207,
+          "name": "검색 품질 게이트",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/sokldjs554/ko-search-clinic/actions/runs/41201460882/job/124537929207"
+        },
+        {
+          "id": 124537929459,
+          "name": "테스트 (ubuntu-latest)",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/sokldjs554/ko-search-clinic/actions/runs/41201460882/job/124537929459"
+        },
+        {
+          "id": 124537929480,
+          "name": "테스트 (windows-latest)",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/sokldjs554/ko-search-clinic/actions/runs/41201460882/job/124537929480"
+        }
+      ],
+      "pr_run_id": 41201464425,
+      "pr_checks": "success",
+      "latest_branch_checks_url": "https://github.com/sokldjs554/ko-search-clinic/pull/3/checks",
+      "note": "Verified implementation commit. This record is added in a subsequent documentation-only commit; its final head CI is recorded in the PR body and linked checks to avoid a self-referential commit hash."
+    },
+    "publication": {
+      "pull_request": "https://github.com/sokldjs554/ko-search-clinic/pull/3",
+      "source_commit": "dfd2f8caf243c4c9d3a1b00b15cfb56b64ddfbf8",
+      "test_import_fix": "fd073c5efd48ea94ab290ae1439b8e99155f133c",
+      "detailed_outputs": "excluded pending explicit publication approval",
+      "initial_source_commit": "1055e2dcdd3563518edb210cfd38cbe2de43f62e",
+      "draft": true,
+      "merged": false,
+      "mergeable_at_code_check": true,
+      "status": "implemented and CI verified; final documentation commit checked in PR"
+    }
+  },
+  "review_intake": {
+    "date": "2026-10-31",
+    "stage": "human_review_handoff_ready_reviewers_unassigned",
+    "additional_provider_calls": 0,
+    "total_provider_calls": 90,
+    "completed_human_reviews": 0,
+    "final_evaluation_ready": false,
+    "superiority_claim": false,
+    "kinds": {
+      "semantic": {
+        "kind": "semantic",
+        "study_hash": "ca97e686b285a2ebb7a49bb6f5e222404883f1c306e42660d06467883fd7a61a",
+        "items_per_reviewer": 15,
+        "reviewers_assigned": false,
+        "human_reviews_completed": 0,
+        "provider_calls_executed": 0,
+        "final_evaluation_ready": false,
+        "blank_submission_validation": {
+          "a": {
+            "ambiguous": 0,
+            "expected": 15,
+            "graded": 0,
+            "missing": 15,
+            "kind": "semantic",
+            "provider_calls_executed": 0,
+            "final_evaluation_ready": false
+          },
+          "b": {
+            "ambiguous": 0,
+            "expected": 15,
+            "graded": 0,
+            "missing": 15,
+            "kind": "semantic",
+            "provider_calls_executed": 0,
+            "final_evaluation_ready": false
+          }
+        },
+        "blank_reconciliation": {
+          "kind": "semantic",
+          "pending_count": 15,
+          "resolved_count": 0,
+          "labels_complete": false,
+          "agreement": {
+            "kappa": null,
+            "kappa_status": "no_paired_definite_judgments",
+            "observed_agreement": null,
+            "paired_graded": 0,
+            "total_items": 15,
+            "weighting": "unweighted"
+          },
+          "provider_calls_executed": 0,
+          "final_evaluation_ready": false
+        },
+        "archives": {
+          "a": {
+            "sha256": "d1b62f47a7286b483ca8ba259beb5d4c975c8162ce74b1ca6ebf7d0cc6be4689",
+            "bytes": 4808
+          },
+          "b": {
+            "sha256": "f0df818ea8961ba355f5b8af147475419b3e2c3b671485e4c7210d935dca393a",
+            "bytes": 4806
+          }
+        }
+      },
+      "relevance": {
+        "kind": "relevance",
+        "study_hash": "fe73e23fe2cc16a6b7060619e5c6cdacfadbe3aa4a8abd7ff42f873932d9a0fe",
+        "items_per_reviewer": 40800,
+        "reviewers_assigned": false,
+        "human_reviews_completed": 0,
+        "provider_calls_executed": 0,
+        "final_evaluation_ready": false,
+        "blank_submission_validation": {
+          "a": {
+            "ambiguous": 0,
+            "expected": 40800,
+            "graded": 0,
+            "missing": 40800,
+            "kind": "relevance",
+            "provider_calls_executed": 0,
+            "final_evaluation_ready": false
+          },
+          "b": {
+            "ambiguous": 0,
+            "expected": 40800,
+            "graded": 0,
+            "missing": 40800,
+            "kind": "relevance",
+            "provider_calls_executed": 0,
+            "final_evaluation_ready": false
+          }
+        },
+        "blank_reconciliation": {
+          "kind": "relevance",
+          "pending_count": 40800,
+          "resolved_count": 0,
+          "labels_complete": false,
+          "agreement": {
+            "kappa": null,
+            "kappa_status": "no_paired_definite_judgments",
+            "observed_agreement": null,
+            "paired_graded": 0,
+            "total_items": 40800,
+            "weighting": "quadratic"
+          },
+          "provider_calls_executed": 0,
+          "final_evaluation_ready": false
+        },
+        "archives": {
+          "a": {
+            "sha256": "4dff9647837a1201ccd1ebf7dc9476e7b2e4f16089d0a72aae6c72ac550329c1",
+            "bytes": 3352956
+          },
+          "b": {
+            "sha256": "f9f64afe4d9aa889d7d1f1d766385ab65aefd198e9c3f992c40c94c19a5eaf88",
+            "bytes": 3348582
+          }
+        }
+      }
+    },
+    "code_review": {
+      "type": "fresh AI code review, not human relevance or semantic adjudication",
+      "important_findings_fixed": [
+        "cross-check packet input/population/study commitments",
+        "strict receipt provenance and rederivation from archived originals",
+        "preserve exact adjudication bytes/hash/intake UTC"
+      ],
+      "duplicate_blank_adjudication_rows": "also rejected; treated as a coverage validation defect"
+    },
+    "remaining_external_inputs": [
+      "two real independent reviewers and separate adjudicator",
+      "actual review CSV submissions and independence attestation",
+      "authorized v3/v4 decryption path and complete historical exposure inventory"
+    ],
+    "implementation_sha256": {
+      "src/searchclinic/research_v5/review.py": "f152e5044f0f84cb247fac39258036cd2b35cc26657ee308f8a901a65bea370b",
+      "scripts/review_v5.py": "8495c3c023472066d7a70cf092ad558805b8d2cdd5838b426ed5e6e832f78d91"
+    },
+    "local_validation": {
+      "pytest": "694 passed, 2 skipped in 103.40s",
+      "command": "pytest -q -rs --junitxml=work/v5-review-next/local-tests-final.xml",
+      "python": "Python 3.12.14",
+      "private_log": "work/v5-review-next/pytest-final.log",
+      "focused_review_and_portability": "30 passed in 2.73s",
+      "baseline": "passed; nDCG10 0.5839426550733804",
+      "pyflakes": "passed for review module, CLI and tests",
+      "diff_check": "passed"
+    },
+    "original_experiment_protocol_unchanged": true,
+    "failed_local_run": {
+      "result": "1 failed, 693 passed, 2 skipped",
+      "test": "test_every_file_open_declares_encoding",
+      "cause": "Static checker did not recognize positional Path.open binary mode in a new test fixture",
+      "fix": "Use explicit mode=ab; no encoding on binary IO",
+      "log_preserved": "work/v5-review-next/pytest-reviewed.log"
+    }
   }
 }
