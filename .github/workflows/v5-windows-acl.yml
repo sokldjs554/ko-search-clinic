@@ -2,7 +2,7 @@ name: V5 empty-file Windows ACL diagnostic
 on:
   push:
     branches: [feat/research-verification-v5-20261030]
-    paths: [.github/workflows/v5-windows-acl.yml]
+    paths: [.github/workflows/v5-windows-acl.yml, src/searchclinic/research_v5/evidence.py]
 permissions:
   contents: read
 jobs:
@@ -42,6 +42,7 @@ jobs:
                   print('EMPTY FILE ACL SUCCESS',opened)
               except ValueError:
                   print('EMPTY FILE ACL FAILURE',opened)
+                  raise
               finally:
                   if opened:os.close(fd)
           with tempfile.TemporaryDirectory(prefix='test_roundtrip_preserves_raw_b0-') as temporary:
@@ -54,6 +55,7 @@ jobs:
                   print('TEMP FDOPEN SUCCESS')
               except ValueError:
                   print('TEMP FDOPEN FAILURE')
+                  raise
       - name: Same empty-file probe under the CI PowerShell parent
         shell: pwsh
         run: |
@@ -75,4 +77,5 @@ jobs:
               print('PARENT PWSH EMPTY SUCCESS')
           except ValueError:
               print('PARENT PWSH EMPTY FAILURE')
+              raise
           '@ | python

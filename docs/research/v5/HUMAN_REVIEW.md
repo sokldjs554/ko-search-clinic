@@ -14,3 +14,11 @@
 모든 gate를 만족하기 전 `candidate_review_pending`, `final_evaluation_ready=false`를 유지한다. 준비물의 attestation-template는 readiness checklist다. 비교 runner가 요구하는 별도 sealed attestation에는 `input_hash`, `protocol_hash`와 `eligibility_verified`, `human_review_complete`, `exposure_audit_complete`, `independent_concepts_verified`, `frozen_before_final_outcomes`, `candidate_generation_verified`의 실제 증거가 있어야 한다. 단순 boolean 변경으로 증거를 대체하지 않는다.
 
 공개할 수 있는 빈 양식은 [human-review-pair-template.csv](human-review-pair-template.csv), [human-review-adjudication-template.csv](human-review-adjudication-template.csv)다. 실제 상세 pair CSV는 ignored `work/v5-independent-klue-v2/review/`에만 생성되어 있다.
+
+## 개발15후보의 별도 의미 검수
+
+검색 관련성 검수와 별개로 `work/v5-followup/semantic-human-review/`에 후보15개와 서로 다른 순서의 reviewer-a/b CSV를 준비했다. 완료 판정은0건이다. 검수자는 blinded-inputs의 질의·원문 근거·수정 후보만 보고 LLM 판정, confidence, qrels, 검색 점수는 보지 않는다. [공개 빈 양식](human-review-semantic-template.csv)은 상세 후보를 포함하지 않는다.
+
+`meaning_preserved`는 후보의 모든 수정 요소가 질문 대상과 의미 범위를 보존하면 true, 하나라도 훼손하면 false, 판단 불가능하면 빈칸이다. 원문에 두 표현이 있다는 사실만으로 true를 부여하지 않는다. `error_type`에는 synonym_vs_hierarchy, category_vs_value, target_changed, scope_changed, unsupported_evidence, other 중 해당 유형을 기록하고, 원문 인용과 설명을 evidence에 남긴다. 여러 오류는 세미콜론으로 구분한다. 검색 효용이나 모델 confidence로 의미 정답을 정하지 않는다.
+
+두 검수자는 서로의 판정을 보지 않고 제출하며, 제3자가 불일치를 근거와 함께 조정한다. 원본 두 CSV와 조정본 모두 hash와 시간을 보존한다. 확정 판정만 comparison CLI의 human-semantics 형식 `{query_id: {candidate_index문자열: true/false/null}}`으로 전달한다. 모호한 null은 미검수/판단 불가로 남기며 최종 평가의 완전 검수 gate를 통과시키지 않는다. 이 개발15후보 검수는 새 독립 평가 자료의 검수를 대신하지 않는다.

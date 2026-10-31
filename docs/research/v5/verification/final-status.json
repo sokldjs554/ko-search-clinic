@@ -138,12 +138,25 @@
         "comparison detail outputs confined to ignored work directory",
         "Windows private key ACL policy; deny private writes if unavailable"
       ],
-      "portability_fix": "explicit UTF-8 fixtures; file-descriptor os.open excluded from text-only encoding check"
+      "portability_fix": "explicit UTF-8 fixtures; file-descriptor os.open excluded from text-only encoding check",
+      "windows_environment_fix": "Remove inherited PSModulePath case-insensitively for the fixed powershell.exe child; keep fail-closed ACL verification"
     },
     "remote_ci": {
-      "status": "pending publication"
+      "status": "pending Windows ACL environment fix verification",
+      "first_run_id": 41181102823,
+      "first_source_commit": "9b77e42e1f625bd82730386b462f8685a041d0ee",
+      "ubuntu": "652 passed, 2 skipped",
+      "windows": "12 failed, 640 passed, 2 skipped; PowerShell module path mismatch",
+      "baseline": "success",
+      "diagnostic_run": "https://github.com/sokldjs554/ko-search-clinic/actions/runs/41181718593",
+      "diagnosis": "PowerShell 7 PSModulePath inherited by Windows PowerShell 5.1 prevented Set-Acl module import; empty-file parent-shell differential reproduced"
     },
     "research_complete": false,
-    "superiority_claim": false
+    "superiority_claim": false,
+    "semantic_review": {
+      "candidate_count": 15,
+      "reviewer_sheets": 2,
+      "completed_human_reviews": 0
+    }
   }
 }

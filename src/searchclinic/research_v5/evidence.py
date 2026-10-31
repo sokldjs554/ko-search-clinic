@@ -86,9 +86,13 @@ foreach($rule in $acl.GetAccessRules($true,$true,[System.Security.Principal.Secu
 if(-not $hasCurrent) { throw 'missing-user-read' }
 """
     encoded = base64.b64encode(script.encode('utf-16le')).decode('ascii')
+    # PowerShell 7 parents export a module path incompatible with Windows
+    # PowerShell 5.1. Let the child rebuild its native module search path.
+    environment = {key: value for key, value in os.environ.items()
+                   if key.casefold() != 'psmodulepath'}
     try:
         result = subprocess.run(['powershell.exe','-NoProfile','-NonInteractive','-EncodedCommand',encoded],
-                                capture_output=True, timeout=30, check=False)
+                                capture_output=True, timeout=30, check=False, env=environment)
     except (OSError, subprocess.SubprocessError):
         raise ValueError('Windows private key ACL verification unavailable') from None
     if result.returncode != 0:

@@ -122,3 +122,17 @@ def test_windows_acl_failure_happens_before_private_bytes_written(tmp_path,monke
     monkeypatch.setattr(evidence,'windows_key_acl',fail)
     with pytest.raises(ValueError):evidence.create_recipient(tmp_path/'key.json')
     assert (tmp_path/'key.json').read_bytes()==b''
+
+
+@pytest.mark.parametrize('module_variable', ['PSModulePath', 'PSMODULEPATH'])
+def test_windows_powershell_does_not_inherit_core_module_search_path(tmp_path, monkeypatch, module_variable):
+    from types import SimpleNamespace
+    monkeypatch.setattr(evidence.os, 'environ', {module_variable:'PowerShell-7-only-modules', 'PATH':'system-tools'})
+    def execute(command, **kwargs):
+        child_environment = kwargs.get('env')
+        assert child_environment is not None
+        assert all(key.casefold() != 'psmodulepath' for key in child_environment)
+        assert child_environment['PATH'] == 'system-tools'
+        return SimpleNamespace(returncode=0)
+    monkeypatch.setattr(evidence.subprocess,'run',execute)
+    evidence.windows_key_acl(tmp_path/'empty',secure=True)
