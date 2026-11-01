@@ -1,0 +1,10 @@
+{
+  "approved_code_commit": "25c8eb0bceda3eda228c89b7c0858c6ef67b9c31",
+  "transport_approval": {
+    "approved": true,
+    "plan_hash": "c7dbbe5f59c9106ab8386f5cb05be5bec673f4bd4d03c413a3fc71c538028563",
+    "model_id": "gpt-4.1-mini-2025-04-14",
+    "max_calls": 684,
+    "max_cost_usd": 5.4432
+  }
+}
