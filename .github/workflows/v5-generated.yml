@@ -1,0 +1,78 @@
+name: V5 generated comparison (new paid approval required)
+on:
+  push:
+    branches: [feat/research-verification-v5-20261030]
+    paths:
+      - .github/workflows/v5-generated.yml
+      - ops/v5-generated-approved.json
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: v5-generated-development-once
+  cancel-in-progress: false
+jobs:
+  prepare-and-conditionally-run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install pinned dependencies
+        run: python -m pip install -c requirements/ci-py311-312.txt -e '.[api,dev]' 'cryptography==50.0.2'
+      - name: Free preparation without provider credentials
+        run: |
+          umask 077
+          mkdir -p work/generated-evidence
+          python scripts/run_v5_generated.py prepare --out work/generated-evidence/prepared > work/generated-evidence/preparation.log 2>&1
+          python - <<'PY' >> "$GITHUB_ENV"
+          import json
+          plan=json.load(open('work/generated-evidence/prepared/study.json'))
+          print('PLAN_HASH='+plan['sha256'])
+          PY
+      - name: Report aggregate plan only
+        run: cat work/generated-evidence/prepared/proposal.json
+      - name: Check new exact-code approval
+        id: gate
+        run: |
+          python scripts/run_v5_generated.py gate --study work/generated-evidence/prepared/study.json --expect-hash "$PLAN_HASH" --approval ops/v5-generated-approved.json --out work/generated-evidence/approval.json >> "$GITHUB_OUTPUT"
+      - name: Prevent replay of approval commit
+        if: steps.gate.outputs.authorized == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh api --paginate "repos/$GITHUB_REPOSITORY/actions/workflows/v5-generated.yml/runs?head_sha=$GITHUB_SHA&per_page=100" --jq '.workflow_runs[].id' > work/generated-evidence/workflow-run-ids.txt
+          python - <<'PY'
+          import os,pathlib
+          ids=[int(x) for x in pathlib.Path('work/generated-evidence/workflow-run-ids.txt').read_text().splitlines()]
+          if not ids or min(ids)!=int(os.environ['GITHUB_RUN_ID']):
+              raise SystemExit('No automatic repeat of an approved experiment')
+          PY
+      - name: Execute bounded study once after new paid approval
+        if: steps.gate.outputs.authorized == 'true' && github.run_attempt == 1
+        timeout-minutes: 105
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+        run: |
+          umask 077
+          python scripts/run_v5_generated.py execute --study work/generated-evidence/prepared/study.json --expect-hash "$PLAN_HASH" --approval work/generated-evidence/approval.json --out work/generated-evidence/run > work/generated-evidence/execution.log 2>&1
+      - name: Encrypt partial or completed evidence
+        id: seal
+        if: always() && steps.gate.outputs.authorized == 'true'
+        run: |
+          python scripts/package_v5_evidence.py seal --source work/generated-evidence --recipient ops/v5-recipient.json --out work/generated-package --plan-hash "$PLAN_HASH" --run-id "$GITHUB_RUN_ID"
+      - name: Upload ciphertext and aggregate receipt only
+        if: always() && steps.seal.outcome == 'success'
+        uses: actions/upload-artifact@v4
+        with:
+          name: v5-generated-encrypted-${{ github.run_id }}
+          path: |
+            work/generated-package/evidence.enc.json
+            work/generated-package/receipt.json
+          if-no-files-found: error
+          retention-days: 30

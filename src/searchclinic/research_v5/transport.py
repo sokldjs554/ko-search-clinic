@@ -68,7 +68,7 @@ def _strict_schema():
     return schema
 
 
-def build_plan(bundle, pricing_snapshot=None):
+def build_plan(bundle, pricing_snapshot=None, *, profile=None, parent_study_hash=None):
     """Rebuild every request from the same sealed candidates; never load labels."""
     body, _, records = _bundle(bundle)
     if body['model_id'] != 'gpt-4.1-mini-2025-04-14':
@@ -77,14 +77,24 @@ def build_plan(bundle, pricing_snapshot=None):
     if pricing != PRICING_SNAPSHOT:
         raise ValueError('unsupported explicit pricing snapshot; review configuration first')
     count = sum(len(record['candidates']) for _, record in records.values())
-    if not 1 <= count <= 15:
+    expanded = profile == 'generated-development-v5'
+    if parent_study_hash is not None and (not expanded or not isinstance(parent_study_hash,str)
+            or len(parent_study_hash)!=64 or any(c not in '0123456789abcdef' for c in parent_study_hash)):
+        raise ValueError('invalid parent study hash')
+    if profile is not None and not expanded:
+        raise ValueError('unknown judge plan profile')
+    if expanded and (not 0 <= count <= 108 or len(records) > 36):
+        raise ValueError('generated plan exceeds 36 queries / 108 candidates')
+    if not expanded and not 1 <= count <= 15:
         raise ValueError('plan requires one through fifteen fixed candidates')
-    calls = []
+    calls, withheld = [], []
     for condition in CONDITIONS:
         for repeat in REPEATS:
             for qid, (context, record) in records.items():
                 if record['generation_error'] is not None:
-                    raise ValueError('cannot judge a failed candidate generation')
+                    if not expanded or record['candidates']:
+                        raise ValueError('cannot judge a failed candidate generation')
+                    continue
                 for index, candidate in enumerate(record['candidates']):
                     request = prepare_judge_request(context, candidate, condition)
                     payload = {'model': body['model_id'], 'input': request.body,
@@ -96,6 +106,10 @@ def build_plan(bundle, pricing_snapshot=None):
                     # count ALL wire schema/prompt bytes plus 1024 framing tokens.
                     bound = len(_bytes(payload)) + 1024
                     if bound > MAX_INPUT:
+                        if expanded:
+                            withheld.append(dict(query_id=qid, candidate_index=index, condition=condition,
+                                                 repeat=repeat, reason='oversize_input', input_token_upper_bound=bound))
+                            continue
                         raise ValueError('oversize input including schema and framing overhead')
                     call = {'call_id': f'{len(calls)+1:03d}', 'query_id': qid,
                             'candidate_index': index, 'condition': condition, 'repeat': repeat,
@@ -104,7 +118,7 @@ def build_plan(bundle, pricing_snapshot=None):
                             'input_token_upper_bound': bound}
                     calls.append(call)
     cost_micros = MAX_INPUT * 4 // 10 + MAX_OUTPUT * 16 // 10
-    return freeze({'version': 'responses-plan-v5.1', 'bundle': bundle, 'input_hash': bundle['sha256'],
+    result = {'version': 'responses-plan-v5.1', 'bundle': bundle, 'input_hash': bundle['sha256'],
                    'model_id': body['model_id'], 'conditions': list(CONDITIONS), 'repeats': list(REPEATS),
                    'candidate_count': count, 'call_count': len(calls), 'max_calls': MAX_CALLS,
                    'max_input_tokens': MAX_INPUT, 'max_output_tokens': MAX_OUTPUT,
@@ -112,12 +126,23 @@ def build_plan(bundle, pricing_snapshot=None):
                    'maximum_cost_usd': len(calls) * cost_micros / 1_000_000,
                    'absolute_budget_ceiling_usd': .72, 'pricing_snapshot': pricing,
                    'automatic_retries': 0, 'input_bound_method': 'full_payload_UTF8_bytes_plus_1024',
-                   'endpoint': ENDPOINT + '/responses', 'calls': calls})
+                   'endpoint': ENDPOINT + '/responses', 'calls': calls}
+    if expanded:
+        result.update(version='responses-plan-v5-generated', profile=profile, max_calls=648,
+                      absolute_budget_ceiling_usd=5.184, withheld_requests=withheld,
+                      parent_study_hash=parent_study_hash)
+    return freeze(result)
 
 
 def _checked_plan(plan):
     body = verify(plan)
-    if build_plan(body['bundle'], body['pricing_snapshot']) != plan:
+    if body.get('version') == 'generation-plan-v5':
+        from .generation import build_generation_plan
+        expected = build_generation_plan(body['study'])
+    else:
+        expected = build_plan(body['bundle'], body['pricing_snapshot'], profile=body.get('profile'),
+                              parent_study_hash=body.get('parent_study_hash'))
+    if expected != plan:
         raise ValueError('plan differs from recomputed candidate requests and budget')
     return body
 
@@ -184,6 +209,9 @@ def _usage(raw):
 
 
 def _parse(raw, call, expected_model):
+    if call.get('kind') == 'generation':
+        from .generation import parse_generation
+        return parse_generation(raw, call, expected_model)
     outcome = {'status': 'malformed_response', 'verdict': None, 'usage': None}
     if not isinstance(raw, dict):
         return outcome
@@ -228,6 +256,10 @@ def _parse(raw, call, expected_model):
 
 def _mock_response(call):
     """Explicit synthetic uncertain judgments exercise plumbing, not a model."""
+    if call.get('kind') == 'generation':
+        return {'id': 'mock_' + call['call_id'], 'model': 'mock:' + call['payload']['model'],
+                'status': 'completed', 'usage': {'input_tokens': 0, 'output_tokens': 0, 'total_tokens': 0},
+                'output': [{'type': 'message', 'content': [{'type': 'output_text', 'text': '{"candidates": []}'}]}]}
     patches = json.loads(call['request']['body'])['patches']
     assessments = [{'patch_id': p['patch_id'], 'relation': 'uncertain', 'same_referent': None,
                     'scope_preserved': None, 'context_supported': None, 'confidence': 0.0,
@@ -303,8 +335,9 @@ def run_plan(plan, output, *, approval=None, mock=False, client=None):
                'actual_charge_usd': 0.0 if mock else None, 'cost_basis': COST_BASIS,
                'study_status': 'synthetic_mock_only' if mock else 'retrospective_controlled_development_only',
                'started_utc': run_started_utc}
-    verdicts = {(condition, repeat): {record['context']['query_id']: [None]*len(record['candidates'])
-                 for record in body['bundle']['body']['records']} for condition in CONDITIONS for repeat in REPEATS}
+    is_generation = body['version'] == 'generation-plan-v5'
+    verdicts = {(condition, repeat): {record['context']['query_id']: [None]*(1 if is_generation else len(record['candidates']))
+                 for record in body['bundle']['body']['records']} for condition in body['conditions'] for repeat in body['repeats']}
     reserved_micros = 0
     actual_tenthmicros = 0
     manager = nullcontext(client) if client is not None or mock else httpx.Client(timeout=60, follow_redirects=False)
@@ -313,7 +346,7 @@ def run_plan(plan, output, *, approval=None, mock=False, client=None):
             call_start = perf_counter()
             call_started_utc = datetime.now(timezone.utc).isoformat()
             new_reservation = reserved_micros + body['per_call_cost_microusd']
-            if new_reservation > round(body['maximum_cost_usd']*1_000_000) or summary['completed_calls'] >= MAX_CALLS:
+            if new_reservation > round(body['maximum_cost_usd']*1_000_000) or summary['completed_calls'] >= body['max_calls']:
                 raise ValueError('budget reservation would exceed approved plan')
             directory = output/'calls'/call['call_id']
             directory.mkdir(mode=0o700)

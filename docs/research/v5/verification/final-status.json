@@ -23,15 +23,15 @@
     "page_errors": []
   },
   "remote_ci": {
-    "source_commit": "ee6a64230a8303fac07f305781ba417ef85135ba",
-    "run_id": 41326780755,
-    "url": "https://github.com/sokldjs554/ko-search-clinic/actions/runs/41326780755",
+    "source_commit": "031effc8201a4c74a5e274f3bec95757b7466a3b",
+    "run_id": 41329581494,
+    "url": "https://github.com/sokldjs554/ko-search-clinic/actions/runs/41329581494",
     "status": "completed",
     "conclusion": "success",
-    "note": "Latest verified prior head; subsequent documentation CI recorded in PR3.",
     "ubuntu": "success",
     "windows": "success",
-    "baseline": "success"
+    "baseline": "success",
+    "note": "Verified prior head before new generation implementation; newer implementation CI tracked separately."
   },
   "paid_api_calls": 90,
   "review": {
@@ -2031,5 +2031,120 @@
     "final_evaluation_ready": false,
     "research_complete": false,
     "script_sha256": "b636e0213d2fe076ec8ba4942fdfcc6c2147c57d79dc1229e53a573cebde0334"
+  },
+  "remote_ci_before_generated_preflight": {
+    "source_commit": "ee6a64230a8303fac07f305781ba417ef85135ba",
+    "run_id": 41326780755,
+    "url": "https://github.com/sokldjs554/ko-search-clinic/actions/runs/41326780755",
+    "status": "completed",
+    "conclusion": "success",
+    "note": "Latest verified prior head; subsequent documentation CI recorded in PR3.",
+    "ubuntu": "success",
+    "windows": "success",
+    "baseline": "success"
+  },
+  "generated_comparison_preflight": {
+    "version": "generated-comparison-preflight-20261102",
+    "status": "free_checks_complete_paid_approval_pending",
+    "study_hash": "c7dbbe5f59c9106ab8386f5cb05be5bec673f4bd4d03c413a3fc71c538028563",
+    "model_id": "gpt-4.1-mini-2025-04-14",
+    "queries": 36,
+    "generation_calls_maximum": 36,
+    "judge_calls_maximum": 648,
+    "maximum_calls": 684,
+    "maximum_cost_usd": 5.4432,
+    "maximum_total_input_tokens": 8208000,
+    "maximum_total_output_tokens": 1350000,
+    "generation_input_cap": 12000,
+    "generation_output_cap": 1500,
+    "judge_input_cap": 12000,
+    "judge_output_cap": 2000,
+    "automatic_retries": 0,
+    "ready_generation_requests": 36,
+    "withheld_generation_requests": 0,
+    "largest_generation_input_bound": 8578,
+    "new_paid_provider_calls": 0,
+    "paid_approval_record_created": false,
+    "previous_90_call_approval_consumed": true,
+    "study_phase": "development",
+    "independent_final_evaluation": false,
+    "additional_human_review_assigned": false,
+    "new_semantic_human_labels_available": false,
+    "superiority_claim": false,
+    "pricing": {
+      "source": "https://developers.openai.com/api/docs/models/gpt-4.1-mini",
+      "verified_date_kst": "2026-11-02",
+      "input_usd_per_million": 0.4,
+      "output_usd_per_million": 1.6,
+      "cached_discount_assumed": false,
+      "tax_included": false,
+      "model_documentation_status": "Deprecated"
+    },
+    "model_access": {
+      "run_id": 41179770206,
+      "attempt": 2,
+      "job_id": 124924702806,
+      "checked_at_utc": "2026-11-01T17:35:53.270077+00:00",
+      "http_status": 200,
+      "status": "accessible",
+      "generation_calls": 0,
+      "secret_name": "OPENAI_API_KEY"
+    },
+    "local_tests": {
+      "passed": 704,
+      "skipped": 2,
+      "failed": 0,
+      "seconds": 114.29,
+      "junit_sha256": "fc10b7fe0c3d301ff718d43375320bad6b17f278056b15e424cc036a20d3ef21",
+      "loopback_access_enabled": true
+    },
+    "focused_tests": {
+      "passed": 69,
+      "failed": 0
+    },
+    "mock": {
+      "queries": 36,
+      "provider_calls": 0,
+      "explicit_empty_generator_responses": 36,
+      "candidate_count": 0,
+      "condition_trials": 6,
+      "assembly_complete": true,
+      "separate_scoring_complete": true,
+      "performance_claim": false,
+      "nonempty_connection_tested_with_intercepted_http": true
+    },
+    "baseline": "passed_ndcg_0.5839",
+    "label_boundary_probe": {
+      "label_read": "denied",
+      "evaluator_import": "denied"
+    },
+    "legacy_plan_hash_verified": "e916e357cd7426a6bb50180559b542b33b28f20dda0189dcfb37ae7ed9d6f99c",
+    "review": {
+      "independent_code_reviewer": true,
+      "critical_findings": 0,
+      "important_findings_fixed": [
+        "all_rejected_generation_misclassified_as_voluntary_abstention"
+      ],
+      "additional_fixes": [
+        "different_parent_empty_child_claim_collision",
+        "explicit_UTF8_in_test_files"
+      ],
+      "deferred_minor_tests": [
+        "all_oversize_generation_combination",
+        "all_withheld_judges_combination"
+      ]
+    },
+    "implementation_sha256": {
+      "src/searchclinic/research_v5/generation.py": "21d0f4a71ec593fdb9ee03732165c8052a865350c1d3b7ccddf7081facc94657",
+      "src/searchclinic/research_v5/transport.py": "c498747bbbf1e5645b58440e749a39aa1d32fcc330f36880a7df24ebed325089",
+      "src/searchclinic/research_v5/comparison.py": "5c53dd732f35f72c6db2e8f0926e9c438537df53d455a2b699d14dbd13a5f724",
+      "src/searchclinic/research/phase2/generation.py": "af8b1b12bbf180c64bcc54d03805f391004d24d59d12edb567903ae53d2ea783",
+      "scripts/run_v5_generated.py": "42a7e0d2d184e4936b7c72b0ac7858c73abb09391f24e1b7891e0b1c14466355",
+      ".github/workflows/v5-generated.yml": "ec9d6f00d3c712b11513d3a14e5f801d7e5782d4e6b67789a102ac97166641da",
+      "tests/test_v5_generated.py": "623ac2b6156c0d4009cac829fa72cfefd6d85e21c2fd631210ab32ef3aab718e"
+    },
+    "remote_ci": {
+      "status": "pending_push"
+    }
   }
 }

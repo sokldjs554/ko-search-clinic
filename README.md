@@ -6,6 +6,8 @@
 
 [현재 연구 결론과 사람 판정](docs/research/v5/RESEARCH_CONCLUSION_20261101.md) · [실제 실험·실패 분석](docs/research/v5/LIVE_EXPERIMENT_20261031.md) · [실제 API 실행](https://github.com/sokldjs554/ko-search-clinic/actions/runs/41198330827) · [검증 상태](docs/research/v5/verification/final-status.json) · [Draft PR #3](https://github.com/sokldjs554/ko-search-clinic/pull/3) · [최신 Ubuntu·Windows 검사](https://github.com/sokldjs554/ko-search-clinic/pull/3/checks)
 
+**2026-11-02 후속 범위:** 추가 사람 검수는 보류하고 기존36질의에서 새 GPT 후보 생성·선택기 비교를 준비했습니다. 새 유료 호출은 아직0회이며 별도 승인을 기다립니다. 독립 평가 우위는 미검증으로 남깁니다. [실행 범위·예산·검증](docs/research/v5/GENERATED_COMPARISON_PREFLIGHT_20261102.md).
+
 ## 제안 방법과 실제 비교
 
 같은 후보를 **Pair(표현 쌍), Context(질문·검색 문맥), Rubric(명시적 판단 기준)**으로 각각2회 판단했습니다. 동의 관계, 같은 대상, 의미 범위, 인용 원문을 검사하고 후보별 검색을 원래 엔진에서 독립 적용합니다. 최종 정답은 순위 봉인 후 별도 채점 프로세스에서만 읽습니다. 모델 confidence는 보정된 검색 개선 확률로 취급하지 않습니다.

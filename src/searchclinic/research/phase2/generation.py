@@ -40,10 +40,14 @@ def build_llm_request(context):
             'max_output_tokens':1500,'automatic_retries':0}
 
 
-def build_context(engine, query_id, query):
+def build_context(engine, query_id, query, *, include_latency=True):
     p = load_protocol()
     tools = ClinicExecutor(engine, [])
     obs = observe(engine, query, query_id, 'test').policy_view()
+    if not include_latency:
+        # A wall-clock measurement is not deterministic model evidence.
+        # None means omitted, never an invented zero-duration measurement.
+        obs = obs.model_copy(update={'latency_ms': None})
     tokens = engine.analyzer.tokens(query)
     doctor = RulesPlusDoctor()
     doctor._query, doctor._query_tokens = query, tokens

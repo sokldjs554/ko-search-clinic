@@ -119,14 +119,14 @@ def _trials(trials, body, records):
         raise ValueError('missing condition/repeat trials')
 
 
-def _rules_bundle(bundle):
+def _rules_bundle(bundle, *, stable_context=False):
     from searchclinic.index.engine import SearchEngine
     from searchclinic.research.phase2.generation import build_context, generate_rules
     body, docs, records = pipeline._bundle(bundle)
     base = SearchEngine(list(docs.values()))
     output, generation = [], []
     for qid, (original, _) in records.items():
-        context = build_context(base, qid, original.query)
+        context = build_context(base, qid, original.query, include_latency=not stable_context)
         generated = generate_rules(context)
         generation.append(generated)
         output.append(dict(context=context.model_dump(mode='json'),
@@ -182,7 +182,7 @@ def assemble_comparison(bundle, trials, *, protocol, attestations=None, transpor
     empty = {qid: [] for qid in records}
     applications['first_valid'] = pipeline.apply_candidates(bundle, empty, policy='first_valid')
     diagnostic = pipeline.diagnostic_candidates(bundle)
-    rules_bundle, generated = _rules_bundle(bundle)
+    rules_bundle, generated = _rules_bundle(bundle, stable_context=body['study_scope']=='full_system')
     if body['study_scope'] == 'full_system':
         original_contexts = {r['context']['query_id']: r['context'] for r in pipeline.verify(bundle)['records']}
         public_contexts = {r['context']['query_id']: r['context'] for r in pipeline.verify(rules_bundle)['records']}
