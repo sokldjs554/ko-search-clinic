@@ -55,5 +55,9 @@
   "source_judged_documents": 10486,
   "source_queries": 868,
   "source_revision": "5be20db9509754dadad47689368639fcec739c00",
-  "audit_script_sha256": "84c72aa7ae8f5b26291fe91dcd58ccc4b982430a6bb0f01464f7fa3a969d9d19"
+  "audit_script_sha256": "84c72aa7ae8f5b26291fe91dcd58ccc4b982430a6bb0f01464f7fa3a969d9d19",
+  "snapshot": "Historical initial source screen; current status superseded by historical-exposure-20261101.json",
+  "current_status": "254-query fresh independent candidate route withdrawn: prior v4 train preparation exposure discovered",
+  "v3_inventory_now_available": true,
+  "v4_exact_run_inventory_verified": false
 }

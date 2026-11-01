@@ -1,0 +1,50 @@
+{
+  "additional_held_documents_since_v3": 7,
+  "additional_held_queries_since_v3": 7,
+  "audit_script_sha256": "bffad09fa3315eda545ef930b27bb39cd5c222a16d6993a41f2e1d9361d5efdb",
+  "candidate_sha256": "a286c49ce4146bbfd0c441e83a1025e0c42dd7a6cb1b7d6b3bc8ef507d7b0c96",
+  "containment_min80_count": 2,
+  "evidence_sha256": "d8feddffd1ab5d287ecae45e5be315121c9411ec0338d3654235c1f4ae773646",
+  "exact_match_counts": {
+    "document_compact": 0,
+    "document_normalized": 0,
+    "query_compact": 0,
+    "query_normalized": 0,
+    "title_compact": 10,
+    "title_normalized": 10
+  },
+  "final_evaluation_ready": false,
+  "held_concept_groups": 11,
+  "historical_page_sequence": 51,
+  "historical_train_documents": 10486,
+  "historical_train_queries": 868,
+  "human_relevance_review_complete": false,
+  "input_binding": "Ciphertexts differ; randomized encryption cannot establish plaintext equality or inequality.",
+  "klue_input_sha256": "bd746a88a743e9d0188f4bd874d73d21ad1fa4448e5bbca9a01c2e3a4bba6134",
+  "lexical_neighbour_rows": 700,
+  "miracl254_route": "withdrawn as fresh independent candidate route; historical train exposure discovered",
+  "new_paid_calls": 0,
+  "overall_independence_verified": false,
+  "public_input_ciphertext_sha256": {
+    "39042030830": "e8fd66d86e0a41b4383387a5557287ea1e1eb7d2f70721a1a0d970a44f0d1206",
+    "39044121771": "0c04a795a7a98de5014dd0b643eeabeb229f66e53f3a9c96338fdca0bb1c775c"
+  },
+  "remaining_document_splits": {
+    "calibration": 56,
+    "candidate_final": 233
+  },
+  "remaining_documents": 289,
+  "remaining_queries": 189,
+  "remaining_query_splits": {
+    "calibration": 36,
+    "candidate_final": 153
+  },
+  "retrieval_scores_computed": false,
+  "semantic_clearance": false,
+  "source_document_inventory_sha256": "da0880649f7db032975c7b300cee918a45d442de42c207ea35ce88d45df44ede",
+  "source_scope": "conservative historical preparation exposure, not verified successful run membership",
+  "total_held_documents": 11,
+  "total_held_queries": 11,
+  "v4_exact_run_exposure_verified": false,
+  "version": "historical-source-exposure-20261101"
+}
