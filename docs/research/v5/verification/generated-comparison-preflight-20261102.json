@@ -99,6 +99,32 @@
     "tests/test_v5_generated.py": "623ac2b6156c0d4009cac829fa72cfefd6d85e21c2fd631210ab32ef3aab718e"
   },
   "remote_ci": {
-    "status": "pending_push"
+    "source_commit": "098dc0516604f60b782f9b8a76a6411c49ba8888",
+    "run_id": 41333235453,
+    "url": "https://github.com/sokldjs554/ko-search-clinic/actions/runs/41333235453",
+    "status": "completed",
+    "conclusion": "success",
+    "ubuntu": {
+      "job_id": 124927556027,
+      "passed": 704,
+      "skipped": 2,
+      "seconds": 89.6
+    },
+    "windows": {
+      "job_id": 124927556255,
+      "passed": 704,
+      "skipped": 2,
+      "seconds": 146.28
+    },
+    "baseline": "success",
+    "note": "Verified implementation commit; subsequent aggregate-only documentation commit does not alter execution code."
+  },
+  "remote_free_preparation": {
+    "run_id": 41333230489,
+    "job_id": 124927542431,
+    "status": "success",
+    "study_hash_matches_local": true,
+    "paid_step": "skipped_no_new_approval",
+    "provider_calls_executed": 0
   }
 }

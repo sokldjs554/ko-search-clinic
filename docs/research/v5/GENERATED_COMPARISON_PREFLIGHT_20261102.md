@@ -44,3 +44,5 @@ python scripts/compare_v5_conditions.py score --assembly work/new-comparison/moc
 ```
 
 모의 응답은 의도적으로 빈 후보를 반환한다. 그 검색 점수는 실제 GPT 성능이 아니다. 유효 후보가 있는 연결은 가짜HTTP응답을 사용하는 별도 무료 테스트로 검증한다. 원시 실패·부분 기록을 삭제해 같은 계획을 재실행하지 않는다. 새 실험 승인과 `main` 병합 승인은 별개다.
+
+실행 코드 `098dc05`의 [CI41333235453](https://github.com/sokldjs554/ko-search-clinic/actions/runs/41333235453)는 Ubuntu704통과·2제외(89.60초), Windows704통과·2제외(146.28초), 검색 품질 gate 성공이다. [원격 무료 준비41333230489](https://github.com/sokldjs554/ko-search-clinic/actions/runs/41333230489)도 성공했으며 로컬과 같은 부모 계획 hash를 생성했다. 새 승인 부재로 유료 단계는 건너뛰었다. 이 검증 기록만 추가하는 후속 문서 커밋은 실행 코드를 바꾸지 않는다.
