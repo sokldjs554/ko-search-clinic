@@ -81,7 +81,7 @@ v3의120질의/2,455문서 목록과 첫 중단 v4의120질의/3,367문서, 과�
 
 ## 재현·검증·면접에서 설명할 성과
 
-승인된 실행 코드는 로컬·Ubuntu·Windows 각각704통과·2선택 의존성 제외였고, 결과 내보내기·데모를 포함한 최신 로컬 전체 검사는706통과·2제외였다. 검색 baseline은0.5839를 유지했다. 공개·비공개 데모의1440/320/390폭 브라우저 검사와 이전 데모 회귀 검사를 통과했다. 결과 내보내기·데모 후속 검사와 최신 CI는 [최종 상태](verification/final-status.json)에 구분 기록한다. 상세 정답은 아래 명령의 비공개 경로로만 읽는다. 원시 생성·판정 파일을 덮어쓰거나 유료 API를 다시 호출하지 않는다.
+승인된 실행 코드는 로컬·Ubuntu·Windows 각각704통과·2선택 의존성 제외였고, 결과 내보내기·데모를 포함한 최신 로컬 전체 검사는706통과·2제외였다. 검색 baseline은0.5839를 유지했다. 공개·비공개 데모의1440/320/390폭 브라우저 검사와 이전 데모 회귀 검사를 통과했다. [최종 코드 CI41335949839](https://github.com/sokldjs554/ko-search-clinic/actions/runs/41335949839)도 Ubuntu706통과·2제외(90.35초), Windows706통과·2제외(148.20초), 검색 품질 gate 성공이다. 저장 후보 재적용은 추가 API0회로 순위·선택·점수·대응 구간·무작위 반복 결과가 일치했다. PR #3은 검토 가능 상태이며 main은 병합하지 않았다. 결과 내보내기·데모 후속 검사와 CI는 [최종 상태](verification/final-status.json)에 구분 기록한다. 상세 정답은 아래 명령의 비공개 경로로만 읽는다. 원시 생성·판정 파일을 덮어쓰거나 유료 API를 다시 호출하지 않는다.
 
 ```bash
 python scripts/compare_v5_conditions.py assemble --bundle <recovered/run/candidates.json> --protocol <recovered/run/analysis.json> --transport-dir <recovered/run/judges> --protected-root <private-label-directory> --out work/replay/assembly.json

@@ -26,25 +26,26 @@
     "page_errors": []
   },
   "remote_ci": {
-    "source_commit": "098dc0516604f60b782f9b8a76a6411c49ba8888",
-    "run_id": 41333235453,
-    "url": "https://github.com/sokldjs554/ko-search-clinic/actions/runs/41333235453",
+    "source_commit": "c711749cadd76d2ef07ea0f935cb741fd3fa3067",
+    "run_id": 41335949839,
+    "url": "https://github.com/sokldjs554/ko-search-clinic/actions/runs/41335949839",
     "status": "completed",
     "conclusion": "success",
     "ubuntu": {
-      "job_id": 124927556027,
-      "passed": 704,
+      "job_id": 124935690348,
+      "passed": 706,
       "skipped": 2,
-      "seconds": 89.6
+      "seconds": 90.35
     },
     "windows": {
-      "job_id": 124927556255,
-      "passed": 704,
+      "job_id": 124935690124,
+      "passed": 706,
       "skipped": 2,
-      "seconds": 146.28
+      "seconds": 148.2
     },
     "baseline": "success",
-    "note": "Verified implementation commit; subsequent aggregate-only documentation commit does not alter execution code."
+    "note": "Verified final implementation/export/demo commit. This follow-up changes verification documentation only; latest documentation-commit checks are linked separately.",
+    "latest_branch_checks_url": "https://github.com/sokldjs554/ko-search-clinic/pull/3/checks"
   },
   "paid_api_calls": 150,
   "review": {
@@ -77,14 +78,14 @@
   },
   "publication": {
     "pull_request": "https://github.com/sokldjs554/ko-search-clinic/pull/3",
-    "source_commit": "897a68dd0374b35667b0d0cf524d300275769179",
+    "source_commit": "c711749cadd76d2ef07ea0f935cb741fd3fa3067",
     "test_import_fix": "fd073c5efd48ea94ab290ae1439b8e99155f133c",
     "detailed_outputs": "excluded pending explicit publication approval",
     "initial_source_commit": "1055e2dcdd3563518edb210cfd38cbe2de43f62e",
-    "draft": true,
+    "draft": false,
     "merged": false,
     "mergeable_at_code_check": true,
-    "status": "actual generated development comparison and failure analysis complete; final result CI pending; independent final evaluation incomplete"
+    "status": "ready for code review; actual development comparison complete; independent final superiority unproven; main merge requires separate approval"
   },
   "previous_verified_ci": {
     "source_commit": "fd073c5efd48ea94ab290ae1439b8e99155f133c",
@@ -2350,5 +2351,26 @@
   "cost_scope": "historical 90-call study plus new 60-call study; invoice unknown",
   "development_comparison_complete": true,
   "independent_evaluation_complete": false,
-  "original_independent_superiority_goal_met": false
+  "original_independent_superiority_goal_met": false,
+  "remote_ci_before_generated_results": {
+    "source_commit": "098dc0516604f60b782f9b8a76a6411c49ba8888",
+    "run_id": 41333235453,
+    "url": "https://github.com/sokldjs554/ko-search-clinic/actions/runs/41333235453",
+    "status": "completed",
+    "conclusion": "success",
+    "ubuntu": {
+      "job_id": 124927556027,
+      "passed": 704,
+      "skipped": 2,
+      "seconds": 89.6
+    },
+    "windows": {
+      "job_id": 124927556255,
+      "passed": 704,
+      "skipped": 2,
+      "seconds": 146.28
+    },
+    "baseline": "success",
+    "note": "Verified implementation commit; subsequent aggregate-only documentation commit does not alter execution code."
+  }
 }
