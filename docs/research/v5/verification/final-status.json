@@ -23,15 +23,15 @@
     "page_errors": []
   },
   "remote_ci": {
-    "source_commit": "b82a907d941814149e439d1e96f6b3cca6954ee0",
-    "run_id": 41295416592,
-    "url": "https://github.com/sokldjs554/ko-search-clinic/actions/runs/41295416592",
+    "source_commit": "277043ef4cef14e0492d367a0753773ffb5dc5e6",
+    "run_id": 41322021792,
+    "url": "https://github.com/sokldjs554/ko-search-clinic/actions/runs/41322021792",
     "status": "completed",
     "conclusion": "success",
+    "note": "Latest verified prior head; later documentation checks recorded in PR3.",
     "ubuntu": "success",
     "windows": "success",
-    "baseline": "success",
-    "note": "Latest verified prior head; subsequent documentation CI recorded in PR3."
+    "baseline": "success"
   },
   "paid_api_calls": 90,
   "review": {
@@ -1748,5 +1748,99 @@
       ],
       "script_sha256": "25122302da3c0ead3a775166a128c63ae56b78afbf005ae59eaf6f5aa22ef0b0"
     }
+  },
+  "remote_ci_before_fullquery_intake": {
+    "source_commit": "b82a907d941814149e439d1e96f6b3cca6954ee0",
+    "run_id": 41295416592,
+    "url": "https://github.com/sokldjs554/ko-search-clinic/actions/runs/41295416592",
+    "status": "completed",
+    "conclusion": "success",
+    "ubuntu": "success",
+    "windows": "success",
+    "baseline": "success",
+    "note": "Latest verified prior head; subsequent documentation CI recorded in PR3."
+  },
+  "relevance_fullquery_intake": {
+    "version": "relevance-fullquery-intake-20261102",
+    "received_files": 2,
+    "new_rows_per_reviewer": 46,
+    "new_relevance_judgments": 92,
+    "new_paired_items": 46,
+    "new_agreement": {
+      "paired_graded": 46,
+      "total_items": 46,
+      "weighting": "quadratic",
+      "observed_agreement": 1.0,
+      "kappa": 1.0,
+      "kappa_status": "defined"
+    },
+    "new_disagreements": 0,
+    "new_paired_grade_counts": {
+      "0": 37,
+      "1": 9
+    },
+    "cumulative_judgments": 102,
+    "cumulative_paired_items": 51,
+    "cumulative_paired_grade_counts": {
+      "0": 42,
+      "1": 9
+    },
+    "cumulative_agreement": {
+      "paired_graded": 51,
+      "total_items": 51,
+      "weighting": "quadratic",
+      "observed_agreement": 1.0,
+      "kappa": 1.0,
+      "kappa_status": "defined"
+    },
+    "complete_source_query_documents": 56,
+    "feedback_exposed_cases_not_rejudged": 5,
+    "full_calibration_pairs": 2016,
+    "calibration_pairs_without_two_relevance_submissions": 1965,
+    "verbatim_explanation_containment_pairs": 9,
+    "independence_confirmation_pending": true,
+    "independence_violation_proven": false,
+    "partial_grade_boundary_cases": 9,
+    "source_annotation_is_impossible": true,
+    "source_annotation_answers_empty": true,
+    "source_annotation_scope": "already-used calibration query only; not corpus-wide human relevance truth",
+    "source_qrels_promoted": false,
+    "files": {
+      "d": {
+        "source_sha256": "9d876fd72d366a1b13338b899a0872eb6df4ffa68fb9bdf34b58d261979a7ab6",
+        "source_bytes": 146968,
+        "changed_allowed_cells": 139,
+        "unexpected_value_changes": 0,
+        "formula_cells": 0,
+        "external_links": 0,
+        "completed_cases": 46,
+        "reported_grade_counts": {
+          "0": 37,
+          "1": 9
+        }
+      },
+      "e": {
+        "source_sha256": "149e2bbcb28c8e4813244c5e66f1ed546d4206d2fd3966740b583ba01890aa86",
+        "source_bytes": 147322,
+        "changed_allowed_cells": 139,
+        "unexpected_value_changes": 0,
+        "formula_cells": 0,
+        "external_links": 0,
+        "completed_cases": 46,
+        "reported_grade_counts": {
+          "0": 37,
+          "1": 9
+        }
+      }
+    },
+    "completion_time_scope": "reported batch only; no per-item time inferred",
+    "original_submissions_overwritten": false,
+    "new_provider_calls": 0,
+    "new_retrieval_scores": 0,
+    "final_evaluation_ready": false,
+    "research_complete": false,
+    "labels_complete": false,
+    "new_bulk_handoff_issued": false,
+    "script_sha256": "2f0a1d60f0cc17955c6ab68e852903405fd0266fdff87354892c6dccb1658c8f"
   }
 }
