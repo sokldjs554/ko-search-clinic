@@ -23,15 +23,15 @@
     "page_errors": []
   },
   "remote_ci": {
-    "source_commit": "54ab2a385f320da95889f0ee66be8abacfb2b34b",
-    "run_id": 41279415616,
-    "url": "https://github.com/sokldjs554/ko-search-clinic/actions/runs/41279415616",
+    "source_commit": "10a09d4f1c2085a6cc70546b5273e7993097b99f",
+    "run_id": 41282781054,
+    "url": "https://github.com/sokldjs554/ko-search-clinic/actions/runs/41282781054",
     "status": "completed",
     "conclusion": "success",
-    "ubuntu": "694 passed, 2 skipped in 91.57s",
-    "windows": "694 passed, 2 skipped in 119.66s",
+    "ubuntu": "694 passed, 2 skipped in 50.95s",
+    "windows": "694 passed, 2 skipped in 134.53s",
     "baseline": "success",
-    "note": "Previous exact head verified; c follow-up head CI is recorded in PR3 after completion."
+    "note": "Exact latest code-and-demo head validated; subsequent source-audit documentation CI is recorded in PR3."
   },
   "paid_api_calls": 90,
   "review": {
@@ -1188,5 +1188,27 @@
     "source_validation": "12 unique pending identities, valid c alias and boolean decisions; UTC date absent; strict receipt not created",
     "score_invariance": "scores, paired intervals, random comparisons, repeat and threshold diagnostics unchanged",
     "new_provider_calls": 0
+  },
+  "remote_ci_before_public_source_audit": {
+    "source_commit": "54ab2a385f320da95889f0ee66be8abacfb2b34b",
+    "run_id": 41279415616,
+    "url": "https://github.com/sokldjs554/ko-search-clinic/actions/runs/41279415616",
+    "status": "completed",
+    "conclusion": "success",
+    "ubuntu": "694 passed, 2 skipped in 91.57s",
+    "windows": "694 passed, 2 skipped in 119.66s",
+    "baseline": "success",
+    "note": "Previous exact head verified; c follow-up head CI is recorded in PR3 after completion."
+  },
+  "public_relevance_source_audit": {
+    "summary": "public-relevance-source-20261101.json",
+    "official_queries": 868,
+    "official_human_judgments": 12767,
+    "remaining_after_known_overlap_exclusions": 254,
+    "full_corpus_passages_scanned": 1486752,
+    "new_provider_calls": 0,
+    "final_evaluation_ready": false,
+    "existing_15_candidate_submission_complete": true,
+    "new_human_reviews_claimed": false
   }
 }
