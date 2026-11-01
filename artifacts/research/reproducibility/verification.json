@@ -1,0 +1,24 @@
+{
+  "source_sha": "73a9fcc379d37729cbe1ec8df8bbcb340511d28f",
+  "source_hash": "b6ee792476f148a0e3eb4ac37002ad23d1c194f6123f8b2db793b05f22b73e85",
+  "local_full_tests": {
+    "passed": 373,
+    "skipped": 2,
+    "exit_code": 0
+  },
+  "research_tests": {
+    "passed": 76,
+    "exit_code": 0
+  },
+  "new_tests": 20,
+  "baseline_exit_code": 0,
+  "preserved_file_count": 77,
+  "v1_v2_observed_signatures": "identical in controlled dev; not a superiority claim",
+  "paid_api_calls": 0,
+  "independent_review_issues_fixed": [
+    "mixed no_repair provenance",
+    "v2 append into preserved v1 root"
+  ],
+  "remote_initial_ci_run": 38211127720,
+  "final_head_remote_ci": "pending push and actual execution"
+}

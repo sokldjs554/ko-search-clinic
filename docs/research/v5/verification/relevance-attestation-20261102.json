@@ -1,0 +1,29 @@
+{
+  "version": "relevance-attestation-20261102",
+  "user_attestation_received": true,
+  "user_statement": "아니 초안 참고 안함",
+  "attestation_scope": "response to question about initial/revised use of others answers or AI-written drafts; preserves exact wording",
+  "independence_status": "user_reported_no_draft_reference_not_independently_authenticated",
+  "pending_draft_use_clarification": false,
+  "original_and_revision_records_preserved": true,
+  "revision_after_feedback": true,
+  "original_blinding_restored": false,
+  "cumulative_unique_pairs": 51,
+  "cumulative_reported_agreements": 45,
+  "disagreements_pending": 6,
+  "adjudications_completed": 0,
+  "handoff": {
+    "filename": "조정담당자_관련성_불일치6건.xlsx",
+    "sha256": "eb0b0c97440511161182b15218c99ee2882bef1661dfb92ef029b00f1e9bfb54",
+    "bytes": 26585,
+    "cases": 6,
+    "blank_final_decisions": 6,
+    "adjudicator_assignment": "blank; must be distinct from d/e"
+  },
+  "final_labels_complete": false,
+  "final_evaluation_ready": false,
+  "new_provider_calls": 0,
+  "new_retrieval_scores": 0,
+  "research_complete": false,
+  "script_sha256": "62ef895ff54d020194c58bcf7f0f43797d32a1a73251a5e35d8603ac07d68080"
+}

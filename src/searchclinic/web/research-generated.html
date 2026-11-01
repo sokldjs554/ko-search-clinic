@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>검색 수정 연구 · v5</title><link rel="stylesheet" href="style.css"><style>main,header{overflow-wrap:anywhere;min-width:0}header{gap:12px}header>a{min-width:0}@media(max-width:500px){header{padding:18px}.brand{font-size:20px}}main{max-width:1100px;margin:auto;padding:24px}table{border-collapse:collapse;width:100%;min-width:550px;margin:20px 0}th,td{border-bottom:1px solid #ddd;text-align:left;padding:10px}th:first-child,td:first-child{min-width:170px;overflow-wrap:normal;word-break:keep-all}th:not(:first-child),td:not(:first-child){white-space:nowrap;overflow-wrap:normal}pre{white-space:pre-wrap;overflow-wrap:anywhere;background:#f4f3ee;padding:16px}select{max-width:100%;padding:8px}article{border-top:1px solid #bbb;margin-top:20px;padding-top:16px}.scroll{overflow:auto}.notice{border-left:4px solid #715a3b;padding:16px;background:#f7f4eb}h1{font-size:2rem}h2{font-size:1.25rem}</style></head>
+<body data-live-summary="research-v5-generated-summary.json" data-live-details="research-v5-generated-details.json"><header><a class="brand" href="./">검색 점검실<span>KO–SEARCH / CLINIC</span></a><a href="research.html">이전15후보90회 실험</a></header><main>
+<h1>새 GPT 후보 생성과 의미 검증 · 실제 결과</h1>
+<p class="notice">기존36질의에서 실제 GPT가 후보50개를 생성했고, 형식·대상·근거 검사를 통과한4개를 Pair·Context·Rubric으로 각2회 판단했습니다. 독립 최종 평가가 아닌 개발 비교입니다.</p>
+<p id="live-load" role="status">실제 실험 집계를 불러오는 중입니다.</p>
+<section id="live-report" hidden aria-labelledby="live-title"><h2 id="live-title">새 GPT 생성36회 + 의미 판정24회</h2><p id="live-cost"></p>
+<p class="notice">새 GPT와 Pair의 nDCG@10은0.611720, RulesPlus는0.859490입니다. Context/Rubric은 반복별0.583943/0.611720이었습니다. 유효 후보의 Oracle 상한도0.611720이어서 생성 단계의 손실이 우선적인 한계입니다. 성능 우위는 입증하지 못했습니다.</p>
+<div class="scroll"><table><thead><tr><th>조건 / 반복</th><th>nDCG@10</th><th>Recall@10</th><th>P@5</th><th>적용/보류</th><th>정상 악화</th><th>유용 후보 미선택</th></tr></thead><tbody id="live-summary"></tbody></table></div>
+<p id="live-random"></p><p id="live-grounding"></p><p id="live-zero-hit"></p>
+<h2>생성 실패와 의미 판단을 구분합니다</h2>
+<p>50개 중46개가 제외됐습니다: 처방 제약25개, 대상 질의 불일치18개, 원문 근거 누락3개. 의도적인 빈 후보 응답은0건입니다. 각 유효 후보는 서로 다른4개 질의에 속하므로 같은 질의의 복수 유효 후보 사이 순위 선택은 검증하지 못했습니다.</p>
+<p>검색 효용이 확인된 후보는1개입니다. Pair는 두 번 모두 선택했고, Context와 Rubric은 첫 반복에서 의미 관계·범위 판단으로 보류하고 두 번째에서는 선택했습니다. 새4후보는 사람 의미 검수를 받지 않았으며 검색 효용과 의미 정오는 구분합니다.</p>
+<p>confidence0.8은 보정된 개선 확률이나 최적 임계값이 아닙니다. 모든 새 방법의 정상 질의 악화는0/20이나 작은 개발 표본의 관측이며 안전성 인증은 아닙니다.</p>
+<section id="live-query-section" hidden><h2>실제 선택·보류 이유와 검색 전후</h2><label for="live-queries">질의</label> <select id="live-queries"></select><label for="live-condition">조건 / 반복</label> <select id="live-condition"></select><div id="live-detail"></div></section>
+<p id="live-private-notice">질의별 원시 판정·근거·정답 정보는 공개하지 않습니다. 로컬 상세 파일을 연결하면 전후 비교가 표시됩니다.</p>
+<p>KLUE 후속 자료는189질의·289문서가 준비됐으나, 완료된 관련성 판정51쌍은 질문1개에 해당합니다. 추가 검수는 중단했으며 v4 성공 실행의 노출 감사도 미완료입니다.</p>
+<p><a href="https://github.com/sokldjs554/ko-search-clinic/blob/feat/research-verification-v5-20261030/docs/research/v5/GENERATED_COMPARISON_RESULT_20261102.md">전체 결과·실패 분석·재현</a> · <a id="live-run" href="#">실제 실행 기록</a></p>
+<details><summary>모델·입력·분석 해시</summary><pre id="live-evidence"></pre></details></section></main><script src="research-live.js"></script></body></html>

@@ -13,15 +13,30 @@ from __future__ import annotations
 
 import json
 from dataclasses import dataclass, field
+from typing import TYPE_CHECKING
 
 from pydantic import ValidationError
 
 from searchclinic.analysis.jamo import jamo_similarity
 from searchclinic.analysis.vectors import CachedVectors
-from searchclinic.corpus.evalset import EvalQuery
 from searchclinic.index.engine import SearchEngine
-from searchclinic.patch.gate import GateVerdict, run_gate
 from searchclinic.patch.ir import Prescription
+
+if TYPE_CHECKING:
+    from searchclinic.corpus.evalset import EvalQuery
+    from searchclinic.patch.gate import GateVerdict
+
+
+def __getattr__(name):
+    # Preserve explicit legacy imports without loading labels for public probes.
+    from importlib import import_module
+    routes = {'EvalQuery': 'searchclinic.corpus.evalset',
+              'GateVerdict': 'searchclinic.patch.gate', 'run_gate': 'searchclinic.patch.gate'}
+    if name in routes:
+        value = getattr(import_module(routes[name]), name)
+        globals()[name] = value
+        return value
+    raise AttributeError(name)
 
 SUBMIT_TOOL = "submit_prescription"
 
@@ -320,6 +335,7 @@ class ClinicExecutor:
             )
 
         self._attempts_this_session += 1
+        from searchclinic.patch.gate import run_gate
         verdict, sandbox = run_gate(self.engine, self.evalset, prescription)
         if verdict.accepted:
             # 채택: 샌드박스를 현역으로 승격 — 이후 진료는 누적 설정 위에서 돈다

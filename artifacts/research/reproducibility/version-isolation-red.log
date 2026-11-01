@@ -1,0 +1,80 @@
+FFFF                                                                     [100%]
+=================================== FAILURES ===================================
+____________ test_no_repair_cannot_escape_all_run_provenance_checks ____________
+
+    def test_no_repair_cannot_escape_all_run_provenance_checks():
+        from copy import deepcopy
+        from searchclinic.research.runner import run_experiment
+        from searchclinic.research.artifacts import compare_runs, render_report
+        base = run_experiment("no_repair")
+        a, s = deepcopy(base), deepcopy(base)
+        a["policy"], s["policy"] = "always_typed_patch", "selective_rule"
+        base["source_hash"] = "different-source"
+        for check in (compare_runs, render_report):
+>           with pytest.raises(ValueError, match="source_hash"):
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           Failed: DID NOT RAISE ValueError
+
+tests/test_research_latency_reproducibility.py:137: Failed
+___________ test_cli_v2_cannot_append_to_any_root_containing_v1_runs ___________
+
+tmp_path = PosixPath('/tmp/pytest-of-agent/pytest-17/test_cli_v2_cannot_append_to_a0')
+
+    def test_cli_v2_cannot_append_to_any_root_containing_v1_runs(tmp_path):
+        import json
+        from searchclinic.cli import main
+        root = str(tmp_path)
+        assert main(["research", "prepare", "--root", root]) == 0
+        assert main(["research", "run", "--root", root, "--policy", "no_repair"]) == 0
+        existing = list((tmp_path / "runs").glob("*.json"))
+        original = json.loads(existing[0].read_text(encoding="utf-8"))
+>       assert main(["research", "run", "--root", root, "--policy", "selective_rule",
+                     "--protocol-version", "phase01-v2"]) == 1
+E       AssertionError: assert 0 == 1
+E        +  where 0 = <function main at 0x7f65069d6160>(['research', 'run', '--root', '/tmp/pytest-of-agent/pytest-17/test_cli_v2_cannot_append_to_a0', '--policy', 'selective_rule', ...])
+
+tests/test_research_latency_reproducibility.py:149: AssertionError
+----------------------------- Captured stdout call -----------------------------
+prepared /tmp/pytest-of-agent/pytest-17/test_cli_v2_cannot_append_to_a0/splits/controlled-v1.json; counts={'train': 0, 'dev': 36, 'test': 0}
+executed no_repair; artifact=/tmp/pytest-of-agent/pytest-17/test_cli_v2_cannot_append_to_a0/runs/no_repair-20261012T062539-b113378b.json
+executed selective_rule; artifact=/tmp/pytest-of-agent/pytest-17/test_cli_v2_cannot_append_to_a0/runs/selective_rule-20261012T062546-fe978d7a.json
+__________ test_cli_report_must_match_the_requested_protocol_version ___________
+
+tmp_path = PosixPath('/tmp/pytest-of-agent/pytest-17/test_cli_report_must_match_the0')
+
+    def test_cli_report_must_match_the_requested_protocol_version(tmp_path):
+        from searchclinic.cli import main
+        root = str(tmp_path)
+        assert main(["research", "prepare", "--root", root]) == 0
+        assert main(["research", "run", "--root", root, "--policy", "no_repair"]) == 0
+>       assert main(["research", "report", "--root", root,
+                     "--protocol-version", "phase01-v2"]) == 1
+E       AssertionError: assert 0 == 1
+E        +  where 0 = <function main at 0x7f65069d6160>(['research', 'report', '--root', '/tmp/pytest-of-agent/pytest-17/test_cli_report_must_match_the0', '--protocol-version', 'phase01-v2'])
+
+tests/test_research_latency_reproducibility.py:160: AssertionError
+----------------------------- Captured stdout call -----------------------------
+prepared /tmp/pytest-of-agent/pytest-17/test_cli_report_must_match_the0/splits/controlled-v1.json; counts={'train': 0, 'dev': 36, 'test': 0}
+executed no_repair; artifact=/tmp/pytest-of-agent/pytest-17/test_cli_report_must_match_the0/runs/no_repair-20261012T062546-20bd512d.json
+generated /tmp/pytest-of-agent/pytest-17/test_cli_report_must_match_the0/summaries/RESULTS.md
+____________ test_new_v2_default_cannot_touch_the_preserved_v1_root ____________
+
+tmp_path = PosixPath('/tmp/pytest-of-agent/pytest-17/test_new_v2_default_cannot_tou0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7f6506a04830>
+
+    def test_new_v2_default_cannot_touch_the_preserved_v1_root(tmp_path, monkeypatch):
+        from searchclinic.cli import main
+        monkeypatch.chdir(tmp_path)
+>       assert main(["research", "prepare", "--protocol-version", "phase01-v2"]) == 1
+E       AssertionError: assert 0 == 1
+E        +  where 0 = <function main at 0x7f65069d6160>(['research', 'prepare', '--protocol-version', 'phase01-v2'])
+
+/workspace/ko-search-clinic/tests/test_research_latency_reproducibility.py:168: AssertionError
+----------------------------- Captured stdout call -----------------------------
+prepared artifacts/research/splits/controlled-v1.json; counts={'train': 0, 'dev': 36, 'test': 0}
+=========================== short test summary info ============================
+FAILED tests/test_research_latency_reproducibility.py::test_no_repair_cannot_escape_all_run_provenance_checks
+FAILED tests/test_research_latency_reproducibility.py::test_cli_v2_cannot_append_to_any_root_containing_v1_runs
+FAILED tests/test_research_latency_reproducibility.py::test_cli_report_must_match_the_requested_protocol_version
+FAILED tests/test_research_latency_reproducibility.py::test_new_v2_default_cannot_touch_the_preserved_v1_root
+4 failed, 16 deselected in 10.68s

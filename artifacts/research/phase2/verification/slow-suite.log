@@ -1,0 +1,4 @@
+s.                                                                       [100%]
+=========================== short test summary info ============================
+SKIPPED [1] tests/test_scale.py:154: could not import 'pyspark': No module named 'pyspark'
+1 passed, 1 skipped, 19 deselected in 41.97s

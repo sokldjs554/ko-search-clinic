@@ -1,0 +1,109 @@
+FFFF...                                                                  [100%]
+=================================== FAILURES ===================================
+_______________ test_distributed_small_losses_cannot_reduce_mean _______________
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7f3c117753d0>
+
+    def test_distributed_small_losses_cannot_reduce_mean(monkeypatch):
+>       verdict = exercise(monkeypatch)
+                  ^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_gate_mean_preservation.py:31: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_gate_mean_preservation.py:27: in exercise
+    return run_gate(engine, queries, rx, **kwargs)[0]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src/searchclinic/patch/gate.py:104: in run_gate
+    before = evaluate_all(engine, evalset)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+e = namespace(config=AnalyzerConfig(user_words=[], synonym_groups=[], compound_expansions=[]), with_config=<function exercise.<locals>.<lambda> at 0x7f3c1177f880>)
+_ = [EvalQuery(query='q0', qrels={'d': 1}, family=None, expected_patch_kinds=(), note=''), EvalQuery(query='q1', qrels={'d...xpected_patch_kinds=(), note=''), EvalQuery(query='q4', qrels={'d': 1}, family=None, expected_patch_kinds=(), note='')]
+options = {}
+
+    def evaluate(e, _, **options):
+>       assert options.get('round_metrics') is False
+E       AssertionError: assert None is False
+E        +  where None = <built-in method get of dict object at 0x7f3c117a56c0>('round_metrics')
+E        +    where <built-in method get of dict object at 0x7f3c117a56c0> = {}.get
+
+tests/test_gate_mean_preservation.py:21: AssertionError
+_____________ test_legacy_mean_tolerance_requires_explicit_opt_in ______________
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7f3c11776db0>
+
+    def test_legacy_mean_tolerance_requires_explicit_opt_in(monkeypatch):
+>       assert exercise(monkeypatch, mean_epsilon=.02).accepted
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_gate_mean_preservation.py:40: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_gate_mean_preservation.py:27: in exercise
+    return run_gate(engine, queries, rx, **kwargs)[0]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src/searchclinic/patch/gate.py:104: in run_gate
+    before = evaluate_all(engine, evalset)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+e = namespace(config=AnalyzerConfig(user_words=[], synonym_groups=[], compound_expansions=[]), with_config=<function exercise.<locals>.<lambda> at 0x7f3c1177c180>)
+_ = [EvalQuery(query='q0', qrels={'d': 1}, family=None, expected_patch_kinds=(), note=''), EvalQuery(query='q1', qrels={'d...xpected_patch_kinds=(), note=''), EvalQuery(query='q4', qrels={'d': 1}, family=None, expected_patch_kinds=(), note='')]
+options = {}
+
+    def evaluate(e, _, **options):
+>       assert options.get('round_metrics') is False
+E       AssertionError: assert None is False
+E        +  where None = <built-in method get of dict object at 0x7f3c115e5100>('round_metrics')
+E        +    where <built-in method get of dict object at 0x7f3c115e5100> = {}.get
+
+tests/test_gate_mean_preservation.py:21: AssertionError
+_______________ test_rounding_the_report_mean_must_not_hide_loss _______________
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7f3c11777aa0>
+
+    def test_rounding_the_report_mean_must_not_hide_loss(monkeypatch):
+>       verdict = exercise(monkeypatch, after_values=[.55, .4875, .4875, .4875, .4874])
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_gate_mean_preservation.py:44: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_gate_mean_preservation.py:27: in exercise
+    return run_gate(engine, queries, rx, **kwargs)[0]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src/searchclinic/patch/gate.py:104: in run_gate
+    before = evaluate_all(engine, evalset)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+e = namespace(config=AnalyzerConfig(user_words=[], synonym_groups=[], compound_expansions=[]), with_config=<function exercise.<locals>.<lambda> at 0x7f3c1177cae0>)
+_ = [EvalQuery(query='q0', qrels={'d': 1}, family=None, expected_patch_kinds=(), note=''), EvalQuery(query='q1', qrels={'d...xpected_patch_kinds=(), note=''), EvalQuery(query='q4', qrels={'d': 1}, family=None, expected_patch_kinds=(), note='')]
+options = {}
+
+    def evaluate(e, _, **options):
+>       assert options.get('round_metrics') is False
+E       AssertionError: assert None is False
+E        +  where None = <built-in method get of dict object at 0x7f3c115f9900>('round_metrics')
+E        +    where <built-in method get of dict object at 0x7f3c115f9900> = {}.get
+
+tests/test_gate_mean_preservation.py:21: AssertionError
+____ test_gate_can_request_full_precision_without_changing_default_metrics _____
+
+    def test_gate_can_request_full_precision_without_changing_default_metrics():
+        from searchclinic.evaluation.metrics import evaluate_query
+        import math
+        engine = SimpleNamespace(search=lambda query, k: [SimpleNamespace(doc_id='wrong'),
+                                                         SimpleNamespace(doc_id='right')])
+        query = EvalQuery(query='q', qrels={'right': 1})
+        assert evaluate_query(engine, query).ndcg == .6309
+>       assert evaluate_query(engine, query, round_metrics=False).ndcg == 1 / math.log2(3)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       TypeError: evaluate_query() got an unexpected keyword argument 'round_metrics'
+
+tests/test_gate_mean_preservation.py:55: TypeError
+=========================== short test summary info ============================
+FAILED tests/test_gate_mean_preservation.py::test_distributed_small_losses_cannot_reduce_mean
+FAILED tests/test_gate_mean_preservation.py::test_legacy_mean_tolerance_requires_explicit_opt_in
+FAILED tests/test_gate_mean_preservation.py::test_rounding_the_report_mean_must_not_hide_loss
+FAILED tests/test_gate_mean_preservation.py::test_gate_can_request_full_precision_without_changing_default_metrics
+4 failed, 3 passed in 0.16s

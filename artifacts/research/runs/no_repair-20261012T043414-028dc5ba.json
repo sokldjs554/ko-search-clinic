@@ -1,0 +1,2524 @@
+{
+  "schema_version": 1,
+  "policy": "no_repair",
+  "dataset": "controlled-v1/dev",
+  "heldout_status": "not_collected",
+  "git_sha": "c2cd5f30341b596f7c806fde6d64cefb02b3a022",
+  "git_dirty": false,
+  "source_hash": "26f2f64c8c286fd2c06dad81dd2b5ef668e25b7a0120de41059347a957a56058",
+  "protocol_commit": "6ec3b8dacba53b3bcd18704f2680567432dab531",
+  "protocol_hash": "a1aeb6954cca499623abb6be1180a8e3d5a8d1a515fdcc342105f6a10187f8bb",
+  "split_hash": "43f8dc393b9686d4cae2bee1d7f4cedcb432ecf5143141afa1b6f34a2f31212b",
+  "corpus_hash": "0fc66c40b278ec0f8a357f177a1db3945581da9776043c0532ce663281aef62f",
+  "evalset_hash": "4163f6921755ade3c8ca03b579bc6e3b272c34c0b14a0ce59fd3a192569e386f",
+  "environment": {
+    "python": "3.12.14",
+    "kiwipiepy": "0.23.2",
+    "kiwipiepy_model": "0.23.0",
+    "pydantic": "2.14.1",
+    "model": null
+  },
+  "seed": 20261012,
+  "config": {
+    "config": {
+      "schema_version": 1,
+      "version": "phase01-v1",
+      "start_sha": "80ea3bcf2fffb395b27abc3d38db4e9876a9c2d1",
+      "seed": 20261012,
+      "dataset": "controlled-v1",
+      "evaluation_split": "dev",
+      "heldout_status": "not_collected",
+      "detector": {
+        "version": "rule-v1",
+        "threshold": 0.5,
+        "coverage_threshold": 0.5,
+        "margin_threshold": 0.1,
+        "zero_score": 0.95,
+        "coverage_score": 0.8,
+        "margin_score": 0.6,
+        "healthy_score": 0.1
+      },
+      "policy": {
+        "max_actions": 3,
+        "max_submits": 3,
+        "min_gain": 0.05,
+        "epsilon": 0.02,
+        "weights": {
+          "regression": 1.0,
+          "model_calls": 0.01,
+          "tokens": 1e-06,
+          "latency_ms": 1e-05,
+          "unnecessary_actions": 0.005
+        }
+      },
+      "baselines": [
+        "no_repair",
+        "always_typed_patch",
+        "selective_rule"
+      ],
+      "bootstrap_samples": 2000,
+      "success": {
+        "H1": "fewer healthy interventions AND fewer measured search calls",
+        "H2": "no decrease in recovered cases OR mean failing nDCG; zero healthy regressions over epsilon",
+        "H3": "all labeled failures have zero results"
+      },
+      "phase_limit": 1
+    },
+    "split_hash": "43f8dc393b9686d4cae2bee1d7f4cedcb432ecf5143141afa1b6f34a2f31212b",
+    "config_hash": "a1aeb6954cca499623abb6be1180a8e3d5a8d1a515fdcc342105f6a10187f8bb",
+    "selection_split": "dev"
+  },
+  "queries": [
+    {
+      "query_id": "q-129b2d9aadcac3af",
+      "query": "프라이팬",
+      "split": "dev",
+      "family": null,
+      "observation": {
+        "query_id": "q-129b2d9aadcac3af",
+        "query": "프라이팬",
+        "split": "dev",
+        "result_count": 2,
+        "top1_score": 4.3779,
+        "top2_score": 3.9835,
+        "score_margin": 0.09008885538728625,
+        "lexical_coverage": 1.0,
+        "retriever_agreement": null,
+        "evidence_conflict": null,
+        "grounding_score": null,
+        "latency_ms": 1.3486300013028085,
+        "family": null,
+        "baseline_ndcg": 1.0,
+        "baseline_recall": 1.0
+      },
+      "detection": {
+        "failure_probability": 0.6,
+        "predicted_failure": true,
+        "failure_reason_codes": [
+          "low_score_margin"
+        ],
+        "calibration_version": "rule-v1-uncalibrated"
+      },
+      "decision": "no_op",
+      "intervened": false,
+      "policy_events": [],
+      "trace": [],
+      "accepted": false,
+      "submissions": 0,
+      "action_count": 0,
+      "before": {
+        "query": "프라이팬",
+        "ndcg": 1.0,
+        "recall": 1.0,
+        "precision5": 1.0,
+        "n_results": 2,
+        "hits_top": [
+          "P001",
+          "P002"
+        ]
+      },
+      "costs": {
+        "search_calls": 0,
+        "reindexes": 0,
+        "model_calls": 0,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "latency_ms": 0.0022280000848695636,
+        "api_cost_usd": 0.0
+      },
+      "after": {
+        "query": "프라이팬",
+        "ndcg": 1.0,
+        "recall": 1.0,
+        "precision5": 1.0,
+        "n_results": 2,
+        "hits_top": [
+          "P001",
+          "P002"
+        ]
+      }
+    },
+    {
+      "query_id": "q-0d07085ffc1431f5",
+      "query": "케이크",
+      "split": "dev",
+      "family": null,
+      "observation": {
+        "query_id": "q-0d07085ffc1431f5",
+        "query": "케이크",
+        "split": "dev",
+        "result_count": 2,
+        "top1_score": 5.0714,
+        "top2_score": 4.6059,
+        "score_margin": 0.09178924951689861,
+        "lexical_coverage": 1.0,
+        "retriever_agreement": null,
+        "evidence_conflict": null,
+        "grounding_score": null,
+        "latency_ms": 1.2348109994491097,
+        "family": null,
+        "baseline_ndcg": 1.0,
+        "baseline_recall": 1.0
+      },
+      "detection": {
+        "failure_probability": 0.6,
+        "predicted_failure": true,
+        "failure_reason_codes": [
+          "low_score_margin"
+        ],
+        "calibration_version": "rule-v1-uncalibrated"
+      },
+      "decision": "no_op",
+      "intervened": false,
+      "policy_events": [],
+      "trace": [],
+      "accepted": false,
+      "submissions": 0,
+      "action_count": 0,
+      "before": {
+        "query": "케이크",
+        "ndcg": 1.0,
+        "recall": 1.0,
+        "precision5": 1.0,
+        "n_results": 2,
+        "hits_top": [
+          "P006",
+          "P007"
+        ]
+      },
+      "costs": {
+        "search_calls": 0,
+        "reindexes": 0,
+        "model_calls": 0,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "latency_ms": 0.0011109987099189311,
+        "api_cost_usd": 0.0
+      },
+      "after": {
+        "query": "케이크",
+        "ndcg": 1.0,
+        "recall": 1.0,
+        "precision5": 1.0,
+        "n_results": 2,
+        "hits_top": [
+          "P006",
+          "P007"
+        ]
+      }
+    },
+    {
+      "query_id": "q-b16975b5e92136fb",
+      "query": "도넛",
+      "split": "dev",
+      "family": null,
+      "observation": {
+        "query_id": "q-b16975b5e92136fb",
+        "query": "도넛",
+        "split": "dev",
+        "result_count": 2,
+        "top1_score": 5.1702,
+        "top2_score": 4.1714,
+        "score_margin": 0.19318401609222083,
+        "lexical_coverage": 1.0,
+        "retriever_agreement": null,
+        "evidence_conflict": null,
+        "grounding_score": null,
+        "latency_ms": 1.6454059987154324,
+        "family": null,
+        "baseline_ndcg": 1.0,
+        "baseline_recall": 1.0
+      },
+      "detection": {
+        "failure_probability": 0.1,
+        "predicted_failure": false,
+        "failure_reason_codes": [],
+        "calibration_version": "rule-v1-uncalibrated"
+      },
+      "decision": "no_op",
+      "intervened": false,
+      "policy_events": [],
+      "trace": [],
+      "accepted": false,
+      "submissions": 0,
+      "action_count": 0,
+      "before": {
+        "query": "도넛",
+        "ndcg": 1.0,
+        "recall": 1.0,
+        "precision5": 1.0,
+        "n_results": 2,
+        "hits_top": [
+          "P004",
+          "P005"
+        ]
+      },
+      "costs": {
+        "search_calls": 0,
+        "reindexes": 0,
+        "model_calls": 0,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "latency_ms": 0.000686002749716863,
+        "api_cost_usd": 0.0
+      },
+      "after": {
+        "query": "도넛",
+        "ndcg": 1.0,
+        "recall": 1.0,
+        "precision5": 1.0,
+        "n_results": 2,
+        "hits_top": [
+          "P004",
+          "P005"
+        ]
+      }
+    },
+    {
+      "query_id": "q-97b5185478205eae",
+      "query": "주스",
+      "split": "dev",
+      "family": null,
+      "observation": {
+        "query_id": "q-97b5185478205eae",
+        "query": "주스",
+        "split": "dev",
+        "result_count": 2,
+        "top1_score": 4.489,
+        "top2_score": 4.2722,
+        "score_margin": 0.048295834261528205,
+        "lexical_coverage": 1.0,
+        "retriever_agreement": null,
+        "evidence_conflict": null,
+        "grounding_score": null,
+        "latency_ms": 0.8277990018541459,
+        "family": null,
+        "baseline_ndcg": 1.0,
+        "baseline_recall": 1.0
+      },
+      "detection": {
+        "failure_probability": 0.6,
+        "predicted_failure": true,
+        "failure_reason_codes": [
+          "low_score_margin"
+        ],
+        "calibration_version": "rule-v1-uncalibrated"
+      },
+      "decision": "no_op",
+      "intervened": false,
+      "policy_events": [],
+      "trace": [],
+      "accepted": false,
+      "submissions": 0,
+      "action_count": 0,
+      "before": {
+        "query": "주스",
+        "ndcg": 1.0,
+        "recall": 1.0,
+        "precision5": 1.0,
+        "n_results": 2,
+        "hits_top": [
+          "P009",
+          "P010"
+        ]
+      },
+      "costs": {
+        "search_calls": 0,
+        "reindexes": 0,
+        "model_calls": 0,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "latency_ms": 0.0004129979060962796,
+        "api_cost_usd": 0.0
+      },
+      "after": {
+        "query": "주스",
+        "ndcg": 1.0,
+        "recall": 1.0,
+        "precision5": 1.0,
+        "n_results": 2,
+        "hits_top": [
+          "P009",
+          "P010"
+        ]
+      }
+    },
+    {
+      "query_id": "q-5989d0466d73a649",
+      "query": "소시지",
+      "split": "dev",
+      "family": null,
+      "observation": {
+        "query_id": "q-5989d0466d73a649",
+        "query": "소시지",
+        "split": "dev",
+        "result_count": 2,
+        "top1_score": 5.273,
+        "top2_score": 4.489,
+        "score_margin": 0.14868196472596243,
+        "lexical_coverage": 1.0,
+        "retriever_agreement": null,
+        "evidence_conflict": null,
+        "grounding_score": null,
+        "latency_ms": 0.9618110016162973,
+        "family": null,
+        "baseline_ndcg": 1.0,
+        "baseline_recall": 1.0
+      },
+      "detection": {
+        "failure_probability": 0.1,
+        "predicted_failure": false,
+        "failure_reason_codes": [],
+        "calibration_version": "rule-v1-uncalibrated"
+      },
+      "decision": "no_op",
+      "intervened": false,
+      "policy_events": [],
+      "trace": [],
+      "accepted": false,
+      "submissions": 0,
+      "action_count": 0,
+      "before": {
+        "query": "소시지",
+        "ndcg": 1.0,
+        "recall": 1.0,
+        "precision5": 1.0,
+        "n_results": 2,
+        "hits_top": [
+          "P012",
+          "P011"
+        ]
+      },
+      "costs": {
+        "search_calls": 0,
+        "reindexes": 0,
+        "model_calls": 0,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "latency_ms": 0.0004899993655271828,
+        "api_cost_usd": 0.0
+      },
+      "after": {
+        "query": "소시지",
+        "ndcg": 1.0,
+        "recall": 1.0,
+        "precision5": 1.0,
+        "n_results": 2,
+        "hits_top": [
+          "P012",
+          "P011"
+        ]
+      }
+    },
+    {
+      "query_id": "q-7d69e7ddd510b949",
+      "query": "어댑터",
+      "split": "dev",
+      "family": null,
+      "observation": {
+        "query_id": "q-7d69e7ddd510b949",
+        "query": "어댑터",
+        "split": "dev",
+        "result_count": 2,
+        "top1_score": 4.6059,
+        "top2_score": 4.3779,
+        "score_margin": 0.04950172604702659,
+        "lexical_coverage": 1.0,
+        "retriever_agreement": null,
+        "evidence_conflict": null,
+        "grounding_score": null,
+        "latency_ms": 0.6391059978341218,
+        "family": null,
+        "baseline_ndcg": 1.0,
+        "baseline_recall": 1.0
+      },
+      "detection": {
+        "failure_probability": 0.6,
+        "predicted_failure": true,
+        "failure_reason_codes": [
+          "low_score_margin"
+        ],
+        "calibration_version": "rule-v1-uncalibrated"
+      },
+      "decision": "no_op",
+      "intervened": false,
+      "policy_events": [],
+      "trace": [],
+      "accepted": false,
+      "submissions": 0,
+      "action_count": 0,
+      "before": {
+        "query": "어댑터",
+        "ndcg": 1.0,
+        "recall": 1.0,
+        "precision5": 1.0,
+        "n_results": 2,
+        "hits_top": [
+          "P036",
+          "P035"
+        ]
+      },
+      "costs": {
+        "search_calls": 0,
+        "reindexes": 0,
+        "model_calls": 0,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "latency_ms": 0.0003450004442129284,
+        "api_cost_usd": 0.0
+      },
+      "after": {
+        "query": "어댑터",
+        "ndcg": 1.0,
+        "recall": 1.0,
+        "precision5": 1.0,
+        "n_results": 2,
+        "hits_top": [
+          "P036",
+          "P035"
+        ]
+      }
+    },
+    {
+      "query_id": "q-a4f32f03899e2605",
+      "query": "물티슈",
+      "split": "dev",
+      "family": null,
+      "observation": {
+        "query_id": "q-a4f32f03899e2605",
+        "query": "물티슈",
+        "split": "dev",
+        "result_count": 2,
+        "top1_score": 4.7291,
+        "top2_score": 4.489,
+        "score_margin": 0.050770759764014295,
+        "lexical_coverage": 1.0,
+        "retriever_agreement": null,
+        "evidence_conflict": null,
+        "grounding_score": null,
+        "latency_ms": 1.1343830010446254,
+        "family": null,
+        "baseline_ndcg": 1.0,
+        "baseline_recall": 1.0
+      },
+      "detection": {
+        "failure_probability": 0.6,
+        "predicted_failure": true,
+        "failure_reason_codes": [
+          "low_score_margin"
+        ],
+        "calibration_version": "rule-v1-uncalibrated"
+      },
+      "decision": "no_op",
+      "intervened": false,
+      "policy_events": [],
+      "trace": [],
+      "accepted": false,
+      "submissions": 0,
+      "action_count": 0,
+      "before": {
+        "query": "물티슈",
+        "ndcg": 1.0,
+        "recall": 1.0,
+        "precision5": 1.0,
+        "n_results": 2,
+        "hits_top": [
+          "P021",
+          "P020"
+        ]
+      },
+      "costs": {
+        "search_calls": 0,
+        "reindexes": 0,
+        "model_calls": 0,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "latency_ms": 0.0002749984560068697,
+        "api_cost_usd": 0.0
+      },
+      "after": {
+        "query": "물티슈",
+        "ndcg": 1.0,
+        "recall": 1.0,
+        "precision5": 1.0,
+        "n_results": 2,
+        "hits_top": [
+          "P021",
+          "P020"
+        ]
+      }
+    },
+    {
+      "query_id": "q-5a28e9d0f68e877b",
+      "query": "샤인머스캣",
+      "split": "dev",
+      "family": null,
+      "observation": {
+        "query_id": "q-5a28e9d0f68e877b",
+        "query": "샤인머스캣",
+        "split": "dev",
+        "result_count": 2,
+        "top1_score": 4.9962,
+        "top2_score": 4.6059,
+        "score_margin": 0.0781193707217485,
+        "lexical_coverage": 1.0,
+        "retriever_agreement": null,
+        "evidence_conflict": null,
+        "grounding_score": null,
+        "latency_ms": 0.9706550008559134,
+        "family": null,
+        "baseline_ndcg": 1.0,
+        "baseline_recall": 1.0
+      },
+      "detection": {
+        "failure_probability": 0.6,
+        "predicted_failure": true,
+        "failure_reason_codes": [
+          "low_score_margin"
+        ],
+        "calibration_version": "rule-v1-uncalibrated"
+      },
+      "decision": "no_op",
+      "intervened": false,
+      "policy_events": [],
+      "trace": [],
+      "accepted": false,
+      "submissions": 0,
+      "action_count": 0,
+      "before": {
+        "query": "샤인머스캣",
+        "ndcg": 1.0,
+        "recall": 1.0,
+        "precision5": 1.0,
+        "n_results": 2,
+        "hits_top": [
+          "P051",
+          "P050"
+        ]
+      },
+      "costs": {
+        "search_calls": 0,
+        "reindexes": 0,
+        "model_calls": 0,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "latency_ms": 0.0002809974830597639,
+        "api_cost_usd": 0.0
+      },
+      "after": {
+        "query": "샤인머스캣",
+        "ndcg": 1.0,
+        "recall": 1.0,
+        "precision5": 1.0,
+        "n_results": 2,
+        "hits_top": [
+          "P051",
+          "P050"
+        ]
+      }
+    },
+    {
+      "query_id": "q-e6c7b7f2cd651483",
+      "query": "트레이닝복",
+      "split": "dev",
+      "family": null,
+      "observation": {
+        "query_id": "q-e6c7b7f2cd651483",
+        "query": "트레이닝복",
+        "split": "dev",
+        "result_count": 2,
+        "top1_score": 4.859,
+        "top2_score": 4.7291,
+        "score_margin": 0.026733895863346395,
+        "lexical_coverage": 1.0,
+        "retriever_agreement": null,
+        "evidence_conflict": null,
+        "grounding_score": null,
+        "latency_ms": 0.6290919991442934,
+        "family": null,
+        "baseline_ndcg": 1.0,
+        "baseline_recall": 1.0
+      },
+      "detection": {
+        "failure_probability": 0.6,
+        "predicted_failure": true,
+        "failure_reason_codes": [
+          "low_score_margin"
+        ],
+        "calibration_version": "rule-v1-uncalibrated"
+      },
+      "decision": "no_op",
+      "intervened": false,
+      "policy_events": [],
+      "trace": [],
+      "accepted": false,
+      "submissions": 0,
+      "action_count": 0,
+      "before": {
+        "query": "트레이닝복",
+        "ndcg": 1.0,
+        "recall": 1.0,
+        "precision5": 1.0,
+        "n_results": 2,
+        "hits_top": [
+          "P061",
+          "P060"
+        ]
+      },
+      "costs": {
+        "search_calls": 0,
+        "reindexes": 0,
+        "model_calls": 0,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "latency_ms": 0.00018699938664212823,
+        "api_cost_usd": 0.0
+      },
+      "after": {
+        "query": "트레이닝복",
+        "ndcg": 1.0,
+        "recall": 1.0,
+        "precision5": 1.0,
+        "n_results": 2,
+        "hits_top": [
+          "P061",
+          "P060"
+        ]
+      }
+    },
+    {
+      "query_id": "q-32587ea7a904024b",
+      "query": "휴대폰 거치대",
+      "split": "dev",
+      "family": null,
+      "observation": {
+        "query_id": "q-32587ea7a904024b",
+        "query": "휴대폰 거치대",
+        "split": "dev",
+        "result_count": 3,
+        "top1_score": 9.4581,
+        "top2_score": 4.9962,
+        "score_margin": 0.4717543692707838,
+        "lexical_coverage": 1.0,
+        "retriever_agreement": null,
+        "evidence_conflict": null,
+        "grounding_score": null,
+        "latency_ms": 1.5875869976298418,
+        "family": null,
+        "baseline_ndcg": 0.9639,
+        "baseline_recall": 1.0
+      },
+      "detection": {
+        "failure_probability": 0.1,
+        "predicted_failure": false,
+        "failure_reason_codes": [],
+        "calibration_version": "rule-v1-uncalibrated"
+      },
+      "decision": "no_op",
+      "intervened": false,
+      "policy_events": [],
+      "trace": [],
+      "accepted": false,
+      "submissions": 0,
+      "action_count": 0,
+      "before": {
+        "query": "휴대폰 거치대",
+        "ndcg": 0.9639,
+        "recall": 1.0,
+        "precision5": 0.6667,
+        "n_results": 3,
+        "hits_top": [
+          "P040",
+          "P034",
+          "P038"
+        ]
+      },
+      "costs": {
+        "search_calls": 0,
+        "reindexes": 0,
+        "model_calls": 0,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "latency_ms": 0.0002850028977263719,
+        "api_cost_usd": 0.0
+      },
+      "after": {
+        "query": "휴대폰 거치대",
+        "ndcg": 0.9639,
+        "recall": 1.0,
+        "precision5": 0.6667,
+        "n_results": 3,
+        "hits_top": [
+          "P040",
+          "P034",
+          "P038"
+        ]
+      }
+    },
+    {
+      "query_id": "q-0eb7498787af2887",
+      "query": "무선 이어폰",
+      "split": "dev",
+      "family": null,
+      "observation": {
+        "query_id": "q-0eb7498787af2887",
+        "query": "무선 이어폰",
+        "split": "dev",
+        "result_count": 3,
+        "top1_score": 8.982,
+        "top2_score": 4.3744,
+        "score_margin": 0.512981518592741,
+        "lexical_coverage": 1.0,
+        "retriever_agreement": null,
+        "evidence_conflict": null,
+        "grounding_score": null,
+        "latency_ms": 1.551008001115406,
+        "family": null,
+        "baseline_ndcg": 1.0,
+        "baseline_recall": 1.0
+      },
+      "detection": {
+        "failure_probability": 0.1,
+        "predicted_failure": false,
+        "failure_reason_codes": [],
+        "calibration_version": "rule-v1-uncalibrated"
+      },
+      "decision": "no_op",
+      "intervened": false,
+      "policy_events": [],
+      "trace": [],
+      "accepted": false,
+      "submissions": 0,
+      "action_count": 0,
+      "before": {
+        "query": "무선 이어폰",
+        "ndcg": 1.0,
+        "recall": 1.0,
+        "precision5": 0.3333,
+        "n_results": 3,
+        "hits_top": [
+          "P030",
+          "P044",
+          "P015"
+        ]
+      },
+      "costs": {
+        "search_calls": 0,
+        "reindexes": 0,
+        "model_calls": 0,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "latency_ms": 0.00024099790607579052,
+        "api_cost_usd": 0.0
+      },
+      "after": {
+        "query": "무선 이어폰",
+        "ndcg": 1.0,
+        "recall": 1.0,
+        "precision5": 0.3333,
+        "n_results": 3,
+        "hits_top": [
+          "P030",
+          "P044",
+          "P015"
+        ]
+      }
+    },
+    {
+      "query_id": "q-5f53517410799af3",
+      "query": "노트북 파우치",
+      "split": "dev",
+      "family": null,
+      "observation": {
+        "query_id": "q-5f53517410799af3",
+        "query": "노트북 파우치",
+        "split": "dev",
+        "result_count": 2,
+        "top1_score": 10.4536,
+        "top2_score": 3.1044,
+        "score_margin": 0.7030305349353333,
+        "lexical_coverage": 1.0,
+        "retriever_agreement": null,
+        "evidence_conflict": null,
+        "grounding_score": null,
+        "latency_ms": 0.736400001187576,
+        "family": null,
+        "baseline_ndcg": 1.0,
+        "baseline_recall": 1.0
+      },
+      "detection": {
+        "failure_probability": 0.1,
+        "predicted_failure": false,
+        "failure_reason_codes": [],
+        "calibration_version": "rule-v1-uncalibrated"
+      },
+      "decision": "no_op",
+      "intervened": false,
+      "policy_events": [],
+      "trace": [],
+      "accepted": false,
+      "submissions": 0,
+      "action_count": 0,
+      "before": {
+        "query": "노트북 파우치",
+        "ndcg": 1.0,
+        "recall": 1.0,
+        "precision5": 0.5,
+        "n_results": 2,
+        "hits_top": [
+          "P031",
+          "P035"
+        ]
+      },
+      "costs": {
+        "search_calls": 0,
+        "reindexes": 0,
+        "model_calls": 0,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "latency_ms": 0.00035099947126582265,
+        "api_cost_usd": 0.0
+      },
+      "after": {
+        "query": "노트북 파우치",
+        "ndcg": 1.0,
+        "recall": 1.0,
+        "precision5": 0.5,
+        "n_results": 2,
+        "hits_top": [
+          "P031",
+          "P035"
+        ]
+      }
+    },
+    {
+      "query_id": "q-f5c9fa6d4a6f5faf",
+      "query": "팬미팅 굿즈",
+      "split": "dev",
+      "family": null,
+      "observation": {
+        "query_id": "q-f5c9fa6d4a6f5faf",
+        "query": "팬미팅 굿즈",
+        "split": "dev",
+        "result_count": 4,
+        "top1_score": 13.0506,
+        "top2_score": 3.9053,
+        "score_margin": 0.7007570533155564,
+        "lexical_coverage": 1.0,
+        "retriever_agreement": null,
+        "evidence_conflict": null,
+        "grounding_score": null,
+        "latency_ms": 1.5094689988472965,
+        "family": null,
+        "baseline_ndcg": 1.0,
+        "baseline_recall": 1.0
+      },
+      "detection": {
+        "failure_probability": 0.1,
+        "predicted_failure": false,
+        "failure_reason_codes": [],
+        "calibration_version": "rule-v1-uncalibrated"
+      },
+      "decision": "no_op",
+      "intervened": false,
+      "policy_events": [],
+      "trace": [],
+      "accepted": false,
+      "submissions": 0,
+      "action_count": 0,
+      "before": {
+        "query": "팬미팅 굿즈",
+        "ndcg": 1.0,
+        "recall": 1.0,
+        "precision5": 0.5,
+        "n_results": 4,
+        "hits_top": [
+          "P070",
+          "P071",
+          "P072",
+          "P073"
+        ]
+      },
+      "costs": {
+        "search_calls": 0,
+        "reindexes": 0,
+        "model_calls": 0,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "latency_ms": 0.0003120003384537995,
+        "api_cost_usd": 0.0
+      },
+      "after": {
+        "query": "팬미팅 굿즈",
+        "ndcg": 1.0,
+        "recall": 1.0,
+        "precision5": 0.5,
+        "n_results": 4,
+        "hits_top": [
+          "P070",
+          "P071",
+          "P072",
+          "P073"
+        ]
+      }
+    },
+    {
+      "query_id": "q-5dbc68bc8092ac47",
+      "query": "선풍기",
+      "split": "dev",
+      "family": null,
+      "observation": {
+        "query_id": "q-5dbc68bc8092ac47",
+        "query": "선풍기",
+        "split": "dev",
+        "result_count": 1,
+        "top1_score": 5.5946,
+        "top2_score": null,
+        "score_margin": null,
+        "lexical_coverage": 1.0,
+        "retriever_agreement": null,
+        "evidence_conflict": null,
+        "grounding_score": null,
+        "latency_ms": 0.6789529979869258,
+        "family": null,
+        "baseline_ndcg": 1.0,
+        "baseline_recall": 1.0
+      },
+      "detection": {
+        "failure_probability": 0.1,
+        "predicted_failure": false,
+        "failure_reason_codes": [],
+        "calibration_version": "rule-v1-uncalibrated"
+      },
+      "decision": "no_op",
+      "intervened": false,
+      "policy_events": [],
+      "trace": [],
+      "accepted": false,
+      "submissions": 0,
+      "action_count": 0,
+      "before": {
+        "query": "선풍기",
+        "ndcg": 1.0,
+        "recall": 1.0,
+        "precision5": 1.0,
+        "n_results": 1,
+        "hits_top": [
+          "P072"
+        ]
+      },
+      "costs": {
+        "search_calls": 0,
+        "reindexes": 0,
+        "model_calls": 0,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "latency_ms": 0.00028399881557561457,
+        "api_cost_usd": 0.0
+      },
+      "after": {
+        "query": "선풍기",
+        "ndcg": 1.0,
+        "recall": 1.0,
+        "precision5": 1.0,
+        "n_results": 1,
+        "hits_top": [
+          "P072"
+        ]
+      }
+    },
+    {
+      "query_id": "q-4117bc485676ce82",
+      "query": "캠핑 의자",
+      "split": "dev",
+      "family": null,
+      "observation": {
+        "query_id": "q-4117bc485676ce82",
+        "query": "캠핑 의자",
+        "split": "dev",
+        "result_count": 4,
+        "top1_score": 8.8757,
+        "top2_score": 3.1093,
+        "score_margin": 0.6496839685883931,
+        "lexical_coverage": 1.0,
+        "retriever_agreement": null,
+        "evidence_conflict": null,
+        "grounding_score": null,
+        "latency_ms": 1.0474320006323978,
+        "family": null,
+        "baseline_ndcg": 0.9448,
+        "baseline_recall": 1.0
+      },
+      "detection": {
+        "failure_probability": 0.1,
+        "predicted_failure": false,
+        "failure_reason_codes": [],
+        "calibration_version": "rule-v1-uncalibrated"
+      },
+      "decision": "no_op",
+      "intervened": false,
+      "policy_events": [],
+      "trace": [],
+      "accepted": false,
+      "submissions": 0,
+      "action_count": 0,
+      "before": {
+        "query": "캠핑 의자",
+        "ndcg": 0.9448,
+        "recall": 1.0,
+        "precision5": 0.5,
+        "n_results": 4,
+        "hits_top": [
+          "P090",
+          "P092",
+          "P032",
+          "P091"
+        ]
+      },
+      "costs": {
+        "search_calls": 0,
+        "reindexes": 0,
+        "model_calls": 0,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "latency_ms": 0.00021500090952031314,
+        "api_cost_usd": 0.0
+      },
+      "after": {
+        "query": "캠핑 의자",
+        "ndcg": 0.9448,
+        "recall": 1.0,
+        "precision5": 0.5,
+        "n_results": 4,
+        "hits_top": [
+          "P090",
+          "P092",
+          "P032",
+          "P091"
+        ]
+      }
+    },
+    {
+      "query_id": "q-bf388b5681fa55e0",
+      "query": "운동화",
+      "split": "dev",
+      "family": null,
+      "observation": {
+        "query_id": "q-bf388b5681fa55e0",
+        "query": "운동화",
+        "split": "dev",
+        "result_count": 1,
+        "top1_score": 5.7526,
+        "top2_score": null,
+        "score_margin": null,
+        "lexical_coverage": 1.0,
+        "retriever_agreement": null,
+        "evidence_conflict": null,
+        "grounding_score": null,
+        "latency_ms": 0.4902970031253062,
+        "family": null,
+        "baseline_ndcg": 1.0,
+        "baseline_recall": 1.0
+      },
+      "detection": {
+        "failure_probability": 0.1,
+        "predicted_failure": false,
+        "failure_reason_codes": [],
+        "calibration_version": "rule-v1-uncalibrated"
+      },
+      "decision": "no_op",
+      "intervened": false,
+      "policy_events": [],
+      "trace": [],
+      "accepted": false,
+      "submissions": 0,
+      "action_count": 0,
+      "before": {
+        "query": "운동화",
+        "ndcg": 1.0,
+        "recall": 1.0,
+        "precision5": 1.0,
+        "n_results": 1,
+        "hits_top": [
+          "P062"
+        ]
+      },
+      "costs": {
+        "search_calls": 0,
+        "reindexes": 0,
+        "model_calls": 0,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "latency_ms": 0.0002800006768666208,
+        "api_cost_usd": 0.0
+      },
+      "after": {
+        "query": "운동화",
+        "ndcg": 1.0,
+        "recall": 1.0,
+        "precision5": 1.0,
+        "n_results": 1,
+        "hits_top": [
+          "P062"
+        ]
+      }
+    },
+    {
+      "query_id": "q-1cc9af90e7863890",
+      "query": "카펫",
+      "split": "dev",
+      "family": null,
+      "observation": {
+        "query_id": "q-1cc9af90e7863890",
+        "query": "카펫",
+        "split": "dev",
+        "result_count": 2,
+        "top1_score": 4.489,
+        "top2_score": 4.489,
+        "score_margin": 0.0,
+        "lexical_coverage": 1.0,
+        "retriever_agreement": null,
+        "evidence_conflict": null,
+        "grounding_score": null,
+        "latency_ms": 1.102603000617819,
+        "family": null,
+        "baseline_ndcg": 1.0,
+        "baseline_recall": 1.0
+      },
+      "detection": {
+        "failure_probability": 0.6,
+        "predicted_failure": true,
+        "failure_reason_codes": [
+          "low_score_margin"
+        ],
+        "calibration_version": "rule-v1-uncalibrated"
+      },
+      "decision": "no_op",
+      "intervened": false,
+      "policy_events": [],
+      "trace": [],
+      "accepted": false,
+      "submissions": 0,
+      "action_count": 0,
+      "before": {
+        "query": "카펫",
+        "ndcg": 1.0,
+        "recall": 1.0,
+        "precision5": 1.0,
+        "n_results": 2,
+        "hits_top": [
+          "P016",
+          "P017"
+        ]
+      },
+      "costs": {
+        "search_calls": 0,
+        "reindexes": 0,
+        "model_calls": 0,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "latency_ms": 0.00027500209398567677,
+        "api_cost_usd": 0.0
+      },
+      "after": {
+        "query": "카펫",
+        "ndcg": 1.0,
+        "recall": 1.0,
+        "precision5": 1.0,
+        "n_results": 2,
+        "hits_top": [
+          "P016",
+          "P017"
+        ]
+      }
+    },
+    {
+      "query_id": "q-12d0faaff2200094",
+      "query": "리모컨",
+      "split": "dev",
+      "family": null,
+      "observation": {
+        "query_id": "q-12d0faaff2200094",
+        "query": "리모컨",
+        "split": "dev",
+        "result_count": 2,
+        "top1_score": 4.9962,
+        "top2_score": 4.6059,
+        "score_margin": 0.0781193707217485,
+        "lexical_coverage": 1.0,
+        "retriever_agreement": null,
+        "evidence_conflict": null,
+        "grounding_score": null,
+        "latency_ms": 0.7536789998994209,
+        "family": null,
+        "baseline_ndcg": 1.0,
+        "baseline_recall": 1.0
+      },
+      "detection": {
+        "failure_probability": 0.6,
+        "predicted_failure": true,
+        "failure_reason_codes": [
+          "low_score_margin"
+        ],
+        "calibration_version": "rule-v1-uncalibrated"
+      },
+      "decision": "no_op",
+      "intervened": false,
+      "policy_events": [],
+      "trace": [],
+      "accepted": false,
+      "submissions": 0,
+      "action_count": 0,
+      "before": {
+        "query": "리모컨",
+        "ndcg": 1.0,
+        "recall": 1.0,
+        "precision5": 1.0,
+        "n_results": 2,
+        "hits_top": [
+          "P041",
+          "P042"
+        ]
+      },
+      "costs": {
+        "search_calls": 0,
+        "reindexes": 0,
+        "model_calls": 0,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "latency_ms": 0.00024700057110749185,
+        "api_cost_usd": 0.0
+      },
+      "after": {
+        "query": "리모컨",
+        "ndcg": 1.0,
+        "recall": 1.0,
+        "precision5": 1.0,
+        "n_results": 2,
+        "hits_top": [
+          "P041",
+          "P042"
+        ]
+      }
+    },
+    {
+      "query_id": "q-dbebe5ad2225d772",
+      "query": "가습기",
+      "split": "dev",
+      "family": null,
+      "observation": {
+        "query_id": "q-dbebe5ad2225d772",
+        "query": "가습기",
+        "split": "dev",
+        "result_count": 1,
+        "top1_score": 5.3032,
+        "top2_score": null,
+        "score_margin": null,
+        "lexical_coverage": 1.0,
+        "retriever_agreement": null,
+        "evidence_conflict": null,
+        "grounding_score": null,
+        "latency_ms": 0.37742999847978354,
+        "family": null,
+        "baseline_ndcg": 1.0,
+        "baseline_recall": 1.0
+      },
+      "detection": {
+        "failure_probability": 0.1,
+        "predicted_failure": false,
+        "failure_reason_codes": [],
+        "calibration_version": "rule-v1-uncalibrated"
+      },
+      "decision": "no_op",
+      "intervened": false,
+      "policy_events": [],
+      "trace": [],
+      "accepted": false,
+      "submissions": 0,
+      "action_count": 0,
+      "before": {
+        "query": "가습기",
+        "ndcg": 1.0,
+        "recall": 1.0,
+        "precision5": 1.0,
+        "n_results": 1,
+        "hits_top": [
+          "P097"
+        ]
+      },
+      "costs": {
+        "search_calls": 0,
+        "reindexes": 0,
+        "model_calls": 0,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "latency_ms": 0.00026899942895397544,
+        "api_cost_usd": 0.0
+      },
+      "after": {
+        "query": "가습기",
+        "ndcg": 1.0,
+        "recall": 1.0,
+        "precision5": 1.0,
+        "n_results": 1,
+        "hits_top": [
+          "P097"
+        ]
+      }
+    },
+    {
+      "query_id": "q-48037bb1b5612105",
+      "query": "김치",
+      "split": "dev",
+      "family": null,
+      "observation": {
+        "query_id": "q-48037bb1b5612105",
+        "query": "김치",
+        "split": "dev",
+        "result_count": 1,
+        "top1_score": 4.3353,
+        "top2_score": null,
+        "score_margin": null,
+        "lexical_coverage": 1.0,
+        "retriever_agreement": null,
+        "evidence_conflict": null,
+        "grounding_score": null,
+        "latency_ms": 0.46371500138775446,
+        "family": null,
+        "baseline_ndcg": 1.0,
+        "baseline_recall": 1.0
+      },
+      "detection": {
+        "failure_probability": 0.1,
+        "predicted_failure": false,
+        "failure_reason_codes": [],
+        "calibration_version": "rule-v1-uncalibrated"
+      },
+      "decision": "no_op",
+      "intervened": false,
+      "policy_events": [],
+      "trace": [],
+      "accepted": false,
+      "submissions": 0,
+      "action_count": 0,
+      "before": {
+        "query": "김치",
+        "ndcg": 1.0,
+        "recall": 1.0,
+        "precision5": 1.0,
+        "n_results": 1,
+        "hits_top": [
+          "P052"
+        ]
+      },
+      "costs": {
+        "search_calls": 0,
+        "reindexes": 0,
+        "model_calls": 0,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "latency_ms": 0.0002270026016049087,
+        "api_cost_usd": 0.0
+      },
+      "after": {
+        "query": "김치",
+        "ndcg": 1.0,
+        "recall": 1.0,
+        "precision5": 1.0,
+        "n_results": 1,
+        "hits_top": [
+          "P052"
+        ]
+      }
+    },
+    {
+      "query_id": "q-c973645c424d51d7",
+      "query": "후라이팬",
+      "split": "dev",
+      "family": "spelling_variant",
+      "observation": {
+        "query_id": "q-c973645c424d51d7",
+        "query": "후라이팬",
+        "split": "dev",
+        "result_count": 0,
+        "top1_score": null,
+        "top2_score": null,
+        "score_margin": null,
+        "lexical_coverage": 0.0,
+        "retriever_agreement": null,
+        "evidence_conflict": null,
+        "grounding_score": null,
+        "latency_ms": 0.2441100004944019,
+        "family": "spelling_variant",
+        "baseline_ndcg": 0.0,
+        "baseline_recall": 0.0
+      },
+      "detection": {
+        "failure_probability": 0.95,
+        "predicted_failure": true,
+        "failure_reason_codes": [
+          "zero_results",
+          "low_lexical_coverage"
+        ],
+        "calibration_version": "rule-v1-uncalibrated"
+      },
+      "decision": "no_op",
+      "intervened": false,
+      "policy_events": [],
+      "trace": [],
+      "accepted": false,
+      "submissions": 0,
+      "action_count": 0,
+      "before": {
+        "query": "후라이팬",
+        "ndcg": 0.0,
+        "recall": 0.0,
+        "precision5": 0.0,
+        "n_results": 0,
+        "hits_top": []
+      },
+      "costs": {
+        "search_calls": 0,
+        "reindexes": 0,
+        "model_calls": 0,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "latency_ms": 0.00031399758881889284,
+        "api_cost_usd": 0.0
+      },
+      "after": {
+        "query": "후라이팬",
+        "ndcg": 0.0,
+        "recall": 0.0,
+        "precision5": 0.0,
+        "n_results": 0,
+        "hits_top": []
+      }
+    },
+    {
+      "query_id": "q-f87dc1fe3de9b4c4",
+      "query": "케잌 주문",
+      "split": "dev",
+      "family": "spelling_variant",
+      "observation": {
+        "query_id": "q-f87dc1fe3de9b4c4",
+        "query": "케잌 주문",
+        "split": "dev",
+        "result_count": 0,
+        "top1_score": null,
+        "top2_score": null,
+        "score_margin": null,
+        "lexical_coverage": 0.0,
+        "retriever_agreement": null,
+        "evidence_conflict": null,
+        "grounding_score": null,
+        "latency_ms": 0.13305299944477156,
+        "family": "spelling_variant",
+        "baseline_ndcg": 0.0,
+        "baseline_recall": 0.0
+      },
+      "detection": {
+        "failure_probability": 0.95,
+        "predicted_failure": true,
+        "failure_reason_codes": [
+          "zero_results",
+          "low_lexical_coverage"
+        ],
+        "calibration_version": "rule-v1-uncalibrated"
+      },
+      "decision": "no_op",
+      "intervened": false,
+      "policy_events": [],
+      "trace": [],
+      "accepted": false,
+      "submissions": 0,
+      "action_count": 0,
+      "before": {
+        "query": "케잌 주문",
+        "ndcg": 0.0,
+        "recall": 0.0,
+        "precision5": 0.0,
+        "n_results": 0,
+        "hits_top": []
+      },
+      "costs": {
+        "search_calls": 0,
+        "reindexes": 0,
+        "model_calls": 0,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "latency_ms": 0.00026999987312592566,
+        "api_cost_usd": 0.0
+      },
+      "after": {
+        "query": "케잌 주문",
+        "ndcg": 0.0,
+        "recall": 0.0,
+        "precision5": 0.0,
+        "n_results": 0,
+        "hits_top": []
+      }
+    },
+    {
+      "query_id": "q-2750d65ecf4b4253",
+      "query": "도너츠",
+      "split": "dev",
+      "family": "spelling_variant",
+      "observation": {
+        "query_id": "q-2750d65ecf4b4253",
+        "query": "도너츠",
+        "split": "dev",
+        "result_count": 0,
+        "top1_score": null,
+        "top2_score": null,
+        "score_margin": null,
+        "lexical_coverage": 0.0,
+        "retriever_agreement": null,
+        "evidence_conflict": null,
+        "grounding_score": null,
+        "latency_ms": 0.031671002943767235,
+        "family": "spelling_variant",
+        "baseline_ndcg": 0.0,
+        "baseline_recall": 0.0
+      },
+      "detection": {
+        "failure_probability": 0.95,
+        "predicted_failure": true,
+        "failure_reason_codes": [
+          "zero_results",
+          "low_lexical_coverage"
+        ],
+        "calibration_version": "rule-v1-uncalibrated"
+      },
+      "decision": "no_op",
+      "intervened": false,
+      "policy_events": [],
+      "trace": [],
+      "accepted": false,
+      "submissions": 0,
+      "action_count": 0,
+      "before": {
+        "query": "도너츠",
+        "ndcg": 0.0,
+        "recall": 0.0,
+        "precision5": 0.0,
+        "n_results": 0,
+        "hits_top": []
+      },
+      "costs": {
+        "search_calls": 0,
+        "reindexes": 0,
+        "model_calls": 0,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "latency_ms": 0.00026399720809422433,
+        "api_cost_usd": 0.0
+      },
+      "after": {
+        "query": "도너츠",
+        "ndcg": 0.0,
+        "recall": 0.0,
+        "precision5": 0.0,
+        "n_results": 0,
+        "hits_top": []
+      }
+    },
+    {
+      "query_id": "q-f9250410ae8e2a24",
+      "query": "쥬스",
+      "split": "dev",
+      "family": "spelling_variant",
+      "observation": {
+        "query_id": "q-f9250410ae8e2a24",
+        "query": "쥬스",
+        "split": "dev",
+        "result_count": 0,
+        "top1_score": null,
+        "top2_score": null,
+        "score_margin": null,
+        "lexical_coverage": 0.0,
+        "retriever_agreement": null,
+        "evidence_conflict": null,
+        "grounding_score": null,
+        "latency_ms": 0.03223000021534972,
+        "family": "spelling_variant",
+        "baseline_ndcg": 0.0,
+        "baseline_recall": 0.0
+      },
+      "detection": {
+        "failure_probability": 0.95,
+        "predicted_failure": true,
+        "failure_reason_codes": [
+          "zero_results",
+          "low_lexical_coverage"
+        ],
+        "calibration_version": "rule-v1-uncalibrated"
+      },
+      "decision": "no_op",
+      "intervened": false,
+      "policy_events": [],
+      "trace": [],
+      "accepted": false,
+      "submissions": 0,
+      "action_count": 0,
+      "before": {
+        "query": "쥬스",
+        "ndcg": 0.0,
+        "recall": 0.0,
+        "precision5": 0.0,
+        "n_results": 0,
+        "hits_top": []
+      },
+      "costs": {
+        "search_calls": 0,
+        "reindexes": 0,
+        "model_calls": 0,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "latency_ms": 0.0002449996827635914,
+        "api_cost_usd": 0.0
+      },
+      "after": {
+        "query": "쥬스",
+        "ndcg": 0.0,
+        "recall": 0.0,
+        "precision5": 0.0,
+        "n_results": 0,
+        "hits_top": []
+      }
+    },
+    {
+      "query_id": "q-a5afb88c7f0fd72c",
+      "query": "소세지",
+      "split": "dev",
+      "family": "spelling_variant",
+      "observation": {
+        "query_id": "q-a5afb88c7f0fd72c",
+        "query": "소세지",
+        "split": "dev",
+        "result_count": 0,
+        "top1_score": null,
+        "top2_score": null,
+        "score_margin": null,
+        "lexical_coverage": 0.0,
+        "retriever_agreement": null,
+        "evidence_conflict": null,
+        "grounding_score": null,
+        "latency_ms": 0.3305350001028273,
+        "family": "spelling_variant",
+        "baseline_ndcg": 0.0,
+        "baseline_recall": 0.0
+      },
+      "detection": {
+        "failure_probability": 0.95,
+        "predicted_failure": true,
+        "failure_reason_codes": [
+          "zero_results",
+          "low_lexical_coverage"
+        ],
+        "calibration_version": "rule-v1-uncalibrated"
+      },
+      "decision": "no_op",
+      "intervened": false,
+      "policy_events": [],
+      "trace": [],
+      "accepted": false,
+      "submissions": 0,
+      "action_count": 0,
+      "before": {
+        "query": "소세지",
+        "ndcg": 0.0,
+        "recall": 0.0,
+        "precision5": 0.0,
+        "n_results": 0,
+        "hits_top": []
+      },
+      "costs": {
+        "search_calls": 0,
+        "reindexes": 0,
+        "model_calls": 0,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "latency_ms": 0.0004930006980430335,
+        "api_cost_usd": 0.0
+      },
+      "after": {
+        "query": "소세지",
+        "ndcg": 0.0,
+        "recall": 0.0,
+        "precision5": 0.0,
+        "n_results": 0,
+        "hits_top": []
+      }
+    },
+    {
+      "query_id": "q-71f94e1004027d8c",
+      "query": "카페트",
+      "split": "dev",
+      "family": "spelling_variant",
+      "observation": {
+        "query_id": "q-71f94e1004027d8c",
+        "query": "카페트",
+        "split": "dev",
+        "result_count": 0,
+        "top1_score": null,
+        "top2_score": null,
+        "score_margin": null,
+        "lexical_coverage": 0.0,
+        "retriever_agreement": null,
+        "evidence_conflict": null,
+        "grounding_score": null,
+        "latency_ms": 0.04795800123247318,
+        "family": "spelling_variant",
+        "baseline_ndcg": 0.0,
+        "baseline_recall": 0.0
+      },
+      "detection": {
+        "failure_probability": 0.95,
+        "predicted_failure": true,
+        "failure_reason_codes": [
+          "zero_results",
+          "low_lexical_coverage"
+        ],
+        "calibration_version": "rule-v1-uncalibrated"
+      },
+      "decision": "no_op",
+      "intervened": false,
+      "policy_events": [],
+      "trace": [],
+      "accepted": false,
+      "submissions": 0,
+      "action_count": 0,
+      "before": {
+        "query": "카페트",
+        "ndcg": 0.0,
+        "recall": 0.0,
+        "precision5": 0.0,
+        "n_results": 0,
+        "hits_top": []
+      },
+      "costs": {
+        "search_calls": 0,
+        "reindexes": 0,
+        "model_calls": 0,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "latency_ms": 0.0008470015018247068,
+        "api_cost_usd": 0.0
+      },
+      "after": {
+        "query": "카페트",
+        "ndcg": 0.0,
+        "recall": 0.0,
+        "precision5": 0.0,
+        "n_results": 0,
+        "hits_top": []
+      }
+    },
+    {
+      "query_id": "q-f1bdc8428b8323d7",
+      "query": "초콜렛",
+      "split": "dev",
+      "family": "spelling_variant",
+      "observation": {
+        "query_id": "q-f1bdc8428b8323d7",
+        "query": "초콜렛",
+        "split": "dev",
+        "result_count": 0,
+        "top1_score": null,
+        "top2_score": null,
+        "score_margin": null,
+        "lexical_coverage": 0.0,
+        "retriever_agreement": null,
+        "evidence_conflict": null,
+        "grounding_score": null,
+        "latency_ms": 0.06159600161481649,
+        "family": "spelling_variant",
+        "baseline_ndcg": 0.0,
+        "baseline_recall": 0.0
+      },
+      "detection": {
+        "failure_probability": 0.95,
+        "predicted_failure": true,
+        "failure_reason_codes": [
+          "zero_results",
+          "low_lexical_coverage"
+        ],
+        "calibration_version": "rule-v1-uncalibrated"
+      },
+      "decision": "no_op",
+      "intervened": false,
+      "policy_events": [],
+      "trace": [],
+      "accepted": false,
+      "submissions": 0,
+      "action_count": 0,
+      "before": {
+        "query": "초콜렛",
+        "ndcg": 0.0,
+        "recall": 0.0,
+        "precision5": 0.0,
+        "n_results": 0,
+        "hits_top": []
+      },
+      "costs": {
+        "search_calls": 0,
+        "reindexes": 0,
+        "model_calls": 0,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "latency_ms": 0.0003989989636465907,
+        "api_cost_usd": 0.0
+      },
+      "after": {
+        "query": "초콜렛",
+        "ndcg": 0.0,
+        "recall": 0.0,
+        "precision5": 0.0,
+        "n_results": 0,
+        "hits_top": []
+      }
+    },
+    {
+      "query_id": "q-fa86f375066072e0",
+      "query": "리모콘",
+      "split": "dev",
+      "family": "spelling_variant",
+      "observation": {
+        "query_id": "q-fa86f375066072e0",
+        "query": "리모콘",
+        "split": "dev",
+        "result_count": 0,
+        "top1_score": null,
+        "top2_score": null,
+        "score_margin": null,
+        "lexical_coverage": 0.0,
+        "retriever_agreement": null,
+        "evidence_conflict": null,
+        "grounding_score": null,
+        "latency_ms": 0.05845199848408811,
+        "family": "spelling_variant",
+        "baseline_ndcg": 0.0,
+        "baseline_recall": 0.0
+      },
+      "detection": {
+        "failure_probability": 0.95,
+        "predicted_failure": true,
+        "failure_reason_codes": [
+          "zero_results",
+          "low_lexical_coverage"
+        ],
+        "calibration_version": "rule-v1-uncalibrated"
+      },
+      "decision": "no_op",
+      "intervened": false,
+      "policy_events": [],
+      "trace": [],
+      "accepted": false,
+      "submissions": 0,
+      "action_count": 0,
+      "before": {
+        "query": "리모콘",
+        "ndcg": 0.0,
+        "recall": 0.0,
+        "precision5": 0.0,
+        "n_results": 0,
+        "hits_top": []
+      },
+      "costs": {
+        "search_calls": 0,
+        "reindexes": 0,
+        "model_calls": 0,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "latency_ms": 0.0003659988578874618,
+        "api_cost_usd": 0.0
+      },
+      "after": {
+        "query": "리모콘",
+        "ndcg": 0.0,
+        "recall": 0.0,
+        "precision5": 0.0,
+        "n_results": 0,
+        "hits_top": []
+      }
+    },
+    {
+      "query_id": "q-cde5d622966a4aba",
+      "query": "블루투스 스피커",
+      "split": "dev",
+      "family": "cross_script",
+      "observation": {
+        "query_id": "q-cde5d622966a4aba",
+        "query": "블루투스 스피커",
+        "split": "dev",
+        "result_count": 3,
+        "top1_score": 4.498,
+        "top2_score": 4.2575,
+        "score_margin": 0.05346820809248553,
+        "lexical_coverage": 0.5,
+        "retriever_agreement": null,
+        "evidence_conflict": null,
+        "grounding_score": null,
+        "latency_ms": 0.9669479986769147,
+        "family": "cross_script",
+        "baseline_ndcg": 0.5,
+        "baseline_recall": 1.0
+      },
+      "detection": {
+        "failure_probability": 0.6,
+        "predicted_failure": true,
+        "failure_reason_codes": [
+          "low_score_margin"
+        ],
+        "calibration_version": "rule-v1-uncalibrated"
+      },
+      "decision": "no_op",
+      "intervened": false,
+      "policy_events": [],
+      "trace": [],
+      "accepted": false,
+      "submissions": 0,
+      "action_count": 0,
+      "before": {
+        "query": "블루투스 스피커",
+        "ndcg": 0.5,
+        "recall": 1.0,
+        "precision5": 0.3333,
+        "n_results": 3,
+        "hits_top": [
+          "P034",
+          "P033",
+          "P032"
+        ]
+      },
+      "costs": {
+        "search_calls": 0,
+        "reindexes": 0,
+        "model_calls": 0,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "latency_ms": 0.0010799994925037026,
+        "api_cost_usd": 0.0
+      },
+      "after": {
+        "query": "블루투스 스피커",
+        "ndcg": 0.5,
+        "recall": 1.0,
+        "precision5": 0.3333,
+        "n_results": 3,
+        "hits_top": [
+          "P034",
+          "P033",
+          "P032"
+        ]
+      }
+    },
+    {
+      "query_id": "q-b1da87818f8d293d",
+      "query": "텀블러",
+      "split": "dev",
+      "family": "cross_script",
+      "observation": {
+        "query_id": "q-b1da87818f8d293d",
+        "query": "텀블러",
+        "split": "dev",
+        "result_count": 1,
+        "top1_score": 5.1686,
+        "top2_score": null,
+        "score_margin": null,
+        "lexical_coverage": 1.0,
+        "retriever_agreement": null,
+        "evidence_conflict": null,
+        "grounding_score": null,
+        "latency_ms": 0.4945229993609246,
+        "family": "cross_script",
+        "baseline_ndcg": 0.6131,
+        "baseline_recall": 0.5
+      },
+      "detection": {
+        "failure_probability": 0.1,
+        "predicted_failure": false,
+        "failure_reason_codes": [],
+        "calibration_version": "rule-v1-uncalibrated"
+      },
+      "decision": "no_op",
+      "intervened": false,
+      "policy_events": [],
+      "trace": [],
+      "accepted": false,
+      "submissions": 0,
+      "action_count": 0,
+      "before": {
+        "query": "텀블러",
+        "ndcg": 0.6131,
+        "recall": 0.5,
+        "precision5": 1.0,
+        "n_results": 1,
+        "hits_top": [
+          "P080"
+        ]
+      },
+      "costs": {
+        "search_calls": 0,
+        "reindexes": 0,
+        "model_calls": 0,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "latency_ms": 0.00044700209400616586,
+        "api_cost_usd": 0.0
+      },
+      "after": {
+        "query": "텀블러",
+        "ndcg": 0.6131,
+        "recall": 0.5,
+        "precision5": 1.0,
+        "n_results": 1,
+        "hits_top": [
+          "P080"
+        ]
+      }
+    },
+    {
+      "query_id": "q-a16cbcda6b6ad4d2",
+      "query": "핸드폰",
+      "split": "dev",
+      "family": "synonym_gap",
+      "observation": {
+        "query_id": "q-a16cbcda6b6ad4d2",
+        "query": "핸드폰",
+        "split": "dev",
+        "result_count": 0,
+        "top1_score": null,
+        "top2_score": null,
+        "score_margin": null,
+        "lexical_coverage": 0.0,
+        "retriever_agreement": null,
+        "evidence_conflict": null,
+        "grounding_score": null,
+        "latency_ms": 0.12839000191888772,
+        "family": "synonym_gap",
+        "baseline_ndcg": 0.0,
+        "baseline_recall": 0.0
+      },
+      "detection": {
+        "failure_probability": 0.95,
+        "predicted_failure": true,
+        "failure_reason_codes": [
+          "zero_results",
+          "low_lexical_coverage"
+        ],
+        "calibration_version": "rule-v1-uncalibrated"
+      },
+      "decision": "no_op",
+      "intervened": false,
+      "policy_events": [],
+      "trace": [],
+      "accepted": false,
+      "submissions": 0,
+      "action_count": 0,
+      "before": {
+        "query": "핸드폰",
+        "ndcg": 0.0,
+        "recall": 0.0,
+        "precision5": 0.0,
+        "n_results": 0,
+        "hits_top": []
+      },
+      "costs": {
+        "search_calls": 0,
+        "reindexes": 0,
+        "model_calls": 0,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "latency_ms": 0.0005379988579079509,
+        "api_cost_usd": 0.0
+      },
+      "after": {
+        "query": "핸드폰",
+        "ndcg": 0.0,
+        "recall": 0.0,
+        "precision5": 0.0,
+        "n_results": 0,
+        "hits_top": []
+      }
+    },
+    {
+      "query_id": "q-92d9adfb92879d87",
+      "query": "츄리닝",
+      "split": "dev",
+      "family": "synonym_gap",
+      "observation": {
+        "query_id": "q-92d9adfb92879d87",
+        "query": "츄리닝",
+        "split": "dev",
+        "result_count": 0,
+        "top1_score": null,
+        "top2_score": null,
+        "score_margin": null,
+        "lexical_coverage": 0.0,
+        "retriever_agreement": null,
+        "evidence_conflict": null,
+        "grounding_score": null,
+        "latency_ms": 0.0762290001148358,
+        "family": "synonym_gap",
+        "baseline_ndcg": 0.0,
+        "baseline_recall": 0.0
+      },
+      "detection": {
+        "failure_probability": 0.95,
+        "predicted_failure": true,
+        "failure_reason_codes": [
+          "zero_results",
+          "low_lexical_coverage"
+        ],
+        "calibration_version": "rule-v1-uncalibrated"
+      },
+      "decision": "no_op",
+      "intervened": false,
+      "policy_events": [],
+      "trace": [],
+      "accepted": false,
+      "submissions": 0,
+      "action_count": 0,
+      "before": {
+        "query": "츄리닝",
+        "ndcg": 0.0,
+        "recall": 0.0,
+        "precision5": 0.0,
+        "n_results": 0,
+        "hits_top": []
+      },
+      "costs": {
+        "search_calls": 0,
+        "reindexes": 0,
+        "model_calls": 0,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "latency_ms": 0.00037000063457526267,
+        "api_cost_usd": 0.0
+      },
+      "after": {
+        "query": "츄리닝",
+        "ndcg": 0.0,
+        "recall": 0.0,
+        "precision5": 0.0,
+        "n_results": 0,
+        "hits_top": []
+      }
+    },
+    {
+      "query_id": "q-92d153f5398c2c94",
+      "query": "티슈",
+      "split": "dev",
+      "family": "compound_locked",
+      "observation": {
+        "query_id": "q-92d153f5398c2c94",
+        "query": "티슈",
+        "split": "dev",
+        "result_count": 0,
+        "top1_score": null,
+        "top2_score": null,
+        "score_margin": null,
+        "lexical_coverage": 0.0,
+        "retriever_agreement": null,
+        "evidence_conflict": null,
+        "grounding_score": null,
+        "latency_ms": 0.03688300057547167,
+        "family": "compound_locked",
+        "baseline_ndcg": 0.0,
+        "baseline_recall": 0.0
+      },
+      "detection": {
+        "failure_probability": 0.95,
+        "predicted_failure": true,
+        "failure_reason_codes": [
+          "zero_results",
+          "low_lexical_coverage"
+        ],
+        "calibration_version": "rule-v1-uncalibrated"
+      },
+      "decision": "no_op",
+      "intervened": false,
+      "policy_events": [],
+      "trace": [],
+      "accepted": false,
+      "submissions": 0,
+      "action_count": 0,
+      "before": {
+        "query": "티슈",
+        "ndcg": 0.0,
+        "recall": 0.0,
+        "precision5": 0.0,
+        "n_results": 0,
+        "hits_top": []
+      },
+      "costs": {
+        "search_calls": 0,
+        "reindexes": 0,
+        "model_calls": 0,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "latency_ms": 0.0003589993866626173,
+        "api_cost_usd": 0.0
+      },
+      "after": {
+        "query": "티슈",
+        "ndcg": 0.0,
+        "recall": 0.0,
+        "precision5": 0.0,
+        "n_results": 0,
+        "hits_top": []
+      }
+    },
+    {
+      "query_id": "q-5de3ac070f459ac2",
+      "query": "머스캣",
+      "split": "dev",
+      "family": "compound_locked",
+      "observation": {
+        "query_id": "q-5de3ac070f459ac2",
+        "query": "머스캣",
+        "split": "dev",
+        "result_count": 0,
+        "top1_score": null,
+        "top2_score": null,
+        "score_margin": null,
+        "lexical_coverage": 0.0,
+        "retriever_agreement": null,
+        "evidence_conflict": null,
+        "grounding_score": null,
+        "latency_ms": 0.05470600081025623,
+        "family": "compound_locked",
+        "baseline_ndcg": 0.0,
+        "baseline_recall": 0.0
+      },
+      "detection": {
+        "failure_probability": 0.95,
+        "predicted_failure": true,
+        "failure_reason_codes": [
+          "zero_results",
+          "low_lexical_coverage"
+        ],
+        "calibration_version": "rule-v1-uncalibrated"
+      },
+      "decision": "no_op",
+      "intervened": false,
+      "policy_events": [],
+      "trace": [],
+      "accepted": false,
+      "submissions": 0,
+      "action_count": 0,
+      "before": {
+        "query": "머스캣",
+        "ndcg": 0.0,
+        "recall": 0.0,
+        "precision5": 0.0,
+        "n_results": 0,
+        "hits_top": []
+      },
+      "costs": {
+        "search_calls": 0,
+        "reindexes": 0,
+        "model_calls": 0,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "latency_ms": 0.00028700014809146523,
+        "api_cost_usd": 0.0
+      },
+      "after": {
+        "query": "머스캣",
+        "ndcg": 0.0,
+        "recall": 0.0,
+        "precision5": 0.0,
+        "n_results": 0,
+        "hits_top": []
+      }
+    },
+    {
+      "query_id": "q-ff65fc04a1229a8c",
+      "query": "아답터",
+      "split": "dev",
+      "family": "garbage_split",
+      "observation": {
+        "query_id": "q-ff65fc04a1229a8c",
+        "query": "아답터",
+        "split": "dev",
+        "result_count": 0,
+        "top1_score": null,
+        "top2_score": null,
+        "score_margin": null,
+        "lexical_coverage": 0.0,
+        "retriever_agreement": null,
+        "evidence_conflict": null,
+        "grounding_score": null,
+        "latency_ms": 0.05830299778608605,
+        "family": "garbage_split",
+        "baseline_ndcg": 0.0,
+        "baseline_recall": 0.0
+      },
+      "detection": {
+        "failure_probability": 0.95,
+        "predicted_failure": true,
+        "failure_reason_codes": [
+          "zero_results",
+          "low_lexical_coverage"
+        ],
+        "calibration_version": "rule-v1-uncalibrated"
+      },
+      "decision": "no_op",
+      "intervened": false,
+      "policy_events": [],
+      "trace": [],
+      "accepted": false,
+      "submissions": 0,
+      "action_count": 0,
+      "before": {
+        "query": "아답터",
+        "ndcg": 0.0,
+        "recall": 0.0,
+        "precision5": 0.0,
+        "n_results": 0,
+        "hits_top": []
+      },
+      "costs": {
+        "search_calls": 0,
+        "reindexes": 0,
+        "model_calls": 0,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "latency_ms": 0.00030099909054115415,
+        "api_cost_usd": 0.0
+      },
+      "after": {
+        "query": "아답터",
+        "ndcg": 0.0,
+        "recall": 0.0,
+        "precision5": 0.0,
+        "n_results": 0,
+        "hits_top": []
+      }
+    },
+    {
+      "query_id": "q-f2ce19b5e2f37a0d",
+      "query": "백팩",
+      "split": "dev",
+      "family": "garbage_split",
+      "observation": {
+        "query_id": "q-f2ce19b5e2f37a0d",
+        "query": "백팩",
+        "split": "dev",
+        "result_count": 4,
+        "top1_score": 5.5946,
+        "top2_score": 3.1238,
+        "score_margin": 0.44164015300468307,
+        "lexical_coverage": 1.0,
+        "retriever_agreement": null,
+        "evidence_conflict": null,
+        "grounding_score": null,
+        "latency_ms": 1.5627720022166613,
+        "family": "garbage_split",
+        "baseline_ndcg": 0.0,
+        "baseline_recall": 0.0
+      },
+      "detection": {
+        "failure_probability": 0.1,
+        "predicted_failure": false,
+        "failure_reason_codes": [],
+        "calibration_version": "rule-v1-uncalibrated"
+      },
+      "decision": "no_op",
+      "intervened": false,
+      "policy_events": [],
+      "trace": [],
+      "accepted": false,
+      "submissions": 0,
+      "action_count": 0,
+      "before": {
+        "query": "백팩",
+        "ndcg": 0.0,
+        "recall": 0.0,
+        "precision5": 0.0,
+        "n_results": 4,
+        "hits_top": [
+          "P064",
+          "P021",
+          "P020",
+          "P010"
+        ]
+      },
+      "costs": {
+        "search_calls": 0,
+        "reindexes": 0,
+        "model_calls": 0,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "latency_ms": 0.00029600050766021013,
+        "api_cost_usd": 0.0
+      },
+      "after": {
+        "query": "백팩",
+        "ndcg": 0.0,
+        "recall": 0.0,
+        "precision5": 0.0,
+        "n_results": 4,
+        "hits_top": [
+          "P064",
+          "P021",
+          "P020",
+          "P010"
+        ]
+      }
+    }
+  ],
+  "accepted_ledger": [],
+  "summary": {
+    "query_count": 36,
+    "healthy_count": 20,
+    "failing_count": 16,
+    "recovered_count": 0,
+    "failure_recovery_rate": 0.0,
+    "failing_ndcg_before": 0.06956875,
+    "failing_ndcg_after": 0.06956875,
+    "failing_recall_after": 0.09375,
+    "failing_precision5_after": 0.08333125,
+    "healthy_regressions": [],
+    "healthy_regression_count": 0,
+    "healthy_regression_rate": 0.0,
+    "healthy_interventions": 0,
+    "unnecessary_action_rate": 0.0,
+    "submissions": 0,
+    "mean_submissions": 0.0,
+    "first_pass_acceptance": null,
+    "submitted_query_count": 0,
+    "rejected_query_count": 0,
+    "recovery_after_rejection": null,
+    "detection": {
+      "auroc": 0.8953125,
+      "auprc": 0.9060990338164252,
+      "precision": 0.6086956521739131,
+      "recall": 0.875,
+      "f1": 0.717948717948718,
+      "brier": 0.1434027777777778,
+      "ece": 0.1763888888888889,
+      "healthy_fpr": 0.45,
+      "observed_count": 36,
+      "missing_count": 0,
+      "positives": 16,
+      "negatives": 20,
+      "tp": 14,
+      "fp": 9
+    }
+  },
+  "costs": {
+    "search_calls": 108,
+    "reindexes": 1,
+    "model_calls": 0,
+    "input_tokens": 0,
+    "output_tokens": 0,
+    "latency_ms": 2149.7707910020836,
+    "api_cost_usd": 0.0
+  },
+  "cost_scope": "total includes observations, before/after evaluation and full gate",
+  "errors": []
+}

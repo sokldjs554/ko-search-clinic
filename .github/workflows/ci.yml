@@ -12,7 +12,7 @@ name: CI
 
 on:
   push:
-    branches: [main]
+    branches: [main, feat/research-verification-v5-20261030]
   pull_request:
   workflow_dispatch:
 
@@ -29,6 +29,8 @@ jobs:
         python-version: ["3.11"]
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - uses: actions/setup-python@v5
         with:
@@ -36,16 +38,25 @@ jobs:
           cache: pip
 
       - name: 설치
-        run: pip install -e ".[api,mcp,dev]"
+        run: pip install -c requirements/ci-py311-312.txt -e ".[api,mcp,dev]"
 
       - name: 테스트
-        run: pytest -q
+        run: pytest -q -rs --junitxml=test-results.xml
+
+      - name: 테스트 결과 보존
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-results-${{ matrix.os }}
+          path: test-results.xml
 
   quality-gate:
     name: 검색 품질 게이트
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - uses: actions/setup-python@v5
         with:
@@ -53,7 +64,7 @@ jobs:
           cache: pip
 
       - name: 설치
-        run: pip install -e .
+        run: pip install -c requirements/ci-py311-312.txt -e .
 
       # 회귀가 있으면 종료 코드 1 → 빌드 실패. 어떤 질의가 어떤 지표에서
       # 얼마나 나빠졌는지는 요약 패널의 표로 남는다 (로그를 스크롤해야

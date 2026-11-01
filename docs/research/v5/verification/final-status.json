@@ -1,0 +1,2384 @@
+{
+  "local": {
+    "pytest": "706 passed, 2 skipped in 118.49s",
+    "passed": 706,
+    "skipped": 2,
+    "failed": 0,
+    "command": "python -m pytest -q -rs --junitxml=work/v5-generated-live-41333892182/final-tests.xml",
+    "private_log": "work/v5-generated-live-41333892182/final-tests.log",
+    "junit_sha256": "52654ade4e0cd67bb89f9a981f1ba6af4d32340bbd3c289ba42ddafa42181209",
+    "baseline": "passed; nDCG10 0.5839426550733804",
+    "diff_check": "passed",
+    "exporter_pyflakes": "passed",
+    "loopback_access_enabled": true
+  },
+  "browser": {
+    "research_queries": 36,
+    "live_queries": 36,
+    "summary_arms": 3,
+    "live_summary_arms": 9,
+    "viewports": [
+      1440,
+      320,
+      390
+    ],
+    "rag_replay_loaded": true,
+    "page_errors": []
+  },
+  "remote_ci": {
+    "source_commit": "c711749cadd76d2ef07ea0f935cb741fd3fa3067",
+    "run_id": 41335949839,
+    "url": "https://github.com/sokldjs554/ko-search-clinic/actions/runs/41335949839",
+    "status": "completed",
+    "conclusion": "success",
+    "ubuntu": {
+      "job_id": 124935690348,
+      "passed": 706,
+      "skipped": 2,
+      "seconds": 90.35
+    },
+    "windows": {
+      "job_id": 124935690124,
+      "passed": 706,
+      "skipped": 2,
+      "seconds": 148.2
+    },
+    "baseline": "success",
+    "note": "Verified final implementation/export/demo commit. This follow-up changes verification documentation only; latest documentation-commit checks are linked separately.",
+    "latest_branch_checks_url": "https://github.com/sokldjs554/ko-search-clinic/pull/3/checks"
+  },
+  "paid_api_calls": 150,
+  "review": {
+    "type": "independent AI code and result review, not human relevance or semantic evaluation",
+    "critical_findings": 0,
+    "important_unresolved_findings": 0,
+    "minor_deferred": [
+      "Defensive numeric-key whitelist for future zero-hit export input: current exported aggregate verified private-data-free",
+      "all-oversize-generation and all-withheld-judges combination tests"
+    ],
+    "verified": [
+      "raw usage and scores",
+      "CI intervals and candidate rejection counts",
+      "public/private output separation",
+      "historical/new evidence separation"
+    ]
+  },
+  "browser_public": {
+    "research_queries": 0,
+    "live_queries": 0,
+    "summary_arms": 3,
+    "live_summary_arms": 9,
+    "viewports": [
+      1440,
+      320,
+      390
+    ],
+    "rag_replay_loaded": true,
+    "page_errors": []
+  },
+  "publication": {
+    "pull_request": "https://github.com/sokldjs554/ko-search-clinic/pull/3",
+    "source_commit": "c711749cadd76d2ef07ea0f935cb741fd3fa3067",
+    "test_import_fix": "fd073c5efd48ea94ab290ae1439b8e99155f133c",
+    "detailed_outputs": "excluded pending explicit publication approval",
+    "initial_source_commit": "1055e2dcdd3563518edb210cfd38cbe2de43f62e",
+    "draft": false,
+    "merged": false,
+    "mergeable_at_code_check": true,
+    "status": "ready for code review; actual development comparison complete; independent final superiority unproven; main merge requires separate approval"
+  },
+  "previous_verified_ci": {
+    "source_commit": "fd073c5efd48ea94ab290ae1439b8e99155f133c",
+    "run_id": 41043768505,
+    "url": "https://github.com/sokldjs554/ko-search-clinic/actions/runs/41043768505",
+    "status": "completed",
+    "conclusion": "success",
+    "jobs": [
+      {
+        "id": 124022668156,
+        "name": "검색 품질 게이트",
+        "status": "completed",
+        "conclusion": "success",
+        "url": "https://github.com/sokldjs554/ko-search-clinic/actions/runs/41043768505/job/124022668156",
+        "started_at": "2026-10-30T10:51:09Z",
+        "completed_at": "2026-10-30T10:51:26Z"
+      },
+      {
+        "id": 124022668308,
+        "name": "테스트 (ubuntu-latest)",
+        "status": "completed",
+        "conclusion": "success",
+        "url": "https://github.com/sokldjs554/ko-search-clinic/actions/runs/41043768505/job/124022668308",
+        "started_at": "2026-10-30T10:51:10Z",
+        "completed_at": "2026-10-30T10:52:59Z"
+      },
+      {
+        "id": 124022668531,
+        "name": "테스트 (windows-latest)",
+        "status": "completed",
+        "conclusion": "success",
+        "url": "https://github.com/sokldjs554/ko-search-clinic/actions/runs/41043768505/job/124022668531",
+        "started_at": "2026-10-30T10:51:09Z",
+        "completed_at": "2026-10-30T10:54:07Z"
+      }
+    ],
+    "first_failure_run": "https://github.com/sokldjs554/ko-search-clinic/actions/runs/41043173402",
+    "current_checks": "https://github.com/sokldjs554/ko-search-clinic/pull/3/checks"
+  },
+  "followup_20261031": {
+    "local_pytest": "656 passed, 2 skipped in 88.38s",
+    "focused_regressions": "98 passed",
+    "browser": {
+      "detailed_queries": 36,
+      "public_queries": 0,
+      "summary_arms": 3,
+      "viewports": [
+        1440,
+        320,
+        390
+      ],
+      "page_errors": []
+    },
+    "baseline": "passed; nDCG10 0.5839426550733804",
+    "transport_mock": {
+      "completed_calls": 90,
+      "provider_calls": 0,
+      "raw_evidence_rederived": true,
+      "encrypted_roundtrip_files": 368,
+      "byte_exact": true
+    },
+    "paid_generation_calls": 0,
+    "actual_charge_usd": 0,
+    "model_access_receipt": "model-access-20261031.json",
+    "model_pricing_receipt": "model-pricing-20261031.json",
+    "development_aggregates": "development-baselines-20261031.json",
+    "independent_data": {
+      "source": "KLUE MRC dev v1.1",
+      "queries": 200,
+      "documents": 300,
+      "human_review_complete": false,
+      "exposure_audit_complete": false,
+      "final_evaluation_ready": false
+    },
+    "review": {
+      "type": "independent AI code review, not human relevance/semantic review",
+      "important_fixed": [
+        "raw request/response/outcome linkage required for final provider evidence",
+        "stopped runs retain missing verdicts in development only",
+        "comparison detail outputs confined to ignored work directory",
+        "Windows private key ACL policy; deny private writes if unavailable"
+      ],
+      "portability_fix": "explicit UTF-8 fixtures; file-descriptor os.open excluded from text-only encoding check",
+      "windows_environment_fix": "Remove inherited PSModulePath case-insensitively for the fixed powershell.exe child; keep fail-closed ACL verification",
+      "zip_normalization_fix": "Validate ZipInfo.orig_filename before normalized filename; preserve raw fixture names; test backslash/NUL normalization on both platforms"
+    },
+    "remote_ci": {
+      "source_commit": "e4d4e5fcdc9e911e8bb0ee44c57665dc84d4ad4e",
+      "run_id": 41182223630,
+      "url": "https://github.com/sokldjs554/ko-search-clinic/actions/runs/41182223630",
+      "status": "completed",
+      "conclusion": "success",
+      "ubuntu": "656 passed, 2 skipped in 83.22s",
+      "windows": "656 passed, 2 skipped in 120.42s",
+      "baseline": "success",
+      "latest_branch_checks_url": "https://github.com/sokldjs554/ko-search-clinic/pull/3/checks",
+      "note": "Verified implementation commit; this record is updated in a subsequent documentation-only commit whose CI is linked from PR checks."
+    },
+    "research_complete": false,
+    "superiority_claim": false,
+    "semantic_review": {
+      "candidate_count": 15,
+      "reviewer_sheets": 2,
+      "completed_human_reviews": 0
+    },
+    "free_remote_preparation": {
+      "run_id": 41181102864,
+      "status": "success",
+      "fixed_plan_hash": "e916e357cd7426a6bb50180559b542b33b28f20dda0189dcfb37ae7ed9d6f99c",
+      "generation_step": "skipped_no_paid_approval",
+      "provider_calls_executed": 0
+    },
+    "windows_empty_file_diagnostic": {
+      "fixed_run_id": 41181873936,
+      "status": "success",
+      "python_parent": "success",
+      "powershell7_parent": "success"
+    },
+    "snapshot": "Historical pre-approval preparation, superseded for current paid execution by live_experiment"
+  },
+  "previous_verified_local": {
+    "pytest": "561 passed, 2 skipped",
+    "command": "python -m pytest -q -rs",
+    "python": "Python 3.12.14",
+    "log": "pytest-local.log",
+    "baseline": "0.5839; existing baseline unchanged",
+    "console_command": "pytest -q -rs",
+    "console_log": "pytest-console-local.log",
+    "console_result": "561 passed, 2 skipped in 71.17s"
+  },
+  "previous_verified_final_commit": {
+    "source_commit": "bda6b7cc48293a825b2f955bdae73b5a288f5a94",
+    "run_id": 41044314890,
+    "url": "https://github.com/sokldjs554/ko-search-clinic/actions/runs/41044314890",
+    "status": "completed",
+    "conclusion": "success",
+    "ubuntu": "561 passed, 2 skipped",
+    "windows": "561 passed, 2 skipped",
+    "baseline": "success",
+    "rechecked_at": "2026-10-31",
+    "note": "Previous turn final commit; follow-up changes require new CI."
+  },
+  "failed_followup_ci": {
+    "status": "historical failures fixed and verified in subsequent CI; logs preserved",
+    "first_run_id": 41181102823,
+    "first_source_commit": "9b77e42e1f625bd82730386b462f8685a041d0ee",
+    "ubuntu": "652 passed, 2 skipped",
+    "windows": "12 failed, 640 passed, 2 skipped; PowerShell module path mismatch",
+    "baseline": "success",
+    "diagnostic_run": "https://github.com/sokldjs554/ko-search-clinic/actions/runs/41181718593",
+    "diagnosis": "PowerShell 7 PSModulePath inherited by Windows PowerShell 5.1 prevented Set-Acl module import; empty-file parent-shell differential reproduced",
+    "second_run_id": 41181873954,
+    "second_source_commit": "2fe790f1ebec0954300325fdf040649d35598463",
+    "second_ubuntu": "654 passed, 2 skipped",
+    "second_windows": "1 failed, 653 passed, 2 skipped; ZIP wire-name normalization"
+  },
+  "previous_preapproval_local": {
+    "pytest": "656 passed, 2 skipped in 88.38s",
+    "command": "pytest -q -rs --junitxml=work/v5-followup/local-tests-zip-final.xml",
+    "python": "Python 3.12.14",
+    "baseline": "passed; nDCG10 0.5839426550733804",
+    "private_log": "work/v5-followup/full-pytest-zip-final.log"
+  },
+  "previous_preapproval_ci": {
+    "source_commit": "e4d4e5fcdc9e911e8bb0ee44c57665dc84d4ad4e",
+    "run_id": 41182223630,
+    "url": "https://github.com/sokldjs554/ko-search-clinic/actions/runs/41182223630",
+    "status": "completed",
+    "conclusion": "success",
+    "ubuntu": "656 passed, 2 skipped in 83.22s",
+    "windows": "656 passed, 2 skipped in 120.42s",
+    "baseline": "success",
+    "latest_branch_checks_url": "https://github.com/sokldjs554/ko-search-clinic/pull/3/checks",
+    "note": "Verified implementation commit; this record is updated in a subsequent documentation-only commit whose CI is linked from PR checks."
+  },
+  "actual_charge_usd": null,
+  "usage_cost_estimate_usd": 0.1229208,
+  "research_complete": false,
+  "superiority_claim": false,
+  "live_experiment": {
+    "date": "2026-10-31",
+    "run_id": 41198330827,
+    "run_url": "https://github.com/sokldjs554/ko-search-clinic/actions/runs/41198330827",
+    "approved_code_commit": "16b708819ce0cfbe0f2ea8b921b4127bdc07a02c",
+    "approval_commit": "0e7dae7ec66bcac5a93aa9b2961547490f145b9f",
+    "artifact_id": 13041965735,
+    "provider_calls": 90,
+    "structured_responses": 90,
+    "api_errors": 0,
+    "unknown_usage": 0,
+    "costs": {
+      "provider_calls": 90,
+      "input_tokens": 83748,
+      "output_tokens": 15315,
+      "usage_cost_estimate_usd": 0.0580032,
+      "actual_invoice_usd": null,
+      "reserved_ceiling_usd": 0.72,
+      "wall_latency_ms": 146249.73869899998,
+      "per_condition": {
+        "pair": {
+          "calls": 30,
+          "statuses": {
+            "valid": 30
+          },
+          "input_tokens": 24046,
+          "output_tokens": 4005,
+          "cost_estimate_usd": 0.0160264,
+          "latency_mean_ms": 1425.6623536333334,
+          "latency_p95_ms": 2212.854581599996,
+          "assessment_relations": {
+            "unrelated": 3,
+            "narrower": 3,
+            "equivalent": 23,
+            "broader": 1,
+            "related": 2
+          },
+          "citation_checks": {}
+        },
+        "context": {
+          "calls": 30,
+          "statuses": {
+            "valid": 30
+          },
+          "input_tokens": 27106,
+          "output_tokens": 5461,
+          "cost_estimate_usd": 0.01958,
+          "latency_mean_ms": 1693.6114224000028,
+          "latency_p95_ms": 2689.3158888500034,
+          "assessment_relations": {
+            "unrelated": 4,
+            "equivalent": 23,
+            "narrower": 3,
+            "broader": 2
+          },
+          "citation_checks": {
+            "already_valid": 5,
+            "ambiguous_quote": 24,
+            "unique_offset_recovered": 6,
+            "quote_not_found": 2
+          }
+        },
+        "rubric": {
+          "calls": 30,
+          "statuses": {
+            "valid": 30
+          },
+          "input_tokens": 32596,
+          "output_tokens": 5849,
+          "cost_estimate_usd": 0.0223968,
+          "latency_mean_ms": 1741.4484107333342,
+          "latency_p95_ms": 2365.7724471000142,
+          "assessment_relations": {
+            "unrelated": 4,
+            "narrower": 3,
+            "equivalent": 22,
+            "broader": 2,
+            "related": 1
+          },
+          "citation_checks": {
+            "ambiguous_quote": 31,
+            "unique_offset_recovered": 12,
+            "already_valid": 1
+          }
+        }
+      },
+      "basis": "standard_uncached_rates_from_usage_not_provider_invoice"
+    },
+    "artifact_zip_sha256": "c499364c7b0ec74aca36ff3755bff2c2fc4a2e384815e42cb22479bd2cf0e62b",
+    "envelope_sha256": "5dce4c05489b60f3103bbcb3f3484339b80da6796ab70c4bd2afc9b941662d49",
+    "archive_sha256": "75d50d999bdb302d9df9f39df67c589a21dc9b107d7656eec937a4923d72d04b",
+    "public_summary_sha256": "2fbde3b79d8161592d6f0f591065838c46f2aa91d2cdb589a3c659d8fbb00381",
+    "plan_hash": "e916e357cd7426a6bb50180559b542b33b28f20dda0189dcfb37ae7ed9d6f99c",
+    "input_hash": "adfa983457261069d57b76d827f7cd81569273b6dfa5330154761314d6580cf1",
+    "protocol_hash": "13d32338ace8822fbd7dc7d219bd3118810a2b85d3752d5bf0dca8f667d1b2d5",
+    "assembly_hash": "915dfb142024cbde6da8980a12803489052bf06c166341bae7799fe86d05616b",
+    "replay": {
+      "additional_provider_calls": 0,
+      "semantic_and_first_valid_applications_exact": true,
+      "all_application_rankings_and_decisions_exact": true,
+      "all_candidate_rankings_exact": true,
+      "threshold_decisions_exact": true,
+      "rules_bundle_hash_exact": false,
+      "note": "Fresh RulesPlus context metadata changes its bundle hash; semantic applications, rankings and decisions reproduce. Timings are not identical."
+    },
+    "superiority_claim": false,
+    "independent_evaluation_complete": false,
+    "completed_human_reviews": 0,
+    "posthoc_extra_provider_calls": 0,
+    "local_pytest": "671 passed, 2 skipped in 95.85s",
+    "verified_ci_run": 41201460882
+  },
+  "previous_before_review_intake": {
+    "local": {
+      "pytest": "671 passed, 2 skipped in 95.85s",
+      "command": "pytest -q -rs --junitxml=work/v5-live-41198330827/local-tests-reviewed.xml",
+      "python": "Python 3.12.14",
+      "baseline": "passed; nDCG10 0.5839426550733804",
+      "private_log": "work/v5-live-41198330827/full-pytest-reviewed.log",
+      "pyflakes": "passed for new analysis modules, CLIs and tests",
+      "javascript_syntax": "passed",
+      "diff_check": "passed"
+    },
+    "remote_ci": {
+      "source_commit": "dfd2f8caf243c4c9d3a1b00b15cfb56b64ddfbf8",
+      "run_id": 41201460882,
+      "url": "https://github.com/sokldjs554/ko-search-clinic/actions/runs/41201460882",
+      "status": "completed",
+      "conclusion": "success",
+      "ubuntu": "671 passed, 2 skipped in 74.06s",
+      "windows": "671 passed, 2 skipped in 129.18s",
+      "baseline": "success",
+      "jobs": [
+        {
+          "id": 124537929207,
+          "name": "검색 품질 게이트",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/sokldjs554/ko-search-clinic/actions/runs/41201460882/job/124537929207"
+        },
+        {
+          "id": 124537929459,
+          "name": "테스트 (ubuntu-latest)",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/sokldjs554/ko-search-clinic/actions/runs/41201460882/job/124537929459"
+        },
+        {
+          "id": 124537929480,
+          "name": "테스트 (windows-latest)",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/sokldjs554/ko-search-clinic/actions/runs/41201460882/job/124537929480"
+        }
+      ],
+      "pr_run_id": 41201464425,
+      "pr_checks": "success",
+      "latest_branch_checks_url": "https://github.com/sokldjs554/ko-search-clinic/pull/3/checks",
+      "note": "Verified implementation commit. This record is added in a subsequent documentation-only commit; its final head CI is recorded in the PR body and linked checks to avoid a self-referential commit hash."
+    },
+    "publication": {
+      "pull_request": "https://github.com/sokldjs554/ko-search-clinic/pull/3",
+      "source_commit": "dfd2f8caf243c4c9d3a1b00b15cfb56b64ddfbf8",
+      "test_import_fix": "fd073c5efd48ea94ab290ae1439b8e99155f133c",
+      "detailed_outputs": "excluded pending explicit publication approval",
+      "initial_source_commit": "1055e2dcdd3563518edb210cfd38cbe2de43f62e",
+      "draft": true,
+      "merged": false,
+      "mergeable_at_code_check": true,
+      "status": "implemented and CI verified; final documentation commit checked in PR"
+    }
+  },
+  "review_intake": {
+    "date": "2026-10-31",
+    "stage": "human_review_handoff_ready_reviewers_unassigned",
+    "additional_provider_calls": 0,
+    "total_provider_calls": 90,
+    "completed_human_reviews": 0,
+    "final_evaluation_ready": false,
+    "superiority_claim": false,
+    "kinds": {
+      "semantic": {
+        "kind": "semantic",
+        "study_hash": "ca97e686b285a2ebb7a49bb6f5e222404883f1c306e42660d06467883fd7a61a",
+        "items_per_reviewer": 15,
+        "reviewers_assigned": false,
+        "human_reviews_completed": 0,
+        "provider_calls_executed": 0,
+        "final_evaluation_ready": false,
+        "blank_submission_validation": {
+          "a": {
+            "ambiguous": 0,
+            "expected": 15,
+            "graded": 0,
+            "missing": 15,
+            "kind": "semantic",
+            "provider_calls_executed": 0,
+            "final_evaluation_ready": false
+          },
+          "b": {
+            "ambiguous": 0,
+            "expected": 15,
+            "graded": 0,
+            "missing": 15,
+            "kind": "semantic",
+            "provider_calls_executed": 0,
+            "final_evaluation_ready": false
+          }
+        },
+        "blank_reconciliation": {
+          "kind": "semantic",
+          "pending_count": 15,
+          "resolved_count": 0,
+          "labels_complete": false,
+          "agreement": {
+            "kappa": null,
+            "kappa_status": "no_paired_definite_judgments",
+            "observed_agreement": null,
+            "paired_graded": 0,
+            "total_items": 15,
+            "weighting": "unweighted"
+          },
+          "provider_calls_executed": 0,
+          "final_evaluation_ready": false
+        },
+        "archives": {
+          "a": {
+            "sha256": "d1b62f47a7286b483ca8ba259beb5d4c975c8162ce74b1ca6ebf7d0cc6be4689",
+            "bytes": 4808
+          },
+          "b": {
+            "sha256": "f0df818ea8961ba355f5b8af147475419b3e2c3b671485e4c7210d935dca393a",
+            "bytes": 4806
+          }
+        }
+      },
+      "relevance": {
+        "kind": "relevance",
+        "study_hash": "fe73e23fe2cc16a6b7060619e5c6cdacfadbe3aa4a8abd7ff42f873932d9a0fe",
+        "items_per_reviewer": 40800,
+        "reviewers_assigned": false,
+        "human_reviews_completed": 0,
+        "provider_calls_executed": 0,
+        "final_evaluation_ready": false,
+        "blank_submission_validation": {
+          "a": {
+            "ambiguous": 0,
+            "expected": 40800,
+            "graded": 0,
+            "missing": 40800,
+            "kind": "relevance",
+            "provider_calls_executed": 0,
+            "final_evaluation_ready": false
+          },
+          "b": {
+            "ambiguous": 0,
+            "expected": 40800,
+            "graded": 0,
+            "missing": 40800,
+            "kind": "relevance",
+            "provider_calls_executed": 0,
+            "final_evaluation_ready": false
+          }
+        },
+        "blank_reconciliation": {
+          "kind": "relevance",
+          "pending_count": 40800,
+          "resolved_count": 0,
+          "labels_complete": false,
+          "agreement": {
+            "kappa": null,
+            "kappa_status": "no_paired_definite_judgments",
+            "observed_agreement": null,
+            "paired_graded": 0,
+            "total_items": 40800,
+            "weighting": "quadratic"
+          },
+          "provider_calls_executed": 0,
+          "final_evaluation_ready": false
+        },
+        "archives": {
+          "a": {
+            "sha256": "4dff9647837a1201ccd1ebf7dc9476e7b2e4f16089d0a72aae6c72ac550329c1",
+            "bytes": 3352956
+          },
+          "b": {
+            "sha256": "f9f64afe4d9aa889d7d1f1d766385ab65aefd198e9c3f992c40c94c19a5eaf88",
+            "bytes": 3348582
+          }
+        }
+      }
+    },
+    "code_review": {
+      "type": "fresh AI code review, not human relevance or semantic adjudication",
+      "important_findings_fixed": [
+        "cross-check packet input/population/study commitments",
+        "strict receipt provenance and rederivation from archived originals",
+        "preserve exact adjudication bytes/hash/intake UTC"
+      ],
+      "duplicate_blank_adjudication_rows": "also rejected; treated as a coverage validation defect"
+    },
+    "remaining_external_inputs": [
+      "two real independent reviewers and separate adjudicator",
+      "actual review CSV submissions and independence attestation",
+      "authorized v3/v4 decryption path and complete historical exposure inventory"
+    ],
+    "implementation_sha256": {
+      "src/searchclinic/research_v5/review.py": "f152e5044f0f84cb247fac39258036cd2b35cc26657ee308f8a901a65bea370b",
+      "scripts/review_v5.py": "8495c3c023472066d7a70cf092ad558805b8d2cdd5838b426ed5e6e832f78d91"
+    },
+    "local_validation": {
+      "pytest": "694 passed, 2 skipped in 103.40s",
+      "command": "pytest -q -rs --junitxml=work/v5-review-next/local-tests-final.xml",
+      "python": "Python 3.12.14",
+      "private_log": "work/v5-review-next/pytest-final.log",
+      "focused_review_and_portability": "30 passed in 2.73s",
+      "baseline": "passed; nDCG10 0.5839426550733804",
+      "pyflakes": "passed for review module, CLI and tests",
+      "diff_check": "passed"
+    },
+    "original_experiment_protocol_unchanged": true,
+    "failed_local_run": {
+      "result": "1 failed, 693 passed, 2 skipped",
+      "test": "test_every_file_open_declares_encoding",
+      "cause": "Static checker did not recognize positional Path.open binary mode in a new test fixture",
+      "fix": "Use explicit mode=ab; no encoding on binary IO",
+      "log_preserved": "work/v5-review-next/pytest-reviewed.log"
+    },
+    "remote_ci": {
+      "source_commit": "af7da2a16d6e4e1456400c1c8c278555ff29c13d",
+      "run_id": 41205762770,
+      "url": "https://github.com/sokldjs554/ko-search-clinic/actions/runs/41205762770",
+      "status": "completed",
+      "conclusion": "success",
+      "ubuntu": "694 passed, 2 skipped in 60.98s",
+      "windows": "694 passed, 2 skipped in 134.78s",
+      "baseline": "success",
+      "pr_run_id": 41205768145,
+      "pr_checks": "success",
+      "jobs": [
+        {
+          "id": 124550411670,
+          "name": "테스트 (windows-latest)",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/sokldjs554/ko-search-clinic/actions/runs/41205762770/job/124550411670"
+        },
+        {
+          "id": 124550411793,
+          "name": "검색 품질 게이트",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/sokldjs554/ko-search-clinic/actions/runs/41205762770/job/124550411793"
+        },
+        {
+          "id": 124550411851,
+          "name": "테스트 (ubuntu-latest)",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/sokldjs554/ko-search-clinic/actions/runs/41205762770/job/124550411851"
+        }
+      ],
+      "latest_branch_checks_url": "https://github.com/sokldjs554/ko-search-clinic/pull/3/checks",
+      "note": "Verified review-intake implementation. A subsequent documentation-only commit records this result; that final head CI is recorded in PR3 to avoid self-referential commit hashes."
+    },
+    "snapshot": "Historical handoff before actual submissions; current status is human_review_current."
+  },
+  "previous_verified_remote_ci": {
+    "source_commit": "897a68dd0374b35667b0d0cf524d300275769179",
+    "run_id": 41279099947,
+    "url": "https://github.com/sokldjs554/ko-search-clinic/actions/runs/41279099947",
+    "status": "completed",
+    "conclusion": "success",
+    "ubuntu": "694 passed, 2 skipped in 53.89s",
+    "windows": "694 passed, 2 skipped in 135.39s",
+    "baseline": "success",
+    "jobs": [
+      {
+        "id": 124767155018,
+        "name": "검색 품질 게이트",
+        "conclusion": "success"
+      },
+      {
+        "id": 124767155202,
+        "name": "테스트 (windows-latest)",
+        "conclusion": "success"
+      },
+      {
+        "id": 124767155285,
+        "name": "테스트 (ubuntu-latest)",
+        "conclusion": "success"
+      }
+    ],
+    "latest_branch_checks_url": "https://github.com/sokldjs554/ko-search-clinic/pull/3/checks",
+    "note": "Verified research report/demo commit; subsequent documentation-only commit records these results. Its exact-head CI is recorded in PR3 to avoid a self-referential commit hash."
+  },
+  "human_review_current": {
+    "version": "v5-adjudication-content-summary-20261101",
+    "source_sha256": "3fddea79a762d5064aea422cbadf8f8b63e691a8724fece313811e5d2431ffc6",
+    "content_receipt_sha256": "5c98217622417eb9ba50bf878fe6ed3a6796c4075b06ca31173d841d08eb35b3",
+    "adjudicator": "c",
+    "submitted_decisions": 12,
+    "coverage_matches_pending_queue": true,
+    "adjudicated_true": 12,
+    "adjudicated_false": 0,
+    "preserved_initial_agreements": 3,
+    "candidate_total": 15,
+    "reported_true": 12,
+    "reported_false": 3,
+    "pending_decision_content": 0,
+    "decision_content_complete": true,
+    "timestamp_metadata_complete": false,
+    "official_reconcile_receipt_created": false,
+    "missing_metadata": "review calendar date; UTC instant not inferred",
+    "reason_quality": "generic agreement wording; not source-grounded error-type review",
+    "initial_agreement": {
+      "kappa": -0.25,
+      "kappa_status": "defined",
+      "observed_agreement": 0.6,
+      "paired_graded": 5,
+      "total_items": 15,
+      "weighting": "unweighted"
+    },
+    "independent_final_evaluation_ready": false,
+    "additional_provider_calls": 0,
+    "selector_diagnostic": {
+      "first_valid": {
+        "selected": 14,
+        "selected_reported_true": 11,
+        "selected_reported_false": 3,
+        "selected_unknown": 0,
+        "reported_true_not_selected": 1,
+        "ndcg10": 0.8492385034822596
+      },
+      "pair:1": {
+        "selected": 9,
+        "selected_reported_true": 8,
+        "selected_reported_false": 1,
+        "selected_unknown": 0,
+        "reported_true_not_selected": 4,
+        "ndcg10": 0.8061648772956027
+      },
+      "pair:2": {
+        "selected": 10,
+        "selected_reported_true": 9,
+        "selected_reported_false": 1,
+        "selected_unknown": 0,
+        "reported_true_not_selected": 3,
+        "ndcg10": 0.8061648772956027
+      },
+      "context:1": {
+        "selected": 0,
+        "selected_reported_true": 0,
+        "selected_reported_false": 0,
+        "selected_unknown": 0,
+        "reported_true_not_selected": 12,
+        "ndcg10": 0.5839426550733804
+      },
+      "context:2": {
+        "selected": 0,
+        "selected_reported_true": 0,
+        "selected_reported_false": 0,
+        "selected_unknown": 0,
+        "reported_true_not_selected": 12,
+        "ndcg10": 0.5839426550733804
+      },
+      "rubric:1": {
+        "selected": 0,
+        "selected_reported_true": 0,
+        "selected_reported_false": 0,
+        "selected_unknown": 0,
+        "reported_true_not_selected": 12,
+        "ndcg10": 0.5839426550733804
+      },
+      "rubric:2": {
+        "selected": 0,
+        "selected_reported_true": 0,
+        "selected_reported_false": 0,
+        "selected_unknown": 0,
+        "reported_true_not_selected": 12,
+        "ndcg10": 0.5839426550733804
+      }
+    },
+    "retrieval_results_unchanged": true,
+    "protocol_hash": "13d32338ace8822fbd7dc7d219bd3118810a2b85d3752d5bf0dca8f667d1b2d5",
+    "assembly_hash": "b2711259419bff8f435af89c57a19aa89f1f022f339423fd7638d3bb4dfcc6d6"
+  },
+  "closeout_20261101": {
+    "scope": "completed available development analysis; external final evaluation incomplete",
+    "additional_provider_calls": 0,
+    "research_complete": false,
+    "superiority_claim": false,
+    "reproduction": {
+      "replayed_reports_equal": {
+        "scores": true,
+        "arms": true,
+        "paired_primary": true,
+        "paired_conditions": true,
+        "repeat_variability": true,
+        "matched_random": true,
+        "threshold_diagnostic": true,
+        "numerical_criteria_met": true,
+        "superiority_claim": true
+      },
+      "independent_dataset_manifest_files_verified": 12,
+      "independent_manifest_sha256": "12d67332ff6af6ef6e1bcfffbe8dc2e5a05ae98bc2aee61784e2dd35650c9afe",
+      "final_evaluation_ready": false,
+      "new_provider_calls": 0,
+      "original_protocol_sha256": "13d32338ace8822fbd7dc7d219bd3118810a2b85d3752d5bf0dca8f667d1b2d5",
+      "application_replay": {
+        "context:1": {
+          "full_application_equal": true,
+          "rankings_equal": true,
+          "decisions_equal": true
+        },
+        "context:2": {
+          "full_application_equal": true,
+          "rankings_equal": true,
+          "decisions_equal": true
+        },
+        "first_valid": {
+          "full_application_equal": true,
+          "rankings_equal": true,
+          "decisions_equal": true
+        },
+        "pair:1": {
+          "full_application_equal": true,
+          "rankings_equal": true,
+          "decisions_equal": true
+        },
+        "pair:2": {
+          "full_application_equal": true,
+          "rankings_equal": true,
+          "decisions_equal": true
+        },
+        "rubric:1": {
+          "full_application_equal": true,
+          "rankings_equal": true,
+          "decisions_equal": true
+        },
+        "rubric:2": {
+          "full_application_equal": true,
+          "rankings_equal": true,
+          "decisions_equal": true
+        },
+        "rules_plus": {
+          "full_application_equal": false,
+          "rankings_equal": true,
+          "decisions_equal": true
+        }
+      }
+    },
+    "report": "../RESEARCH_CONCLUSION_20261101.md",
+    "adjudication_packet_created": true,
+    "remaining_external_inputs": [
+      "independent retrieval relevance/concept/exposure review",
+      "separately approved new GPT generation and final model judgments",
+      "authorized v3/v4 decryption path"
+    ],
+    "local_verification": "passed",
+    "browser_human": {
+      "research_human_section": true,
+      "adjudication_items": 12,
+      "viewports": [
+        1440,
+        390,
+        320
+      ],
+      "page_errors": []
+    },
+    "c_packet_sha256": "2d2fa13c332fa74ee5cdc5b3b52686dec3bb62be648aec6984b3f688c39245e5",
+    "c_adjudication_content_received": 12,
+    "c_metadata_limitations": "calendar date absent; no UTC instant fabricated; strict receipt not created"
+  },
+  "previous_before_closeout_20261101": {
+    "local": {
+      "pytest": "694 passed, 2 skipped in 103.40s",
+      "command": "pytest -q -rs --junitxml=work/v5-review-next/local-tests-final.xml",
+      "python": "Python 3.12.14",
+      "private_log": "work/v5-review-next/pytest-final.log",
+      "focused_review_and_portability": "30 passed in 2.73s",
+      "baseline": "passed; nDCG10 0.5839426550733804",
+      "pyflakes": "passed for review module, CLI and tests",
+      "diff_check": "passed"
+    },
+    "browser": {
+      "research_queries": 36,
+      "live_queries": 36,
+      "summary_arms": 3,
+      "live_summary_arms": 9,
+      "viewports": [
+        1440,
+        320,
+        390
+      ],
+      "rag_replay_loaded": true,
+      "page_errors": []
+    },
+    "browser_public": {
+      "research_queries": 0,
+      "live_queries": 0,
+      "summary_arms": 3,
+      "live_summary_arms": 9,
+      "viewports": [
+        1440,
+        320,
+        390
+      ],
+      "rag_replay_loaded": true,
+      "page_errors": []
+    }
+  },
+  "human_review_before_c": {
+    "version": "v5-human-intake-summary-20261101",
+    "scope": "development candidate judgments; coordinator-assisted normalization; exploratory",
+    "reviewers": 2,
+    "distinct_people_confirmed_by_coordinator": true,
+    "independence_attestation_complete": false,
+    "submitted_rows": 30,
+    "items": 15,
+    "counts": {
+      "a": {
+        "ambiguous": 3,
+        "expected": 15,
+        "graded": 12,
+        "missing": 0
+      },
+      "b": {
+        "ambiguous": 8,
+        "expected": 15,
+        "graded": 7,
+        "missing": 0
+      }
+    },
+    "agreement": {
+      "kappa": -0.25,
+      "kappa_status": "defined",
+      "observed_agreement": 0.6,
+      "paired_graded": 5,
+      "total_items": 15,
+      "weighting": "unweighted"
+    },
+    "agreed_items": 3,
+    "disagreements": 2,
+    "any_ambiguity": 10,
+    "adjudication_pending": 12,
+    "adjudicator_assigned": true,
+    "adjudications_received": 0,
+    "generic_rationale_only": true,
+    "source_quote_review_complete": false,
+    "error_types": "unclassified; no error-type accuracy claim",
+    "labels_complete": false,
+    "final_evaluation_ready": false,
+    "source_csv_sha256": {
+      "a": "658ae4da21c924e820383a34be551f6dad7859c44065f2ad8bcd24e81e9373dd",
+      "b": "832c0b4bb2d4ccfbe368a9b1131a218f9c5b5b316e2a8de67bc48ff5e5b042de"
+    },
+    "normalization_provenance_sha256": "91461109aafc93a17b635efc2209dc6febd159845fb70cfcb082a9a3326fb79d",
+    "reconciliation_sha256": "5c0f3ae19175049a62565f4cd4c481c3c6f10c84ef40b2409fffbd83af80e134",
+    "additional_provider_calls": 0,
+    "selector_diagnostic": {
+      "scope": "exploratory reported judgments; generic evidence; no final semantic ground truth",
+      "no_threshold_or_method_tuning": true,
+      "populations": {
+        "a": {
+          "first_valid": {
+            "selected": 14,
+            "selected_judged_true": 3,
+            "selected_judged_false": 8,
+            "selected_unresolved": 3,
+            "judged_true_not_selected": 0
+          },
+          "pair:1": {
+            "selected": 9,
+            "selected_judged_true": 3,
+            "selected_judged_false": 5,
+            "selected_unresolved": 1,
+            "judged_true_not_selected": 0
+          },
+          "pair:2": {
+            "selected": 10,
+            "selected_judged_true": 3,
+            "selected_judged_false": 6,
+            "selected_unresolved": 1,
+            "judged_true_not_selected": 0
+          },
+          "context:1": {
+            "selected": 0,
+            "selected_judged_true": 0,
+            "selected_judged_false": 0,
+            "selected_unresolved": 0,
+            "judged_true_not_selected": 3
+          },
+          "context:2": {
+            "selected": 0,
+            "selected_judged_true": 0,
+            "selected_judged_false": 0,
+            "selected_unresolved": 0,
+            "judged_true_not_selected": 3
+          },
+          "rubric:1": {
+            "selected": 0,
+            "selected_judged_true": 0,
+            "selected_judged_false": 0,
+            "selected_unresolved": 0,
+            "judged_true_not_selected": 3
+          },
+          "rubric:2": {
+            "selected": 0,
+            "selected_judged_true": 0,
+            "selected_judged_false": 0,
+            "selected_unresolved": 0,
+            "judged_true_not_selected": 3
+          }
+        },
+        "b": {
+          "first_valid": {
+            "selected": 14,
+            "selected_judged_true": 1,
+            "selected_judged_false": 6,
+            "selected_unresolved": 7,
+            "judged_true_not_selected": 0
+          },
+          "pair:1": {
+            "selected": 9,
+            "selected_judged_true": 1,
+            "selected_judged_false": 3,
+            "selected_unresolved": 5,
+            "judged_true_not_selected": 0
+          },
+          "pair:2": {
+            "selected": 10,
+            "selected_judged_true": 1,
+            "selected_judged_false": 3,
+            "selected_unresolved": 6,
+            "judged_true_not_selected": 0
+          },
+          "context:1": {
+            "selected": 0,
+            "selected_judged_true": 0,
+            "selected_judged_false": 0,
+            "selected_unresolved": 0,
+            "judged_true_not_selected": 1
+          },
+          "context:2": {
+            "selected": 0,
+            "selected_judged_true": 0,
+            "selected_judged_false": 0,
+            "selected_unresolved": 0,
+            "judged_true_not_selected": 1
+          },
+          "rubric:1": {
+            "selected": 0,
+            "selected_judged_true": 0,
+            "selected_judged_false": 0,
+            "selected_unresolved": 0,
+            "judged_true_not_selected": 1
+          },
+          "rubric:2": {
+            "selected": 0,
+            "selected_judged_true": 0,
+            "selected_judged_false": 0,
+            "selected_unresolved": 0,
+            "judged_true_not_selected": 1
+          }
+        },
+        "provisional_agreement": {
+          "first_valid": {
+            "selected": 14,
+            "selected_judged_true": 0,
+            "selected_judged_false": 3,
+            "selected_unresolved": 11,
+            "judged_true_not_selected": 0
+          },
+          "pair:1": {
+            "selected": 9,
+            "selected_judged_true": 0,
+            "selected_judged_false": 1,
+            "selected_unresolved": 8,
+            "judged_true_not_selected": 0
+          },
+          "pair:2": {
+            "selected": 10,
+            "selected_judged_true": 0,
+            "selected_judged_false": 1,
+            "selected_unresolved": 9,
+            "judged_true_not_selected": 0
+          },
+          "context:1": {
+            "selected": 0,
+            "selected_judged_true": 0,
+            "selected_judged_false": 0,
+            "selected_unresolved": 0,
+            "judged_true_not_selected": 0
+          },
+          "context:2": {
+            "selected": 0,
+            "selected_judged_true": 0,
+            "selected_judged_false": 0,
+            "selected_unresolved": 0,
+            "judged_true_not_selected": 0
+          },
+          "rubric:1": {
+            "selected": 0,
+            "selected_judged_true": 0,
+            "selected_judged_false": 0,
+            "selected_unresolved": 0,
+            "judged_true_not_selected": 0
+          },
+          "rubric:2": {
+            "selected": 0,
+            "selected_judged_true": 0,
+            "selected_judged_false": 0,
+            "selected_unresolved": 0,
+            "judged_true_not_selected": 0
+          }
+        }
+      }
+    }
+  },
+  "adjudication_current": {
+    "version": "v5-adjudication-content-summary-20261101",
+    "source_sha256": "3fddea79a762d5064aea422cbadf8f8b63e691a8724fece313811e5d2431ffc6",
+    "content_receipt_sha256": "5c98217622417eb9ba50bf878fe6ed3a6796c4075b06ca31173d841d08eb35b3",
+    "adjudicator": "c",
+    "submitted_decisions": 12,
+    "coverage_matches_pending_queue": true,
+    "adjudicated_true": 12,
+    "adjudicated_false": 0,
+    "preserved_initial_agreements": 3,
+    "candidate_total": 15,
+    "reported_true": 12,
+    "reported_false": 3,
+    "pending_decision_content": 0,
+    "decision_content_complete": true,
+    "timestamp_metadata_complete": false,
+    "official_reconcile_receipt_created": false,
+    "missing_metadata": "review calendar date; UTC instant not inferred",
+    "reason_quality": "generic agreement wording; not source-grounded error-type review",
+    "initial_agreement": {
+      "kappa": -0.25,
+      "kappa_status": "defined",
+      "observed_agreement": 0.6,
+      "paired_graded": 5,
+      "total_items": 15,
+      "weighting": "unweighted"
+    },
+    "independent_final_evaluation_ready": false,
+    "additional_provider_calls": 0,
+    "selector_diagnostic": {
+      "first_valid": {
+        "selected": 14,
+        "selected_reported_true": 11,
+        "selected_reported_false": 3,
+        "selected_unknown": 0,
+        "reported_true_not_selected": 1,
+        "ndcg10": 0.8492385034822596
+      },
+      "pair:1": {
+        "selected": 9,
+        "selected_reported_true": 8,
+        "selected_reported_false": 1,
+        "selected_unknown": 0,
+        "reported_true_not_selected": 4,
+        "ndcg10": 0.8061648772956027
+      },
+      "pair:2": {
+        "selected": 10,
+        "selected_reported_true": 9,
+        "selected_reported_false": 1,
+        "selected_unknown": 0,
+        "reported_true_not_selected": 3,
+        "ndcg10": 0.8061648772956027
+      },
+      "context:1": {
+        "selected": 0,
+        "selected_reported_true": 0,
+        "selected_reported_false": 0,
+        "selected_unknown": 0,
+        "reported_true_not_selected": 12,
+        "ndcg10": 0.5839426550733804
+      },
+      "context:2": {
+        "selected": 0,
+        "selected_reported_true": 0,
+        "selected_reported_false": 0,
+        "selected_unknown": 0,
+        "reported_true_not_selected": 12,
+        "ndcg10": 0.5839426550733804
+      },
+      "rubric:1": {
+        "selected": 0,
+        "selected_reported_true": 0,
+        "selected_reported_false": 0,
+        "selected_unknown": 0,
+        "reported_true_not_selected": 12,
+        "ndcg10": 0.5839426550733804
+      },
+      "rubric:2": {
+        "selected": 0,
+        "selected_reported_true": 0,
+        "selected_reported_false": 0,
+        "selected_unknown": 0,
+        "reported_true_not_selected": 12,
+        "ndcg10": 0.5839426550733804
+      }
+    },
+    "retrieval_results_unchanged": true,
+    "protocol_hash": "13d32338ace8822fbd7dc7d219bd3118810a2b85d3752d5bf0dca8f667d1b2d5",
+    "assembly_hash": "b2711259419bff8f435af89c57a19aa89f1f022f339423fd7638d3bb4dfcc6d6"
+  },
+  "c_followup_validation": {
+    "focused_tests": "59 passed in 11.80s",
+    "command": "pytest -q -rs tests/test_v5_human_review.py tests/test_v5_review_regressions.py tests/test_v5_comparison.py",
+    "public_browser": {
+      "research_queries": 0,
+      "live_queries": 0,
+      "summary_arms": 3,
+      "live_summary_arms": 9,
+      "viewports": [
+        1440,
+        320,
+        390
+      ],
+      "rag_replay_loaded": true,
+      "page_errors": []
+    },
+    "detail_browser": {
+      "research_queries": 36,
+      "live_queries": 36,
+      "summary_arms": 3,
+      "live_summary_arms": 9,
+      "viewports": [
+        1440,
+        320,
+        390
+      ],
+      "rag_replay_loaded": true,
+      "page_errors": []
+    },
+    "source_validation": "12 unique pending identities, valid c alias and boolean decisions; UTC date absent; strict receipt not created",
+    "score_invariance": "scores, paired intervals, random comparisons, repeat and threshold diagnostics unchanged",
+    "new_provider_calls": 0
+  },
+  "remote_ci_before_public_source_audit": {
+    "source_commit": "54ab2a385f320da95889f0ee66be8abacfb2b34b",
+    "run_id": 41279415616,
+    "url": "https://github.com/sokldjs554/ko-search-clinic/actions/runs/41279415616",
+    "status": "completed",
+    "conclusion": "success",
+    "ubuntu": "694 passed, 2 skipped in 91.57s",
+    "windows": "694 passed, 2 skipped in 119.66s",
+    "baseline": "success",
+    "note": "Previous exact head verified; c follow-up head CI is recorded in PR3 after completion."
+  },
+  "public_relevance_source_audit": {
+    "summary": "public-relevance-source-20261101.json",
+    "official_queries": 868,
+    "official_human_judgments": 12767,
+    "remaining_after_known_overlap_exclusions": 254,
+    "full_corpus_passages_scanned": 1486752,
+    "new_provider_calls": 0,
+    "final_evaluation_ready": false,
+    "existing_15_candidate_submission_complete": true,
+    "new_human_reviews_claimed": false,
+    "current_status": "MIRACL254 fresh independent candidate route withdrawn; historical v4 train exposure discovered"
+  },
+  "remote_ci_before_v3_exposure_audit": {
+    "source_commit": "10a09d4f1c2085a6cc70546b5273e7993097b99f",
+    "run_id": 41282781054,
+    "url": "https://github.com/sokldjs554/ko-search-clinic/actions/runs/41282781054",
+    "status": "completed",
+    "conclusion": "success",
+    "ubuntu": "694 passed, 2 skipped in 50.95s",
+    "windows": "694 passed, 2 skipped in 134.53s",
+    "baseline": "success",
+    "note": "Exact latest code-and-demo head validated; subsequent source-audit documentation CI is recorded in PR3."
+  },
+  "current_exposure_audit": {
+    "summary": "v3-exposure-audit-20261101.json",
+    "v3_inventory_received": true,
+    "v3_source_queries_verified": 120,
+    "v3_source_documents_verified": 2455,
+    "klue_exact_query_duplicates": 0,
+    "klue_exact_document_duplicates": 0,
+    "held_concept_groups": 4,
+    "held_queries": 4,
+    "held_documents": 4,
+    "provisional_queries": 196,
+    "provisional_documents": 296,
+    "v4_inventory_received": false,
+    "complete_semantic_independence_verified": false,
+    "overall_independence_verified": false,
+    "final_evaluation_ready": false,
+    "paid_calls": 0,
+    "detailed_inputs_published": false
+  },
+  "remote_ci_before_historical_exposure_audit": {
+    "source_commit": "2bdb6bacd20b78913253e3c5129edaec40186a14",
+    "run_id": 41283694305,
+    "url": "https://github.com/sokldjs554/ko-search-clinic/actions/runs/41283694305",
+    "status": "completed",
+    "conclusion": "success",
+    "ubuntu": "694 passed, 2 skipped in 74.38s",
+    "windows": "694 passed, 2 skipped in 135.01s",
+    "baseline": "success",
+    "note": "Last verified head; v3 audit documentation head CI is recorded in PR3."
+  },
+  "historical_exposure_followup": {
+    "additional_held_documents_since_v3": 7,
+    "additional_held_queries_since_v3": 7,
+    "audit_script_sha256": "bffad09fa3315eda545ef930b27bb39cd5c222a16d6993a41f2e1d9361d5efdb",
+    "candidate_sha256": "a286c49ce4146bbfd0c441e83a1025e0c42dd7a6cb1b7d6b3bc8ef507d7b0c96",
+    "containment_min80_count": 2,
+    "evidence_sha256": "d8feddffd1ab5d287ecae45e5be315121c9411ec0338d3654235c1f4ae773646",
+    "exact_match_counts": {
+      "document_compact": 0,
+      "document_normalized": 0,
+      "query_compact": 0,
+      "query_normalized": 0,
+      "title_compact": 10,
+      "title_normalized": 10
+    },
+    "final_evaluation_ready": false,
+    "held_concept_groups": 11,
+    "historical_page_sequence": 51,
+    "historical_train_documents": 10486,
+    "historical_train_queries": 868,
+    "human_relevance_review_complete": false,
+    "input_binding": "Ciphertexts differ; randomized encryption cannot establish plaintext equality or inequality.",
+    "klue_input_sha256": "bd746a88a743e9d0188f4bd874d73d21ad1fa4448e5bbca9a01c2e3a4bba6134",
+    "lexical_neighbour_rows": 700,
+    "miracl254_route": "withdrawn as fresh independent candidate route; historical train exposure discovered",
+    "new_paid_calls": 0,
+    "overall_independence_verified": false,
+    "public_input_ciphertext_sha256": {
+      "39042030830": "e8fd66d86e0a41b4383387a5557287ea1e1eb7d2f70721a1a0d970a44f0d1206",
+      "39044121771": "0c04a795a7a98de5014dd0b643eeabeb229f66e53f3a9c96338fdca0bb1c775c"
+    },
+    "remaining_document_splits": {
+      "calibration": 56,
+      "candidate_final": 233
+    },
+    "remaining_documents": 289,
+    "remaining_queries": 189,
+    "remaining_query_splits": {
+      "calibration": 36,
+      "candidate_final": 153
+    },
+    "retrieval_scores_computed": false,
+    "semantic_clearance": false,
+    "source_document_inventory_sha256": "da0880649f7db032975c7b300cee918a45d442de42c207ea35ce88d45df44ede",
+    "source_scope": "conservative historical preparation exposure, not verified successful run membership",
+    "total_held_documents": 11,
+    "total_held_queries": 11,
+    "v4_exact_run_exposure_verified": false,
+    "version": "historical-source-exposure-20261101"
+  },
+  "remote_ci_before_quota_intake": {
+    "source_commit": "8f75e14019c853f7a095392302855502c98cc8d6",
+    "run_id": 41285395891,
+    "url": "https://github.com/sokldjs554/ko-search-clinic/actions/runs/41285395891",
+    "status": "completed",
+    "conclusion": "success",
+    "ubuntu": "694 passed, 2 skipped in 70.97s",
+    "windows": "694 passed, 2 skipped in 146.92s",
+    "baseline": "success",
+    "note": "Latest verified prior head; subsequent documentation head CI recorded in PR3."
+  },
+  "v4_quota_intake": {
+    "additional_holds_beyond_historical_train_audit": 0,
+    "archive_members": 26,
+    "audit_script_sha256": "87b92de9045ae5420d32838069c881b286d30c97fed380e89c9e586fdae38554",
+    "baseline_body_seal_sha256": "bfb214ded16ab43320d6f368e12ce9ca5396a815ff2d13a55b8c6ff48ed48bd7",
+    "baseline_canonical_sha256": "329b2493acf9c1bea19ce734772c8d9de3ea664f00f07c818f6318d1113302d1",
+    "baseline_file_sha256": "cf5d1cbad6bbb4e302f828649f84e3e3c95f34bec378410ccf611b302716bc29",
+    "candidate_seal_available": false,
+    "document_titles_and_bodies_verified_against_official_train_inventory": 3367,
+    "final_evaluation_ready": false,
+    "generator_manifest_members_verified": 3,
+    "historical_actual_cost_usd": null,
+    "historical_documents": 3367,
+    "historical_quality_evaluation_run": false,
+    "historical_queries": 120,
+    "historical_reserved_usd": 0.6262852,
+    "historical_successful_generation_responses": 0,
+    "historical_transport_attempts": 1,
+    "historical_unattempted_selected": 72,
+    "historical_usage_available": false,
+    "http_status": 429,
+    "input_hash": "058be5d1589d8f6e1271ecf2913dc6a03ee629e79b606397a8cc33ba97538b2c",
+    "klue_containment_pairs": 1,
+    "klue_overlap_counts": {
+      "document_compact": 0,
+      "document_normalized": 0,
+      "query_compact": 0,
+      "query_normalized": 0,
+      "title_compact": 3,
+      "title_normalized": 3
+    },
+    "manifest_members_verified": 25,
+    "new_provider_calls": 0,
+    "plan_canonical_sha256": "b257e32e67f3933d14e10dbfecca00e111e1b92f4d0a3ef3c98e1172a6f1ae30",
+    "plan_file_sha256": "5271e7c5b376c66aa718bbee4f5c3ca651e0c2a6439d6c94d9b3908fedc7c13d",
+    "planned_selected_requests": 73,
+    "planned_unselected": 47,
+    "provider_error_code": "credit_balance_exhausted",
+    "provider_error_type": "insufficient_quota",
+    "provisional_klue_documents": 289,
+    "provisional_klue_queries": 189,
+    "query_texts_verified_against_official_train": 120,
+    "received_run_id": "39042030830",
+    "received_workflow_sha": "e1b401672ef33cab957623190cdaec77a2a72508",
+    "semantic_independence_verified": false,
+    "source_instructions_executed": false,
+    "source_zip_sha256": "9c8b04ed2fbdc591ca794096239d4f806ecb235876486e9e36fa53581f0c31ef",
+    "target_success_input_identity_verified": false,
+    "target_success_run_id": "39044121771",
+    "terminal_checkpoint_identical_files": 5,
+    "v3_shared_document_ids": 0,
+    "v3_shared_query_texts": 0,
+    "version": "v4-quota-intake-20261101"
+  },
+  "remote_ci_before_continuation": {
+    "source_commit": "8a63e60a826304eb9f69c9465da6b14ca61816e4",
+    "run_id": 41286470279,
+    "url": "https://github.com/sokldjs554/ko-search-clinic/actions/runs/41286470279",
+    "status": "completed",
+    "conclusion": "success",
+    "ubuntu": "694 passed, 2 skipped in 89.64s",
+    "windows": "694 passed, 2 skipped in 109.42s",
+    "baseline": "success",
+    "note": "Latest verified prior head; subsequent documentation CI recorded in PR3."
+  },
+  "continuation_without_v4_raw": {
+    "existing_15_candidate_human_submission": "received a/b/c; no redo requested",
+    "final_evaluation_ready": false,
+    "historical_failed_run_inputs_verified": true,
+    "new_provider_calls": 0,
+    "new_relevance_human_reviews_completed": 0,
+    "new_retrieval_scores": 0,
+    "overall_independence_verified": false,
+    "pair_counts_by_role_and_split": {
+      "a": {
+        "calibration": 2016,
+        "candidate_final": 35649
+      },
+      "b": {
+        "calibration": 2016,
+        "candidate_final": 35649
+      }
+    },
+    "pairs_per_reviewer": 37665,
+    "preparation_script_sha256": "aea8573da4a4cc78f78be5261bd1c829a696a4eba75421554f2bcc6f42ec8cf6",
+    "recovery_input_requested_again": false,
+    "research_complete": false,
+    "source_documents": 289,
+    "source_manifest_sha256": "60e8e8dded52183f73796153c5fea44cb2e48593d1479666b7e22723ce04f077",
+    "source_queries": 189,
+    "statement_scope": "v4 successful run39044121771 decrypted result ZIP unavailable to user",
+    "successful_v4_input_identity_verified": false,
+    "v4_raw_recovery_status": "incomplete; no repeated request for same file or key",
+    "new_reviewers_available_per_user": 2,
+    "new_review_aliases": [
+      "d",
+      "e"
+    ],
+    "human_reviews_completed": 0,
+    "handoff_strategy": "calibration first; candidate_final input files kept separate; no final labels read for method calibration",
+    "calibration_queries": 36,
+    "calibration_documents": 56,
+    "calibration_pairs_per_reviewer": 2016,
+    "candidate_final_queries": 153,
+    "candidate_final_documents": 233,
+    "candidate_final_pairs_per_reviewer": 35649,
+    "initial_submission_instructions": "Q01 only (56 rows per reviewer) may be submitted first; unmatched/missing judgments remain pending",
+    "workbooks": [
+      {
+        "alias": "d",
+        "packet_role": "a",
+        "file": "새검수자_d_개발보정_36질의.xlsx",
+        "sha256": "1ae7364bd63346bb15d41b1cc78703dc42694abf2370791e3820c46658073621",
+        "bytes": 2271416,
+        "queries": 36,
+        "documents": 56,
+        "pairs": 2016,
+        "blank_values_verified": 2016,
+        "sheets": 37,
+        "human_completed": 0,
+        "final_split_included": false
+      },
+      {
+        "alias": "e",
+        "packet_role": "b",
+        "file": "새검수자_e_개발보정_36질의.xlsx",
+        "sha256": "0664e0847c1c6a7eae90e8998dcf33e4b407f12ab08d591a17ff2ecd73110d50",
+        "bytes": 2269339,
+        "queries": 36,
+        "documents": 56,
+        "pairs": 2016,
+        "blank_values_verified": 2016,
+        "sheets": 37,
+        "human_completed": 0,
+        "final_split_included": false
+      }
+    ],
+    "blank_handoff_check": {
+      "kind": "relevance",
+      "pending_count": 37665,
+      "resolved_count": 0,
+      "labels_complete": false,
+      "agreement": {
+        "kappa": null,
+        "kappa_status": "no_paired_definite_judgments",
+        "observed_agreement": null,
+        "paired_graded": 0,
+        "total_items": 37665,
+        "weighting": "quadratic"
+      },
+      "provider_calls_executed": 0,
+      "final_evaluation_ready": false
+    },
+    "blank_calibration_check": {
+      "d": {
+        "ambiguous": 0,
+        "expected": 2016,
+        "graded": 0,
+        "missing": 2016
+      },
+      "e": {
+        "ambiguous": 0,
+        "expected": 2016,
+        "graded": 0,
+        "missing": 2016
+      }
+    }
+  },
+  "remote_ci_before_calibration_intake": {
+    "source_commit": "e730426fa2444c0b72f423fcd667f64ff33a1638",
+    "run_id": 41287766465,
+    "url": "https://github.com/sokldjs554/ko-search-clinic/actions/runs/41287766465",
+    "status": "completed",
+    "conclusion": "success",
+    "ubuntu": "694 passed, 2 skipped in 87.79s",
+    "windows": "694 passed, 2 skipped in 136.76s",
+    "baseline": "success",
+    "note": "Latest verified prior head; documentation follow-up CI recorded in PR3."
+  },
+  "calibration_intake": {
+    "accepted_relevance_labels": 0,
+    "agreement": null,
+    "agreement_reason": "no shared query-document pairs and confirmed non-relevance construct",
+    "automatic_grade_conversion": false,
+    "batch_time_missing": true,
+    "common_query_followup": {
+      "calibration_only": true,
+      "documents": 56,
+      "initial_rows_per_reviewer": 5,
+      "queries": 1,
+      "question_choice": "first d Q01, independent of relevance grades or search outcomes",
+      "same_order_for_both": true,
+      "workbooks": [
+        {
+          "alias": "d",
+          "blank_judgments": 56,
+          "bytes": 69867,
+          "file": "검수자_d_질문답근거_공통질문.xlsx",
+          "initial_requested_rows": 5,
+          "pairs": 56,
+          "sha256": "9acef1fabde18b83d764607fc5e7123a5e607a6a310b8e972dd6c6ce73e6d9b4"
+        },
+        {
+          "alias": "e",
+          "blank_judgments": 56,
+          "bytes": 69867,
+          "file": "검수자_e_질문답근거_공통질문.xlsx",
+          "initial_requested_rows": 5,
+          "pairs": 56,
+          "sha256": "eb28ca434587e236897d5e6b825f974583eb5b2fc5c055128920e129b5fd0049"
+        }
+      ]
+    },
+    "final_evaluation_ready": false,
+    "formula_cells": 0,
+    "human_new_relevance_complete": false,
+    "immutable_question_document_changes": 0,
+    "initial_same_sheet_different_queries": true,
+    "kappa": null,
+    "new_provider_calls": 0,
+    "new_retrieval_scores": 0,
+    "original_file_sha256": {
+      "d": "ec0fcbde1db86da33ff82358ed261b4d7437e7f69e8d4fc6c7c6763634078167",
+      "e": "907f23f36782102933e79da0232a2fbe701adcefc5c12cdac1ec55684f9473b7"
+    },
+    "paired_original_query_document_judgments": 0,
+    "prior_semantic_15_review_unchanged": true,
+    "raw_grade_zero_count": 112,
+    "received_rows_per_reviewer": {
+      "d": 56,
+      "e": 56
+    },
+    "received_workbooks": 2,
+    "remaining_unentered_per_reviewer": {
+      "d": 1960,
+      "e": 1960
+    },
+    "research_complete": false,
+    "script_sha256": "1131f96a60824db3291c21084ad89bb60331386f102c0e1b5ca127f7de57dbe6",
+    "timestamp_inferred": false,
+    "unexpected_cell_changes": 0,
+    "user_confirmed_construct": "output correctness, not query-document relevance",
+    "version": "calibration-intake-construct-clarification-20261101"
+  },
+  "remote_ci_before_common_query_intake": {
+    "source_commit": "ed5817f735aa156faedd9d6bede2a0730b960414",
+    "run_id": 41290153700,
+    "url": "https://github.com/sokldjs554/ko-search-clinic/actions/runs/41290153700",
+    "status": "completed",
+    "conclusion": "success",
+    "ubuntu": "694 passed, 2 skipped in 49.19s",
+    "windows": "694 passed, 2 skipped in 157.84s",
+    "baseline": "success",
+    "note": "Latest verified prior head; follow-up documentation CI is recorded in PR3."
+  },
+  "common_query_intake": {
+    "agreement_scope": "five reported selections; not relevance accuracy or verified independent reliability",
+    "batch_completion_time_missing": true,
+    "candidate_population_changed": false,
+    "feedback_examples_not_reused_as_blind_rejudgments": [
+      1,
+      2,
+      3,
+      4,
+      5
+    ],
+    "final_candidate_documents": 233,
+    "final_candidate_queries": 153,
+    "final_evaluation_ready": false,
+    "formula_cells": 0,
+    "full_calibration_documents": 56,
+    "full_calibration_queries": 36,
+    "kappa": null,
+    "kappa_reason": "constant category, expected disagreement zero",
+    "new_provider_calls": 0,
+    "new_retrieval_scores": 0,
+    "next_pilot_source_numbers": [
+      6,
+      7,
+      8,
+      9,
+      10
+    ],
+    "next_pilot_workbooks": [
+      {
+        "alias": "d",
+        "blank_cases": 5,
+        "bytes": 20475,
+        "filename": "검수자_d_질문먼저_6-10번_v2.xlsx",
+        "sha256": "821905b45cc718208e4a43e7ca19cdb9ae9a72cf154cfc779ba4eccb79d4e8fe",
+        "source_numbers": [
+          6,
+          7,
+          8,
+          9,
+          10
+        ]
+      },
+      {
+        "alias": "e",
+        "blank_cases": 5,
+        "bytes": 20475,
+        "filename": "검수자_e_질문먼저_6-10번_v2.xlsx",
+        "sha256": "d22a1778056f0d08c5bd6766fe81d60678c823262fad89b45f58ef88eb0caf11",
+        "source_numbers": [
+          6,
+          7,
+          8,
+          9,
+          10
+        ]
+      }
+    ],
+    "original_file_sha256": {
+      "d": "857e12092f1839753418ee4cf11e9e47bee4c6ed1e7191d5dce48c7a994da2c9",
+      "e": "fedada31ee2211657656403e9630eba8835f5e1552bc92f73c09071941a0ae5e"
+    },
+    "question_document_changes": 0,
+    "received_files": 2,
+    "received_rows": 10,
+    "relevance_labels_created": 0,
+    "reported_choice_agreement": 1.0,
+    "research_complete": false,
+    "rows_per_reviewer": 5,
+    "same_query_document_pairs": 5,
+    "script_sha256": "869e55969bc11ef56d4de29ecc55446651aee3ed56976011dbd5334f667dbef6",
+    "selection_basis": "next consecutive five in frozen calibration order; no score-based selection",
+    "source_values": {
+      "직접 답 근거 있음": 10
+    },
+    "source_values_overwritten": false,
+    "timestamps_inferred": false,
+    "unexpected_cell_changes": 0,
+    "user_confirmed_construct": "document-title/body consistency, not target query relevance",
+    "version": "common-query-intake-20261101",
+    "layout_revision": "v2: single wide column avoids horizontal merged-cell export clipping; v1 preserved privately",
+    "layout_script_sha256": "8a9d6789a4458f67baa50a08be838c59ada76833b338ac666fd818dcedf0d626",
+    "layout_verification": {
+      "renderer": "LibreOfficeDev 26.8 PDF export",
+      "visually_inspected": "document06, v2",
+      "all_five_full_question_body_title_texts_in_pdf": true,
+      "native_microsoft_excel_inspected": false
+    }
+  },
+  "remote_ci_before_relevance_pilot_intake": {
+    "source_commit": "e9432a96b2bada120dfbfdb1d556efc7c590fed5",
+    "run_id": 41293118332,
+    "url": "https://github.com/sokldjs554/ko-search-clinic/actions/runs/41293118332",
+    "status": "completed",
+    "conclusion": "success",
+    "ubuntu": "694 passed, 2 skipped in 76.74s",
+    "windows": "694 passed, 2 skipped in 138.09s",
+    "baseline": "success",
+    "note": "Latest verified prior head; subsequent documentation CI recorded in PR3."
+  },
+  "relevance_pilot_intake": {
+    "version": "relevance-pilot-intake-20261102",
+    "received_files": 2,
+    "new_rows_per_reviewer": 5,
+    "new_relevance_judgments": 10,
+    "paired_query_document_items": 5,
+    "reported_grades": {
+      "0": 10
+    },
+    "agreement": {
+      "paired_graded": 5,
+      "total_items": 5,
+      "weighting": "quadratic",
+      "observed_agreement": 1.0,
+      "kappa": null,
+      "kappa_status": "undefined_constant_marginals"
+    },
+    "disagreements": 0,
+    "reconciled_calibration_pairs": 5,
+    "full_calibration_pairs": 2016,
+    "remaining_calibration_pairs": 2011,
+    "final_candidate_pairs": 35649,
+    "final_labels_complete": false,
+    "final_evaluation_ready": false,
+    "research_complete": false,
+    "old_e_rows_1_to_5_excluded_from_relevance": true,
+    "old_submissions_overwritten": false,
+    "files": {
+      "d": {
+        "source_sha256": "e239642f8b36fee4d35b96e95a01e41fb528bfc872cd407b231d43e424c7f844",
+        "source_bytes": 20016,
+        "changed_allowed_cells": 16,
+        "unexpected_value_changes": 0,
+        "formula_cells": 0,
+        "external_links": 0,
+        "retained_previous_rows": 0
+      },
+      "e": {
+        "source_sha256": "3d143a0cb9223be4dd9cd5137707c4c82f507a318dd6201e5b7c976a5db8781a",
+        "source_bytes": 72751,
+        "changed_allowed_cells": 11,
+        "unexpected_value_changes": 0,
+        "formula_cells": 0,
+        "external_links": 0,
+        "retained_previous_rows": 5
+      }
+    },
+    "completion_time_scope": "reported batch; no individual judgment times inferred",
+    "individual_timestamp_csv_receipts_created": false,
+    "paired_choices_are_not_accuracy_estimate": true,
+    "reviewer_identity_and_independence": "self_reported_not_independently_authenticated",
+    "new_provider_calls": 0,
+    "new_retrieval_scores": 0,
+    "script_sha256": "2f133e43ce8f0e33a2587ce6347a88f65a0410f2a54d6888c1dc0320c16804cd",
+    "next_handoff": {
+      "source_numbers": "11-56",
+      "selection": "remaining consecutive documents for same calibration query; no score-based selection",
+      "documents": 46,
+      "queries": 1,
+      "same_order": true,
+      "new_final_data_included": false,
+      "workbooks": [
+        {
+          "alias": "d",
+          "filename": "검수자_d_질문먼저_11-56번.xlsx",
+          "sha256": "7c6aa6265e87cdff7c67639fb9c84efcf8e27614068ea3a6ae39c45b8362b8da",
+          "bytes": 142514,
+          "blank_cases": 46
+        },
+        {
+          "alias": "e",
+          "filename": "검수자_e_질문먼저_11-56번.xlsx",
+          "sha256": "c553a70a0d5bdfe7118873d0838676ecad66da1ee0b90832005b05721e7f44c4",
+          "bytes": 142513,
+          "blank_cases": 46
+        }
+      ],
+      "script_sha256": "25122302da3c0ead3a775166a128c63ae56b78afbf005ae59eaf6f5aa22ef0b0"
+    }
+  },
+  "remote_ci_before_fullquery_intake": {
+    "source_commit": "b82a907d941814149e439d1e96f6b3cca6954ee0",
+    "run_id": 41295416592,
+    "url": "https://github.com/sokldjs554/ko-search-clinic/actions/runs/41295416592",
+    "status": "completed",
+    "conclusion": "success",
+    "ubuntu": "success",
+    "windows": "success",
+    "baseline": "success",
+    "note": "Latest verified prior head; subsequent documentation CI recorded in PR3."
+  },
+  "relevance_fullquery_intake": {
+    "version": "relevance-fullquery-intake-20261102",
+    "received_files": 2,
+    "new_rows_per_reviewer": 46,
+    "new_relevance_judgments": 92,
+    "new_paired_items": 46,
+    "new_agreement": {
+      "paired_graded": 46,
+      "total_items": 46,
+      "weighting": "quadratic",
+      "observed_agreement": 1.0,
+      "kappa": 1.0,
+      "kappa_status": "defined"
+    },
+    "new_disagreements": 0,
+    "new_paired_grade_counts": {
+      "0": 37,
+      "1": 9
+    },
+    "cumulative_judgments": 102,
+    "cumulative_paired_items": 51,
+    "cumulative_paired_grade_counts": {
+      "0": 42,
+      "1": 9
+    },
+    "cumulative_agreement": {
+      "paired_graded": 51,
+      "total_items": 51,
+      "weighting": "quadratic",
+      "observed_agreement": 1.0,
+      "kappa": 1.0,
+      "kappa_status": "defined"
+    },
+    "complete_source_query_documents": 56,
+    "feedback_exposed_cases_not_rejudged": 5,
+    "full_calibration_pairs": 2016,
+    "calibration_pairs_without_two_relevance_submissions": 1965,
+    "verbatim_explanation_containment_pairs": 9,
+    "independence_confirmation_pending": true,
+    "independence_violation_proven": false,
+    "partial_grade_boundary_cases": 9,
+    "source_annotation_is_impossible": true,
+    "source_annotation_answers_empty": true,
+    "source_annotation_scope": "already-used calibration query only; not corpus-wide human relevance truth",
+    "source_qrels_promoted": false,
+    "files": {
+      "d": {
+        "source_sha256": "9d876fd72d366a1b13338b899a0872eb6df4ffa68fb9bdf34b58d261979a7ab6",
+        "source_bytes": 146968,
+        "changed_allowed_cells": 139,
+        "unexpected_value_changes": 0,
+        "formula_cells": 0,
+        "external_links": 0,
+        "completed_cases": 46,
+        "reported_grade_counts": {
+          "0": 37,
+          "1": 9
+        }
+      },
+      "e": {
+        "source_sha256": "149e2bbcb28c8e4813244c5e66f1ed546d4206d2fd3966740b583ba01890aa86",
+        "source_bytes": 147322,
+        "changed_allowed_cells": 139,
+        "unexpected_value_changes": 0,
+        "formula_cells": 0,
+        "external_links": 0,
+        "completed_cases": 46,
+        "reported_grade_counts": {
+          "0": 37,
+          "1": 9
+        }
+      }
+    },
+    "completion_time_scope": "reported batch only; no per-item time inferred",
+    "original_submissions_overwritten": false,
+    "new_provider_calls": 0,
+    "new_retrieval_scores": 0,
+    "final_evaluation_ready": false,
+    "research_complete": false,
+    "labels_complete": false,
+    "new_bulk_handoff_issued": false,
+    "script_sha256": "2f0a1d60f0cc17955c6ab68e852903405fd0266fdff87354892c6dccb1658c8f"
+  },
+  "remote_ci_before_revision_intake": {
+    "source_commit": "277043ef4cef14e0492d367a0753773ffb5dc5e6",
+    "run_id": 41322021792,
+    "url": "https://github.com/sokldjs554/ko-search-clinic/actions/runs/41322021792",
+    "status": "completed",
+    "conclusion": "success",
+    "note": "Latest verified prior head; later documentation checks recorded in PR3.",
+    "ubuntu": "success",
+    "windows": "success",
+    "baseline": "success"
+  },
+  "relevance_revision_intake": {
+    "version": "relevance-revision-intake-20261102",
+    "revision": 1,
+    "submitted_files": 2,
+    "resubmitted_cases_per_reviewer": 46,
+    "additional_unique_pairs": 0,
+    "cumulative_unique_pairs": 51,
+    "latest_unique_judgments": 102,
+    "prior_versions_retained": true,
+    "files": {
+      "d": {
+        "sha256": "8283315346fb2e0608d631741d9687f15e59223ec025fe60c9837aaaadadd13d",
+        "bytes": 147019,
+        "supersedes_sha256": "9d876fd72d366a1b13338b899a0872eb6df4ffa68fb9bdf34b58d261979a7ab6",
+        "changed_evidence_cells": 46,
+        "changed_grade_cells": 0,
+        "unexpected_value_changes": 0,
+        "formula_cells": 0,
+        "external_links": 0,
+        "reported_grade_counts": {
+          "0": 37,
+          "1": 9
+        },
+        "batch_time_retained_from_previous": true
+      },
+      "e": {
+        "sha256": "19ead8e59715f9f5c9e9aa1bc34e869d6012782f8d104e2cbd09cfcad7de383e",
+        "bytes": 147017,
+        "supersedes_sha256": "149e2bbcb28c8e4813244c5e66f1ed546d4206d2fd3966740b583ba01890aa86",
+        "changed_evidence_cells": 46,
+        "changed_grade_cells": 6,
+        "unexpected_value_changes": 0,
+        "formula_cells": 0,
+        "external_links": 0,
+        "reported_grade_counts": {
+          "0": 43,
+          "1": 3
+        },
+        "batch_time_retained_from_previous": true
+      }
+    },
+    "current_agreement": {
+      "paired_graded": 46,
+      "total_items": 46,
+      "weighting": "quadratic",
+      "observed_agreement": 0.8695652173913043,
+      "kappa": 0.4457831325301205,
+      "kappa_status": "defined"
+    },
+    "cumulative_agreement": {
+      "paired_graded": 51,
+      "total_items": 51,
+      "weighting": "quadratic",
+      "observed_agreement": 0.8823529411764706,
+      "kappa": 0.4516129032258065,
+      "kappa_status": "defined"
+    },
+    "current_agreed_pairs": 40,
+    "cumulative_agreed_pairs": 45,
+    "disagreements": 6,
+    "adjudications_completed": 0,
+    "prior_explanation_containment_pairs": 9,
+    "current_full_explanation_containment_pairs": 0,
+    "independence_attestation_received": false,
+    "independence_confirmation_pending": true,
+    "independence_violation_proven": false,
+    "revision_after_feedback": true,
+    "original_blind_review_status_reestablished": false,
+    "revision_time_inferred": false,
+    "source_choices_automatically_overridden": false,
+    "labels_complete": false,
+    "final_evaluation_ready": false,
+    "new_provider_calls": 0,
+    "new_retrieval_scores": 0,
+    "research_complete": false,
+    "script_sha256": "617411c0ff4372a7e910fbd9e12a5cde65f841b27db3f13cb73d9326510e29ca"
+  },
+  "remote_ci_before_attestation": {
+    "source_commit": "3ff7a63a2374b3a58eefff5946e185e6ef7949ab",
+    "run_id": 41324340667,
+    "url": "https://github.com/sokldjs554/ko-search-clinic/actions/runs/41324340667",
+    "status": "completed",
+    "conclusion": "success",
+    "note": "Latest verified prior head; subsequent documentation CI recorded in PR3.",
+    "ubuntu": "success",
+    "windows": "success",
+    "baseline": "success"
+  },
+  "relevance_attestation": {
+    "version": "relevance-attestation-20261102",
+    "user_attestation_received": true,
+    "user_statement": "아니 초안 참고 안함",
+    "attestation_scope": "response to question about initial/revised use of others answers or AI-written drafts; preserves exact wording",
+    "independence_status": "user_reported_no_draft_reference_not_independently_authenticated",
+    "pending_draft_use_clarification": false,
+    "original_and_revision_records_preserved": true,
+    "revision_after_feedback": true,
+    "original_blinding_restored": false,
+    "cumulative_unique_pairs": 51,
+    "cumulative_reported_agreements": 45,
+    "disagreements_pending": 6,
+    "adjudications_completed": 0,
+    "handoff": {
+      "filename": "조정담당자_관련성_불일치6건.xlsx",
+      "sha256": "eb0b0c97440511161182b15218c99ee2882bef1661dfb92ef029b00f1e9bfb54",
+      "bytes": 26585,
+      "cases": 6,
+      "blank_final_decisions": 6,
+      "adjudicator_assignment": "blank; must be distinct from d/e"
+    },
+    "final_labels_complete": false,
+    "final_evaluation_ready": false,
+    "new_provider_calls": 0,
+    "new_retrieval_scores": 0,
+    "research_complete": false,
+    "script_sha256": "62ef895ff54d020194c58bcf7f0f43797d32a1a73251a5e35d8603ac07d68080"
+  },
+  "remote_ci_before_adjudication_intake": {
+    "source_commit": "8bce8463e0a531d65899693a356e9cb8c3279781",
+    "run_id": 41325794820,
+    "url": "https://github.com/sokldjs554/ko-search-clinic/actions/runs/41325794820",
+    "status": "completed",
+    "conclusion": "success",
+    "note": "Latest verified prior head; subsequent documentation CI recorded in PR3.",
+    "ubuntu": "success",
+    "windows": "success",
+    "baseline": "success"
+  },
+  "relevance_adjudication_intake": {
+    "version": "relevance-adjudication-intake-20261102",
+    "received_files": 1,
+    "adjudicator_alias": "c",
+    "adjudicator_distinct_from_initial_aliases": true,
+    "identity_status": "self_reported_not_independently_authenticated",
+    "completed_adjudications": 6,
+    "adjudication_grade_counts": {
+      "0": 6
+    },
+    "remaining_disagreements_in_submitted_pairs": 0,
+    "unique_submitted_pairs": 51,
+    "reported_resolved_pairs": 51,
+    "reported_resolved_grade_counts": {
+      "0": 48,
+      "1": 3
+    },
+    "remaining_partial_grade_boundary_cases": 3,
+    "pre_adjudication_agreement_unchanged": {
+      "paired_graded": 51,
+      "total_items": 51,
+      "weighting": "quadratic",
+      "observed_agreement": 0.8823529411764706,
+      "kappa": 0.4516129032258065,
+      "kappa_status": "defined"
+    },
+    "full_calibration_pairs": 2016,
+    "calibration_pairs_without_two_submissions": 1965,
+    "final_candidate_queries": 153,
+    "final_candidate_documents": 233,
+    "final_candidate_pairs": 35649,
+    "final_candidate_human_judgments_completed": 0,
+    "source_sha256": "dab57abcaa703cd2f8a78488d7c58c244a4a52def1f870c79adfebeeac03e486",
+    "source_bytes": 26475,
+    "changed_allowed_cells": 14,
+    "unexpected_value_changes": 0,
+    "formula_cells": 0,
+    "external_links": 0,
+    "reported_batch_time_kst": "2026-11-02 01:55",
+    "batch_time_utc": "2026-11-01T16:55:00Z",
+    "individual_times_inferred": false,
+    "user_no_draft_reference_attestation_retained": true,
+    "all_previous_versions_retained": true,
+    "new_provider_calls": 0,
+    "new_retrieval_scores": 0,
+    "labels_complete": false,
+    "final_evaluation_ready": false,
+    "research_complete": false,
+    "script_sha256": "b636e0213d2fe076ec8ba4942fdfcc6c2147c57d79dc1229e53a573cebde0334"
+  },
+  "remote_ci_before_generated_preflight": {
+    "source_commit": "ee6a64230a8303fac07f305781ba417ef85135ba",
+    "run_id": 41326780755,
+    "url": "https://github.com/sokldjs554/ko-search-clinic/actions/runs/41326780755",
+    "status": "completed",
+    "conclusion": "success",
+    "note": "Latest verified prior head; subsequent documentation CI recorded in PR3.",
+    "ubuntu": "success",
+    "windows": "success",
+    "baseline": "success"
+  },
+  "generated_comparison_preflight": {
+    "version": "generated-comparison-preflight-20261102",
+    "status": "free_checks_complete_paid_approval_pending",
+    "study_hash": "c7dbbe5f59c9106ab8386f5cb05be5bec673f4bd4d03c413a3fc71c538028563",
+    "model_id": "gpt-4.1-mini-2025-04-14",
+    "queries": 36,
+    "generation_calls_maximum": 36,
+    "judge_calls_maximum": 648,
+    "maximum_calls": 684,
+    "maximum_cost_usd": 5.4432,
+    "maximum_total_input_tokens": 8208000,
+    "maximum_total_output_tokens": 1350000,
+    "generation_input_cap": 12000,
+    "generation_output_cap": 1500,
+    "judge_input_cap": 12000,
+    "judge_output_cap": 2000,
+    "automatic_retries": 0,
+    "ready_generation_requests": 36,
+    "withheld_generation_requests": 0,
+    "largest_generation_input_bound": 8578,
+    "new_paid_provider_calls": 0,
+    "paid_approval_record_created": false,
+    "previous_90_call_approval_consumed": true,
+    "study_phase": "development",
+    "independent_final_evaluation": false,
+    "additional_human_review_assigned": false,
+    "new_semantic_human_labels_available": false,
+    "superiority_claim": false,
+    "pricing": {
+      "source": "https://developers.openai.com/api/docs/models/gpt-4.1-mini",
+      "verified_date_kst": "2026-11-02",
+      "input_usd_per_million": 0.4,
+      "output_usd_per_million": 1.6,
+      "cached_discount_assumed": false,
+      "tax_included": false,
+      "model_documentation_status": "Deprecated"
+    },
+    "model_access": {
+      "run_id": 41179770206,
+      "attempt": 2,
+      "job_id": 124924702806,
+      "checked_at_utc": "2026-11-01T17:35:53.270077+00:00",
+      "http_status": 200,
+      "status": "accessible",
+      "generation_calls": 0,
+      "secret_name": "OPENAI_API_KEY"
+    },
+    "local_tests": {
+      "passed": 704,
+      "skipped": 2,
+      "failed": 0,
+      "seconds": 114.29,
+      "junit_sha256": "fc10b7fe0c3d301ff718d43375320bad6b17f278056b15e424cc036a20d3ef21",
+      "loopback_access_enabled": true
+    },
+    "focused_tests": {
+      "passed": 69,
+      "failed": 0
+    },
+    "mock": {
+      "queries": 36,
+      "provider_calls": 0,
+      "explicit_empty_generator_responses": 36,
+      "candidate_count": 0,
+      "condition_trials": 6,
+      "assembly_complete": true,
+      "separate_scoring_complete": true,
+      "performance_claim": false,
+      "nonempty_connection_tested_with_intercepted_http": true
+    },
+    "baseline": "passed_ndcg_0.5839",
+    "label_boundary_probe": {
+      "label_read": "denied",
+      "evaluator_import": "denied"
+    },
+    "legacy_plan_hash_verified": "e916e357cd7426a6bb50180559b542b33b28f20dda0189dcfb37ae7ed9d6f99c",
+    "review": {
+      "independent_code_reviewer": true,
+      "critical_findings": 0,
+      "important_findings_fixed": [
+        "all_rejected_generation_misclassified_as_voluntary_abstention"
+      ],
+      "additional_fixes": [
+        "different_parent_empty_child_claim_collision",
+        "explicit_UTF8_in_test_files"
+      ],
+      "deferred_minor_tests": [
+        "all_oversize_generation_combination",
+        "all_withheld_judges_combination"
+      ]
+    },
+    "implementation_sha256": {
+      "src/searchclinic/research_v5/generation.py": "21d0f4a71ec593fdb9ee03732165c8052a865350c1d3b7ccddf7081facc94657",
+      "src/searchclinic/research_v5/transport.py": "c498747bbbf1e5645b58440e749a39aa1d32fcc330f36880a7df24ebed325089",
+      "src/searchclinic/research_v5/comparison.py": "5c53dd732f35f72c6db2e8f0926e9c438537df53d455a2b699d14dbd13a5f724",
+      "src/searchclinic/research/phase2/generation.py": "af8b1b12bbf180c64bcc54d03805f391004d24d59d12edb567903ae53d2ea783",
+      "scripts/run_v5_generated.py": "42a7e0d2d184e4936b7c72b0ac7858c73abb09391f24e1b7891e0b1c14466355",
+      ".github/workflows/v5-generated.yml": "ec9d6f00d3c712b11513d3a14e5f801d7e5782d4e6b67789a102ac97166641da",
+      "tests/test_v5_generated.py": "623ac2b6156c0d4009cac829fa72cfefd6d85e21c2fd631210ab32ef3aab718e"
+    },
+    "remote_ci": {
+      "source_commit": "098dc0516604f60b782f9b8a76a6411c49ba8888",
+      "run_id": 41333235453,
+      "url": "https://github.com/sokldjs554/ko-search-clinic/actions/runs/41333235453",
+      "status": "completed",
+      "conclusion": "success",
+      "ubuntu": {
+        "job_id": 124927556027,
+        "passed": 704,
+        "skipped": 2,
+        "seconds": 89.6
+      },
+      "windows": {
+        "job_id": 124927556255,
+        "passed": 704,
+        "skipped": 2,
+        "seconds": 146.28
+      },
+      "baseline": "success",
+      "note": "Verified implementation commit; subsequent aggregate-only documentation commit does not alter execution code."
+    },
+    "remote_free_preparation": {
+      "run_id": 41333230489,
+      "job_id": 124927542431,
+      "status": "success",
+      "study_hash_matches_local": true,
+      "paid_step": "skipped_no_new_approval",
+      "provider_calls_executed": 0
+    },
+    "snapshot": "Historical preapproval snapshot; superseded for actual execution by generated_comparison_result"
+  },
+  "remote_ci_before_generated_implementation": {
+    "source_commit": "031effc8201a4c74a5e274f3bec95757b7466a3b",
+    "run_id": 41329581494,
+    "url": "https://github.com/sokldjs554/ko-search-clinic/actions/runs/41329581494",
+    "status": "completed",
+    "conclusion": "success",
+    "ubuntu": "success",
+    "windows": "success",
+    "baseline": "success",
+    "note": "Verified prior head before new generation implementation; newer implementation CI tracked separately."
+  },
+  "before_generated_result": {
+    "local": {
+      "pytest": "694 passed, 2 skipped in 86.71s",
+      "command": "python -m pytest -q -rs --junitxml=work/v5-research-closeout-20261101/tests-final.xml",
+      "python": "Python 3.12.14",
+      "private_log": "work/v5-research-closeout-20261101/pytest-final.log",
+      "baseline": "passed; nDCG10 0.5839426550733804",
+      "diff_check": "passed",
+      "one_off_analysis_pyflakes": "passed",
+      "environment_note": "Initial default-sandbox run blocked socketpair.send with EPERM, also reproduced without project code using AnyIO portal. Network-enabled sandbox permission resolved it; no product change or test exclusion. Interrupted logs preserved."
+    },
+    "browser": {
+      "research_queries": 36,
+      "live_queries": 36,
+      "summary_arms": 3,
+      "live_summary_arms": 9,
+      "viewports": [
+        1440,
+        320,
+        390
+      ],
+      "rag_replay_loaded": true,
+      "page_errors": []
+    },
+    "browser_public": {
+      "research_queries": 0,
+      "live_queries": 0,
+      "summary_arms": 3,
+      "live_summary_arms": 9,
+      "viewports": [
+        1440,
+        320,
+        390
+      ],
+      "rag_replay_loaded": true,
+      "page_errors": []
+    },
+    "paid_api_calls": 90,
+    "usage_cost_estimate_usd": 0.0580032,
+    "publication": {
+      "pull_request": "https://github.com/sokldjs554/ko-search-clinic/pull/3",
+      "source_commit": "897a68dd0374b35667b0d0cf524d300275769179",
+      "test_import_fix": "fd073c5efd48ea94ab290ae1439b8e99155f133c",
+      "detailed_outputs": "excluded pending explicit publication approval",
+      "initial_source_commit": "1055e2dcdd3563518edb210cfd38cbe2de43f62e",
+      "draft": true,
+      "merged": false,
+      "mergeable_at_code_check": true,
+      "status": "actual generated development comparison and failure analysis complete; final result CI pending; independent final evaluation incomplete"
+    },
+    "review": {
+      "type": "independent AI code review, not relevance adjudication",
+      "findings_fixed": [
+        "generation_error preservation in diagnostic and request exports",
+        "full precision metrics for mean gate"
+      ],
+      "minor_deferred": [],
+      "scope": "Historical integration review; new post-hoc modules had local self-review and CI, not human research adjudication"
+    }
+  },
+  "browser_generated": [
+    {
+      "mode": "public",
+      "summary_arms": 9,
+      "queries": 0,
+      "failed_generation_visible": 0,
+      "private_data_http_status": 404,
+      "viewports": [
+        1440,
+        320,
+        390
+      ],
+      "page_errors": []
+    },
+    {
+      "mode": "private",
+      "summary_arms": 9,
+      "queries": 36,
+      "failed_generation_visible": 32,
+      "private_data_http_status": 200,
+      "viewports": [
+        1440,
+        320,
+        390
+      ],
+      "page_errors": []
+    }
+  ],
+  "browser_legacy_regression": {
+    "public_queries": 0,
+    "summary_arms": 3,
+    "live_summary_arms": 9,
+    "viewports": [
+      1440,
+      320,
+      390
+    ],
+    "rag_replay_loaded": true,
+    "page_errors": []
+  },
+  "browser_visual_inspection": "public generated result viewport inspected",
+  "generated_comparison_result": {
+    "date_kst": "2026-11-02",
+    "scope": "completed development comparison, not independent final evaluation",
+    "run_id": 41333892182,
+    "run_url": "https://github.com/sokldjs554/ko-search-clinic/actions/runs/41333892182",
+    "approval_commit": "6b5dcc2fcd8bcae882c7aa2a5fdf0e412e04f231",
+    "model": "gpt-4.1-mini-2025-04-14",
+    "plan_hash": "c7dbbe5f59c9106ab8386f5cb05be5bec673f4bd4d03c413a3fc71c538028563",
+    "provider_calls": 60,
+    "generation_calls": 36,
+    "judgment_calls": 24,
+    "input_tokens": 117558,
+    "output_tokens": 11184,
+    "usage_cost_estimate_usd": 0.0649176,
+    "actual_invoice_usd": null,
+    "api_errors": 0,
+    "unknown_usage": 0,
+    "automatic_retries": 0,
+    "submitted_candidates": 50,
+    "rejected_candidates": 46,
+    "valid_candidates": 4,
+    "retrieval_useful_valid_candidates": 1,
+    "valid_pool_oracle_ndcg10": 0.6117204328511582,
+    "rules_plus_ndcg10": 0.8594904547719413,
+    "additional_human_review_assigned": false,
+    "new_semantic_human_labels_available": false,
+    "independent_evaluation_complete": false,
+    "superiority_claim": false,
+    "public_summary": "generated-comparison-result-20261102.json",
+    "public_summary_sha256": "b7475a37e581cb9aaa5f4cdc0378038f679ef2a735ff3bfbbe90860d4f6b8052",
+    "replay": {
+      "additional_provider_calls": 0,
+      "assembly_equal_excluding_sha256_and_latency": true,
+      "scores_paired_intervals_random_repeats_equal": true,
+      "original_assembly_hash": "1c42457741fd102c5002a8167d04761d66afdb687b148b9840b25a0e90221cd3",
+      "replayed_assembly_hash": "8c7b75b08921f4b10f981302957fb584b88d15db157d7de3191eb0cf4469a5b7"
+    },
+    "raw_evidence": "265 encrypted archive files retained privately; no detail publication",
+    "artifact_id": 13094771030,
+    "artifact_zip_sha256": "0404fae912b1d2fea7a9ce853f4680aa73a415ec74f34be693bee1e279a9c87c",
+    "report": "../GENERATED_COMPARISON_RESULT_20261102.md"
+  },
+  "cost_scope": "historical 90-call study plus new 60-call study; invoice unknown",
+  "development_comparison_complete": true,
+  "independent_evaluation_complete": false,
+  "original_independent_superiority_goal_met": false,
+  "remote_ci_before_generated_results": {
+    "source_commit": "098dc0516604f60b782f9b8a76a6411c49ba8888",
+    "run_id": 41333235453,
+    "url": "https://github.com/sokldjs554/ko-search-clinic/actions/runs/41333235453",
+    "status": "completed",
+    "conclusion": "success",
+    "ubuntu": {
+      "job_id": 124927556027,
+      "passed": 704,
+      "skipped": 2,
+      "seconds": 89.6
+    },
+    "windows": {
+      "job_id": 124927556255,
+      "passed": 704,
+      "skipped": 2,
+      "seconds": 146.28
+    },
+    "baseline": "success",
+    "note": "Verified implementation commit; subsequent aggregate-only documentation commit does not alter execution code."
+  },
+  "browser_actual_server": {
+    "server": "python -m searchclinic.api.explanation_api",
+    "page_status": 200,
+    "summary_arms": 9,
+    "private_detail_status": 404,
+    "page_errors": [],
+    "documentation_fix": "README lead command corrected from REST-only clinic-api (404 for /demo) to python -m searchclinic.api.explanation_api; actual route browser verified"
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "gate_baseline_pass": true,
+  "docs": 72,
+  "queries": 36,
+  "healthy": 20,
+  "failing": 16,
+  "families": [
+    "compound_locked",
+    "cross_script",
+    "garbage_split",
+    "spelling_variant",
+    "synonym_gap"
+  ],
+  "vector_model": "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2",
+  "vector_tokens": 470,
+  "llm_reexecuted": false,
+  "elasticsearch_reexecuted": false,
+  "audit_document": "docs/research/CURRENT_STATE_AUDIT.md"
+}

@@ -1,0 +1,20 @@
+{
+  "source_commit": "1055e2dcdd3563518edb210cfd38cbe2de43f62e",
+  "source_clean": true,
+  "source_files_sha256": "64add0e27abf1de227df8908f05363affe7b8ddf9616cf3cf18265eec9c2149a",
+  "score_report_identical_to_prior_run": true,
+  "api_calls": 0,
+  "costs": {
+    "api_calls": 0,
+    "api_cost_usd": 0.0,
+    "latency_ms": 10813.790771000185,
+    "reindexes": 16,
+    "search_calls": 576
+  },
+  "private_local_outputs": {
+    "work/final-source-replay.json": "db552e8bdfd1b4521b62b960cc5bc1b421e76c36e893ef4656f814ff38071893",
+    "work/final-source-funnel.csv": "d5095373e31b844fa7533e48a303aa98ddac8a809d2158d917e1d76786dc0b71",
+    "work/final-source-prepared/empty-verdict-application.json": "fb41c3e9c9a53a684c05b03125072f410ebb7be3271cfba45098ac33d275404a",
+    "work/final-source-prepared/empty-verdict-scores.json": "d3acea1ac59cb21103f74d9d824fa6ace55192f1b614a6bd4200c8818dd8457e"
+  }
+}

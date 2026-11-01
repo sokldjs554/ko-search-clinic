@@ -1,0 +1,13 @@
+2026-10-12T06:08:54.4230533Z [command]/usr/bin/git -c protocol.version=2 fetch --prune --no-recurse-submodules origin +refs/heads/*:refs/remotes/origin/* +refs/tags/*:refs/tags/* +0a4476d49428582398ea7a066c873e45f965bda0:refs/remotes/pull/1/merge
+2026-10-12T06:08:55.0611557Z  * [new ref]         0a4476d49428582398ea7a066c873e45f965bda0 -> pull/1/merge
+2026-10-12T06:08:55.0877533Z HEAD is now at 0a4476d Merge a0fc8c7abe8a04d932de382e28e5ccd93b3cdc1f into 80ea3bcf2fffb395b27abc3d38db4e9876a9c2d1
+2026-10-12T06:08:55.0896466Z [command]/usr/bin/git log -1 --format=%H
+2026-10-12T06:08:55.0914072Z 0a4476d49428582398ea7a066c873e45f965bda0
+2026-10-12T06:09:09.0174188Z 검색 품질 유지 — 평균 nDCG 0.5839
+2026-10-12T06:09:12.4730523Z executed no_repair; artifact=artifacts/ci-research/runs/no_repair-20261012T060912-bf14ac16.json
+2026-10-12T06:09:18.2400691Z executed always_typed_patch; artifact=artifacts/ci-research/runs/always_typed_patch-20261012T060918-cb76d95f.json
+2026-10-12T06:09:18.6627552Z executed selective_rule; artifact=artifacts/ci-research/runs/selective_rule-20261012T060918-42932087.json
+2026-10-12T06:09:20.0174117Z SHA256 digest of uploaded artifact zip is 46fd397d1d2c90edd8cae388cbd8468229f37ac7fcff23b10b4e9d94da6f34ea
+2026-10-12T06:09:20.2646184Z Artifact research-offline.zip successfully finalized. Artifact ID 11728974687
+2026-10-12T06:09:20.2647208Z Artifact research-offline has been successfully uploaded! Final size is 40318 bytes. Artifact ID is 11728974687
+2026-10-12T06:09:20.2652145Z Artifact download URL: https://github.com/sokldjs554/ko-search-clinic/actions/runs/38211127720/artifacts/11728974687

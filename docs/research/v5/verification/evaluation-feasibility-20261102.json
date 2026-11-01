@@ -1,0 +1,288 @@
+{
+  "version": "evaluation-feasibility-20261102",
+  "status": "alternatives_deferred_user_requested_development_llm_closeout",
+  "current_inventory": {
+    "calibration_queries": 36,
+    "calibration_documents": 56,
+    "final_queries": 153,
+    "final_documents": 233,
+    "human_submitted_unique_pairs": 51,
+    "completed_adjudications": 6
+  },
+  "bounded_options": [
+    {
+      "name": "bounded_16",
+      "calibration_queries": 8,
+      "calibration_documents": 12,
+      "final_queries": 16,
+      "final_documents": 24,
+      "relevance_pairs_per_reviewer": 480,
+      "semantic_candidate_items_per_reviewer_max": 48,
+      "query_eligibility_items_per_reviewer": 24,
+      "initial_review_items_per_reviewer_max": 552,
+      "illustrative_hours_per_reviewer_30_to_60_seconds_per_item": [
+        4.6,
+        9.2
+      ],
+      "adjudication_hours_included": false,
+      "candidate_cap_assumption": 2,
+      "generation_calls_max": 24,
+      "semantic_judge_calls_max": 288,
+      "total_paid_calls_max_assumption": 312,
+      "new_paid_approval_granted": false,
+      "preview_sha256": "6d7a7c91cc181ac5540d85729f068d0437855b93ae2b21753a52180912f8e207",
+      "active_protocol": false,
+      "audit": {
+        "calibration": {
+          "queries": 8,
+          "documents": 12,
+          "unique_query_groups": 8,
+          "all_query_source_documents_retained": true
+        },
+        "candidate_final": {
+          "queries": 16,
+          "documents": 24,
+          "unique_query_groups": 16,
+          "all_query_source_documents_retained": true
+        }
+      },
+      "known_group_split_overlap": 0,
+      "v4_exposure_audit_complete": false,
+      "source_answerability_metadata_counts": {
+        "calibration": {
+          "source_answerable": 5,
+          "source_unanswerable": 3,
+          "not_human_relevance_labels": true
+        },
+        "candidate_final": {
+          "source_answerable": 11,
+          "source_unanswerable": 5,
+          "not_human_relevance_labels": true
+        }
+      }
+    },
+    {
+      "name": "bounded_32",
+      "calibration_queries": 8,
+      "calibration_documents": 16,
+      "final_queries": 32,
+      "final_documents": 48,
+      "relevance_pairs_per_reviewer": 1664,
+      "semantic_candidate_items_per_reviewer_max": 80,
+      "query_eligibility_items_per_reviewer": 40,
+      "initial_review_items_per_reviewer_max": 1784,
+      "illustrative_hours_per_reviewer_30_to_60_seconds_per_item": [
+        14.87,
+        29.73
+      ],
+      "adjudication_hours_included": false,
+      "candidate_cap_assumption": 2,
+      "generation_calls_max": 40,
+      "semantic_judge_calls_max": 480,
+      "total_paid_calls_max_assumption": 520,
+      "new_paid_approval_granted": false,
+      "preview_sha256": "d3e7c4e45771e515cca2913412433b8a67ce1be449fc22568acd88cb6ffd6b7e",
+      "active_protocol": false,
+      "audit": {
+        "calibration": {
+          "queries": 8,
+          "documents": 16,
+          "unique_query_groups": 8,
+          "all_query_source_documents_retained": true
+        },
+        "candidate_final": {
+          "queries": 32,
+          "documents": 48,
+          "unique_query_groups": 32,
+          "all_query_source_documents_retained": true
+        }
+      },
+      "known_group_split_overlap": 0,
+      "v4_exposure_audit_complete": false,
+      "source_answerability_metadata_counts": {
+        "calibration": {
+          "source_answerable": 5,
+          "source_unanswerable": 3,
+          "not_human_relevance_labels": true
+        },
+        "candidate_final": {
+          "source_answerable": 25,
+          "source_unanswerable": 7,
+          "not_human_relevance_labels": true
+        }
+      }
+    }
+  ],
+  "existing_full_scope": {
+    "name": "existing_full_scope",
+    "calibration_queries": 36,
+    "calibration_documents": 56,
+    "final_queries": 153,
+    "final_documents": 233,
+    "remaining_relevance_pairs_per_reviewer": 37614,
+    "semantic_candidate_items_per_reviewer_max": 378,
+    "query_eligibility_items_per_reviewer": 189,
+    "initial_review_items_per_reviewer_max": 38181,
+    "illustrative_hours_per_reviewer_30_to_60_seconds_per_item": [
+      318.175,
+      636.35
+    ],
+    "adjudication_hours_included": false,
+    "total_paid_calls_max_assumption": 2457
+  },
+  "source_scores_read": "existing 36-query development report only",
+  "development_variance": {
+    "pair_vs_no_repair": {
+      "n": 36,
+      "mean": 0.2222222222222222,
+      "sample_sd": 0.4216370213557839
+    },
+    "pair_vs_rules_plus": {
+      "n": 36,
+      "mean": -0.053325577476338544,
+      "sample_sd": 0.23324264079772195
+    },
+    "context_vs_no_repair": {
+      "n": 36,
+      "mean": 0.0,
+      "sample_sd": 0.0
+    },
+    "context_vs_rules_plus": {
+      "n": 36,
+      "mean": -0.27554779969856075,
+      "sample_sd": 0.4558535953765713
+    },
+    "rubric_vs_no_repair": {
+      "n": 36,
+      "mean": 0.0,
+      "sample_sd": 0.0
+    },
+    "rubric_vs_rules_plus": {
+      "n": 36,
+      "mean": -0.27554779969856075,
+      "sample_sd": 0.4558535953765713
+    }
+  },
+  "power_sensitivity": [
+    {
+      "independent_query_groups": 16,
+      "assumed_paired_sd": 0.1,
+      "approx_true_gain_for_80pct_one_comparison_power_above_margin": 0.08707559902944652
+    },
+    {
+      "independent_query_groups": 16,
+      "assumed_paired_sd": 0.2,
+      "approx_true_gain_for_80pct_one_comparison_power_above_margin": 0.16415119805889306
+    },
+    {
+      "independent_query_groups": 16,
+      "assumed_paired_sd": 0.3,
+      "approx_true_gain_for_80pct_one_comparison_power_above_margin": 0.24122679708833955
+    },
+    {
+      "independent_query_groups": 32,
+      "assumed_paired_sd": 0.1,
+      "approx_true_gain_for_80pct_one_comparison_power_above_margin": 0.06450067873773692
+    },
+    {
+      "independent_query_groups": 32,
+      "assumed_paired_sd": 0.2,
+      "approx_true_gain_for_80pct_one_comparison_power_above_margin": 0.11900135747547383
+    },
+    {
+      "independent_query_groups": 32,
+      "assumed_paired_sd": 0.3,
+      "approx_true_gain_for_80pct_one_comparison_power_above_margin": 0.17350203621321073
+    },
+    {
+      "independent_query_groups": 153,
+      "assumed_paired_sd": 0.1,
+      "approx_true_gain_for_80pct_one_comparison_power_above_margin": 0.03492477144754212
+    },
+    {
+      "independent_query_groups": 153,
+      "assumed_paired_sd": 0.2,
+      "approx_true_gain_for_80pct_one_comparison_power_above_margin": 0.05984954289508425
+    },
+    {
+      "independent_query_groups": 153,
+      "assumed_paired_sd": 0.3,
+      "approx_true_gain_for_80pct_one_comparison_power_above_margin": 0.08477431434262636
+    }
+  ],
+  "power_method": "normal approximation, independent equal-size groups; 80% for one corrected comparison, not both or safety; not a prospective power guarantee",
+  "current_primary_code": {
+    "condition": "rubric",
+    "metric": "ndcg10",
+    "population": "overall",
+    "repeat_aggregation": "mean_within_query_before_cluster_bootstrap",
+    "comparators": [
+      "no_repair",
+      "rules_plus"
+    ],
+    "minimum_gain": 0.01,
+    "familywise_alpha": 0.05,
+    "per_comparison_ci_level": 0.975,
+    "success_rule": "both_corrected_lower_bounds_at_least_minimum_gain_and_zero_normal_regressions",
+    "normal_regression_maximum": 0,
+    "normal_regression_definition": "any_healthy_query_any_metric_loss_above_1e-12_in_any_primary_repeat",
+    "posthoc_tuning_allowed": false
+  },
+  "protocol_document_mismatch": "PROTOCOL.md historical descriptive regression >0.02 differs from final comparison PRIMARY zero losses >1e-12; do not mix definitions",
+  "final_phase_blocked_by_existing_v4_exposure_gate": true,
+  "public_alternative_route_status": "not adopted; MIRACL train/dev already exposed; other QA-derived/translated sparse benchmarks require provenance/exposure and unjudged policy",
+  "new_provider_calls": 0,
+  "new_retrieval_scores": 0,
+  "final_human_qrels_read": false,
+  "active_dataset_or_protocol_changed": false,
+  "existing_labels_overwritten": false,
+  "script_sha256": "3bc38a70c04c031aa3c8c2e7b06af4d822aed61d3c2183bcef36cbfba4859216",
+  "source_inventory_sha256": "a286c49ce4146bbfd0c441e83a1025e0c42dd7a6cb1b7d6b3bc8ef507d7b0c96",
+  "development_report_sha256": "17d6bf515d46f9eb0b6095a000cf718c752990967f867aef009101e209166668",
+  "development_sd_power_sensitivity": [
+    {
+      "n_independent_query_groups": 16,
+      "development_contrast": "pair_vs_rules_plus",
+      "sample_sd": 0.23324264079772195,
+      "approx_true_gain_for_80pct_one_comparison_power_above_margin": 0.1897731625869444
+    },
+    {
+      "n_independent_query_groups": 16,
+      "development_contrast": "rubric_vs_rules_plus",
+      "sample_sd": 0.4558535953765713,
+      "approx_true_gain_for_80pct_one_comparison_power_above_margin": 0.3613518893337616
+    },
+    {
+      "n_independent_query_groups": 32,
+      "development_contrast": "pair_vs_rules_plus",
+      "sample_sd": 0.23324264079772195,
+      "approx_true_gain_for_80pct_one_comparison_power_above_margin": 0.13711882234058012
+    },
+    {
+      "n_independent_query_groups": 32,
+      "development_contrast": "rubric_vs_rules_plus",
+      "sample_sd": 0.4558535953765713,
+      "approx_true_gain_for_80pct_one_comparison_power_above_margin": 0.2584433035306082
+    },
+    {
+      "n_independent_query_groups": 153,
+      "development_contrast": "pair_vs_rules_plus",
+      "sample_sd": 0.23324264079772195,
+      "approx_true_gain_for_80pct_one_comparison_power_above_margin": 0.06813519513704383
+    },
+    {
+      "n_independent_query_groups": 153,
+      "development_contrast": "rubric_vs_rules_plus",
+      "sample_sd": 0.4558535953765713,
+      "approx_true_gain_for_80pct_one_comparison_power_above_margin": 0.12362046678301382
+    }
+  ],
+  "power_uses_development_variance_only": true,
+  "metadata_only_source_answerability_check": true,
+  "reviewer_available_hours": [
+    4,
+    8
+  ],
+  "additional_review_assigned": false,
+  "adopted_route": "existing_36_query_development_gpt_generation_and_selection_comparison"
+}

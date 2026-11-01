@@ -37,7 +37,7 @@ _kiwi_cache: dict[tuple, Kiwi] = {}
 
 def _kiwi_for(words: tuple[tuple[str, str], ...]) -> Kiwi:
     if words not in _kiwi_cache:
-        kiwi = Kiwi()
+        kiwi = Kiwi(model_type="cong-global")
         for form, tag in words:
             kiwi.add_user_word(form, tag, _USER_WORD_SCORE)
         _kiwi_cache[words] = kiwi

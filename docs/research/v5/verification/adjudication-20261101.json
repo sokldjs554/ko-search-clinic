@@ -1,0 +1,91 @@
+{
+  "version": "v5-adjudication-content-summary-20261101",
+  "source_sha256": "3fddea79a762d5064aea422cbadf8f8b63e691a8724fece313811e5d2431ffc6",
+  "content_receipt_sha256": "5c98217622417eb9ba50bf878fe6ed3a6796c4075b06ca31173d841d08eb35b3",
+  "adjudicator": "c",
+  "submitted_decisions": 12,
+  "coverage_matches_pending_queue": true,
+  "adjudicated_true": 12,
+  "adjudicated_false": 0,
+  "preserved_initial_agreements": 3,
+  "candidate_total": 15,
+  "reported_true": 12,
+  "reported_false": 3,
+  "pending_decision_content": 0,
+  "decision_content_complete": true,
+  "timestamp_metadata_complete": false,
+  "official_reconcile_receipt_created": false,
+  "missing_metadata": "review calendar date; UTC instant not inferred",
+  "reason_quality": "generic agreement wording; not source-grounded error-type review",
+  "initial_agreement": {
+    "kappa": -0.25,
+    "kappa_status": "defined",
+    "observed_agreement": 0.6,
+    "paired_graded": 5,
+    "total_items": 15,
+    "weighting": "unweighted"
+  },
+  "independent_final_evaluation_ready": false,
+  "additional_provider_calls": 0,
+  "selector_diagnostic": {
+    "first_valid": {
+      "selected": 14,
+      "selected_reported_true": 11,
+      "selected_reported_false": 3,
+      "selected_unknown": 0,
+      "reported_true_not_selected": 1,
+      "ndcg10": 0.8492385034822596
+    },
+    "pair:1": {
+      "selected": 9,
+      "selected_reported_true": 8,
+      "selected_reported_false": 1,
+      "selected_unknown": 0,
+      "reported_true_not_selected": 4,
+      "ndcg10": 0.8061648772956027
+    },
+    "pair:2": {
+      "selected": 10,
+      "selected_reported_true": 9,
+      "selected_reported_false": 1,
+      "selected_unknown": 0,
+      "reported_true_not_selected": 3,
+      "ndcg10": 0.8061648772956027
+    },
+    "context:1": {
+      "selected": 0,
+      "selected_reported_true": 0,
+      "selected_reported_false": 0,
+      "selected_unknown": 0,
+      "reported_true_not_selected": 12,
+      "ndcg10": 0.5839426550733804
+    },
+    "context:2": {
+      "selected": 0,
+      "selected_reported_true": 0,
+      "selected_reported_false": 0,
+      "selected_unknown": 0,
+      "reported_true_not_selected": 12,
+      "ndcg10": 0.5839426550733804
+    },
+    "rubric:1": {
+      "selected": 0,
+      "selected_reported_true": 0,
+      "selected_reported_false": 0,
+      "selected_unknown": 0,
+      "reported_true_not_selected": 12,
+      "ndcg10": 0.5839426550733804
+    },
+    "rubric:2": {
+      "selected": 0,
+      "selected_reported_true": 0,
+      "selected_reported_false": 0,
+      "selected_unknown": 0,
+      "reported_true_not_selected": 12,
+      "ndcg10": 0.5839426550733804
+    }
+  },
+  "retrieval_results_unchanged": true,
+  "protocol_hash": "13d32338ace8822fbd7dc7d219bd3118810a2b85d3752d5bf0dca8f667d1b2d5",
+  "assembly_hash": "b2711259419bff8f435af89c57a19aa89f1f022f339423fd7638d3bb4dfcc6d6"
+}

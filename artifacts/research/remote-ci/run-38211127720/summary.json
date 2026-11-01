@@ -1,0 +1,66 @@
+{
+  "run_id": 38211127720,
+  "run_url": "https://github.com/sokldjs554/ko-search-clinic/actions/runs/38211127720",
+  "pr_number": 1,
+  "pr_url": "https://github.com/sokldjs554/ko-search-clinic/pull/1",
+  "pr_head_sha": "a0fc8c7abe8a04d932de382e28e5ccd93b3cdc1f",
+  "checkout_sha": "0a4476d49428582398ea7a066c873e45f965bda0",
+  "merge_base_sha": "80ea3bcf2fffb395b27abc3d38db4e9876a9c2d1",
+  "conclusion": "success",
+  "jobs": [
+    {
+      "id": 114685306445,
+      "name": "검색 품질 게이트",
+      "conclusion": "success",
+      "url": "https://github.com/sokldjs554/ko-search-clinic/actions/runs/38211127720/job/114685306445",
+      "checkout_sha": "0a4476d49428582398ea7a066c873e45f965bda0",
+      "test_result": null,
+      "skipped_steps": [
+        {
+          "name": "실패 시 현재 지표 전체",
+          "reason": "failure() condition false because quality gate succeeded"
+        }
+      ]
+    },
+    {
+      "id": 114685306542,
+      "name": "테스트 (ubuntu-latest)",
+      "conclusion": "success",
+      "url": "https://github.com/sokldjs554/ko-search-clinic/actions/runs/38211127720/job/114685306542",
+      "checkout_sha": "0a4476d49428582398ea7a066c873e45f965bda0",
+      "test_result": {
+        "passed": 333,
+        "skipped": 2,
+        "skip_reasons": [
+          "tests/test_scale.py: pyarrow optional dependency not installed by CI extras",
+          "tests/test_postgres_store.py: psycopg2 optional dependency not installed by CI extras"
+        ]
+      },
+      "skipped_steps": []
+    },
+    {
+      "id": 114685306561,
+      "name": "테스트 (windows-latest)",
+      "conclusion": "success",
+      "url": "https://github.com/sokldjs554/ko-search-clinic/actions/runs/38211127720/job/114685306561",
+      "checkout_sha": "0a4476d49428582398ea7a066c873e45f965bda0",
+      "test_result": {
+        "passed": 333,
+        "skipped": 2,
+        "skip_reasons": [
+          "tests/test_scale.py: pyarrow optional dependency not installed by CI extras",
+          "tests/test_postgres_store.py: psycopg2 optional dependency not installed by CI extras"
+        ]
+      },
+      "skipped_steps": []
+    }
+  ],
+  "artifact": {
+    "id": 11728974687,
+    "name": "research-offline",
+    "size_bytes": 40318,
+    "sha256": "46fd397d1d2c90edd8cae388cbd8468229f37ac7fcff23b10b4e9d94da6f34ea",
+    "url": "https://github.com/sokldjs554/ko-search-clinic/actions/runs/38211127720/artifacts/11728974687"
+  },
+  "execution_retried": false
+}

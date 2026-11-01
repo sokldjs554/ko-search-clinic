@@ -1,0 +1,31 @@
+........................................................................ [ 17%]
+........................................................................ [ 35%]
+..............................................F......................... [ 52%]
+........................................................................ [ 70%]
+........................................................................ [ 88%]
+.................................................                        [100%]
+=================================== FAILURES ===================================
+____________________ test_every_file_open_declares_encoding ____________________
+
+    def test_every_file_open_declares_encoding():
+        """소스 전체: 텍스트 파일을 여는 모든 호출은 encoding을 명시해야 한다."""
+        offenders = [
+            line
+            for path in _python_files()
+            for line in find_unencoded_opens(
+                path.read_text(encoding="utf-8"), str(path.relative_to(ROOT))
+            )
+        ]
+>       assert not offenders, (
+            "encoding 없이 텍스트 파일을 엽니다 — 한국어 Windows(cp949)에서 깨집니다:\n  "
+            + "\n  ".join(offenders)
+        )
+E       AssertionError: encoding 없이 텍스트 파일을 엽니다 — 한국어 Windows(cp949)에서 깨집니다:
+E           src/searchclinic/research/phase2/external_data.py:44: open(...) — encoding 없음
+E       assert not ['src/searchclinic/research/phase2/external_data.py:44: open(...) — encoding 없음']
+
+tests/test_portability.py:101: AssertionError
+=========================== short test summary info ============================
+SKIPPED [1] tests/test_postgres_store.py:20: PostgreSQL은 선택 의존성이다
+SKIPPED [1] tests/test_scale.py:21: 규모 계층은 선택 의존성이다
+1 failed, 408 passed, 2 skipped in 41.02s

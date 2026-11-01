@@ -1,0 +1,82 @@
+FFFFF                                                                    [100%]
+=================================== FAILURES ===================================
+______ test_gate_adapter_cannot_relax_the_v1_acceptance_contract[kwargs0] ______
+
+engine = <searchclinic.research.costs.MeasuredEngine object at 0x7fcc63bf0bc0>
+kwargs = {'epsilon': nan}
+
+    @pytest.mark.parametrize("kwargs", [{"epsilon": float("nan")}, {"epsilon": 1.0},
+                                        {"min_gain": 0.0}])
+    def test_gate_adapter_cannot_relax_the_v1_acceptance_contract(engine, kwargs):
+        from searchclinic.research.gate_adapter import GateAdapter
+>       with pytest.raises(ValueError, match="contract"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/test_research_execution.py:45: Failed
+______ test_gate_adapter_cannot_relax_the_v1_acceptance_contract[kwargs1] ______
+
+engine = <searchclinic.research.costs.MeasuredEngine object at 0x7fcc63bf0bc0>
+kwargs = {'epsilon': 1.0}
+
+    @pytest.mark.parametrize("kwargs", [{"epsilon": float("nan")}, {"epsilon": 1.0},
+                                        {"min_gain": 0.0}])
+    def test_gate_adapter_cannot_relax_the_v1_acceptance_contract(engine, kwargs):
+        from searchclinic.research.gate_adapter import GateAdapter
+>       with pytest.raises(ValueError, match="contract"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/test_research_execution.py:45: Failed
+______ test_gate_adapter_cannot_relax_the_v1_acceptance_contract[kwargs2] ______
+
+engine = <searchclinic.research.costs.MeasuredEngine object at 0x7fcc63bf0bc0>
+kwargs = {'min_gain': 0.0}
+
+    @pytest.mark.parametrize("kwargs", [{"epsilon": float("nan")}, {"epsilon": 1.0},
+                                        {"min_gain": 0.0}])
+    def test_gate_adapter_cannot_relax_the_v1_acceptance_contract(engine, kwargs):
+        from searchclinic.research.gate_adapter import GateAdapter
+>       with pytest.raises(ValueError, match="contract"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/test_research_execution.py:45: Failed
+_______ test_mutating_gate_config_after_construction_still_fails_closed ________
+
+engine = <searchclinic.research.costs.MeasuredEngine object at 0x7fcc63bf0bc0>
+
+    def test_mutating_gate_config_after_construction_still_fails_closed(engine):
+        from searchclinic.research.gate_adapter import GateAdapter
+        gate = GateAdapter(engine, load_evalset())
+        gate.epsilon = float("nan")
+>       assert gate.submit(candidate(engine, rx()))["reason"] == "invalid_configuration"
+E       AssertionError: assert 'accepted' == 'invalid_configuration'
+E         
+E         - invalid_configuration
+E         + accepted
+
+tests/test_research_execution.py:53: AssertionError
+______________ test_comparison_cannot_mix_different_qrels_hashes _______________
+
+    def test_comparison_cannot_mix_different_qrels_hashes():
+        from searchclinic.research.runner import run_experiment
+        from searchclinic.research.artifacts import compare_runs
+        from copy import deepcopy
+        a = run_experiment("no_repair")
+        a["policy"] = "always_typed_patch"
+        b = deepcopy(a)
+        b["policy"] = "selective_rule"
+        b["evalset_hash"] = "altered-qrels"
+>       with pytest.raises(ValueError, match="evalset_hash"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/test_research_artifacts.py:65: Failed
+=========================== short test summary info ============================
+FAILED tests/test_research_execution.py::test_gate_adapter_cannot_relax_the_v1_acceptance_contract[kwargs0]
+FAILED tests/test_research_execution.py::test_gate_adapter_cannot_relax_the_v1_acceptance_contract[kwargs1]
+FAILED tests/test_research_execution.py::test_gate_adapter_cannot_relax_the_v1_acceptance_contract[kwargs2]
+FAILED tests/test_research_execution.py::test_mutating_gate_config_after_construction_still_fails_closed
+FAILED tests/test_research_artifacts.py::test_comparison_cannot_mix_different_qrels_hashes
+5 failed, 19 deselected in 2.58s

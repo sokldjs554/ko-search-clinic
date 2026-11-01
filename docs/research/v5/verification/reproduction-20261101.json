@@ -1,0 +1,60 @@
+{
+  "replayed_reports_equal": {
+    "scores": true,
+    "arms": true,
+    "paired_primary": true,
+    "paired_conditions": true,
+    "repeat_variability": true,
+    "matched_random": true,
+    "threshold_diagnostic": true,
+    "numerical_criteria_met": true,
+    "superiority_claim": true
+  },
+  "independent_dataset_manifest_files_verified": 12,
+  "independent_manifest_sha256": "12d67332ff6af6ef6e1bcfffbe8dc2e5a05ae98bc2aee61784e2dd35650c9afe",
+  "final_evaluation_ready": false,
+  "new_provider_calls": 0,
+  "original_protocol_sha256": "13d32338ace8822fbd7dc7d219bd3118810a2b85d3752d5bf0dca8f667d1b2d5",
+  "application_replay": {
+    "context:1": {
+      "full_application_equal": true,
+      "rankings_equal": true,
+      "decisions_equal": true
+    },
+    "context:2": {
+      "full_application_equal": true,
+      "rankings_equal": true,
+      "decisions_equal": true
+    },
+    "first_valid": {
+      "full_application_equal": true,
+      "rankings_equal": true,
+      "decisions_equal": true
+    },
+    "pair:1": {
+      "full_application_equal": true,
+      "rankings_equal": true,
+      "decisions_equal": true
+    },
+    "pair:2": {
+      "full_application_equal": true,
+      "rankings_equal": true,
+      "decisions_equal": true
+    },
+    "rubric:1": {
+      "full_application_equal": true,
+      "rankings_equal": true,
+      "decisions_equal": true
+    },
+    "rubric:2": {
+      "full_application_equal": true,
+      "rankings_equal": true,
+      "decisions_equal": true
+    },
+    "rules_plus": {
+      "full_application_equal": false,
+      "rankings_equal": true,
+      "decisions_equal": true
+    }
+  }
+}

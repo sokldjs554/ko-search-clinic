@@ -1,0 +1,93 @@
+FFFFF                                                                    [100%]
+=================================== FAILURES ===================================
+____________ test_invalid_utility_weights_do_not_select_repair[nan] ____________
+
+value = nan
+
+    @pytest.mark.parametrize("value", [float("nan"), float("inf"), -1])
+    def test_invalid_utility_weights_do_not_select_repair(value):
+        from searchclinic.research.detector import RuleDetector
+        from searchclinic.research.policy import select_action, Budget
+        from searchclinic.research.actions import Candidate, ActionKind
+        from searchclinic.research.models import EvidenceSpan
+        from searchclinic.research.costs import DEFAULT_WEIGHTS
+        c = Candidate(ActionKind.TYPED_PATCH, evidence=(EvidenceSpan(source_type="query",
+            source_id="후라이팬", start=0, end=4, text="후라이팬"),))
+        d = RuleDetector().detect(observation(result_count=0).policy_view())
+        weights = {**DEFAULT_WEIGHTS, "latency_ms": value}
+>       assert select_action(d, [c], Budget(), weights=weights).action == ActionKind.ABSTAIN
+E       AssertionError: assert <ActionKind.T...'typed_patch'> == <ActionKind.A...IN: 'abstain'>
+E         
+E         - abstain
+E         + typed_patch
+
+tests/test_research_contracts.py:68: AssertionError
+____________ test_invalid_utility_weights_do_not_select_repair[inf] ____________
+
+value = inf
+
+    @pytest.mark.parametrize("value", [float("nan"), float("inf"), -1])
+    def test_invalid_utility_weights_do_not_select_repair(value):
+        from searchclinic.research.detector import RuleDetector
+        from searchclinic.research.policy import select_action, Budget
+        from searchclinic.research.actions import Candidate, ActionKind
+        from searchclinic.research.models import EvidenceSpan
+        from searchclinic.research.costs import DEFAULT_WEIGHTS
+        c = Candidate(ActionKind.TYPED_PATCH, evidence=(EvidenceSpan(source_type="query",
+            source_id="후라이팬", start=0, end=4, text="후라이팬"),))
+        d = RuleDetector().detect(observation(result_count=0).policy_view())
+        weights = {**DEFAULT_WEIGHTS, "latency_ms": value}
+>       assert select_action(d, [c], Budget(), weights=weights).action == ActionKind.ABSTAIN
+E       AssertionError: assert <ActionKind.T...'typed_patch'> == <ActionKind.A...IN: 'abstain'>
+E         
+E         - abstain
+E         + typed_patch
+
+tests/test_research_contracts.py:68: AssertionError
+____________ test_invalid_utility_weights_do_not_select_repair[-1] _____________
+
+value = -1
+
+    @pytest.mark.parametrize("value", [float("nan"), float("inf"), -1])
+    def test_invalid_utility_weights_do_not_select_repair(value):
+        from searchclinic.research.detector import RuleDetector
+        from searchclinic.research.policy import select_action, Budget
+        from searchclinic.research.actions import Candidate, ActionKind
+        from searchclinic.research.models import EvidenceSpan
+        from searchclinic.research.costs import DEFAULT_WEIGHTS
+        c = Candidate(ActionKind.TYPED_PATCH, evidence=(EvidenceSpan(source_type="query",
+            source_id="후라이팬", start=0, end=4, text="후라이팬"),))
+        d = RuleDetector().detect(observation(result_count=0).policy_view())
+        weights = {**DEFAULT_WEIGHTS, "latency_ms": value}
+>       assert select_action(d, [c], Budget(), weights=weights).action == ActionKind.ABSTAIN
+E       AssertionError: assert <ActionKind.T...'typed_patch'> == <ActionKind.A...IN: 'abstain'>
+E         
+E         - abstain
+E         + typed_patch
+
+tests/test_research_contracts.py:68: AssertionError
+_______ test_missing_detector_scores_do_not_become_measured_zero_metrics _______
+
+    def test_missing_detector_scores_do_not_become_measured_zero_metrics():
+        from searchclinic.research.metrics import detection_metrics
+        result = detection_metrics([True, False], [None, None])
+>       assert result["precision"] is None and result["f1"] is None
+E       assert (0.0 is None)
+
+tests/test_research_execution.py:132: AssertionError
+_________ test_duplicate_policy_runs_cannot_silently_replace_evidence __________
+
+    def test_duplicate_policy_runs_cannot_silently_replace_evidence():
+        from searchclinic.research.artifacts import compare_runs
+>       with pytest.raises(ValueError, match="duplicate"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/test_research_artifacts.py:71: Failed
+=========================== short test summary info ============================
+FAILED tests/test_research_contracts.py::test_invalid_utility_weights_do_not_select_repair[nan]
+FAILED tests/test_research_contracts.py::test_invalid_utility_weights_do_not_select_repair[inf]
+FAILED tests/test_research_contracts.py::test_invalid_utility_weights_do_not_select_repair[-1]
+FAILED tests/test_research_execution.py::test_missing_detector_scores_do_not_become_measured_zero_metrics
+FAILED tests/test_research_artifacts.py::test_duplicate_policy_runs_cannot_silently_replace_evidence
+5 failed, 51 deselected in 0.23s

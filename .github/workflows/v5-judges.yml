@@ -1,0 +1,77 @@
+name: V5 judges (separate paid approval required)
+on:
+  push:
+    branches: [feat/research-verification-v5-20261030]
+    paths:
+      - .github/workflows/v5-judges.yml
+      - ops/v5-approved.json
+      - ops/v5-recipient.json
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: v5-judges-e916e357cd7426a6bb50180559b542b33b28f20dda0189dcfb37ae7ed9d6f99c
+  cancel-in-progress: false
+jobs:
+  prepare-and-conditionally-run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    env:
+      PLAN_HASH: e916e357cd7426a6bb50180559b542b33b28f20dda0189dcfb37ae7ed9d6f99c
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install preparation and encryption dependencies
+        run: python -m pip install -c requirements/ci-py311-312.txt -e '.[api,dev]' 'cryptography==50.0.2'
+      - name: Free preparation without provider credentials
+        run: |
+          umask 077
+          mkdir -p work/remote-evidence
+          python scripts/prepare_v5_development.py --out work/remote-evidence/prepared > work/remote-evidence/preparation.log 2>&1
+          python scripts/run_v5_judges.py --bundle work/remote-evidence/prepared/candidates.json --out work/remote-evidence/plan.json > work/remote-evidence/plan.log 2>&1
+          python scripts/package_v5_evidence.py verify-plan --plan work/remote-evidence/plan.json --plan-hash "$PLAN_HASH"
+      - name: Check separate approval for this exact code and push
+        id: gate
+        run: |
+          python scripts/package_v5_evidence.py gate --approval ops/v5-approved.json --recipient ops/v5-recipient.json --plan-hash "$PLAN_HASH" --out work/remote-evidence/transport-approval.json >> "$GITHUB_OUTPUT"
+      - name: Refuse replay of an already dispatched approval commit
+        if: steps.gate.outputs.authorized == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh api --paginate "repos/$GITHUB_REPOSITORY/actions/workflows/v5-judges.yml/runs?head_sha=$GITHUB_SHA&per_page=100" --jq '.workflow_runs[].id' > work/remote-evidence/workflow-run-ids.txt
+          python - <<'PY'
+          import os,pathlib
+          ids=[int(row) for row in pathlib.Path('work/remote-evidence/workflow-run-ids.txt').read_text().splitlines()]
+          if not ids or min(ids)!=int(os.environ['GITHUB_RUN_ID']):
+              raise SystemExit('Approval commit was already dispatched; no automatic repeat permitted')
+          PY
+      - name: Execute approved fixed plan once
+        id: execute
+        if: steps.gate.outputs.authorized == 'true' && github.run_attempt == 1
+        timeout-minutes: 100
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+        run: |
+          umask 077
+          python scripts/run_v5_judges.py --bundle work/remote-evidence/prepared/candidates.json --out work/remote-evidence/run --execute --approval work/remote-evidence/transport-approval.json > work/remote-evidence/execution.log 2>&1
+      - name: Encrypt evidence including partial or failed execution
+        id: seal
+        if: always() && steps.gate.outputs.authorized == 'true'
+        run: |
+          python scripts/package_v5_evidence.py seal --source work/remote-evidence --recipient ops/v5-recipient.json --out work/remote-package --plan-hash "$PLAN_HASH" --run-id "$GITHUB_RUN_ID"
+      - name: Upload only ciphertext and aggregate receipt
+        if: always() && steps.seal.outcome == 'success'
+        uses: actions/upload-artifact@v4
+        with:
+          name: v5-encrypted-evidence-${{ github.run_id }}
+          path: |
+            work/remote-package/evidence.enc.json
+            work/remote-package/receipt.json
+          if-no-files-found: error
+          retention-days: 30

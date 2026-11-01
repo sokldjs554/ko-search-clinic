@@ -1,0 +1,99 @@
+{
+  "candidate_seal_hash": "10c8872cea81c71ecebec2b7857a6a8a251c2b9464e47740dfd95b96c9b92d17",
+  "data_review": "not_certified",
+  "dataset_hash": "de267f94139a1e375dc6cca4e29b63e940c6351b7680d8f63f769a92c5cfb48e",
+  "document_count": 8,
+  "environment": {
+    "python": "3.12.14"
+  },
+  "existing_remote_ci": {
+    "checkout_sha": "fd6cf1955bca25843bf85fb662acb800531e49a0",
+    "pr_head": "3238d58a69a8bc7881f971138f4c1278e46dc402",
+    "quality_gate": "success",
+    "run_url": "https://github.com/sokldjs554/ko-search-clinic/actions/runs/38213317359",
+    "scope": "Phase0-1; not validation of new Phase2 code",
+    "ubuntu": "353 passed, 2 skipped",
+    "windows": "353 passed, 2 skipped"
+  },
+  "final_evaluation": "not_run",
+  "independent_data_status": "not_certified; 8 source adaptations / 12 authored stimuli / 6 groups; keyword template structural overlap and qrels review pending",
+  "llm_candidates": "not_generated",
+  "maximum_test_calls": 12,
+  "new_remote_ci": {
+    "checkout_sha": null,
+    "error": "Get https://api.github.com/repos/sokldjs554/ko-search-clinic/actions/workflows/ci.yml: Forbidden",
+    "exit_code": 1,
+    "request_command": "gh workflow run ci.yml --repo sokldjs554/ko-search-clinic --ref feat/phase2-independent-evaluation",
+    "retries": 0,
+    "run_url": null,
+    "status": "not_run"
+  },
+  "paid_calls": 0,
+  "potential_llm_test_calls": 2,
+  "preserved": {
+    "changed_existing_files": 0,
+    "existing_files_byte_identical": 222,
+    "main_sha": "80ea3bcf2fffb395b27abc3d38db4e9876a9c2d1",
+    "pr1_draft": true,
+    "pr1_merged": false,
+    "starting_head": "3238d58a69a8bc7881f971138f4c1278e46dc402"
+  },
+  "protocol_commit": "921ce4b381a4848ee6f897bf297a0233589644eb",
+  "protocol_hash": "aa0fb4805e79223a03d067f87eb3f43de24430e7746c80f2d7f1b1b5d909d8ee",
+  "query_count": 12,
+  "remaining": [
+    "independent annotation and template/semantic overlap review",
+    "approved model/pricing/call execution manifest",
+    "provider transport and token/usage verification integration",
+    "actual paid LLM candidates and both-arm final scoring",
+    "new remote CI permission"
+  ],
+  "shared_preparation_costs": {
+    "api_cost_usd": 0.0,
+    "input_tokens": 0,
+    "latency_ms": 2819.158215999778,
+    "model_calls": 0,
+    "output_tokens": 0,
+    "reindexes": 1,
+    "search_calls": 24
+  },
+  "source_dirty": false,
+  "source_hash": "ec23db9e3eb4cdf6c6ad129a835e8bd7e43aa3537b5faa1aaa7277054bd0d194",
+  "source_sha": "7e3f8609a71d38c6d10cb78f82981806f07dde7b",
+  "status": "free_preparation_only",
+  "study_results": {
+    "llm": null,
+    "no_repair": null,
+    "rules_plus": null
+  },
+  "test_results": {
+    "default": {
+      "deselected": 2,
+      "duration_seconds": 71.71,
+      "passed": 413,
+      "skipped": 1
+    },
+    "new_phase2": {
+      "passed": 41
+    },
+    "postcommit_evaluator_provenance": {
+      "passed": 15
+    },
+    "slow_separate": {
+      "deselected": 19,
+      "duration_seconds": 41.97,
+      "passed": 1,
+      "skipped": 1
+    },
+    "unique_full_suite_coverage": {
+      "passed": 414,
+      "skipped": 2
+    }
+  },
+  "test_source": {
+    "committed_implementation": "7e3f8609a71d38c6d10cb78f82981806f07dde7b",
+    "dirty_at_full_run": true,
+    "git_head_at_full_run": "921ce4b381a4848ee6f897bf297a0233589644eb",
+    "source_hash_matches_committed_implementation": true
+  }
+}

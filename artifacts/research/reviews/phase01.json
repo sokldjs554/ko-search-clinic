@@ -1,0 +1,18 @@
+{
+  "reviewer": "independent subagent",
+  "critical": [],
+  "important_fixed": [
+    "mutable/nonfinite gate tolerance",
+    "NaN utility fail-open",
+    "evalset_hash mismatch in comparison"
+  ],
+  "additional_fixed": [
+    "null metrics for all missing detection scores",
+    "duplicate policy run ambiguity"
+  ],
+  "remaining_limitations": [
+    "full Git history needed for protocol validation",
+    "measured latency can affect replay at utility threshold"
+  ],
+  "tests": "review-red.log and review-red-2.log -> research-final.log"
+}

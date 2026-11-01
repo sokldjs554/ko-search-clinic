@@ -1,0 +1,132 @@
+=================================== ERRORS ====================================
+2026-10-30T10:49:05.3415603Z _ ERROR at setup of test_preparation_has_fixed_candidates_all_queries_and_sorted_bounded_evidence _
+2026-10-30T10:49:05.3416230Z
+2026-10-30T10:49:05.3416659Z monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x00000171EE102C10>
+2026-10-30T10:49:05.3417181Z
+2026-10-30T10:49:05.3417323Z     @pytest.fixture
+2026-10-30T10:49:05.3417722Z     def prepared_inputs(monkeypatch):
+2026-10-30T10:49:05.3418179Z >       api = preparation()
+2026-10-30T10:49:05.3418594Z               ^^^^^^^^^^^^^
+2026-10-30T10:49:05.3418850Z
+2026-10-30T10:49:05.3419054Z tests\test_v5_preparation.py:54:
+2026-10-30T10:49:05.3419573Z _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+2026-10-30T10:49:05.3419938Z
+2026-10-30T10:49:05.3420120Z     def preparation():
+2026-10-30T10:49:05.3420906Z >       assert importlib.util.find_spec("scripts.prepare_v5_development") is not None, "Offline preparation is missing"
+2026-10-30T10:49:05.3421826Z E       AssertionError: Offline preparation is missing
+2026-10-30T10:49:05.3422346Z E       assert None is not None
+2026-10-30T10:49:05.3423358Z E        +  where None = <function find_spec at 0x000001718D626980>('scripts.prepare_v5_development')
+2026-10-30T10:49:05.3424376Z E        +    where <function find_spec at 0x000001718D626980> = <module 'importlib.util' (frozen)>.find_spec
+2026-10-30T10:49:05.3425299Z E        +      where <module 'importlib.util' (frozen)> = importlib.util
+2026-10-30T10:49:05.3425708Z
+2026-10-30T10:49:05.3425951Z tests\test_v5_preparation.py:15: AssertionError
+2026-10-30T10:49:05.3426726Z _ ERROR at setup of test_public_files_exclude_outcomes_and_labels_load_only_after_requests_saved _
+2026-10-30T10:49:05.3427290Z
+2026-10-30T10:49:05.3427659Z monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x00000171D1795150>
+2026-10-30T10:49:05.3428168Z
+2026-10-30T10:49:05.3428304Z     @pytest.fixture
+2026-10-30T10:49:05.3428692Z     def prepared_inputs(monkeypatch):
+2026-10-30T10:49:05.3429147Z >       api = preparation()
+2026-10-30T10:49:05.3429520Z               ^^^^^^^^^^^^^
+2026-10-30T10:49:05.3429769Z
+2026-10-30T10:49:05.3429961Z tests\test_v5_preparation.py:54:
+2026-10-30T10:49:05.3432866Z _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+2026-10-30T10:49:05.3433336Z
+2026-10-30T10:49:05.3433534Z     def preparation():
+2026-10-30T10:49:05.3434339Z >       assert importlib.util.find_spec("scripts.prepare_v5_development") is not None, "Offline preparation is missing"
+2026-10-30T10:49:05.3435279Z E       AssertionError: Offline preparation is missing
+2026-10-30T10:49:05.3435803Z E       assert None is not None
+2026-10-30T10:49:05.3436475Z E        +  where None = <function find_spec at 0x000001718D626980>('scripts.prepare_v5_development')
+2026-10-30T10:49:05.3437513Z E        +    where <function find_spec at 0x000001718D626980> = <module 'importlib.util' (frozen)>.find_spec
+2026-10-30T10:49:05.3438366Z E        +      where <module 'importlib.util' (frozen)> = importlib.util
+2026-10-30T10:49:05.3438827Z
+2026-10-30T10:49:05.3439056Z tests\test_v5_preparation.py:15: AssertionError
+2026-10-30T10:49:05.3439800Z _ ERROR at setup of test_requests_share_candidate_hashes_and_budget_is_not_a_tokenizer _
+2026-10-30T10:49:05.3440356Z
+2026-10-30T10:49:05.3440688Z monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x00000171DF14DB50>
+2026-10-30T10:49:05.3441195Z
+2026-10-30T10:49:05.3441331Z     @pytest.fixture
+2026-10-30T10:49:05.3441766Z     def prepared_inputs(monkeypatch):
+2026-10-30T10:49:05.3442236Z >       api = preparation()
+2026-10-30T10:49:05.3442998Z               ^^^^^^^^^^^^^
+2026-10-30T10:49:05.3443307Z
+2026-10-30T10:49:05.3443509Z tests\test_v5_preparation.py:54:
+2026-10-30T10:49:05.3444011Z _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+2026-10-30T10:49:05.3444405Z
+2026-10-30T10:49:05.3445432Z     def preparation():
+2026-10-30T10:49:05.3446216Z >       assert importlib.util.find_spec("scripts.prepare_v5_development") is not None, "Offline preparation is missing"
+2026-10-30T10:49:05.3447128Z E       AssertionError: Offline preparation is missing
+2026-10-30T10:49:05.3447660Z E       assert None is not None
+2026-10-30T10:49:05.3448321Z E        +  where None = <function find_spec at 0x000001718D626980>('scripts.prepare_v5_development')
+2026-10-30T10:49:05.3449430Z E        +    where <function find_spec at 0x000001718D626980> = <module 'importlib.util' (frozen)>.find_spec
+2026-10-30T10:49:05.3450304Z E        +      where <module 'importlib.util' (frozen)> = importlib.util
+2026-10-30T10:49:05.3450727Z
+2026-10-30T10:49:05.3450917Z tests\test_v5_preparation.py:15: AssertionError
+2026-10-30T10:49:05.3451573Z ____ ERROR at setup of test_large_requests_are_flagged_without_truncation _____
+2026-10-30T10:49:05.3452063Z
+2026-10-30T10:49:05.3452389Z monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x00000171D198E010>
+2026-10-30T10:49:05.3452895Z
+2026-10-30T10:49:05.3486679Z     @pytest.fixture
+2026-10-30T10:49:05.3487197Z     def prepared_inputs(monkeypatch):
+2026-10-30T10:49:05.3487712Z >       api = preparation()
+2026-10-30T10:49:05.3488139Z               ^^^^^^^^^^^^^
+2026-10-30T10:49:05.3488400Z
+2026-10-30T10:49:05.3488573Z tests\test_v5_preparation.py:54:
+2026-10-30T10:49:05.3489123Z _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+2026-10-30T10:49:05.3489568Z
+2026-10-30T10:49:05.3489749Z     def preparation():
+2026-10-30T10:49:05.3490638Z >       assert importlib.util.find_spec("scripts.prepare_v5_development") is not None, "Offline preparation is missing"
+2026-10-30T10:49:05.3491704Z E       AssertionError: Offline preparation is missing
+2026-10-30T10:49:05.3492322Z E       assert None is not None
+2026-10-30T10:49:05.3493023Z E        +  where None = <function find_spec at 0x000001718D626980>('scripts.prepare_v5_development')
+2026-10-30T10:49:05.3493740Z E        +    where <function find_spec at 0x000001718D626980> = <module 'importlib.util' (frozen)>.find_spec
+2026-10-30T10:49:05.3494351Z E        +      where <module 'importlib.util' (frozen)> = importlib.util
+2026-10-30T10:49:05.3494660Z
+2026-10-30T10:49:05.3495668Z tests\test_v5_preparation.py:15: AssertionError
+2026-10-30T10:49:05.3496269Z _ ERROR at setup of test_output_directory_is_write_once_and_network_is_never_opened _
+2026-10-30T10:49:05.3496631Z
+2026-10-30T10:49:05.3496894Z monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x00000171936CF0D0>
+2026-10-30T10:49:05.3497260Z
+2026-10-30T10:49:05.3497402Z     @pytest.fixture
+2026-10-30T10:49:05.3497698Z     def prepared_inputs(monkeypatch):
+2026-10-30T10:49:05.3498032Z >       api = preparation()
+2026-10-30T10:49:05.3498301Z               ^^^^^^^^^^^^^
+2026-10-30T10:49:05.3498477Z
+2026-10-30T10:49:05.3498599Z tests\test_v5_preparation.py:54:
+2026-10-30T10:49:05.3498964Z _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+2026-10-30T10:49:05.3499255Z
+2026-10-30T10:49:05.3499386Z     def preparation():
+2026-10-30T10:49:05.3499935Z >       assert importlib.util.find_spec("scripts.prepare_v5_development") is not None, "Offline preparation is missing"
+2026-10-30T10:49:05.3500562Z E       AssertionError: Offline preparation is missing
+2026-10-30T10:49:05.3500936Z E       assert None is not None
+2026-10-30T10:49:05.3501409Z E        +  where None = <function find_spec at 0x000001718D626980>('scripts.prepare_v5_development')
+2026-10-30T10:49:05.3502101Z E        +    where <function find_spec at 0x000001718D626980> = <module 'importlib.util' (frozen)>.find_spec
+2026-10-30T10:49:05.3502698Z E        +      where <module 'importlib.util' (frozen)> = importlib.util
+2026-10-30T10:49:05.3503004Z
+2026-10-30T10:49:05.3503180Z tests\test_v5_preparation.py:15: AssertionError
+2026-10-30T10:49:05.3503574Z ================================== FAILURES ===================================
+2026-10-30T10:49:05.3504184Z ______ test_raw_loader_uses_only_source_identity_and_prescription_fields ______
+2026-10-30T10:49:05.3504503Z
+2026-10-30T10:49:05.3504953Z tmp_path = WindowsPath('C:/Users/runneradmin/AppData/Local/Temp/pytest-of-runneradmin/pytest-0/test_raw_loader_uses_only_sour0')
+2026-10-30T10:49:05.3505495Z
+2026-10-30T10:49:05.3505752Z     def test_raw_loader_uses_only_source_identity_and_prescription_fields(tmp_path):
+2026-10-30T10:49:05.3506707Z >       api = preparation()
+2026-10-30T10:49:05.3507006Z               ^^^^^^^^^^^^^
+2026-10-30T10:49:05.3507189Z
+2026-10-30T10:49:05.3507340Z tests\test_v5_preparation.py:190:
+2026-10-30T10:49:05.3507714Z _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+2026-10-30T10:49:05.3507968Z
+2026-10-30T10:49:05.3508099Z     def preparation():
+2026-10-30T10:49:05.3508646Z >       assert importlib.util.find_spec("scripts.prepare_v5_development") is not None, "Offline preparation is missing"
+2026-10-30T10:49:05.3509298Z E       AssertionError: Offline preparation is missing
+2026-10-30T10:49:05.3509670Z E       assert None is not None
+2026-10-30T10:49:05.3510147Z E        +  where None = <function find_spec at 0x000001718D626980>('scripts.prepare_v5_development')
+2026-10-30T10:49:05.3510874Z E        +    where <function find_spec at 0x000001718D626980> = <module 'importlib.util' (frozen)>.find_spec
+2026-10-30T10:49:05.3511460Z E        +      where <module 'importlib.util' (frozen)> = importlib.util
+2026-10-30T10:49:05.3511782Z
+2026-10-30T10:49:05.3511922Z tests\test_v5_preparation.py:15: AssertionError
+2026-10-30T10:49:05.3512335Z =========================== short test summary info ===========================
+2026-10-30T10:49:05.3512930Z SKIPPED [1] tests\\test_postgres_store.py:20: PostgreSQL\uc740 \uc120\ud0dd \uc758\uc874\uc131\uc774\ub2e4
+2026-10-30T10:49:05.3513687Z SKIPPED [1] tests\\test_scale.py:21: \uaddc\ubaa8 \uacc4\uce35\uc740 \uc120\ud0dd \uc758\uc874\uc131\uc774\ub2e4
+2026-10-30T10:49:05.3514295Z 1 failed, 555 passed, 2 skipped, 5 errors in 107.56s (0:01:47)
+2026-10-30T10:49:05.7459871Z

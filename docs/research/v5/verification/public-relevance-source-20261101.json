@@ -1,0 +1,63 @@
+{
+  "candidate_generation_calls": 0,
+  "corpus_passages_scanned": 1486752,
+  "corpus_revision": "d921ec7e349ce0d28daf30b2da9da5ee698bef0d",
+  "corpus_shards": [
+    {
+      "path": "miracl-corpus-v1.0-ko/docs-0.jsonl.gz",
+      "sha256": "c56a31883a291504aa9c97968fb7a5fbcc9ea1099ee1810200249e1afb7fc55d"
+    },
+    {
+      "path": "miracl-corpus-v1.0-ko/docs-1.jsonl.gz",
+      "sha256": "fecd2886124e78c3aa87c59604ac9909c23165415c70a96f4edb95677b5ed0cd"
+    },
+    {
+      "path": "miracl-corpus-v1.0-ko/docs-2.jsonl.gz",
+      "sha256": "93e90d098d78f50a9e76dd2e64608d65e0563787954f848da9b04286f81b75d9"
+    }
+  ],
+  "exclusions_by_reason": {
+    "any_dev_judged_article": 610,
+    "known_exact_title_proxy": 26
+  },
+  "final_cohort_selected": false,
+  "final_evaluation_ready": false,
+  "human_source_judgments": 12767,
+  "human_source_negative": 10794,
+  "human_source_positive": 1973,
+  "judge_calls": 0,
+  "known_unique_document_texts": 372,
+  "known_unique_queries": 449,
+  "label_policy": "Official human relevance labels retained; unjudged cross-query pairs remain unknown.",
+  "limitations": [
+    "MIRACL train may occur in model pretraining.",
+    "Exact article/title checks do not certify semantic independence.",
+    "Archived120 exposure inventory is unavailable.",
+    "Remaining queries are candidates, not an approved independent final cohort."
+  ],
+  "prior120_exposure_inventory_complete": false,
+  "remaining_candidate_queries": 254,
+  "retrieval_scoring_executed": false,
+  "semantic_near_duplicate_audit_complete": false,
+  "source": "MIRACL ko official train; not official test",
+  "source_files": {
+    "qrels.miracl-v1.0-ko-train.tsv": {
+      "bytes": 232882,
+      "sha256": "7719e296a61f599a64fd102f62a1ce0d257199c8da2aca90e1c66ddcb9644a93",
+      "url": "https://huggingface.co/datasets/miracl/miracl/resolve/5be20db9509754dadad47689368639fcec739c00/miracl-v1.0-ko/qrels/qrels.miracl-v1.0-ko-train.tsv"
+    },
+    "topics.miracl-v1.0-ko-train.tsv": {
+      "bytes": 53825,
+      "sha256": "552c5fe3c6d71fa35150172a160a6cea144f8b73b478795059dbf97aa294b2b7",
+      "url": "https://huggingface.co/datasets/miracl/miracl/resolve/5be20db9509754dadad47689368639fcec739c00/miracl-v1.0-ko/topics/topics.miracl-v1.0-ko-train.tsv"
+    }
+  },
+  "source_judged_documents": 10486,
+  "source_queries": 868,
+  "source_revision": "5be20db9509754dadad47689368639fcec739c00",
+  "audit_script_sha256": "84c72aa7ae8f5b26291fe91dcd58ccc4b982430a6bb0f01464f7fa3a969d9d19",
+  "snapshot": "Historical initial source screen; current status superseded by historical-exposure-20261101.json",
+  "current_status": "254-query fresh independent candidate route withdrawn: prior v4 train preparation exposure discovered",
+  "v3_inventory_now_available": true,
+  "v4_exact_run_inventory_verified": false
+}

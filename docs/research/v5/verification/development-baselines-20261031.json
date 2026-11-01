@@ -1,0 +1,105 @@
+{
+  "version": "comparison-report-v5",
+  "assembly_hash": "2e569a7b1812b78df83c8f56902ed7dede049818030943947726a1a119897f96",
+  "protocol_hash": "13d32338ace8822fbd7dc7d219bd3118810a2b85d3752d5bf0dca8f667d1b2d5",
+  "input_hash": "adfa983457261069d57b76d827f7cd81569273b6dfa5330154761314d6580cf1",
+  "phase": "development",
+  "study_scope": "selection_only",
+  "candidate_source": "historical_scripted",
+  "superiority_claim": false,
+  "status": "development_replay_only; actual semantic experiments pending approval",
+  "baselines": {
+    "no_repair": {
+      "metrics": {
+        "overall": {
+          "count": 36,
+          "ndcg10": 0.5839426550733804,
+          "recall10": 0.5972222222222222,
+          "precision5": 0.2
+        },
+        "failure": {
+          "count": 16,
+          "ndcg10": 0.06957169954784115,
+          "recall10": 0.09375,
+          "precision5": 0.025
+        },
+        "healthy": {
+          "count": 20,
+          "ndcg10": 0.995439419493812,
+          "recall10": 1.0,
+          "precision5": 0.34
+        }
+      },
+      "diagnostics": {
+        "apply_count": 0,
+        "hold_count": 36
+      }
+    },
+    "first_valid": {
+      "metrics": {
+        "overall": {
+          "count": 36,
+          "ndcg10": 0.8492385034822596,
+          "recall10": 0.875,
+          "precision5": 0.31666666666666665
+        },
+        "failure": {
+          "count": 16,
+          "ndcg10": 0.6945716995478411,
+          "recall10": 0.71875,
+          "precision5": 0.28750000000000003
+        },
+        "healthy": {
+          "count": 20,
+          "ndcg10": 0.9729719466297941,
+          "recall10": 1.0,
+          "precision5": 0.34
+        }
+      },
+      "diagnostics": {
+        "apply_count": 14,
+        "hold_count": 22,
+        "useful_candidate_false_hold_count": 0,
+        "harmful_accepted_count": 2,
+        "normal_regression_count": 2
+      }
+    },
+    "rules_plus": {
+      "metrics": {
+        "overall": {
+          "count": 36,
+          "ndcg10": 0.8594904547719413,
+          "recall10": 0.875,
+          "precision5": 0.31666666666666665
+        },
+        "failure": {
+          "count": 16,
+          "ndcg10": 0.6945716995478411,
+          "recall10": 0.71875,
+          "precision5": 0.28750000000000003
+        },
+        "healthy": {
+          "count": 20,
+          "ndcg10": 0.9914254589512213,
+          "recall10": 1.0,
+          "precision5": 0.34
+        }
+      },
+      "diagnostics": {
+        "apply_count": 13,
+        "hold_count": 23,
+        "useful_candidate_false_hold_count": 0,
+        "harmful_accepted_count": 1,
+        "normal_regression_count": 1
+      }
+    }
+  },
+  "semantic_conditions": {
+    "pair": "not_executed",
+    "context": "not_executed",
+    "rubric": "not_executed",
+    "gpt_generation": "not_executed"
+  },
+  "provider_calls_executed": 0,
+  "actual_charge_usd": 0
+}

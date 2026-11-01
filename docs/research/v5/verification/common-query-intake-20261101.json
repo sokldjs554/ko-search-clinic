@@ -1,0 +1,89 @@
+{
+  "agreement_scope": "five reported selections; not relevance accuracy or verified independent reliability",
+  "batch_completion_time_missing": true,
+  "candidate_population_changed": false,
+  "feedback_examples_not_reused_as_blind_rejudgments": [
+    1,
+    2,
+    3,
+    4,
+    5
+  ],
+  "final_candidate_documents": 233,
+  "final_candidate_queries": 153,
+  "final_evaluation_ready": false,
+  "formula_cells": 0,
+  "full_calibration_documents": 56,
+  "full_calibration_queries": 36,
+  "kappa": null,
+  "kappa_reason": "constant category, expected disagreement zero",
+  "new_provider_calls": 0,
+  "new_retrieval_scores": 0,
+  "next_pilot_source_numbers": [
+    6,
+    7,
+    8,
+    9,
+    10
+  ],
+  "next_pilot_workbooks": [
+    {
+      "alias": "d",
+      "blank_cases": 5,
+      "bytes": 20475,
+      "filename": "검수자_d_질문먼저_6-10번_v2.xlsx",
+      "sha256": "821905b45cc718208e4a43e7ca19cdb9ae9a72cf154cfc779ba4eccb79d4e8fe",
+      "source_numbers": [
+        6,
+        7,
+        8,
+        9,
+        10
+      ]
+    },
+    {
+      "alias": "e",
+      "blank_cases": 5,
+      "bytes": 20475,
+      "filename": "검수자_e_질문먼저_6-10번_v2.xlsx",
+      "sha256": "d22a1778056f0d08c5bd6766fe81d60678c823262fad89b45f58ef88eb0caf11",
+      "source_numbers": [
+        6,
+        7,
+        8,
+        9,
+        10
+      ]
+    }
+  ],
+  "original_file_sha256": {
+    "d": "857e12092f1839753418ee4cf11e9e47bee4c6ed1e7191d5dce48c7a994da2c9",
+    "e": "fedada31ee2211657656403e9630eba8835f5e1552bc92f73c09071941a0ae5e"
+  },
+  "question_document_changes": 0,
+  "received_files": 2,
+  "received_rows": 10,
+  "relevance_labels_created": 0,
+  "reported_choice_agreement": 1.0,
+  "research_complete": false,
+  "rows_per_reviewer": 5,
+  "same_query_document_pairs": 5,
+  "script_sha256": "869e55969bc11ef56d4de29ecc55446651aee3ed56976011dbd5334f667dbef6",
+  "selection_basis": "next consecutive five in frozen calibration order; no score-based selection",
+  "source_values": {
+    "직접 답 근거 있음": 10
+  },
+  "source_values_overwritten": false,
+  "timestamps_inferred": false,
+  "unexpected_cell_changes": 0,
+  "user_confirmed_construct": "document-title/body consistency, not target query relevance",
+  "version": "common-query-intake-20261101",
+  "layout_revision": "v2: single wide column avoids horizontal merged-cell export clipping; v1 preserved privately",
+  "layout_script_sha256": "8a9d6789a4458f67baa50a08be838c59ada76833b338ac666fd818dcedf0d626",
+  "layout_verification": {
+    "renderer": "LibreOfficeDev 26.8 PDF export",
+    "visually_inspected": "document06, v2",
+    "all_five_full_question_body_title_texts_in_pdf": true,
+    "native_microsoft_excel_inspected": false
+  }
+}

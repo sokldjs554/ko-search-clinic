@@ -1,0 +1,38 @@
+{
+  "account_access_verified": false,
+  "automatic_retries": 0,
+  "blockers": [
+    "semantic_qrels_adjudication",
+    "unjudged_cross_query_pairs",
+    "provider_credentials_and_model_access",
+    "dataset_specific_execution_protocol_and_transport",
+    "separate_paid_approval"
+  ],
+  "checked_at": "2026-10-13",
+  "cost_assumptions": "Standard text API, prompts <=6000 tokens, output <=1500 tokens including any billed reasoning, no tools/cache writes/batch/retries/tax; account billing and eligibility not verified. No requests prepared within cap yet. This arithmetic is not an executed budget freeze.",
+  "data_review_complete": false,
+  "input_tokens_cap": 6000,
+  "max_calls": 14,
+  "models": [
+    {
+      "id": "gpt-4.1-mini-2025-04-14",
+      "input_usd_per_million": "0.40",
+      "maximum_token_charge_14_calls_usd": "0.0672",
+      "official_source": "https://developers.openai.com/api/docs/models/gpt-4.1-mini",
+      "output_usd_per_million": "1.60",
+      "provider": "OpenAI"
+    },
+    {
+      "id": "claude-haiku-5-5",
+      "input_usd_per_million": "0.10",
+      "maximum_token_charge_14_calls_usd": "0.0189",
+      "official_source": "https://platform.claude.com/docs/en/models/haiku-5-5/overview",
+      "output_usd_per_million": "0.50",
+      "provider": "Anthropic"
+    }
+  ],
+  "output_tokens_cap": 1500,
+  "paid_calls": 0,
+  "proposed_budget_usd": "1.00",
+  "status": "proposal_only_not_approved"
+}

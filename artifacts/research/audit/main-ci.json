@@ -1,0 +1,27 @@
+{
+  "sha": "80ea3bcf2fffb395b27abc3d38db4e9876a9c2d1",
+  "run_id": 32585720148,
+  "url": "https://github.com/sokldjs554/ko-search-clinic/actions/runs/32585720148",
+  "conclusion": "failure",
+  "jobs": [
+    {
+      "id": 97061666776,
+      "name": "테스트 (windows-latest)",
+      "conclusion": "failure"
+    },
+    {
+      "id": 97061666915,
+      "name": "검색 품질 게이트",
+      "conclusion": "success"
+    },
+    {
+      "id": 97061666959,
+      "name": "테스트 (ubuntu-latest)",
+      "conclusion": "failure"
+    }
+  ],
+  "failure": "README test count 308 differs from 277 selected tests; 276 passed, 2 skipped",
+  "kiwi": "0.23.2",
+  "llm_reexecuted": false,
+  "elasticsearch_reexecuted": false
+}

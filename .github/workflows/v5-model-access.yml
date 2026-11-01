@@ -1,0 +1,47 @@
+name: V5 model access (GET only)
+on:
+  push:
+    branches: [feat/research-verification-v5-20261030]
+    paths: [.github/workflows/v5-model-access.yml]
+permissions:
+  contents: read
+jobs:
+  model-access:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Check fixed model with one GET and no generation
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+        run: |
+          python - <<'PY'
+          import datetime,json,os,pathlib,urllib.request,urllib.error
+          model='gpt-4.1-mini-2025-04-14'
+          result={'model_id':model,'method':'GET','generation_calls':0,'generation_authorized':False,'checked_at':datetime.datetime.now(datetime.timezone.utc).isoformat()}
+          key=os.environ.get('OPENAI_API_KEY','')
+          if not key.strip():
+              result['status']='missing_secret'
+          else:
+              request=urllib.request.Request('https://api.openai.com/v1/models/'+model,headers={'Authorization':'Bearer '+key},method='GET')
+              try:
+                  with urllib.request.urlopen(request,timeout=30) as response:
+                      data=json.load(response)
+                      result.update(http_status=response.status,status='accessible' if data.get('id')==model else 'model_identity_mismatch')
+              except urllib.error.HTTPError as error:
+                  result.update(status='http_error',http_status=error.code)
+              except Exception:
+                  result['status']='connection_or_response_error'
+          pathlib.Path('model-access.json').write_text(json.dumps(result,sort_keys=True)+'\n',encoding='utf-8')
+          print(json.dumps(result,sort_keys=True))
+          if result['status']!='accessible':raise SystemExit(2)
+          PY
+      - name: Preserve safe access receipt
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: v5-model-access-${{ github.run_id }}
+          path: model-access.json
+          retention-days: 30

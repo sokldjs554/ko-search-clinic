@@ -1,0 +1,208 @@
+{
+  "version": "v5-human-intake-summary-20261101",
+  "scope": "development candidate judgments; coordinator-assisted normalization; exploratory",
+  "reviewers": 2,
+  "distinct_people_confirmed_by_coordinator": true,
+  "independence_attestation_complete": false,
+  "submitted_rows": 30,
+  "items": 15,
+  "counts": {
+    "a": {
+      "ambiguous": 3,
+      "expected": 15,
+      "graded": 12,
+      "missing": 0
+    },
+    "b": {
+      "ambiguous": 8,
+      "expected": 15,
+      "graded": 7,
+      "missing": 0
+    }
+  },
+  "agreement": {
+    "kappa": -0.25,
+    "kappa_status": "defined",
+    "observed_agreement": 0.6,
+    "paired_graded": 5,
+    "total_items": 15,
+    "weighting": "unweighted"
+  },
+  "agreed_items": 3,
+  "disagreements": 2,
+  "any_ambiguity": 10,
+  "adjudication_pending": 12,
+  "adjudicator_assigned": true,
+  "adjudications_received": 0,
+  "generic_rationale_only": true,
+  "source_quote_review_complete": false,
+  "error_types": "unclassified; no error-type accuracy claim",
+  "labels_complete": false,
+  "final_evaluation_ready": false,
+  "source_csv_sha256": {
+    "a": "658ae4da21c924e820383a34be551f6dad7859c44065f2ad8bcd24e81e9373dd",
+    "b": "832c0b4bb2d4ccfbe368a9b1131a218f9c5b5b316e2a8de67bc48ff5e5b042de"
+  },
+  "normalization_provenance_sha256": "91461109aafc93a17b635efc2209dc6febd159845fb70cfcb082a9a3326fb79d",
+  "reconciliation_sha256": "5c0f3ae19175049a62565f4cd4c481c3c6f10c84ef40b2409fffbd83af80e134",
+  "additional_provider_calls": 0,
+  "selector_diagnostic": {
+    "scope": "exploratory reported judgments; generic evidence; no final semantic ground truth",
+    "no_threshold_or_method_tuning": true,
+    "populations": {
+      "a": {
+        "first_valid": {
+          "selected": 14,
+          "selected_judged_true": 3,
+          "selected_judged_false": 8,
+          "selected_unresolved": 3,
+          "judged_true_not_selected": 0
+        },
+        "pair:1": {
+          "selected": 9,
+          "selected_judged_true": 3,
+          "selected_judged_false": 5,
+          "selected_unresolved": 1,
+          "judged_true_not_selected": 0
+        },
+        "pair:2": {
+          "selected": 10,
+          "selected_judged_true": 3,
+          "selected_judged_false": 6,
+          "selected_unresolved": 1,
+          "judged_true_not_selected": 0
+        },
+        "context:1": {
+          "selected": 0,
+          "selected_judged_true": 0,
+          "selected_judged_false": 0,
+          "selected_unresolved": 0,
+          "judged_true_not_selected": 3
+        },
+        "context:2": {
+          "selected": 0,
+          "selected_judged_true": 0,
+          "selected_judged_false": 0,
+          "selected_unresolved": 0,
+          "judged_true_not_selected": 3
+        },
+        "rubric:1": {
+          "selected": 0,
+          "selected_judged_true": 0,
+          "selected_judged_false": 0,
+          "selected_unresolved": 0,
+          "judged_true_not_selected": 3
+        },
+        "rubric:2": {
+          "selected": 0,
+          "selected_judged_true": 0,
+          "selected_judged_false": 0,
+          "selected_unresolved": 0,
+          "judged_true_not_selected": 3
+        }
+      },
+      "b": {
+        "first_valid": {
+          "selected": 14,
+          "selected_judged_true": 1,
+          "selected_judged_false": 6,
+          "selected_unresolved": 7,
+          "judged_true_not_selected": 0
+        },
+        "pair:1": {
+          "selected": 9,
+          "selected_judged_true": 1,
+          "selected_judged_false": 3,
+          "selected_unresolved": 5,
+          "judged_true_not_selected": 0
+        },
+        "pair:2": {
+          "selected": 10,
+          "selected_judged_true": 1,
+          "selected_judged_false": 3,
+          "selected_unresolved": 6,
+          "judged_true_not_selected": 0
+        },
+        "context:1": {
+          "selected": 0,
+          "selected_judged_true": 0,
+          "selected_judged_false": 0,
+          "selected_unresolved": 0,
+          "judged_true_not_selected": 1
+        },
+        "context:2": {
+          "selected": 0,
+          "selected_judged_true": 0,
+          "selected_judged_false": 0,
+          "selected_unresolved": 0,
+          "judged_true_not_selected": 1
+        },
+        "rubric:1": {
+          "selected": 0,
+          "selected_judged_true": 0,
+          "selected_judged_false": 0,
+          "selected_unresolved": 0,
+          "judged_true_not_selected": 1
+        },
+        "rubric:2": {
+          "selected": 0,
+          "selected_judged_true": 0,
+          "selected_judged_false": 0,
+          "selected_unresolved": 0,
+          "judged_true_not_selected": 1
+        }
+      },
+      "provisional_agreement": {
+        "first_valid": {
+          "selected": 14,
+          "selected_judged_true": 0,
+          "selected_judged_false": 3,
+          "selected_unresolved": 11,
+          "judged_true_not_selected": 0
+        },
+        "pair:1": {
+          "selected": 9,
+          "selected_judged_true": 0,
+          "selected_judged_false": 1,
+          "selected_unresolved": 8,
+          "judged_true_not_selected": 0
+        },
+        "pair:2": {
+          "selected": 10,
+          "selected_judged_true": 0,
+          "selected_judged_false": 1,
+          "selected_unresolved": 9,
+          "judged_true_not_selected": 0
+        },
+        "context:1": {
+          "selected": 0,
+          "selected_judged_true": 0,
+          "selected_judged_false": 0,
+          "selected_unresolved": 0,
+          "judged_true_not_selected": 0
+        },
+        "context:2": {
+          "selected": 0,
+          "selected_judged_true": 0,
+          "selected_judged_false": 0,
+          "selected_unresolved": 0,
+          "judged_true_not_selected": 0
+        },
+        "rubric:1": {
+          "selected": 0,
+          "selected_judged_true": 0,
+          "selected_judged_false": 0,
+          "selected_unresolved": 0,
+          "judged_true_not_selected": 0
+        },
+        "rubric:2": {
+          "selected": 0,
+          "selected_judged_true": 0,
+          "selected_judged_false": 0,
+          "selected_unresolved": 0,
+          "judged_true_not_selected": 0
+        }
+      }
+    }
+  }
+}

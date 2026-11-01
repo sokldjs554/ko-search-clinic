@@ -1,0 +1,44 @@
+{
+  "schema_version": 1,
+  "version": "phase01-v1",
+  "start_sha": "80ea3bcf2fffb395b27abc3d38db4e9876a9c2d1",
+  "seed": 20261012,
+  "dataset": "controlled-v1",
+  "evaluation_split": "dev",
+  "heldout_status": "not_collected",
+  "detector": {
+    "version": "rule-v1",
+    "threshold": 0.5,
+    "coverage_threshold": 0.5,
+    "margin_threshold": 0.1,
+    "zero_score": 0.95,
+    "coverage_score": 0.8,
+    "margin_score": 0.6,
+    "healthy_score": 0.1
+  },
+  "policy": {
+    "max_actions": 3,
+    "max_submits": 3,
+    "min_gain": 0.05,
+    "epsilon": 0.02,
+    "weights": {
+      "regression": 1.0,
+      "model_calls": 0.01,
+      "tokens": 1e-06,
+      "latency_ms": 1e-05,
+      "unnecessary_actions": 0.005
+    }
+  },
+  "baselines": [
+    "no_repair",
+    "always_typed_patch",
+    "selective_rule"
+  ],
+  "bootstrap_samples": 2000,
+  "success": {
+    "H1": "fewer healthy interventions AND fewer measured search calls",
+    "H2": "no decrease in recovered cases OR mean failing nDCG; zero healthy regressions over epsilon",
+    "H3": "all labeled failures have zero results"
+  },
+  "phase_limit": 1
+}

@@ -1,0 +1,2226 @@
+{
+  "git_sha": "80ea3bcf2fffb395b27abc3d38db4e9876a9c2d1",
+  "python": "3.12.14",
+  "kiwi": "0.23.2",
+  "docs": 72,
+  "healthy": 20,
+  "failing": 16,
+  "families": [
+    "compound_locked",
+    "cross_script",
+    "garbage_split",
+    "spelling_variant",
+    "synonym_gap"
+  ],
+  "doctor_runs": {
+    "scripted": {
+      "healed": 10,
+      "fail_ndcg_before": 0.0696,
+      "fail_ndcg_after": 0.6946,
+      "healthy_regressions": [],
+      "cases": [
+        {
+          "query": "후라이팬",
+          "family_truth": "spelling_variant",
+          "family_stated": "spelling_variant",
+          "expected_patch_kinds": [
+            "synonym"
+          ],
+          "patch_kinds": [
+            "synonym"
+          ],
+          "healed": true,
+          "attempts": 1,
+          "n_turns": 5,
+          "ndcg_before": 0.0,
+          "ndcg_after": 1.0,
+          "feedback": "채택. 표적 '후라이팬' nDCG 0.00 → 1.00, 회귀 없음.",
+          "retrieved_docs": []
+        },
+        {
+          "query": "케잌 주문",
+          "family_truth": "spelling_variant",
+          "family_stated": "spelling_variant",
+          "expected_patch_kinds": [
+            "synonym"
+          ],
+          "patch_kinds": [
+            "synonym"
+          ],
+          "healed": true,
+          "attempts": 1,
+          "n_turns": 5,
+          "ndcg_before": 0.0,
+          "ndcg_after": 1.0,
+          "feedback": "채택. 표적 '케잌 주문' nDCG 0.00 → 1.00, 회귀 없음.",
+          "retrieved_docs": []
+        },
+        {
+          "query": "도너츠",
+          "family_truth": "spelling_variant",
+          "family_stated": "spelling_variant",
+          "expected_patch_kinds": [
+            "synonym"
+          ],
+          "patch_kinds": [
+            "synonym"
+          ],
+          "healed": true,
+          "attempts": 1,
+          "n_turns": 5,
+          "ndcg_before": 0.0,
+          "ndcg_after": 1.0,
+          "feedback": "채택. 표적 '도너츠' nDCG 0.00 → 1.00, 회귀 없음.",
+          "retrieved_docs": []
+        },
+        {
+          "query": "쥬스",
+          "family_truth": "spelling_variant",
+          "family_stated": "spelling_variant",
+          "expected_patch_kinds": [
+            "synonym"
+          ],
+          "patch_kinds": [
+            "synonym"
+          ],
+          "healed": true,
+          "attempts": 1,
+          "n_turns": 5,
+          "ndcg_before": 0.0,
+          "ndcg_after": 1.0,
+          "feedback": "채택. 표적 '쥬스' nDCG 0.00 → 1.00, 회귀 없음.",
+          "retrieved_docs": []
+        },
+        {
+          "query": "소세지",
+          "family_truth": "spelling_variant",
+          "family_stated": "spelling_variant",
+          "expected_patch_kinds": [
+            "synonym"
+          ],
+          "patch_kinds": [
+            "synonym"
+          ],
+          "healed": true,
+          "attempts": 1,
+          "n_turns": 5,
+          "ndcg_before": 0.0,
+          "ndcg_after": 1.0,
+          "feedback": "채택. 표적 '소세지' nDCG 0.00 → 1.00, 회귀 없음.",
+          "retrieved_docs": []
+        },
+        {
+          "query": "카페트",
+          "family_truth": "spelling_variant",
+          "family_stated": "spelling_variant",
+          "expected_patch_kinds": [
+            "synonym"
+          ],
+          "patch_kinds": [
+            "synonym"
+          ],
+          "healed": true,
+          "attempts": 1,
+          "n_turns": 5,
+          "ndcg_before": 0.0,
+          "ndcg_after": 1.0,
+          "feedback": "채택. 표적 '카페트' nDCG 0.00 → 1.00, 회귀 없음.",
+          "retrieved_docs": []
+        },
+        {
+          "query": "초콜렛",
+          "family_truth": "spelling_variant",
+          "family_stated": "spelling_variant",
+          "expected_patch_kinds": [
+            "synonym"
+          ],
+          "patch_kinds": [
+            "synonym"
+          ],
+          "healed": true,
+          "attempts": 1,
+          "n_turns": 5,
+          "ndcg_before": 0.0,
+          "ndcg_after": 1.0,
+          "feedback": "채택. 표적 '초콜렛' nDCG 0.00 → 1.00, 회귀 없음.",
+          "retrieved_docs": []
+        },
+        {
+          "query": "리모콘",
+          "family_truth": "spelling_variant",
+          "family_stated": "spelling_variant",
+          "expected_patch_kinds": [
+            "synonym"
+          ],
+          "patch_kinds": [
+            "synonym"
+          ],
+          "healed": true,
+          "attempts": 1,
+          "n_turns": 5,
+          "ndcg_before": 0.0,
+          "ndcg_after": 1.0,
+          "feedback": "채택. 표적 '리모콘' nDCG 0.00 → 1.00, 회귀 없음.",
+          "retrieved_docs": []
+        },
+        {
+          "query": "블루투스 스피커",
+          "family_truth": "cross_script",
+          "family_stated": null,
+          "expected_patch_kinds": [
+            "synonym"
+          ],
+          "patch_kinds": [],
+          "healed": false,
+          "attempts": 0,
+          "n_turns": 5,
+          "ndcg_before": 0.5,
+          "ndcg_after": 0.5,
+          "feedback": "",
+          "retrieved_docs": []
+        },
+        {
+          "query": "텀블러",
+          "family_truth": "cross_script",
+          "family_stated": null,
+          "expected_patch_kinds": [
+            "synonym"
+          ],
+          "patch_kinds": [],
+          "healed": false,
+          "attempts": 0,
+          "n_turns": 5,
+          "ndcg_before": 0.6131,
+          "ndcg_after": 0.6131,
+          "feedback": "",
+          "retrieved_docs": []
+        },
+        {
+          "query": "핸드폰",
+          "family_truth": "synonym_gap",
+          "family_stated": null,
+          "expected_patch_kinds": [
+            "synonym"
+          ],
+          "patch_kinds": [],
+          "healed": false,
+          "attempts": 0,
+          "n_turns": 5,
+          "ndcg_before": 0.0,
+          "ndcg_after": 0.0,
+          "feedback": "",
+          "retrieved_docs": []
+        },
+        {
+          "query": "츄리닝",
+          "family_truth": "synonym_gap",
+          "family_stated": null,
+          "expected_patch_kinds": [
+            "synonym"
+          ],
+          "patch_kinds": [],
+          "healed": false,
+          "attempts": 0,
+          "n_turns": 5,
+          "ndcg_before": 0.0,
+          "ndcg_after": 0.0,
+          "feedback": "",
+          "retrieved_docs": []
+        },
+        {
+          "query": "티슈",
+          "family_truth": "compound_locked",
+          "family_stated": "compound_locked",
+          "expected_patch_kinds": [
+            "compound_expansion"
+          ],
+          "patch_kinds": [
+            "compound_expansion"
+          ],
+          "healed": true,
+          "attempts": 1,
+          "n_turns": 5,
+          "ndcg_before": 0.0,
+          "ndcg_after": 1.0,
+          "feedback": "채택. 표적 '티슈' nDCG 0.00 → 1.00, 회귀 없음.",
+          "retrieved_docs": []
+        },
+        {
+          "query": "머스캣",
+          "family_truth": "compound_locked",
+          "family_stated": "compound_locked",
+          "expected_patch_kinds": [
+            "compound_expansion"
+          ],
+          "patch_kinds": [
+            "compound_expansion"
+          ],
+          "healed": true,
+          "attempts": 1,
+          "n_turns": 5,
+          "ndcg_before": 0.0,
+          "ndcg_after": 1.0,
+          "feedback": "채택. 표적 '머스캣' nDCG 0.00 → 1.00, 회귀 없음.",
+          "retrieved_docs": []
+        },
+        {
+          "query": "아답터",
+          "family_truth": "garbage_split",
+          "family_stated": "spelling_variant",
+          "expected_patch_kinds": [
+            "user_word",
+            "synonym"
+          ],
+          "patch_kinds": [],
+          "healed": false,
+          "attempts": 1,
+          "n_turns": 6,
+          "ndcg_before": 0.0,
+          "ndcg_after": 0.0,
+          "feedback": "기각: 표적 질의가 충분히 개선되지 않음 (nDCG 0.00 → 0.00, 요구 이득 +0.05)\n처방을 더 좁히거나(대상 항목 축소) 다른 패치 유형을 검토하라.",
+          "retrieved_docs": []
+        },
+        {
+          "query": "백팩",
+          "family_truth": "garbage_split",
+          "family_stated": null,
+          "expected_patch_kinds": [
+            "user_word",
+            "synonym"
+          ],
+          "patch_kinds": [],
+          "healed": false,
+          "attempts": 0,
+          "n_turns": 5,
+          "ndcg_before": 0.0,
+          "ndcg_after": 0.0,
+          "feedback": "",
+          "retrieved_docs": []
+        }
+      ],
+      "ledger": [
+        {
+          "no": 1,
+          "target_query": "후라이팬",
+          "diagnosis_family": "spelling_variant",
+          "patch": "동의어(프라이팬 = 후라이팬)",
+          "reasoning": "'후라이팬'와 자모 유사도 0.78인 색인 토큰 '프라이팬'이 존재한다. 표기 변형으로 판단해 동의어로 연결한다.",
+          "evidence": {
+            "target_ndcg": [
+              0.0,
+              1.0
+            ],
+            "target_results": [
+              0,
+              2
+            ],
+            "evalset_mean_ndcg": [
+              0.5839,
+              0.6117
+            ]
+          },
+          "attempts": 1
+        },
+        {
+          "no": 2,
+          "target_query": "케잌 주문",
+          "diagnosis_family": "spelling_variant",
+          "patch": "동의어(케이크 = 케잌)",
+          "reasoning": "'케잌'와 자모 유사도 0.83인 색인 토큰 '케이크'이 존재한다. 표기 변형으로 판단해 동의어로 연결한다.",
+          "evidence": {
+            "target_ndcg": [
+              0.0,
+              1.0
+            ],
+            "target_results": [
+              0,
+              2
+            ],
+            "evalset_mean_ndcg": [
+              0.6117,
+              0.6395
+            ]
+          },
+          "attempts": 1
+        },
+        {
+          "no": 3,
+          "target_query": "도너츠",
+          "diagnosis_family": "spelling_variant",
+          "patch": "동의어(도넛 = 도너츠)",
+          "reasoning": "'도너츠'와 자모 유사도 0.67인 색인 토큰 '도넛'이 존재한다. 표기 변형으로 판단해 동의어로 연결한다.",
+          "evidence": {
+            "target_ndcg": [
+              0.0,
+              1.0
+            ],
+            "target_results": [
+              0,
+              2
+            ],
+            "evalset_mean_ndcg": [
+              0.6395,
+              0.6673
+            ]
+          },
+          "attempts": 1
+        },
+        {
+          "no": 4,
+          "target_query": "쥬스",
+          "diagnosis_family": "spelling_variant",
+          "patch": "동의어(주스 = 쥬스)",
+          "reasoning": "'쥬스'와 자모 유사도 0.75인 색인 토큰 '주스'이 존재한다. 표기 변형으로 판단해 동의어로 연결한다.",
+          "evidence": {
+            "target_ndcg": [
+              0.0,
+              1.0
+            ],
+            "target_results": [
+              0,
+              2
+            ],
+            "evalset_mean_ndcg": [
+              0.6673,
+              0.695
+            ]
+          },
+          "attempts": 1
+        },
+        {
+          "no": 5,
+          "target_query": "소세지",
+          "diagnosis_family": "spelling_variant",
+          "patch": "동의어(소시지 = 소세지)",
+          "reasoning": "'소세지'와 자모 유사도 0.83인 색인 토큰 '소시지'이 존재한다. 표기 변형으로 판단해 동의어로 연결한다.",
+          "evidence": {
+            "target_ndcg": [
+              0.0,
+              1.0
+            ],
+            "target_results": [
+              0,
+              2
+            ],
+            "evalset_mean_ndcg": [
+              0.695,
+              0.7228
+            ]
+          },
+          "attempts": 1
+        },
+        {
+          "no": 6,
+          "target_query": "카페트",
+          "diagnosis_family": "spelling_variant",
+          "patch": "동의어(카펫 = 카페트)",
+          "reasoning": "'카페트'와 자모 유사도 0.67인 색인 토큰 '카펫'이 존재한다. 표기 변형으로 판단해 동의어로 연결한다.",
+          "evidence": {
+            "target_ndcg": [
+              0.0,
+              1.0
+            ],
+            "target_results": [
+              0,
+              2
+            ],
+            "evalset_mean_ndcg": [
+              0.7228,
+              0.7506
+            ]
+          },
+          "attempts": 1
+        },
+        {
+          "no": 7,
+          "target_query": "초콜렛",
+          "diagnosis_family": "spelling_variant",
+          "patch": "동의어(초콜릿 = 초콜렛)",
+          "reasoning": "'초콜렛'와 자모 유사도 0.88인 색인 토큰 '초콜릿'이 존재한다. 표기 변형으로 판단해 동의어로 연결한다.",
+          "evidence": {
+            "target_ndcg": [
+              0.0,
+              1.0
+            ],
+            "target_results": [
+              0,
+              3
+            ],
+            "evalset_mean_ndcg": [
+              0.7506,
+              0.7784
+            ]
+          },
+          "attempts": 1
+        },
+        {
+          "no": 8,
+          "target_query": "리모콘",
+          "diagnosis_family": "spelling_variant",
+          "patch": "동의어(리모컨 = 리모콘)",
+          "reasoning": "'리모콘'와 자모 유사도 0.86인 색인 토큰 '리모컨'이 존재한다. 표기 변형으로 판단해 동의어로 연결한다.",
+          "evidence": {
+            "target_ndcg": [
+              0.0,
+              1.0
+            ],
+            "target_results": [
+              0,
+              2
+            ],
+            "evalset_mean_ndcg": [
+              0.7784,
+              0.8062
+            ]
+          },
+          "attempts": 1
+        },
+        {
+          "no": 9,
+          "target_query": "티슈",
+          "diagnosis_family": "compound_locked",
+          "patch": "분해확장(물티슈 → 물+티슈)",
+          "reasoning": "색인 토큰 '물티슈'이 질의 토큰 '티슈'를 포함하는 복합어다. 통짜 색인이라 부분어로 못 찾으므로 분해 확장한다.",
+          "evidence": {
+            "target_ndcg": [
+              0.0,
+              1.0
+            ],
+            "target_results": [
+              0,
+              2
+            ],
+            "evalset_mean_ndcg": [
+              0.8062,
+              0.8339
+            ]
+          },
+          "attempts": 1
+        },
+        {
+          "no": 10,
+          "target_query": "머스캣",
+          "diagnosis_family": "compound_locked",
+          "patch": "분해확장(샤인머스캣 → 샤인+머스캣)",
+          "reasoning": "색인 토큰 '샤인머스캣'이 질의 토큰 '머스캣'를 포함하는 복합어다. 통짜 색인이라 부분어로 못 찾으므로 분해 확장한다.",
+          "evidence": {
+            "target_ndcg": [
+              0.0,
+              1.0
+            ],
+            "target_results": [
+              0,
+              2
+            ],
+            "evalset_mean_ndcg": [
+              0.8339,
+              0.8617
+            ]
+          },
+          "attempts": 1
+        }
+      ],
+      "committed_ledger_matches": false
+    },
+    "rules+": {
+      "healed": 11,
+      "fail_ndcg_before": 0.0696,
+      "fail_ndcg_after": 0.7571,
+      "healthy_regressions": [],
+      "cases": [
+        {
+          "query": "후라이팬",
+          "family_truth": "spelling_variant",
+          "family_stated": "spelling_variant",
+          "expected_patch_kinds": [
+            "synonym"
+          ],
+          "patch_kinds": [
+            "synonym"
+          ],
+          "healed": true,
+          "attempts": 1,
+          "n_turns": 5,
+          "ndcg_before": 0.0,
+          "ndcg_after": 1.0,
+          "feedback": "채택. 표적 '후라이팬' nDCG 0.00 → 1.00, 회귀 없음.",
+          "retrieved_docs": []
+        },
+        {
+          "query": "케잌 주문",
+          "family_truth": "spelling_variant",
+          "family_stated": "spelling_variant",
+          "expected_patch_kinds": [
+            "synonym"
+          ],
+          "patch_kinds": [
+            "synonym"
+          ],
+          "healed": true,
+          "attempts": 1,
+          "n_turns": 5,
+          "ndcg_before": 0.0,
+          "ndcg_after": 1.0,
+          "feedback": "채택. 표적 '케잌 주문' nDCG 0.00 → 1.00, 회귀 없음.",
+          "retrieved_docs": []
+        },
+        {
+          "query": "도너츠",
+          "family_truth": "spelling_variant",
+          "family_stated": "spelling_variant",
+          "expected_patch_kinds": [
+            "synonym"
+          ],
+          "patch_kinds": [
+            "synonym"
+          ],
+          "healed": true,
+          "attempts": 1,
+          "n_turns": 5,
+          "ndcg_before": 0.0,
+          "ndcg_after": 1.0,
+          "feedback": "채택. 표적 '도너츠' nDCG 0.00 → 1.00, 회귀 없음.",
+          "retrieved_docs": []
+        },
+        {
+          "query": "쥬스",
+          "family_truth": "spelling_variant",
+          "family_stated": "spelling_variant",
+          "expected_patch_kinds": [
+            "synonym"
+          ],
+          "patch_kinds": [
+            "synonym"
+          ],
+          "healed": true,
+          "attempts": 1,
+          "n_turns": 5,
+          "ndcg_before": 0.0,
+          "ndcg_after": 1.0,
+          "feedback": "채택. 표적 '쥬스' nDCG 0.00 → 1.00, 회귀 없음.",
+          "retrieved_docs": []
+        },
+        {
+          "query": "소세지",
+          "family_truth": "spelling_variant",
+          "family_stated": "spelling_variant",
+          "expected_patch_kinds": [
+            "synonym"
+          ],
+          "patch_kinds": [
+            "synonym"
+          ],
+          "healed": true,
+          "attempts": 1,
+          "n_turns": 5,
+          "ndcg_before": 0.0,
+          "ndcg_after": 1.0,
+          "feedback": "채택. 표적 '소세지' nDCG 0.00 → 1.00, 회귀 없음.",
+          "retrieved_docs": []
+        },
+        {
+          "query": "카페트",
+          "family_truth": "spelling_variant",
+          "family_stated": "spelling_variant",
+          "expected_patch_kinds": [
+            "synonym"
+          ],
+          "patch_kinds": [
+            "synonym"
+          ],
+          "healed": true,
+          "attempts": 1,
+          "n_turns": 5,
+          "ndcg_before": 0.0,
+          "ndcg_after": 1.0,
+          "feedback": "채택. 표적 '카페트' nDCG 0.00 → 1.00, 회귀 없음.",
+          "retrieved_docs": []
+        },
+        {
+          "query": "초콜렛",
+          "family_truth": "spelling_variant",
+          "family_stated": "spelling_variant",
+          "expected_patch_kinds": [
+            "synonym"
+          ],
+          "patch_kinds": [
+            "synonym"
+          ],
+          "healed": true,
+          "attempts": 1,
+          "n_turns": 5,
+          "ndcg_before": 0.0,
+          "ndcg_after": 1.0,
+          "feedback": "채택. 표적 '초콜렛' nDCG 0.00 → 1.00, 회귀 없음.",
+          "retrieved_docs": []
+        },
+        {
+          "query": "리모콘",
+          "family_truth": "spelling_variant",
+          "family_stated": "spelling_variant",
+          "expected_patch_kinds": [
+            "synonym"
+          ],
+          "patch_kinds": [
+            "synonym"
+          ],
+          "healed": true,
+          "attempts": 1,
+          "n_turns": 5,
+          "ndcg_before": 0.0,
+          "ndcg_after": 1.0,
+          "feedback": "채택. 표적 '리모콘' nDCG 0.00 → 1.00, 회귀 없음.",
+          "retrieved_docs": []
+        },
+        {
+          "query": "블루투스 스피커",
+          "family_truth": "cross_script",
+          "family_stated": null,
+          "expected_patch_kinds": [
+            "synonym"
+          ],
+          "patch_kinds": [],
+          "healed": false,
+          "attempts": 0,
+          "n_turns": 5,
+          "ndcg_before": 0.5,
+          "ndcg_after": 0.5,
+          "feedback": "",
+          "retrieved_docs": []
+        },
+        {
+          "query": "텀블러",
+          "family_truth": "cross_script",
+          "family_stated": null,
+          "expected_patch_kinds": [
+            "synonym"
+          ],
+          "patch_kinds": [],
+          "healed": false,
+          "attempts": 0,
+          "n_turns": 5,
+          "ndcg_before": 0.6131,
+          "ndcg_after": 0.6131,
+          "feedback": "",
+          "retrieved_docs": []
+        },
+        {
+          "query": "핸드폰",
+          "family_truth": "synonym_gap",
+          "family_stated": null,
+          "expected_patch_kinds": [
+            "synonym"
+          ],
+          "patch_kinds": [],
+          "healed": false,
+          "attempts": 0,
+          "n_turns": 5,
+          "ndcg_before": 0.0,
+          "ndcg_after": 0.0,
+          "feedback": "",
+          "retrieved_docs": []
+        },
+        {
+          "query": "츄리닝",
+          "family_truth": "synonym_gap",
+          "family_stated": null,
+          "expected_patch_kinds": [
+            "synonym"
+          ],
+          "patch_kinds": [],
+          "healed": false,
+          "attempts": 0,
+          "n_turns": 5,
+          "ndcg_before": 0.0,
+          "ndcg_after": 0.0,
+          "feedback": "",
+          "retrieved_docs": []
+        },
+        {
+          "query": "티슈",
+          "family_truth": "compound_locked",
+          "family_stated": "compound_locked",
+          "expected_patch_kinds": [
+            "compound_expansion"
+          ],
+          "patch_kinds": [
+            "compound_expansion"
+          ],
+          "healed": true,
+          "attempts": 1,
+          "n_turns": 5,
+          "ndcg_before": 0.0,
+          "ndcg_after": 1.0,
+          "feedback": "채택. 표적 '티슈' nDCG 0.00 → 1.00, 회귀 없음.",
+          "retrieved_docs": []
+        },
+        {
+          "query": "머스캣",
+          "family_truth": "compound_locked",
+          "family_stated": "compound_locked",
+          "expected_patch_kinds": [
+            "compound_expansion"
+          ],
+          "patch_kinds": [
+            "compound_expansion"
+          ],
+          "healed": true,
+          "attempts": 1,
+          "n_turns": 5,
+          "ndcg_before": 0.0,
+          "ndcg_after": 1.0,
+          "feedback": "채택. 표적 '머스캣' nDCG 0.00 → 1.00, 회귀 없음.",
+          "retrieved_docs": []
+        },
+        {
+          "query": "아답터",
+          "family_truth": "garbage_split",
+          "family_stated": "garbage_split",
+          "expected_patch_kinds": [
+            "user_word",
+            "synonym"
+          ],
+          "patch_kinds": [
+            "user_word",
+            "synonym"
+          ],
+          "healed": true,
+          "attempts": 2,
+          "n_turns": 6,
+          "ndcg_before": 0.0,
+          "ndcg_after": 1.0,
+          "feedback": "채택. 표적 '아답터' nDCG 0.00 → 1.00, 회귀 없음.",
+          "retrieved_docs": []
+        },
+        {
+          "query": "백팩",
+          "family_truth": "garbage_split",
+          "family_stated": null,
+          "expected_patch_kinds": [
+            "user_word",
+            "synonym"
+          ],
+          "patch_kinds": [],
+          "healed": false,
+          "attempts": 0,
+          "n_turns": 5,
+          "ndcg_before": 0.0,
+          "ndcg_after": 0.0,
+          "feedback": "",
+          "retrieved_docs": []
+        }
+      ],
+      "ledger": [
+        {
+          "no": 1,
+          "target_query": "후라이팬",
+          "diagnosis_family": "spelling_variant",
+          "patch": "동의어(프라이팬 = 후라이팬)",
+          "reasoning": "'후라이팬'와 자모 유사도 0.78인 색인 토큰 '프라이팬'이 존재한다. 표기 변형으로 판단해 동의어로 연결한다.",
+          "evidence": {
+            "target_ndcg": [
+              0.0,
+              1.0
+            ],
+            "target_results": [
+              0,
+              2
+            ],
+            "evalset_mean_ndcg": [
+              0.5839,
+              0.6117
+            ]
+          },
+          "attempts": 1
+        },
+        {
+          "no": 2,
+          "target_query": "케잌 주문",
+          "diagnosis_family": "spelling_variant",
+          "patch": "동의어(케이크 = 케잌)",
+          "reasoning": "'케잌'와 자모 유사도 0.83인 색인 토큰 '케이크'이 존재한다. 표기 변형으로 판단해 동의어로 연결한다.",
+          "evidence": {
+            "target_ndcg": [
+              0.0,
+              1.0
+            ],
+            "target_results": [
+              0,
+              2
+            ],
+            "evalset_mean_ndcg": [
+              0.6117,
+              0.6395
+            ]
+          },
+          "attempts": 1
+        },
+        {
+          "no": 3,
+          "target_query": "도너츠",
+          "diagnosis_family": "spelling_variant",
+          "patch": "동의어(도넛 = 도너츠)",
+          "reasoning": "'도너츠'와 자모 유사도 0.67인 색인 토큰 '도넛'이 존재한다. 표기 변형으로 판단해 동의어로 연결한다.",
+          "evidence": {
+            "target_ndcg": [
+              0.0,
+              1.0
+            ],
+            "target_results": [
+              0,
+              2
+            ],
+            "evalset_mean_ndcg": [
+              0.6395,
+              0.6673
+            ]
+          },
+          "attempts": 1
+        },
+        {
+          "no": 4,
+          "target_query": "쥬스",
+          "diagnosis_family": "spelling_variant",
+          "patch": "동의어(주스 = 쥬스)",
+          "reasoning": "'쥬스'와 자모 유사도 0.75인 색인 토큰 '주스'이 존재한다. 표기 변형으로 판단해 동의어로 연결한다.",
+          "evidence": {
+            "target_ndcg": [
+              0.0,
+              1.0
+            ],
+            "target_results": [
+              0,
+              2
+            ],
+            "evalset_mean_ndcg": [
+              0.6673,
+              0.695
+            ]
+          },
+          "attempts": 1
+        },
+        {
+          "no": 5,
+          "target_query": "소세지",
+          "diagnosis_family": "spelling_variant",
+          "patch": "동의어(소시지 = 소세지)",
+          "reasoning": "'소세지'와 자모 유사도 0.83인 색인 토큰 '소시지'이 존재한다. 표기 변형으로 판단해 동의어로 연결한다.",
+          "evidence": {
+            "target_ndcg": [
+              0.0,
+              1.0
+            ],
+            "target_results": [
+              0,
+              2
+            ],
+            "evalset_mean_ndcg": [
+              0.695,
+              0.7228
+            ]
+          },
+          "attempts": 1
+        },
+        {
+          "no": 6,
+          "target_query": "카페트",
+          "diagnosis_family": "spelling_variant",
+          "patch": "동의어(카펫 = 카페트)",
+          "reasoning": "'카페트'와 자모 유사도 0.67인 색인 토큰 '카펫'이 존재한다. 표기 변형으로 판단해 동의어로 연결한다.",
+          "evidence": {
+            "target_ndcg": [
+              0.0,
+              1.0
+            ],
+            "target_results": [
+              0,
+              2
+            ],
+            "evalset_mean_ndcg": [
+              0.7228,
+              0.7506
+            ]
+          },
+          "attempts": 1
+        },
+        {
+          "no": 7,
+          "target_query": "초콜렛",
+          "diagnosis_family": "spelling_variant",
+          "patch": "동의어(초콜릿 = 초콜렛)",
+          "reasoning": "'초콜렛'와 자모 유사도 0.88인 색인 토큰 '초콜릿'이 존재한다. 표기 변형으로 판단해 동의어로 연결한다.",
+          "evidence": {
+            "target_ndcg": [
+              0.0,
+              1.0
+            ],
+            "target_results": [
+              0,
+              3
+            ],
+            "evalset_mean_ndcg": [
+              0.7506,
+              0.7784
+            ]
+          },
+          "attempts": 1
+        },
+        {
+          "no": 8,
+          "target_query": "리모콘",
+          "diagnosis_family": "spelling_variant",
+          "patch": "동의어(리모컨 = 리모콘)",
+          "reasoning": "'리모콘'와 자모 유사도 0.86인 색인 토큰 '리모컨'이 존재한다. 표기 변형으로 판단해 동의어로 연결한다.",
+          "evidence": {
+            "target_ndcg": [
+              0.0,
+              1.0
+            ],
+            "target_results": [
+              0,
+              2
+            ],
+            "evalset_mean_ndcg": [
+              0.7784,
+              0.8062
+            ]
+          },
+          "attempts": 1
+        },
+        {
+          "no": 9,
+          "target_query": "티슈",
+          "diagnosis_family": "compound_locked",
+          "patch": "분해확장(물티슈 → 물+티슈)",
+          "reasoning": "색인 토큰 '물티슈'이 질의 토큰 '티슈'를 포함하는 복합어다. 통짜 색인이라 부분어로 못 찾으므로 분해 확장한다.",
+          "evidence": {
+            "target_ndcg": [
+              0.0,
+              1.0
+            ],
+            "target_results": [
+              0,
+              2
+            ],
+            "evalset_mean_ndcg": [
+              0.8062,
+              0.8339
+            ]
+          },
+          "attempts": 1
+        },
+        {
+          "no": 10,
+          "target_query": "머스캣",
+          "diagnosis_family": "compound_locked",
+          "patch": "분해확장(샤인머스캣 → 샤인+머스캣)",
+          "reasoning": "색인 토큰 '샤인머스캣'이 질의 토큰 '머스캣'를 포함하는 복합어다. 통짜 색인이라 부분어로 못 찾으므로 분해 확장한다.",
+          "evidence": {
+            "target_ndcg": [
+              0.0,
+              1.0
+            ],
+            "target_results": [
+              0,
+              2
+            ],
+            "evalset_mean_ndcg": [
+              0.8339,
+              0.8617
+            ]
+          },
+          "attempts": 1
+        },
+        {
+          "no": 11,
+          "target_query": "아답터",
+          "diagnosis_family": "garbage_split",
+          "patch": "사전등록(아답터) + 동의어(어댑터 = 아답터)",
+          "reasoning": "질의가 [답, 터]로 한 음절씩 쪼개졌다. 이 상태에서는 동의어를 걸어도 매칭될 토큰이 없다. '아답터'를 사전에 등록해 한 덩어리로 만든 뒤, 자모 유사도 0.71인 색인 토큰 '어댑터'과 동의어로 연결한다.",
+          "evidence": {
+            "target_ndcg": [
+              0.0,
+              1.0
+            ],
+            "target_results": [
+              0,
+              2
+            ],
+            "evalset_mean_ndcg": [
+              0.8617,
+              0.8895
+            ]
+          },
+          "attempts": 2
+        }
+      ],
+      "committed_ledger_matches": false
+    },
+    "vector": {
+      "healed": 11,
+      "fail_ndcg_before": 0.0696,
+      "fail_ndcg_after": 0.7367,
+      "healthy_regressions": [],
+      "cases": [
+        {
+          "query": "후라이팬",
+          "family_truth": "spelling_variant",
+          "family_stated": "spelling_variant",
+          "expected_patch_kinds": [
+            "synonym"
+          ],
+          "patch_kinds": [
+            "synonym"
+          ],
+          "healed": true,
+          "attempts": 1,
+          "n_turns": 5,
+          "ndcg_before": 0.0,
+          "ndcg_after": 1.0,
+          "feedback": "채택. 표적 '후라이팬' nDCG 0.00 → 1.00, 회귀 없음.",
+          "retrieved_docs": []
+        },
+        {
+          "query": "케잌 주문",
+          "family_truth": "spelling_variant",
+          "family_stated": "spelling_variant",
+          "expected_patch_kinds": [
+            "synonym"
+          ],
+          "patch_kinds": [
+            "synonym"
+          ],
+          "healed": true,
+          "attempts": 1,
+          "n_turns": 5,
+          "ndcg_before": 0.0,
+          "ndcg_after": 1.0,
+          "feedback": "채택. 표적 '케잌 주문' nDCG 0.00 → 1.00, 회귀 없음.",
+          "retrieved_docs": []
+        },
+        {
+          "query": "도너츠",
+          "family_truth": "spelling_variant",
+          "family_stated": "spelling_variant",
+          "expected_patch_kinds": [
+            "synonym"
+          ],
+          "patch_kinds": [
+            "synonym"
+          ],
+          "healed": true,
+          "attempts": 1,
+          "n_turns": 5,
+          "ndcg_before": 0.0,
+          "ndcg_after": 1.0,
+          "feedback": "채택. 표적 '도너츠' nDCG 0.00 → 1.00, 회귀 없음.",
+          "retrieved_docs": []
+        },
+        {
+          "query": "쥬스",
+          "family_truth": "spelling_variant",
+          "family_stated": "spelling_variant",
+          "expected_patch_kinds": [
+            "synonym"
+          ],
+          "patch_kinds": [
+            "synonym"
+          ],
+          "healed": true,
+          "attempts": 1,
+          "n_turns": 5,
+          "ndcg_before": 0.0,
+          "ndcg_after": 1.0,
+          "feedback": "채택. 표적 '쥬스' nDCG 0.00 → 1.00, 회귀 없음.",
+          "retrieved_docs": []
+        },
+        {
+          "query": "소세지",
+          "family_truth": "spelling_variant",
+          "family_stated": "spelling_variant",
+          "expected_patch_kinds": [
+            "synonym"
+          ],
+          "patch_kinds": [
+            "synonym"
+          ],
+          "healed": true,
+          "attempts": 1,
+          "n_turns": 5,
+          "ndcg_before": 0.0,
+          "ndcg_after": 1.0,
+          "feedback": "채택. 표적 '소세지' nDCG 0.00 → 1.00, 회귀 없음.",
+          "retrieved_docs": []
+        },
+        {
+          "query": "카페트",
+          "family_truth": "spelling_variant",
+          "family_stated": "spelling_variant",
+          "expected_patch_kinds": [
+            "synonym"
+          ],
+          "patch_kinds": [
+            "synonym"
+          ],
+          "healed": true,
+          "attempts": 1,
+          "n_turns": 5,
+          "ndcg_before": 0.0,
+          "ndcg_after": 1.0,
+          "feedback": "채택. 표적 '카페트' nDCG 0.00 → 1.00, 회귀 없음.",
+          "retrieved_docs": []
+        },
+        {
+          "query": "초콜렛",
+          "family_truth": "spelling_variant",
+          "family_stated": "spelling_variant",
+          "expected_patch_kinds": [
+            "synonym"
+          ],
+          "patch_kinds": [
+            "synonym"
+          ],
+          "healed": true,
+          "attempts": 1,
+          "n_turns": 5,
+          "ndcg_before": 0.0,
+          "ndcg_after": 1.0,
+          "feedback": "채택. 표적 '초콜렛' nDCG 0.00 → 1.00, 회귀 없음.",
+          "retrieved_docs": []
+        },
+        {
+          "query": "리모콘",
+          "family_truth": "spelling_variant",
+          "family_stated": "spelling_variant",
+          "expected_patch_kinds": [
+            "synonym"
+          ],
+          "patch_kinds": [
+            "synonym"
+          ],
+          "healed": true,
+          "attempts": 1,
+          "n_turns": 5,
+          "ndcg_before": 0.0,
+          "ndcg_after": 1.0,
+          "feedback": "채택. 표적 '리모콘' nDCG 0.00 → 1.00, 회귀 없음.",
+          "retrieved_docs": []
+        },
+        {
+          "query": "블루투스 스피커",
+          "family_truth": "cross_script",
+          "family_stated": "synonym_gap",
+          "expected_patch_kinds": [
+            "synonym"
+          ],
+          "patch_kinds": [],
+          "healed": false,
+          "attempts": 1,
+          "n_turns": 6,
+          "ndcg_before": 0.5,
+          "ndcg_after": 0.5,
+          "feedback": "기각: 표적 질의가 충분히 개선되지 않음 (nDCG 0.50 → 0.50, 요구 이득 +0.05)\n처방을 더 좁히거나(대상 항목 축소) 다른 패치 유형을 검토하라.",
+          "retrieved_docs": []
+        },
+        {
+          "query": "텀블러",
+          "family_truth": "cross_script",
+          "family_stated": "synonym_gap",
+          "expected_patch_kinds": [
+            "synonym"
+          ],
+          "patch_kinds": [],
+          "healed": false,
+          "attempts": 1,
+          "n_turns": 6,
+          "ndcg_before": 0.6131,
+          "ndcg_after": 0.6131,
+          "feedback": "기각: 표적 질의가 충분히 개선되지 않음 (nDCG 0.61 → 0.26, 요구 이득 +0.05)\n  - 회귀: '블루투스 스피커' precision5 0.33 → 0.25\n처방을 더 좁히거나(대상 항목 축소) 다른 패치 유형을 검토하라.",
+          "retrieved_docs": []
+        },
+        {
+          "query": "핸드폰",
+          "family_truth": "synonym_gap",
+          "family_stated": "synonym_gap",
+          "expected_patch_kinds": [
+            "synonym"
+          ],
+          "patch_kinds": [
+            "synonym"
+          ],
+          "healed": true,
+          "attempts": 1,
+          "n_turns": 5,
+          "ndcg_before": 0.0,
+          "ndcg_after": 0.6733,
+          "feedback": "채택. 표적 '핸드폰' nDCG 0.00 → 0.67, 회귀 없음.",
+          "retrieved_docs": []
+        },
+        {
+          "query": "츄리닝",
+          "family_truth": "synonym_gap",
+          "family_stated": "synonym_gap",
+          "expected_patch_kinds": [
+            "synonym"
+          ],
+          "patch_kinds": [],
+          "healed": false,
+          "attempts": 1,
+          "n_turns": 6,
+          "ndcg_before": 0.0,
+          "ndcg_after": 0.0,
+          "feedback": "기각: 표적 질의가 충분히 개선되지 않음 (nDCG 0.00 → 0.00, 요구 이득 +0.05)\n처방을 더 좁히거나(대상 항목 축소) 다른 패치 유형을 검토하라.",
+          "retrieved_docs": []
+        },
+        {
+          "query": "티슈",
+          "family_truth": "compound_locked",
+          "family_stated": "compound_locked",
+          "expected_patch_kinds": [
+            "compound_expansion"
+          ],
+          "patch_kinds": [
+            "compound_expansion"
+          ],
+          "healed": true,
+          "attempts": 1,
+          "n_turns": 5,
+          "ndcg_before": 0.0,
+          "ndcg_after": 1.0,
+          "feedback": "채택. 표적 '티슈' nDCG 0.00 → 1.00, 회귀 없음.",
+          "retrieved_docs": []
+        },
+        {
+          "query": "머스캣",
+          "family_truth": "compound_locked",
+          "family_stated": "compound_locked",
+          "expected_patch_kinds": [
+            "compound_expansion"
+          ],
+          "patch_kinds": [
+            "compound_expansion"
+          ],
+          "healed": true,
+          "attempts": 1,
+          "n_turns": 5,
+          "ndcg_before": 0.0,
+          "ndcg_after": 1.0,
+          "feedback": "채택. 표적 '머스캣' nDCG 0.00 → 1.00, 회귀 없음.",
+          "retrieved_docs": []
+        },
+        {
+          "query": "아답터",
+          "family_truth": "garbage_split",
+          "family_stated": "spelling_variant",
+          "expected_patch_kinds": [
+            "user_word",
+            "synonym"
+          ],
+          "patch_kinds": [],
+          "healed": false,
+          "attempts": 1,
+          "n_turns": 6,
+          "ndcg_before": 0.0,
+          "ndcg_after": 0.0,
+          "feedback": "기각: 표적 질의가 충분히 개선되지 않음 (nDCG 0.00 → 0.00, 요구 이득 +0.05)\n처방을 더 좁히거나(대상 항목 축소) 다른 패치 유형을 검토하라.",
+          "retrieved_docs": []
+        },
+        {
+          "query": "백팩",
+          "family_truth": "garbage_split",
+          "family_stated": "synonym_gap",
+          "expected_patch_kinds": [
+            "user_word",
+            "synonym"
+          ],
+          "patch_kinds": [],
+          "healed": false,
+          "attempts": 1,
+          "n_turns": 6,
+          "ndcg_before": 0.0,
+          "ndcg_after": 0.0,
+          "feedback": "기각: 표적 질의가 충분히 개선되지 않음 (nDCG 0.00 → 0.00, 요구 이득 +0.05)\n처방을 더 좁히거나(대상 항목 축소) 다른 패치 유형을 검토하라.",
+          "retrieved_docs": []
+        }
+      ],
+      "ledger": [
+        {
+          "no": 1,
+          "target_query": "후라이팬",
+          "diagnosis_family": "spelling_variant",
+          "patch": "동의어(프라이팬 = 후라이팬)",
+          "reasoning": "'후라이팬'와 자모 유사도 0.78인 색인 토큰 '프라이팬'이 존재한다. 표기 변형으로 판단해 동의어로 연결한다.",
+          "evidence": {
+            "target_ndcg": [
+              0.0,
+              1.0
+            ],
+            "target_results": [
+              0,
+              2
+            ],
+            "evalset_mean_ndcg": [
+              0.5839,
+              0.6117
+            ]
+          },
+          "attempts": 1
+        },
+        {
+          "no": 2,
+          "target_query": "케잌 주문",
+          "diagnosis_family": "spelling_variant",
+          "patch": "동의어(케이크 = 케잌)",
+          "reasoning": "'케잌'와 자모 유사도 0.83인 색인 토큰 '케이크'이 존재한다. 표기 변형으로 판단해 동의어로 연결한다.",
+          "evidence": {
+            "target_ndcg": [
+              0.0,
+              1.0
+            ],
+            "target_results": [
+              0,
+              2
+            ],
+            "evalset_mean_ndcg": [
+              0.6117,
+              0.6395
+            ]
+          },
+          "attempts": 1
+        },
+        {
+          "no": 3,
+          "target_query": "도너츠",
+          "diagnosis_family": "spelling_variant",
+          "patch": "동의어(도넛 = 도너츠)",
+          "reasoning": "'도너츠'와 자모 유사도 0.67인 색인 토큰 '도넛'이 존재한다. 표기 변형으로 판단해 동의어로 연결한다.",
+          "evidence": {
+            "target_ndcg": [
+              0.0,
+              1.0
+            ],
+            "target_results": [
+              0,
+              2
+            ],
+            "evalset_mean_ndcg": [
+              0.6395,
+              0.6673
+            ]
+          },
+          "attempts": 1
+        },
+        {
+          "no": 4,
+          "target_query": "쥬스",
+          "diagnosis_family": "spelling_variant",
+          "patch": "동의어(주스 = 쥬스)",
+          "reasoning": "'쥬스'와 자모 유사도 0.75인 색인 토큰 '주스'이 존재한다. 표기 변형으로 판단해 동의어로 연결한다.",
+          "evidence": {
+            "target_ndcg": [
+              0.0,
+              1.0
+            ],
+            "target_results": [
+              0,
+              2
+            ],
+            "evalset_mean_ndcg": [
+              0.6673,
+              0.695
+            ]
+          },
+          "attempts": 1
+        },
+        {
+          "no": 5,
+          "target_query": "소세지",
+          "diagnosis_family": "spelling_variant",
+          "patch": "동의어(소시지 = 소세지)",
+          "reasoning": "'소세지'와 자모 유사도 0.83인 색인 토큰 '소시지'이 존재한다. 표기 변형으로 판단해 동의어로 연결한다.",
+          "evidence": {
+            "target_ndcg": [
+              0.0,
+              1.0
+            ],
+            "target_results": [
+              0,
+              2
+            ],
+            "evalset_mean_ndcg": [
+              0.695,
+              0.7228
+            ]
+          },
+          "attempts": 1
+        },
+        {
+          "no": 6,
+          "target_query": "카페트",
+          "diagnosis_family": "spelling_variant",
+          "patch": "동의어(카펫 = 카페트)",
+          "reasoning": "'카페트'와 자모 유사도 0.67인 색인 토큰 '카펫'이 존재한다. 표기 변형으로 판단해 동의어로 연결한다.",
+          "evidence": {
+            "target_ndcg": [
+              0.0,
+              1.0
+            ],
+            "target_results": [
+              0,
+              2
+            ],
+            "evalset_mean_ndcg": [
+              0.7228,
+              0.7506
+            ]
+          },
+          "attempts": 1
+        },
+        {
+          "no": 7,
+          "target_query": "초콜렛",
+          "diagnosis_family": "spelling_variant",
+          "patch": "동의어(초콜릿 = 초콜렛)",
+          "reasoning": "'초콜렛'와 자모 유사도 0.88인 색인 토큰 '초콜릿'이 존재한다. 표기 변형으로 판단해 동의어로 연결한다.",
+          "evidence": {
+            "target_ndcg": [
+              0.0,
+              1.0
+            ],
+            "target_results": [
+              0,
+              3
+            ],
+            "evalset_mean_ndcg": [
+              0.7506,
+              0.7784
+            ]
+          },
+          "attempts": 1
+        },
+        {
+          "no": 8,
+          "target_query": "리모콘",
+          "diagnosis_family": "spelling_variant",
+          "patch": "동의어(리모컨 = 리모콘)",
+          "reasoning": "'리모콘'와 자모 유사도 0.86인 색인 토큰 '리모컨'이 존재한다. 표기 변형으로 판단해 동의어로 연결한다.",
+          "evidence": {
+            "target_ndcg": [
+              0.0,
+              1.0
+            ],
+            "target_results": [
+              0,
+              2
+            ],
+            "evalset_mean_ndcg": [
+              0.7784,
+              0.8062
+            ]
+          },
+          "attempts": 1
+        },
+        {
+          "no": 9,
+          "target_query": "핸드폰",
+          "diagnosis_family": "synonym_gap",
+          "patch": "동의어(휴대폰 = 핸드폰)",
+          "reasoning": "'핸드폰'와 자모 유사도는 0.62로 낮지만 임베딩 유사도가 0.98인 색인 토큰 '휴대폰'이 있다. 형태가 다른 같은 뜻으로 판단해 동의어로 연결한다.",
+          "evidence": {
+            "target_ndcg": [
+              0.0,
+              0.6733
+            ],
+            "target_results": [
+              0,
+              2
+            ],
+            "evalset_mean_ndcg": [
+              0.8062,
+              0.8249
+            ]
+          },
+          "attempts": 1
+        },
+        {
+          "no": 10,
+          "target_query": "티슈",
+          "diagnosis_family": "compound_locked",
+          "patch": "분해확장(물티슈 → 물+티슈)",
+          "reasoning": "색인 토큰 '물티슈'이 질의 토큰 '티슈'를 포함하는 복합어다. 통짜 색인이라 부분어로 못 찾으므로 분해 확장한다.",
+          "evidence": {
+            "target_ndcg": [
+              0.0,
+              1.0
+            ],
+            "target_results": [
+              0,
+              2
+            ],
+            "evalset_mean_ndcg": [
+              0.8249,
+              0.8526
+            ]
+          },
+          "attempts": 1
+        },
+        {
+          "no": 11,
+          "target_query": "머스캣",
+          "diagnosis_family": "compound_locked",
+          "patch": "분해확장(샤인머스캣 → 샤인+머스캣)",
+          "reasoning": "색인 토큰 '샤인머스캣'이 질의 토큰 '머스캣'를 포함하는 복합어다. 통짜 색인이라 부분어로 못 찾으므로 분해 확장한다.",
+          "evidence": {
+            "target_ndcg": [
+              0.0,
+              1.0
+            ],
+            "target_results": [
+              0,
+              2
+            ],
+            "evalset_mean_ndcg": [
+              0.8526,
+              0.8804
+            ]
+          },
+          "attempts": 1
+        }
+      ],
+      "committed_ledger_matches": false
+    },
+    "vector+": {
+      "healed": 12,
+      "fail_ndcg_before": 0.0696,
+      "fail_ndcg_after": 0.7992,
+      "healthy_regressions": [],
+      "cases": [
+        {
+          "query": "후라이팬",
+          "family_truth": "spelling_variant",
+          "family_stated": "spelling_variant",
+          "expected_patch_kinds": [
+            "synonym"
+          ],
+          "patch_kinds": [
+            "synonym"
+          ],
+          "healed": true,
+          "attempts": 1,
+          "n_turns": 5,
+          "ndcg_before": 0.0,
+          "ndcg_after": 1.0,
+          "feedback": "채택. 표적 '후라이팬' nDCG 0.00 → 1.00, 회귀 없음.",
+          "retrieved_docs": []
+        },
+        {
+          "query": "케잌 주문",
+          "family_truth": "spelling_variant",
+          "family_stated": "spelling_variant",
+          "expected_patch_kinds": [
+            "synonym"
+          ],
+          "patch_kinds": [
+            "synonym"
+          ],
+          "healed": true,
+          "attempts": 1,
+          "n_turns": 5,
+          "ndcg_before": 0.0,
+          "ndcg_after": 1.0,
+          "feedback": "채택. 표적 '케잌 주문' nDCG 0.00 → 1.00, 회귀 없음.",
+          "retrieved_docs": []
+        },
+        {
+          "query": "도너츠",
+          "family_truth": "spelling_variant",
+          "family_stated": "spelling_variant",
+          "expected_patch_kinds": [
+            "synonym"
+          ],
+          "patch_kinds": [
+            "synonym"
+          ],
+          "healed": true,
+          "attempts": 1,
+          "n_turns": 5,
+          "ndcg_before": 0.0,
+          "ndcg_after": 1.0,
+          "feedback": "채택. 표적 '도너츠' nDCG 0.00 → 1.00, 회귀 없음.",
+          "retrieved_docs": []
+        },
+        {
+          "query": "쥬스",
+          "family_truth": "spelling_variant",
+          "family_stated": "spelling_variant",
+          "expected_patch_kinds": [
+            "synonym"
+          ],
+          "patch_kinds": [
+            "synonym"
+          ],
+          "healed": true,
+          "attempts": 1,
+          "n_turns": 5,
+          "ndcg_before": 0.0,
+          "ndcg_after": 1.0,
+          "feedback": "채택. 표적 '쥬스' nDCG 0.00 → 1.00, 회귀 없음.",
+          "retrieved_docs": []
+        },
+        {
+          "query": "소세지",
+          "family_truth": "spelling_variant",
+          "family_stated": "spelling_variant",
+          "expected_patch_kinds": [
+            "synonym"
+          ],
+          "patch_kinds": [
+            "synonym"
+          ],
+          "healed": true,
+          "attempts": 1,
+          "n_turns": 5,
+          "ndcg_before": 0.0,
+          "ndcg_after": 1.0,
+          "feedback": "채택. 표적 '소세지' nDCG 0.00 → 1.00, 회귀 없음.",
+          "retrieved_docs": []
+        },
+        {
+          "query": "카페트",
+          "family_truth": "spelling_variant",
+          "family_stated": "spelling_variant",
+          "expected_patch_kinds": [
+            "synonym"
+          ],
+          "patch_kinds": [
+            "synonym"
+          ],
+          "healed": true,
+          "attempts": 1,
+          "n_turns": 5,
+          "ndcg_before": 0.0,
+          "ndcg_after": 1.0,
+          "feedback": "채택. 표적 '카페트' nDCG 0.00 → 1.00, 회귀 없음.",
+          "retrieved_docs": []
+        },
+        {
+          "query": "초콜렛",
+          "family_truth": "spelling_variant",
+          "family_stated": "spelling_variant",
+          "expected_patch_kinds": [
+            "synonym"
+          ],
+          "patch_kinds": [
+            "synonym"
+          ],
+          "healed": true,
+          "attempts": 1,
+          "n_turns": 5,
+          "ndcg_before": 0.0,
+          "ndcg_after": 1.0,
+          "feedback": "채택. 표적 '초콜렛' nDCG 0.00 → 1.00, 회귀 없음.",
+          "retrieved_docs": []
+        },
+        {
+          "query": "리모콘",
+          "family_truth": "spelling_variant",
+          "family_stated": "spelling_variant",
+          "expected_patch_kinds": [
+            "synonym"
+          ],
+          "patch_kinds": [
+            "synonym"
+          ],
+          "healed": true,
+          "attempts": 1,
+          "n_turns": 5,
+          "ndcg_before": 0.0,
+          "ndcg_after": 1.0,
+          "feedback": "채택. 표적 '리모콘' nDCG 0.00 → 1.00, 회귀 없음.",
+          "retrieved_docs": []
+        },
+        {
+          "query": "블루투스 스피커",
+          "family_truth": "cross_script",
+          "family_stated": "synonym_gap",
+          "expected_patch_kinds": [
+            "synonym"
+          ],
+          "patch_kinds": [],
+          "healed": false,
+          "attempts": 1,
+          "n_turns": 6,
+          "ndcg_before": 0.5,
+          "ndcg_after": 0.5,
+          "feedback": "기각: 표적 질의가 충분히 개선되지 않음 (nDCG 0.50 → 0.50, 요구 이득 +0.05)\n처방을 더 좁히거나(대상 항목 축소) 다른 패치 유형을 검토하라.",
+          "retrieved_docs": []
+        },
+        {
+          "query": "텀블러",
+          "family_truth": "cross_script",
+          "family_stated": "synonym_gap",
+          "expected_patch_kinds": [
+            "synonym"
+          ],
+          "patch_kinds": [],
+          "healed": false,
+          "attempts": 1,
+          "n_turns": 6,
+          "ndcg_before": 0.6131,
+          "ndcg_after": 0.6131,
+          "feedback": "기각: 표적 질의가 충분히 개선되지 않음 (nDCG 0.61 → 0.26, 요구 이득 +0.05)\n  - 회귀: '블루투스 스피커' precision5 0.33 → 0.25\n처방을 더 좁히거나(대상 항목 축소) 다른 패치 유형을 검토하라.",
+          "retrieved_docs": []
+        },
+        {
+          "query": "핸드폰",
+          "family_truth": "synonym_gap",
+          "family_stated": "synonym_gap",
+          "expected_patch_kinds": [
+            "synonym"
+          ],
+          "patch_kinds": [
+            "synonym"
+          ],
+          "healed": true,
+          "attempts": 1,
+          "n_turns": 5,
+          "ndcg_before": 0.0,
+          "ndcg_after": 0.6733,
+          "feedback": "채택. 표적 '핸드폰' nDCG 0.00 → 0.67, 회귀 없음.",
+          "retrieved_docs": []
+        },
+        {
+          "query": "츄리닝",
+          "family_truth": "synonym_gap",
+          "family_stated": "synonym_gap",
+          "expected_patch_kinds": [
+            "synonym"
+          ],
+          "patch_kinds": [],
+          "healed": false,
+          "attempts": 1,
+          "n_turns": 6,
+          "ndcg_before": 0.0,
+          "ndcg_after": 0.0,
+          "feedback": "기각: 표적 질의가 충분히 개선되지 않음 (nDCG 0.00 → 0.00, 요구 이득 +0.05)\n처방을 더 좁히거나(대상 항목 축소) 다른 패치 유형을 검토하라.",
+          "retrieved_docs": []
+        },
+        {
+          "query": "티슈",
+          "family_truth": "compound_locked",
+          "family_stated": "compound_locked",
+          "expected_patch_kinds": [
+            "compound_expansion"
+          ],
+          "patch_kinds": [
+            "compound_expansion"
+          ],
+          "healed": true,
+          "attempts": 1,
+          "n_turns": 5,
+          "ndcg_before": 0.0,
+          "ndcg_after": 1.0,
+          "feedback": "채택. 표적 '티슈' nDCG 0.00 → 1.00, 회귀 없음.",
+          "retrieved_docs": []
+        },
+        {
+          "query": "머스캣",
+          "family_truth": "compound_locked",
+          "family_stated": "compound_locked",
+          "expected_patch_kinds": [
+            "compound_expansion"
+          ],
+          "patch_kinds": [
+            "compound_expansion"
+          ],
+          "healed": true,
+          "attempts": 1,
+          "n_turns": 5,
+          "ndcg_before": 0.0,
+          "ndcg_after": 1.0,
+          "feedback": "채택. 표적 '머스캣' nDCG 0.00 → 1.00, 회귀 없음.",
+          "retrieved_docs": []
+        },
+        {
+          "query": "아답터",
+          "family_truth": "garbage_split",
+          "family_stated": "garbage_split",
+          "expected_patch_kinds": [
+            "user_word",
+            "synonym"
+          ],
+          "patch_kinds": [
+            "user_word",
+            "synonym"
+          ],
+          "healed": true,
+          "attempts": 2,
+          "n_turns": 6,
+          "ndcg_before": 0.0,
+          "ndcg_after": 1.0,
+          "feedback": "채택. 표적 '아답터' nDCG 0.00 → 1.00, 회귀 없음.",
+          "retrieved_docs": []
+        },
+        {
+          "query": "백팩",
+          "family_truth": "garbage_split",
+          "family_stated": "synonym_gap",
+          "expected_patch_kinds": [
+            "user_word",
+            "synonym"
+          ],
+          "patch_kinds": [],
+          "healed": false,
+          "attempts": 1,
+          "n_turns": 6,
+          "ndcg_before": 0.0,
+          "ndcg_after": 0.0,
+          "feedback": "기각: 표적 질의가 충분히 개선되지 않음 (nDCG 0.00 → 0.00, 요구 이득 +0.05)\n처방을 더 좁히거나(대상 항목 축소) 다른 패치 유형을 검토하라.",
+          "retrieved_docs": []
+        }
+      ],
+      "ledger": [
+        {
+          "no": 1,
+          "target_query": "후라이팬",
+          "diagnosis_family": "spelling_variant",
+          "patch": "동의어(프라이팬 = 후라이팬)",
+          "reasoning": "'후라이팬'와 자모 유사도 0.78인 색인 토큰 '프라이팬'이 존재한다. 표기 변형으로 판단해 동의어로 연결한다.",
+          "evidence": {
+            "target_ndcg": [
+              0.0,
+              1.0
+            ],
+            "target_results": [
+              0,
+              2
+            ],
+            "evalset_mean_ndcg": [
+              0.5839,
+              0.6117
+            ]
+          },
+          "attempts": 1
+        },
+        {
+          "no": 2,
+          "target_query": "케잌 주문",
+          "diagnosis_family": "spelling_variant",
+          "patch": "동의어(케이크 = 케잌)",
+          "reasoning": "'케잌'와 자모 유사도 0.83인 색인 토큰 '케이크'이 존재한다. 표기 변형으로 판단해 동의어로 연결한다.",
+          "evidence": {
+            "target_ndcg": [
+              0.0,
+              1.0
+            ],
+            "target_results": [
+              0,
+              2
+            ],
+            "evalset_mean_ndcg": [
+              0.6117,
+              0.6395
+            ]
+          },
+          "attempts": 1
+        },
+        {
+          "no": 3,
+          "target_query": "도너츠",
+          "diagnosis_family": "spelling_variant",
+          "patch": "동의어(도넛 = 도너츠)",
+          "reasoning": "'도너츠'와 자모 유사도 0.67인 색인 토큰 '도넛'이 존재한다. 표기 변형으로 판단해 동의어로 연결한다.",
+          "evidence": {
+            "target_ndcg": [
+              0.0,
+              1.0
+            ],
+            "target_results": [
+              0,
+              2
+            ],
+            "evalset_mean_ndcg": [
+              0.6395,
+              0.6673
+            ]
+          },
+          "attempts": 1
+        },
+        {
+          "no": 4,
+          "target_query": "쥬스",
+          "diagnosis_family": "spelling_variant",
+          "patch": "동의어(주스 = 쥬스)",
+          "reasoning": "'쥬스'와 자모 유사도 0.75인 색인 토큰 '주스'이 존재한다. 표기 변형으로 판단해 동의어로 연결한다.",
+          "evidence": {
+            "target_ndcg": [
+              0.0,
+              1.0
+            ],
+            "target_results": [
+              0,
+              2
+            ],
+            "evalset_mean_ndcg": [
+              0.6673,
+              0.695
+            ]
+          },
+          "attempts": 1
+        },
+        {
+          "no": 5,
+          "target_query": "소세지",
+          "diagnosis_family": "spelling_variant",
+          "patch": "동의어(소시지 = 소세지)",
+          "reasoning": "'소세지'와 자모 유사도 0.83인 색인 토큰 '소시지'이 존재한다. 표기 변형으로 판단해 동의어로 연결한다.",
+          "evidence": {
+            "target_ndcg": [
+              0.0,
+              1.0
+            ],
+            "target_results": [
+              0,
+              2
+            ],
+            "evalset_mean_ndcg": [
+              0.695,
+              0.7228
+            ]
+          },
+          "attempts": 1
+        },
+        {
+          "no": 6,
+          "target_query": "카페트",
+          "diagnosis_family": "spelling_variant",
+          "patch": "동의어(카펫 = 카페트)",
+          "reasoning": "'카페트'와 자모 유사도 0.67인 색인 토큰 '카펫'이 존재한다. 표기 변형으로 판단해 동의어로 연결한다.",
+          "evidence": {
+            "target_ndcg": [
+              0.0,
+              1.0
+            ],
+            "target_results": [
+              0,
+              2
+            ],
+            "evalset_mean_ndcg": [
+              0.7228,
+              0.7506
+            ]
+          },
+          "attempts": 1
+        },
+        {
+          "no": 7,
+          "target_query": "초콜렛",
+          "diagnosis_family": "spelling_variant",
+          "patch": "동의어(초콜릿 = 초콜렛)",
+          "reasoning": "'초콜렛'와 자모 유사도 0.88인 색인 토큰 '초콜릿'이 존재한다. 표기 변형으로 판단해 동의어로 연결한다.",
+          "evidence": {
+            "target_ndcg": [
+              0.0,
+              1.0
+            ],
+            "target_results": [
+              0,
+              3
+            ],
+            "evalset_mean_ndcg": [
+              0.7506,
+              0.7784
+            ]
+          },
+          "attempts": 1
+        },
+        {
+          "no": 8,
+          "target_query": "리모콘",
+          "diagnosis_family": "spelling_variant",
+          "patch": "동의어(리모컨 = 리모콘)",
+          "reasoning": "'리모콘'와 자모 유사도 0.86인 색인 토큰 '리모컨'이 존재한다. 표기 변형으로 판단해 동의어로 연결한다.",
+          "evidence": {
+            "target_ndcg": [
+              0.0,
+              1.0
+            ],
+            "target_results": [
+              0,
+              2
+            ],
+            "evalset_mean_ndcg": [
+              0.7784,
+              0.8062
+            ]
+          },
+          "attempts": 1
+        },
+        {
+          "no": 9,
+          "target_query": "핸드폰",
+          "diagnosis_family": "synonym_gap",
+          "patch": "동의어(휴대폰 = 핸드폰)",
+          "reasoning": "'핸드폰'와 자모 유사도는 0.62로 낮지만 임베딩 유사도가 0.98인 색인 토큰 '휴대폰'이 있다. 형태가 다른 같은 뜻으로 판단해 동의어로 연결한다.",
+          "evidence": {
+            "target_ndcg": [
+              0.0,
+              0.6733
+            ],
+            "target_results": [
+              0,
+              2
+            ],
+            "evalset_mean_ndcg": [
+              0.8062,
+              0.8249
+            ]
+          },
+          "attempts": 1
+        },
+        {
+          "no": 10,
+          "target_query": "티슈",
+          "diagnosis_family": "compound_locked",
+          "patch": "분해확장(물티슈 → 물+티슈)",
+          "reasoning": "색인 토큰 '물티슈'이 질의 토큰 '티슈'를 포함하는 복합어다. 통짜 색인이라 부분어로 못 찾으므로 분해 확장한다.",
+          "evidence": {
+            "target_ndcg": [
+              0.0,
+              1.0
+            ],
+            "target_results": [
+              0,
+              2
+            ],
+            "evalset_mean_ndcg": [
+              0.8249,
+              0.8526
+            ]
+          },
+          "attempts": 1
+        },
+        {
+          "no": 11,
+          "target_query": "머스캣",
+          "diagnosis_family": "compound_locked",
+          "patch": "분해확장(샤인머스캣 → 샤인+머스캣)",
+          "reasoning": "색인 토큰 '샤인머스캣'이 질의 토큰 '머스캣'를 포함하는 복합어다. 통짜 색인이라 부분어로 못 찾으므로 분해 확장한다.",
+          "evidence": {
+            "target_ndcg": [
+              0.0,
+              1.0
+            ],
+            "target_results": [
+              0,
+              2
+            ],
+            "evalset_mean_ndcg": [
+              0.8526,
+              0.8804
+            ]
+          },
+          "attempts": 1
+        },
+        {
+          "no": 12,
+          "target_query": "아답터",
+          "diagnosis_family": "garbage_split",
+          "patch": "사전등록(아답터) + 동의어(어댑터 = 아답터)",
+          "reasoning": "질의가 [답, 터]로 한 음절씩 쪼개졌다. 이 상태에서는 동의어를 걸어도 매칭될 토큰이 없다. '아답터'를 사전에 등록해 한 덩어리로 만든 뒤, 자모 유사도 0.71인 색인 토큰 '어댑터'과 동의어로 연결한다.",
+          "evidence": {
+            "target_ndcg": [
+              0.0,
+              1.0
+            ],
+            "target_results": [
+              0,
+              2
+            ],
+            "evalset_mean_ndcg": [
+              0.8804,
+              0.9082
+            ]
+          },
+          "attempts": 2
+        }
+      ],
+      "committed_ledger_matches": false
+    }
+  },
+  "rag": [
+    {
+      "mode": "bm25",
+      "recall": 0.3104,
+      "precision": 0.3625,
+      "mrr": 0.375,
+      "coverage": 0.0592,
+      "degraded": false
+    },
+    {
+      "mode": "dense",
+      "recall": 0.3554,
+      "precision": 0.4,
+      "mrr": 0.6427,
+      "coverage": 0.0592,
+      "degraded": false
+    },
+    {
+      "mode": "hybrid",
+      "recall": 0.3338,
+      "precision": 0.3875,
+      "mrr": 0.2917,
+      "coverage": 0.0592,
+      "degraded": false
+    },
+    {
+      "mode": "bm25",
+      "max_chars": 200,
+      "chunks": 47,
+      "recall": 0.3104,
+      "precision": 0.3625,
+      "mrr": 0.3229
+    },
+    {
+      "mode": "bm25",
+      "max_chars": 400,
+      "chunks": 30,
+      "recall": 0.3104,
+      "precision": 0.3625,
+      "mrr": 0.375
+    },
+    {
+      "mode": "bm25",
+      "max_chars": 800,
+      "chunks": 30,
+      "recall": 0.3104,
+      "precision": 0.3625,
+      "mrr": 0.375
+    }
+  ],
+  "v1_file_hashes": {
+    "README.md": "9abc92c886fdc568ffa547d88c6fe0fe37b9d552b21261f6a0ae06ba87c45257",
+    "docs/ARCHITECTURE.md": "78aaf5aee9bf2292fcf12b3cbbdfffbb18bf463dc8358ec062c36cae77cdc5e3",
+    "docs/BASELINE.json": "eec561a95882d88db2df0adb9c3270557745a9f9e1215b481148837fa74c1e78",
+    "docs/CLINIC_REPORT.md": "19481b937e46ddbfe7aac70d63a642cbf5e25c73b5b51c47d703e61fc06f0473",
+    "docs/CLINIC_REPORT_RULES_PLUS.md": "42a83af3e5714e4d5448b09a4f2868b0178fb406ac4c6bc28fce8891dbafc183",
+    "docs/CLINIC_REPORT_VECTOR.md": "91fa4fbd1fd7b39ad978c4787f5c1b176e8b1b16d2976e372f67cb7832aee734",
+    "docs/CLINIC_REPORT_VECTOR_PLUS.md": "d0585ee01fc3439d99257b6ae0877b0bd51a4067b13cfbf2f9c1072f09a413e2",
+    "docs/ES_SETTINGS.json": "169c89a8fb110d76ffe204f09b5a77ce3d24bb2e8c1c12bae603f605bda647aa",
+    "docs/ES_VERIFICATION.md": "6d8190002d6f85b50281cb18530716f2161a44d57152c244d90421f5965207f8",
+    "docs/EVALUATION.md": "8afd8969d4edcf2afa2b6b197b72a39257516c133fffc4ef417460e0242193fd",
+    "docs/FAIRNESS.md": "0ff7cf3dd870bfe4e178d35b867441f24af1380b96b7e35d746325cef1eba427",
+    "docs/LEDGER.json": "5bf9d4cd72d63d5ec58cf908496f1436b44f29e884b5b6cef7b2ff45dbcb3331",
+    "docs/LEDGER_RULES_PLUS.json": "611cfe4bcbf73cfdb8b998af6762da8d7170d4c698207b42f947e7519b641fb0",
+    "docs/LEDGER_VECTOR.json": "64438ba068f66670d90e18d33f64a7568b53ffa9a497b08a5cca2a32ce59a59e",
+    "docs/LEDGER_VECTOR_PLUS.json": "b016c78b7705d074626ee6f353f6925899eb9bef579d656ea4086b08b3cba249",
+    "docs/RAG_RETRIEVAL.md": "2c0833591380e1e7ba3907d4df01611335a9800f870765db46cd3a7bb7d2cbc8",
+    "docs/VECTOR_PROBE.md": "485557635e169aacd0a09cf16c9f5e8f5dd6040cfec65e163debb1b1c117d70f",
+    "src/searchclinic/data/vectors.json": "e7c931d10fef93074a918bf343cf12ea1df3df1932773078957e1ba30e29cb3d"
+  },
+  "vector_cache": {
+    "model": "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2",
+    "tokens": 470,
+    "catalog_vocabulary_coverage": 1.0
+  }
+}

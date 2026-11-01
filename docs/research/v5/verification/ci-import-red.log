@@ -1,0 +1,142 @@
+EEEEEF                                                                   [100%]
+==================================== ERRORS ====================================
+_ ERROR at setup of test_preparation_has_fixed_candidates_all_queries_and_sorted_bounded_evidence _
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7f2a06c29040>
+
+    @pytest.fixture
+    def prepared_inputs(monkeypatch):
+>       api = preparation()
+              ^^^^^^^^^^^^^
+
+tests/test_v5_preparation.py:54: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_v5_preparation.py:15: in preparation
+    assert importlib.util.find_spec("scripts.prepare_v5_development") is not None, "Offline preparation is missing"
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+name = 'scripts.prepare_v5_development', package = None
+
+>   ???
+E   ModuleNotFoundError: No module named 'scripts'
+
+<frozen importlib.util>:91: ModuleNotFoundError
+_ ERROR at setup of test_public_files_exclude_outcomes_and_labels_load_only_after_requests_saved _
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7f2a06c2b8f0>
+
+    @pytest.fixture
+    def prepared_inputs(monkeypatch):
+>       api = preparation()
+              ^^^^^^^^^^^^^
+
+tests/test_v5_preparation.py:54: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_v5_preparation.py:15: in preparation
+    assert importlib.util.find_spec("scripts.prepare_v5_development") is not None, "Offline preparation is missing"
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+name = 'scripts.prepare_v5_development', package = None
+
+>   ???
+E   ModuleNotFoundError: No module named 'scripts'
+
+<frozen importlib.util>:91: ModuleNotFoundError
+_ ERROR at setup of test_requests_share_candidate_hashes_and_budget_is_not_a_tokenizer _
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7f2a06c28770>
+
+    @pytest.fixture
+    def prepared_inputs(monkeypatch):
+>       api = preparation()
+              ^^^^^^^^^^^^^
+
+tests/test_v5_preparation.py:54: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_v5_preparation.py:15: in preparation
+    assert importlib.util.find_spec("scripts.prepare_v5_development") is not None, "Offline preparation is missing"
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+name = 'scripts.prepare_v5_development', package = None
+
+>   ???
+E   ModuleNotFoundError: No module named 'scripts'
+
+<frozen importlib.util>:91: ModuleNotFoundError
+_____ ERROR at setup of test_large_requests_are_flagged_without_truncation _____
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7f2a06c2a090>
+
+    @pytest.fixture
+    def prepared_inputs(monkeypatch):
+>       api = preparation()
+              ^^^^^^^^^^^^^
+
+tests/test_v5_preparation.py:54: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_v5_preparation.py:15: in preparation
+    assert importlib.util.find_spec("scripts.prepare_v5_development") is not None, "Offline preparation is missing"
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+name = 'scripts.prepare_v5_development', package = None
+
+>   ???
+E   ModuleNotFoundError: No module named 'scripts'
+
+<frozen importlib.util>:91: ModuleNotFoundError
+_ ERROR at setup of test_output_directory_is_write_once_and_network_is_never_opened _
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7f2a06c2b050>
+
+    @pytest.fixture
+    def prepared_inputs(monkeypatch):
+>       api = preparation()
+              ^^^^^^^^^^^^^
+
+tests/test_v5_preparation.py:54: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_v5_preparation.py:15: in preparation
+    assert importlib.util.find_spec("scripts.prepare_v5_development") is not None, "Offline preparation is missing"
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+name = 'scripts.prepare_v5_development', package = None
+
+>   ???
+E   ModuleNotFoundError: No module named 'scripts'
+
+<frozen importlib.util>:91: ModuleNotFoundError
+=================================== FAILURES ===================================
+______ test_raw_loader_uses_only_source_identity_and_prescription_fields _______
+
+tmp_path = PosixPath('/tmp/pytest-of-agent/pytest-20/test_raw_loader_uses_only_sour0')
+
+    def test_raw_loader_uses_only_source_identity_and_prescription_fields(tmp_path):
+>       api = preparation()
+              ^^^^^^^^^^^^^
+
+tests/test_v5_preparation.py:190: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_v5_preparation.py:15: in preparation
+    assert importlib.util.find_spec("scripts.prepare_v5_development") is not None, "Offline preparation is missing"
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+name = 'scripts.prepare_v5_development', package = None
+
+>   ???
+E   ModuleNotFoundError: No module named 'scripts'
+
+<frozen importlib.util>:91: ModuleNotFoundError
+=========================== short test summary info ============================
+FAILED tests/test_v5_preparation.py::test_raw_loader_uses_only_source_identity_and_prescription_fields
+ERROR tests/test_v5_preparation.py::test_preparation_has_fixed_candidates_all_queries_and_sorted_bounded_evidence
+ERROR tests/test_v5_preparation.py::test_public_files_exclude_outcomes_and_labels_load_only_after_requests_saved
+ERROR tests/test_v5_preparation.py::test_requests_share_candidate_hashes_and_budget_is_not_a_tokenizer
+ERROR tests/test_v5_preparation.py::test_large_requests_are_flagged_without_truncation
+ERROR tests/test_v5_preparation.py::test_output_directory_is_write_once_and_network_is_never_opened
+1 failed, 5 errors in 0.17s

@@ -1,0 +1,81 @@
+name: V5 empty-file Windows ACL diagnostic
+on:
+  push:
+    branches: [feat/research-verification-v5-20261030]
+    paths: [.github/workflows/v5-windows-acl.yml, src/searchclinic/research_v5/evidence.py]
+permissions:
+  contents: read
+jobs:
+  empty-file-acl:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: pip install -c requirements/ci-py311-312.txt cryptography
+      - name: Probe ACL with empty synthetic files only
+        shell: python
+        run: |
+          import importlib.util, os, pathlib, subprocess, tempfile
+          path=pathlib.Path('src/searchclinic/research_v5/evidence.py')
+          spec=importlib.util.spec_from_file_location('acl_evidence',path)
+          evidence=importlib.util.module_from_spec(spec)
+          spec.loader.exec_module(evidence)
+          original=subprocess.run
+          def diagnose(*args,**kwargs):
+              result=original(*args,**kwargs)
+              print('ACL exit:',result.returncode)
+              print(result.stdout.decode(errors='replace'))
+              print(result.stderr.decode(errors='replace'))
+              return result
+          evidence.subprocess.run=diagnose
+          pathlib.Path('work').mkdir(exist_ok=True)
+          for opened in (False,True):
+              path=pathlib.Path('work')/('empty-open' if opened else 'empty-closed')
+              fd=os.open(path,os.O_WRONLY|os.O_CREAT|os.O_EXCL,0o600)
+              if not opened:os.close(fd)
+              try:
+                  evidence.windows_key_acl(path,secure=True)
+                  print('EMPTY FILE ACL SUCCESS',opened)
+              except ValueError:
+                  print('EMPTY FILE ACL FAILURE',opened)
+                  raise
+              finally:
+                  if opened:os.close(fd)
+          with tempfile.TemporaryDirectory(prefix='test_roundtrip_preserves_raw_b0-') as temporary:
+              path=pathlib.Path(temporary)/'work'/'key.json'
+              path.parent.mkdir()
+              print('TEMP FDOPEN EMPTY FILE')
+              try:
+                  evidence._write(path,b'',private_key=True)
+                  evidence.check_key_permissions(path)
+                  print('TEMP FDOPEN SUCCESS')
+              except ValueError:
+                  print('TEMP FDOPEN FAILURE')
+                  raise
+      - name: Same empty-file probe under the CI PowerShell parent
+        shell: pwsh
+        run: |
+          @'
+          import importlib.util,pathlib,subprocess
+          spec=importlib.util.spec_from_file_location('acl_evidence','src/searchclinic/research_v5/evidence.py')
+          evidence=importlib.util.module_from_spec(spec)
+          spec.loader.exec_module(evidence)
+          original=subprocess.run
+          def diagnose(*args,**kwargs):
+              result=original(*args,**kwargs)
+              print('PARENT PWSH ACL exit:',result.returncode)
+              print(result.stdout.decode(errors='replace'))
+              print(result.stderr.decode(errors='replace'))
+              return result
+          evidence.subprocess.run=diagnose
+          try:
+              evidence._write(pathlib.Path('work/pwsh-empty'),b'',private_key=True)
+              print('PARENT PWSH EMPTY SUCCESS')
+          except ValueError:
+              print('PARENT PWSH EMPTY FAILURE')
+              raise
+          '@ | python

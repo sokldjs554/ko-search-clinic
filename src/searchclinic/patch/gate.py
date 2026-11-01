@@ -21,18 +21,20 @@
 from __future__ import annotations
 
 from dataclasses import dataclass, field
+import math
 
 from searchclinic.corpus.evalset import EvalQuery
 from searchclinic.evaluation.metrics import (
     QueryMetrics,
     evaluate_all,
-    mean_ndcg,
 )
 from searchclinic.index.engine import SearchEngine
 from searchclinic.patch.ir import Prescription
 
 MIN_TARGET_GAIN = 0.05  # 표적 질의가 최소 이만큼은 좋아져야 한다
 EPSILON = 0.02  # 문서빈도 변화에 의한 점수 흔들림 허용치
+MEAN_EPSILON = 1e-12  # 평균 보존: 질의별 허용치와 분리한 부동소수 오차만
+GATE_VERSION = 'mean-preserving-v5'
 
 
 @dataclass(frozen=True)
@@ -82,21 +84,26 @@ def run_gate(
     prescription: Prescription,
     min_gain: float = MIN_TARGET_GAIN,
     epsilon: float = EPSILON,
+    mean_epsilon: float = MEAN_EPSILON,
 ) -> tuple[GateVerdict, SearchEngine]:
     """처방을 샌드박스에 적용해 전수 검증한다.
 
     반환: (판정, 샌드박스 엔진). 채택 시 호출자가 샌드박스를 새 현역으로
     승격하면 되고, 기각 시 버리면 그것이 롤백이다 — 별도의 되돌리기가 없다.
     """
+    for name, value in (("min_gain", min_gain), ("epsilon", epsilon),
+                        ("mean_epsilon", mean_epsilon)):
+        if not math.isfinite(value) or value < 0:
+            raise ValueError(f"{name} must be finite and nonnegative")
     target = next(
         (q for q in evalset if q.query == prescription.target_query), None
     )
     if target is None:
         raise ValueError(f"평가셋에 없는 표적 질의: {prescription.target_query}")
 
-    before = evaluate_all(engine, evalset)
+    before = evaluate_all(engine, evalset, round_metrics=False)
     sandbox = engine.with_config(prescription.apply_to(engine.config))
-    after = evaluate_all(sandbox, evalset)
+    after = evaluate_all(sandbox, evalset, round_metrics=False)
 
     t_before, t_after = before[target.query], after[target.query]
 
@@ -111,7 +118,10 @@ def run_gate(
             if av < bv - epsilon:
                 regressions.append(RegressionRecord(q.query, metric, bv, av))
 
-    mean_b, mean_a = mean_ndcg(before), mean_ndcg(after)
+    # Rounding a report mean can hide losses smaller than 0.00005. Preserve the
+    # unrounded average of full-precision per-query metrics here.
+    mean_b = sum(m.ndcg for m in before.values()) / len(before)
+    mean_a = sum(m.ndcg for m in after.values()) / len(after)
 
     # 판정
     if t_after.ndcg < t_before.ndcg + min_gain:
@@ -140,7 +150,7 @@ def run_gate(
             mean_after=mean_a,
             regressions=regressions,
         )
-    elif mean_a < mean_b - epsilon:
+    elif mean_a < mean_b - mean_epsilon:
         verdict = GateVerdict(
             accepted=False,
             reason=f"전체 평균 nDCG 하락 ({mean_b:.3f} → {mean_a:.3f})",

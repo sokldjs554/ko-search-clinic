@@ -1,0 +1,3 @@
+2026-10-30T10:52:55.4051890Z SKIPPED [1] tests/test_postgres_store.py:20: PostgreSQL은 선택 의존성이다
+2026-10-30T10:52:55.4052596Z SKIPPED [1] tests/test_scale.py:21: 규모 계층은 선택 의존성이다
+2026-10-30T10:52:55.4053118Z 561 passed, 2 skipped in 80.08s (0:01:20)

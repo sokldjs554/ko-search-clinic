@@ -1,0 +1,62 @@
+{
+  "corpus_revision": "d921ec7e349ce0d28daf30b2da9da5ee698bef0d",
+  "files": {
+    "MIRACL_CORPUS_CARD.md": {
+      "sha256": "e8779ef1087590dae1d74396ca575e792f3fd1a3bcf2aa3caf6b2733c4f41bad",
+      "url": "https://huggingface.co/datasets/miracl/miracl-corpus/raw/d921ec7e349ce0d28daf30b2da9da5ee698bef0d/README.md"
+    },
+    "MIRACL_DATA_CARD.md": {
+      "sha256": "218fdac67872c9732e8b35416c650582837c27923a7e579ab2d4f446a3199218",
+      "url": "https://huggingface.co/datasets/miracl/miracl/raw/5be20db9509754dadad47689368639fcec739c00/README.md"
+    },
+    "qrels.miracl-v1.0-ko-dev.tsv": {
+      "sha256": "88827ccc5b64e531b25f70eef30202d33daa9bfa3ac8cceadf5cdbd5ca5034df",
+      "url": "https://huggingface.co/datasets/miracl/miracl/resolve/5be20db9509754dadad47689368639fcec739c00/miracl-v1.0-ko/qrels/qrels.miracl-v1.0-ko-dev.tsv"
+    },
+    "topics.miracl-v1.0-ko-dev.tsv": {
+      "sha256": "a365552cfc997a8915e948a3b5994883f641e7c3f12b6af87bbfaf89729e32a8",
+      "url": "https://huggingface.co/datasets/miracl/miracl/resolve/5be20db9509754dadad47689368639fcec739c00/miracl-v1.0-ko/topics/topics.miracl-v1.0-ko-dev.tsv"
+    }
+  },
+  "selection": "first 12 topics in source order; all judged passages; no outcome-dependent replacement",
+  "selection_commit": "174d0ee93c745849ca584a13b8ca57dda579187e",
+  "shards": [
+    {
+      "lfs": {
+        "oid": "c56a31883a291504aa9c97968fb7a5fbcc9ea1099ee1810200249e1afb7fc55d",
+        "pointerSize": 133,
+        "size": 87965596
+      },
+      "oid": "81347d130419cc4f12e43c5456f3bb90951198db",
+      "path": "miracl-corpus-v1.0-ko/docs-0.jsonl.gz",
+      "size": 87965596,
+      "type": "file",
+      "xetHash": "286708b9ad1bea29e5261b2d4f13ff887dcfaff0d4af2db47374a66e3a314780"
+    },
+    {
+      "lfs": {
+        "oid": "fecd2886124e78c3aa87c59604ac9909c23165415c70a96f4edb95677b5ed0cd",
+        "pointerSize": 133,
+        "size": 75422723
+      },
+      "oid": "613109fef41003013e0d3a3fa7185bfe7323ddc8",
+      "path": "miracl-corpus-v1.0-ko/docs-1.jsonl.gz",
+      "size": 75422723,
+      "type": "file",
+      "xetHash": "50a28a6dfbddf568a64e114061475643757a4ad6a4c623f3f2d1c69d360ec712"
+    },
+    {
+      "lfs": {
+        "oid": "93e90d098d78f50a9e76dd2e64608d65e0563787954f848da9b04286f81b75d9",
+        "pointerSize": 133,
+        "size": 62582229
+      },
+      "oid": "dd4674fb4ba81d838f5753afd6e77aa39a4320ee",
+      "path": "miracl-corpus-v1.0-ko/docs-2.jsonl.gz",
+      "size": 62582229,
+      "type": "file",
+      "xetHash": "1164c8b717d650b36a1c794315589ba5a6e934ca8bdcaa00b058b2b37742e712"
+    }
+  ],
+  "topics_qrels_revision": "5be20db9509754dadad47689368639fcec739c00"
+}

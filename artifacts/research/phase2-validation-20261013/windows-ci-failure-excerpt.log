@@ -1,0 +1,213 @@
+FAILURES ===================================
+2026-10-13T08:41:09.0807715Z _______________ test_same_context_no_labels_and_isolated_worker _______________
+2026-10-13T08:41:09.0809836Z 
+2026-10-13T08:41:09.0811215Z context = Context(query_id='synthetic-1', query='\uc218\ubbc4', observation=PolicyObservation(query_id='synthetic-1', query='\uc218\ubbc4', split='t...ocuments=[PublicDocument(doc_id='S1', text='\uc218\ubb38 \uac15\uc758 \ubb3c\uc744 \uc870\uc808\ud558\ub294 \uc2dc\uc124', tokens=['\uc218\ubb38', '\uac15', '\ubb3c', '\uc870\uc808', '\uc2dc\uc124'])], max_candidates=3)
+2026-10-13T08:41:09.0812896Z 
+2026-10-13T08:41:09.0813094Z     def test_same_context_no_labels_and_isolated_worker(context):
+2026-10-13T08:41:09.0813437Z         g = api()
+2026-10-13T08:41:09.0813624Z         local = g.generate_rules(context)
+2026-10-13T08:41:09.0813858Z >       process = g.generate_in_process(context)
+2026-10-13T08:41:09.0814075Z                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-10-13T08:41:09.0814204Z 
+2026-10-13T08:41:09.0814292Z tests\test_phase2_boundary.py:35: 
+2026-10-13T08:41:09.0814527Z _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+2026-10-13T08:41:09.0814860Z src\searchclinic\research\phase2\generation.py:133: in generate_in_process
+2026-10-13T08:41:09.0815256Z     return _worker({'context':Context.model_validate(context).model_dump()})
+2026-10-13T08:41:09.0815562Z            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-10-13T08:41:09.0815855Z src\searchclinic\research\phase2\generation.py:127: in _worker
+2026-10-13T08:41:09.0816320Z     r = subprocess.run([sys.executable,'-I','-c',code], input=json.dumps(payload,ensure_ascii=False),
+2026-10-13T08:41:09.0816686Z _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+2026-10-13T08:41:09.0816863Z 
+2026-10-13T08:41:09.0817604Z input = '{"context": {"query_id": "synthetic-1", "query": "\uc218\ubbc4", "observation": {"query_id": "synthetic-1", "query": "\uc218\ubbc4", "spl...uments": [{"doc_id": "S1", "text": "\uc218\ubb38 \uac15\uc758 \ubb3c\uc744 \uc870\uc808\ud558\ub294 \uc2dc\uc124", "tokens": ["\uc218\ubb38", "\uac15", "\ubb3c", "\uc870\uc808", "\uc2dc\uc124"]}], "max_candidates": 3}}'
+2026-10-13T08:41:09.0818486Z capture_output = True, timeout = 60, check = True
+2026-10-13T08:41:09.0821125Z popenargs = (['C:\\hostedtoolcache\\windows\\Python\\3.11.9\\x64\\python.exe', '-I', '-c', "import sys; sys.path.insert(0,'D:\\\\a\\\\ko-search-clinic\\\\ko-search-clinic\\\\src'); from searchclinic.research.phase2.worker import main; main()"],)
+2026-10-13T08:41:09.0822373Z kwargs = {'text': True, 'encoding': 'utf-8', 'cwd': 'C:\\Users\\RUNNER~1\\AppData\\Local\\Temp\\tmp461d3j7a', 'env': {'SYSTEMRO...radmin\\.cargo\\bin;C:\\Users\\runneradmin\\AppData\\Local\\Microsoft\\WindowsApps', 'PYTHONIOENCODING': 'utf-8'}, ...}
+2026-10-13T08:41:09.0822969Z 
+2026-10-13T08:41:09.0823048Z     def run(*popenargs,
+2026-10-13T08:41:09.0823316Z             input=None, capture_output=False, timeout=None, check=False, **kwargs):
+2026-10-13T08:41:09.0823685Z         """Run command with arguments and return a CompletedProcess instance.
+2026-10-13T08:41:09.0823949Z     
+2026-10-13T08:41:09.0824357Z         The returned instance will have attributes args, returncode, stdout and
+2026-10-13T08:41:09.0824731Z         stderr. By default, stdout and stderr are not captured, and those attributes
+2026-10-13T08:41:09.0825106Z         will be None. Pass stdout=PIPE and/or stderr=PIPE in order to capture them,
+2026-10-13T08:41:09.0825421Z         or pass capture_output=True to capture both.
+2026-10-13T08:41:09.0825636Z     
+2026-10-13T08:41:09.0825826Z         If check is True and the exit code was non-zero, it raises a
+2026-10-13T08:41:09.0826176Z         CalledProcessError. The CalledProcessError object will have the return code
+2026-10-13T08:41:09.0826560Z         in the returncode attribute, and output & stderr attributes if those streams
+2026-10-13T08:41:09.0826864Z         were captured.
+2026-10-13T08:41:09.0827077Z     
+2026-10-13T08:41:09.0827285Z         If timeout is given, and the process takes too long, a TimeoutExpired
+2026-10-13T08:41:09.0827559Z         exception will be raised.
+2026-10-13T08:41:09.0827745Z     
+2026-10-13T08:41:09.0827928Z         There is an optional argument "input", allowing you to
+2026-10-13T08:41:09.0828246Z         pass bytes or a string to the subprocess's stdin.  If you use this argument
+2026-10-13T08:41:09.0828584Z         you may not also use the Popen constructor's "stdin" argument, as
+2026-10-13T08:41:09.0828849Z         it will be used internally.
+2026-10-13T08:41:09.0829026Z     
+2026-10-13T08:41:09.0829244Z         By default, all communication is in bytes, and therefore any "input" should
+2026-10-13T08:41:09.0829600Z         be bytes, and the stdout and stderr will be bytes. If in text mode, any
+2026-10-13T08:41:09.0829946Z         "input" should be a string, and stdout and stderr will be strings decoded
+2026-10-13T08:41:09.0830296Z         according to locale encoding, or by "encoding" if set. Text mode is
+2026-10-13T08:41:09.0830644Z         triggered by setting any of text, encoding, errors or universal_newlines.
+2026-10-13T08:41:09.0830950Z     
+2026-10-13T08:41:09.0831150Z         The other arguments are the same as for the Popen constructor.
+2026-10-13T08:41:09.0831655Z         """
+2026-10-13T08:41:09.0831806Z         if input is not None:
+2026-10-13T08:41:09.0832023Z             if kwargs.get('stdin') is not None:
+2026-10-13T08:41:09.0832328Z                 raise ValueError('stdin and input arguments may not both be used.')
+2026-10-13T08:41:09.0832612Z             kwargs['stdin'] = PIPE
+2026-10-13T08:41:09.0832792Z     
+2026-10-13T08:41:09.0832935Z         if capture_output:
+2026-10-13T08:41:09.0833192Z             if kwargs.get('stdout') is not None or kwargs.get('stderr') is not None:
+2026-10-13T08:41:09.0833533Z                 raise ValueError('stdout and stderr arguments may not be used '
+2026-10-13T08:41:09.0833821Z                                  'with capture_output.')
+2026-10-13T08:41:09.0834042Z             kwargs['stdout'] = PIPE
+2026-10-13T08:41:09.0834233Z             kwargs['stderr'] = PIPE
+2026-10-13T08:41:09.0834418Z     
+2026-10-13T08:41:09.0834582Z         with Popen(*popenargs, **kwargs) as process:
+2026-10-13T08:41:09.0834790Z             try:
+2026-10-13T08:41:09.0835007Z                 stdout, stderr = process.communicate(input, timeout=timeout)
+2026-10-13T08:41:09.0835285Z             except TimeoutExpired as exc:
+2026-10-13T08:41:09.0835911Z                 process.kill()
+2026-10-13T08:41:09.0836096Z                 if _mswindows:
+2026-10-13T08:41:09.0836308Z                     # Windows accumulates the output in a single blocking
+2026-10-13T08:41:09.0836588Z                     # read() call run on child threads, with the timeout
+2026-10-13T08:41:09.0836871Z                     # being done in a join() on those threads.  communicate()
+2026-10-13T08:41:09.0837172Z                     # _after_ kill() is required to collect that and add it
+2026-10-13T08:41:09.0837414Z                     # to the exception.
+2026-10-13T08:41:09.0837644Z                     exc.stdout, exc.stderr = process.communicate()
+2026-10-13T08:41:09.0838258Z                 else:
+2026-10-13T08:41:09.0838465Z                     # POSIX _communicate already populated the output so
+2026-10-13T08:41:09.0838734Z                     # far into the TimeoutExpired exception.
+2026-10-13T08:41:09.0838960Z                     process.wait()
+2026-10-13T08:41:09.0839138Z                 raise
+2026-10-13T08:41:09.0839363Z             except:  # Including KeyboardInterrupt, communicate handled that.
+2026-10-13T08:41:09.0839635Z                 process.kill()
+2026-10-13T08:41:09.0839863Z                 # We don't call process.wait() as .__exit__ does that for us.
+2026-10-13T08:41:09.0840100Z                 raise
+2026-10-13T08:41:09.0840255Z             retcode = process.poll()
+2026-10-13T08:41:09.0840448Z             if check and retcode:
+2026-10-13T08:41:09.0840668Z >               raise CalledProcessError(retcode, process.args,
+2026-10-13T08:41:09.0840928Z                                          output=stdout, stderr=stderr)
+2026-10-13T08:41:09.0841813Z E               subprocess.CalledProcessError: Command '['C:\\hostedtoolcache\\windows\\Python\\3.11.9\\x64\\python.exe', '-I', '-c', "import sys; sys.path.insert(0,'D:\\\\a\\\\ko-search-clinic\\\\ko-search-clinic\\\\src'); from searchclinic.research.phase2.worker import main; main()"]' returned non-zero exit status 1.
+2026-10-13T08:41:09.0842574Z 
+2026-10-13T08:41:09.0842764Z C:\hostedtoolcache\windows\Python\3.11.9\x64\Lib\subprocess.py:571: CalledProcessError
+2026-10-13T08:41:09.0843157Z _____________ test_prepare_does_not_open_labels_or_run_evaluator ______________
+2026-10-13T08:41:09.0843369Z 
+2026-10-13T08:41:09.0843677Z tmp_path = WindowsPath('C:/Users/runneradmin/AppData/Local/Temp/pytest-of-runneradmin/pytest-0/test_prepare_does_not_open_lab0')
+2026-10-13T08:41:09.0844040Z 
+2026-10-13T08:41:09.0844169Z     def test_prepare_does_not_open_labels_or_run_evaluator(tmp_path):
+2026-10-13T08:41:09.0844573Z         assert importlib.util.find_spec('searchclinic.research.phase2.__main__'), 'free CLI missing'
+2026-10-13T08:41:09.0844935Z         corpus=tmp_path/'corpus.json'
+2026-10-13T08:41:09.0845134Z         stimuli=tmp_path/'stimuli.json'
+2026-10-13T08:41:09.0845597Z         corpus.write_text(json.dumps({'documents':[{'doc_id':'X','name':'\uc218\ubb38','description':'\ubb3c \uc870\uc808','category':'fixture'}]}),encoding='utf-8')
+2026-10-13T08:41:09.0846198Z         stimuli.write_text(json.dumps({'queries':[{'query_id':'x','query':'\uc218\ubbc4'}]}),encoding='utf-8')
+2026-10-13T08:41:09.0846543Z         out=tmp_path/'prepared'
+2026-10-13T08:41:09.0846813Z         command=[sys.executable,'-m','searchclinic.research.phase2','prepare',
+2026-10-13T08:41:09.0847224Z             '--corpus',str(corpus),'--stimuli',str(stimuli),'--label-commitment','a'*64,'--out',str(out)]
+2026-10-13T08:41:09.0847655Z >       subprocess.run(command,check=True,env=os.environ,capture_output=True,text=True)
+2026-10-13T08:41:09.0847896Z 
+2026-10-13T08:41:09.0847977Z tests\test_phase2_cli.py:18: 
+2026-10-13T08:41:09.0848199Z _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+2026-10-13T08:41:09.0848376Z 
+2026-10-13T08:41:09.0848500Z input = None, capture_output = True, timeout = None, check = True
+2026-10-13T08:41:09.0849356Z popenargs = (['C:\\hostedtoolcache\\windows\\Python\\3.11.9\\x64\\python.exe', '-m', 'searchclinic.research.phase2', 'prepare', '-...nneradmin\\AppData\\Local\\Temp\\pytest-of-runneradmin\\pytest-0\\test_prepare_does_not_open_lab0\\corpus.json', ...],)
+2026-10-13T08:41:09.0850654Z kwargs = {'env': environ({'ACTIONS_ORCHESTRATION_ID': 'ad042b46-575e-8357-aa60-184610894199.tests.windows-latest_3_11', 'ACTION..._phase2_cli.py::test_prepare_does_not_open_labels_or_run_evaluator (call)'}), 'text': True, 'stdout': -1, 'stderr': -1}
+2026-10-13T08:41:09.0851276Z 
+2026-10-13T08:41:09.0851351Z     def run(*popenargs,
+2026-10-13T08:41:09.0851876Z             input=None, capture_output=False, timeout=None, check=False, **kwargs):
+2026-10-13T08:41:09.0852335Z         """Run command with arguments and return a CompletedProcess instance.
+2026-10-13T08:41:09.0852595Z     
+2026-10-13T08:41:09.0852812Z         The returned instance will have attributes args, returncode, stdout and
+2026-10-13T08:41:09.0853178Z         stderr. By default, stdout and stderr are not captured, and those attributes
+2026-10-13T08:41:09.0853555Z         will be None. Pass stdout=PIPE and/or stderr=PIPE in order to capture them,
+2026-10-13T08:41:09.0853862Z         or pass capture_output=True to capture both.
+2026-10-13T08:41:09.0854062Z     
+2026-10-13T08:41:09.0854249Z         If check is True and the exit code was non-zero, it raises a
+2026-10-13T08:41:09.0854592Z         CalledProcessError. The CalledProcessError object will have the return code
+2026-10-13T08:41:09.0854966Z         in the returncode attribute, and output & stderr attributes if those streams
+2026-10-13T08:41:09.0855248Z         were captured.
+2026-10-13T08:41:09.0855399Z     
+2026-10-13T08:41:09.0855612Z         If timeout is given, and the process takes too long, a TimeoutExpired
+2026-10-13T08:41:09.0855893Z         exception will be raised.
+2026-10-13T08:41:09.0856066Z     
+2026-10-13T08:41:09.0856243Z         There is an optional argument "input", allowing you to
+2026-10-13T08:41:09.0856560Z         pass bytes or a string to the subprocess's stdin.  If you use this argument
+2026-10-13T08:41:09.0856900Z         you may not also use the Popen constructor's "stdin" argument, as
+2026-10-13T08:41:09.0857162Z         it will be used internally.
+2026-10-13T08:41:09.0857339Z     
+2026-10-13T08:41:09.0857574Z         By default, all communication is in bytes, and therefore any "input" should
+2026-10-13T08:41:09.0857919Z         be bytes, and the stdout and stderr will be bytes. If in text mode, any
+2026-10-13T08:41:09.0858269Z         "input" should be a string, and stdout and stderr will be strings decoded
+2026-10-13T08:41:09.0858610Z         according to locale encoding, or by "encoding" if set. Text mode is
+2026-10-13T08:41:09.0858959Z         triggered by setting any of text, encoding, errors or universal_newlines.
+2026-10-13T08:41:09.0859227Z     
+2026-10-13T08:41:09.0859424Z         The other arguments are the same as for the Popen constructor.
+2026-10-13T08:41:09.0859679Z         """
+2026-10-13T08:41:09.0859830Z         if input is not None:
+2026-10-13T08:41:09.0860025Z             if kwargs.get('stdin') is not None:
+2026-10-13T08:41:09.0860304Z                 raise ValueError('stdin and input arguments may not both be used.')
+2026-10-13T08:41:09.0860586Z             kwargs['stdin'] = PIPE
+2026-10-13T08:41:09.0860760Z     
+2026-10-13T08:41:09.0860898Z         if capture_output:
+2026-10-13T08:41:09.0861144Z             if kwargs.get('stdout') is not None or kwargs.get('stderr') is not None:
+2026-10-13T08:41:09.0861478Z                 raise ValueError('stdout and stderr arguments may not be used '
+2026-10-13T08:41:09.0861759Z                                  'with capture_output.')
+2026-10-13T08:41:09.0861979Z             kwargs['stdout'] = PIPE
+2026-10-13T08:41:09.0862165Z             kwargs['stderr'] = PIPE
+2026-10-13T08:41:09.0862334Z     
+2026-10-13T08:41:09.0862496Z         with Popen(*popenargs, **kwargs) as process:
+2026-10-13T08:41:09.0862711Z             try:
+2026-10-13T08:41:09.0863012Z                 stdout, stderr = process.communicate(input, timeout=timeout)
+2026-10-13T08:41:09.0863290Z             except TimeoutExpired as exc:
+2026-10-13T08:41:09.0863491Z                 process.kill()
+2026-10-13T08:41:09.0863667Z                 if _mswindows:
+2026-10-13T08:41:09.0863874Z                     # Windows accumulates the output in a single blocking
+2026-10-13T08:41:09.0864158Z                     # read() call run on child threads, with the timeout
+2026-10-13T08:41:09.0864447Z                     # being done in a join() on those threads.  communicate()
+2026-10-13T08:41:09.0864739Z                     # _after_ kill() is required to collect that and add it
+2026-10-13T08:41:09.0865062Z                     # to the exception.
+2026-10-13T08:41:09.0865291Z                     exc.stdout, exc.stderr = process.communicate()
+2026-10-13T08:41:09.0865522Z                 else:
+2026-10-13T08:41:09.0865724Z                     # POSIX _communicate already populated the output so
+2026-10-13T08:41:09.0865994Z                     # far into the TimeoutExpired exception.
+2026-10-13T08:41:09.0866218Z                     process.wait()
+2026-10-13T08:41:09.0866390Z                 raise
+2026-10-13T08:41:09.0866612Z             except:  # Including KeyboardInterrupt, communicate handled that.
+2026-10-13T08:41:09.0866875Z                 process.kill()
+2026-10-13T08:41:09.0867106Z                 # We don't call process.wait() as .__exit__ does that for us.
+2026-10-13T08:41:09.0867345Z                 raise
+2026-10-13T08:41:09.0867503Z             retcode = process.poll()
+2026-10-13T08:41:09.0867697Z             if check and retcode:
+2026-10-13T08:41:09.0867918Z >               raise CalledProcessError(retcode, process.args,
+2026-10-13T08:41:09.0868182Z                                          output=stdout, stderr=stderr)
+2026-10-13T08:41:09.0870051Z E               subprocess.CalledProcessError: Command '['C:\\hostedtoolcache\\windows\\Python\\3.11.9\\x64\\python.exe', '-m', 'searchclinic.research.phase2', 'prepare', '--corpus', 'C:\\Users\\runneradmin\\AppData\\Local\\Temp\\pytest-of-runneradmin\\pytest-0\\test_prepare_does_not_open_lab0\\corpus.json', '--stimuli', 'C:\\Users\\runneradmin\\AppData\\Local\\Temp\\pytest-of-runneradmin\\pytest-0\\test_prepare_does_not_open_lab0\\stimuli.json', '--label-commitment', 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', '--out', 'C:\\Users\\runneradmin\\AppData\\Local\\Temp\\pytest-of-runneradmin\\pytest-0\\test_prepare_does_not_open_lab0\\prepared']' returned non-zero exit status 1.
+2026-10-13T08:41:09.0872087Z 
+2026-10-13T08:41:09.0872271Z C:\hostedtoolcache\windows\Python\3.11.9\x64\Lib\subprocess.py:571: CalledProcessError
+2026-10-13T08:41:09.0872630Z ============================== warnings summary ===============================
+2026-10-13T08:41:09.0872980Z tests/test_phase2_boundary.py::test_same_context_no_labels_and_isolated_worker
+2026-10-13T08:41:09.0873645Z   C:\hostedtoolcache\windows\Python\3.11.9\x64\Lib\site-packages\_pytest\threadexception.py:58: PytestUnhandledThreadExceptionWarning: Exception in thread Thread-2 (_readerthread)
+2026-10-13T08:41:09.0874190Z   
+2026-10-13T08:41:09.0874333Z   Traceback (most recent call last):
+2026-10-13T08:41:09.0879361Z     File "C:\hostedtoolcache\windows\Python\3.11.9\x64\Lib\threading.py", line 1045, in _bootstrap_inner
+2026-10-13T08:41:09.0879777Z       self.run()
+2026-10-13T08:41:09.0880102Z     File "C:\hostedtoolcache\windows\Python\3.11.9\x64\Lib\threading.py", line 982, in run
+2026-10-13T08:41:09.0880467Z       self._target(*self._args, **self._kwargs)
+2026-10-13T08:41:09.0880870Z     File "C:\hostedtoolcache\windows\Python\3.11.9\x64\Lib\subprocess.py", line 1599, in _readerthread
+2026-10-13T08:41:09.0881258Z       buffer.append(fh.read())
+2026-10-13T08:41:09.0881448Z                     ^^^^^^^^^
+2026-10-13T08:41:09.0881662Z     File "<frozen codecs>", line 322, in decode
+2026-10-13T08:41:09.0882655Z   UnicodeDecodeError: 'utf-8' codec can't decode byte 0xec in position 954: invalid continuation byte
+2026-10-13T08:41:09.0883033Z   
+2026-10-13T08:41:09.0883247Z   Enable tracemalloc to get traceback where the object was allocated.
+2026-10-13T08:41:09.0883715Z   See https://docs.pytest.org/en/stable/how-to/capture-warnings.html#resource-warnings for more info.
+2026-10-13T08:41:09.0884152Z     warnings.warn(pytest.PytestUnhandledThreadExceptionWarning(msg))
+2026-10-13T08:41:09.0884362Z 
+2026-10-13T08:41:09.0884514Z -- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+2026-10-13T08:41:09.0884838Z =========================== short test summary info ===========================
+2026-10-13T08:41:09.0885232Z SKIPPED [1] tests\\test_postgres_store.py:20: PostgreSQL\uc740 \uc120\ud0dd \uc758\uc874\uc131\uc774\ub2e4
+2026-10-13T08:41:09.0885811Z SKIPPED [1] tests\\test_scale.py:21: \uaddc\ubaa8 \uacc4\uce35\uc740 \uc120\ud0dd \uc758\uc874\uc131\uc774\ub2e4
+2026-10-13T08:41:09.0886198Z 2 failed, 407 passed, 2 skipped, 1 warning in 53.00s
+2026-10-13T08:41:09.4241877Z ##[error]Process completed with exit code 1.
+2026-10-13T08:41:09.4866243Z 

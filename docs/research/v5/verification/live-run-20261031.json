@@ -1,0 +1,110 @@
+{
+  "date": "2026-10-31",
+  "run_id": 41198330827,
+  "run_url": "https://github.com/sokldjs554/ko-search-clinic/actions/runs/41198330827",
+  "approved_code_commit": "16b708819ce0cfbe0f2ea8b921b4127bdc07a02c",
+  "approval_commit": "0e7dae7ec66bcac5a93aa9b2961547490f145b9f",
+  "artifact_id": 13041965735,
+  "provider_calls": 90,
+  "structured_responses": 90,
+  "api_errors": 0,
+  "unknown_usage": 0,
+  "costs": {
+    "provider_calls": 90,
+    "input_tokens": 83748,
+    "output_tokens": 15315,
+    "usage_cost_estimate_usd": 0.0580032,
+    "actual_invoice_usd": null,
+    "reserved_ceiling_usd": 0.72,
+    "wall_latency_ms": 146249.73869899998,
+    "per_condition": {
+      "pair": {
+        "calls": 30,
+        "statuses": {
+          "valid": 30
+        },
+        "input_tokens": 24046,
+        "output_tokens": 4005,
+        "cost_estimate_usd": 0.0160264,
+        "latency_mean_ms": 1425.6623536333334,
+        "latency_p95_ms": 2212.854581599996,
+        "assessment_relations": {
+          "unrelated": 3,
+          "narrower": 3,
+          "equivalent": 23,
+          "broader": 1,
+          "related": 2
+        },
+        "citation_checks": {}
+      },
+      "context": {
+        "calls": 30,
+        "statuses": {
+          "valid": 30
+        },
+        "input_tokens": 27106,
+        "output_tokens": 5461,
+        "cost_estimate_usd": 0.01958,
+        "latency_mean_ms": 1693.6114224000028,
+        "latency_p95_ms": 2689.3158888500034,
+        "assessment_relations": {
+          "unrelated": 4,
+          "equivalent": 23,
+          "narrower": 3,
+          "broader": 2
+        },
+        "citation_checks": {
+          "already_valid": 5,
+          "ambiguous_quote": 24,
+          "unique_offset_recovered": 6,
+          "quote_not_found": 2
+        }
+      },
+      "rubric": {
+        "calls": 30,
+        "statuses": {
+          "valid": 30
+        },
+        "input_tokens": 32596,
+        "output_tokens": 5849,
+        "cost_estimate_usd": 0.0223968,
+        "latency_mean_ms": 1741.4484107333342,
+        "latency_p95_ms": 2365.7724471000142,
+        "assessment_relations": {
+          "unrelated": 4,
+          "narrower": 3,
+          "equivalent": 22,
+          "broader": 2,
+          "related": 1
+        },
+        "citation_checks": {
+          "ambiguous_quote": 31,
+          "unique_offset_recovered": 12,
+          "already_valid": 1
+        }
+      }
+    },
+    "basis": "standard_uncached_rates_from_usage_not_provider_invoice"
+  },
+  "artifact_zip_sha256": "c499364c7b0ec74aca36ff3755bff2c2fc4a2e384815e42cb22479bd2cf0e62b",
+  "envelope_sha256": "5dce4c05489b60f3103bbcb3f3484339b80da6796ab70c4bd2afc9b941662d49",
+  "archive_sha256": "75d50d999bdb302d9df9f39df67c589a21dc9b107d7656eec937a4923d72d04b",
+  "public_summary_sha256": "2fbde3b79d8161592d6f0f591065838c46f2aa91d2cdb589a3c659d8fbb00381",
+  "plan_hash": "e916e357cd7426a6bb50180559b542b33b28f20dda0189dcfb37ae7ed9d6f99c",
+  "input_hash": "adfa983457261069d57b76d827f7cd81569273b6dfa5330154761314d6580cf1",
+  "protocol_hash": "13d32338ace8822fbd7dc7d219bd3118810a2b85d3752d5bf0dca8f667d1b2d5",
+  "assembly_hash": "915dfb142024cbde6da8980a12803489052bf06c166341bae7799fe86d05616b",
+  "replay": {
+    "additional_provider_calls": 0,
+    "semantic_and_first_valid_applications_exact": true,
+    "all_application_rankings_and_decisions_exact": true,
+    "all_candidate_rankings_exact": true,
+    "threshold_decisions_exact": true,
+    "rules_bundle_hash_exact": false,
+    "note": "Fresh RulesPlus context metadata changes its bundle hash; semantic applications, rankings and decisions reproduce. Timings are not identical."
+  },
+  "superiority_claim": false,
+  "independent_evaluation_complete": false,
+  "completed_human_reviews": 0,
+  "posthoc_extra_provider_calls": 0
+}

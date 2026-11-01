@@ -603,6 +603,9 @@ def main(argv: list[str] | None = None) -> int:
     )
     sub = parser.add_subparsers(dest="command", required=True)
 
+    from searchclinic.research.cli import add_parser as add_research_parser
+    add_research_parser(sub)
+
     p = sub.add_parser("analyze", help="형태소 분석 파이프라인 확인")
     p.add_argument("text")
     p.set_defaults(func=cmd_analyze)

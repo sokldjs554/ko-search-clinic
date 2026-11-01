@@ -1,0 +1,50 @@
+{
+  "checked_date": "2026-10-31",
+  "model_id": "gpt-4.1-mini-2025-04-14",
+  "standard_input_usd_per_million": 0.4,
+  "standard_output_usd_per_million": 1.6,
+  "discounts_assumed": false,
+  "sources": [
+    {
+      "name": "model",
+      "url": "https://developers.openai.com/api/docs/models/gpt-4.1-mini",
+      "resolved": "https://developers.openai.com/api/docs/models/gpt-4.1-mini",
+      "sha256": "a87da1546e986591c0bfc73b507efa7df631d943057e84c118dba0e982a22075",
+      "bytes": 441273,
+      "retrieved_at": "2026-10-31T07:07:50.577589+00:00"
+    },
+    {
+      "name": "pricing",
+      "url": "https://developers.openai.com/api/docs/pricing",
+      "resolved": "https://developers.openai.com/api/docs/pricing",
+      "sha256": "c5e04cff4c6af31c50e3efc78856e632d38c936f39c7a872daf648aea5429e76",
+      "bytes": 592385,
+      "retrieved_at": "2026-10-31T07:07:50.799334+00:00"
+    },
+    {
+      "name": "responses",
+      "url": "https://developers.openai.com/api/reference/resources/responses/methods/create",
+      "resolved": "https://developers.openai.com/api/reference/resources/responses/methods/create",
+      "sha256": "6485d2998e00d5c93c3740ee1f368752e293181653ebf50574869c95623c8c3a",
+      "bytes": 17668502,
+      "retrieved_at": "2026-10-31T07:07:51.613665+00:00"
+    },
+    {
+      "name": "structured",
+      "url": "https://developers.openai.com/api/docs/guides/structured-outputs",
+      "resolved": "https://developers.openai.com/api/docs/guides/structured-outputs",
+      "sha256": "399898d9d9223eb6ee5b4cb526bc3aedd744f30e6debeb99fd601b38e3cc9e23",
+      "bytes": 3294569,
+      "retrieved_at": "2026-10-31T07:07:51.906705+00:00"
+    }
+  ],
+  "deprecation": {
+    "announced": "2026-10-14",
+    "shutdown": "2027-01-14",
+    "url": "https://developers.openai.com/api/docs/deprecations"
+  },
+  "account_access": "HTTP200_fixed_model_confirmed_GET_only",
+  "generation_calls": 0,
+  "api_key_values_recorded": false,
+  "access_evidence": "model-access-20261031.json"
+}

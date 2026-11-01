@@ -1,0 +1,80 @@
+{
+  "publication_scope": "aggregate_only",
+  "score_report": {
+    "summaries": {
+      "no_repair": {
+        "failure": {
+          "count": 16,
+          "ndcg10": 0.06957169954784115,
+          "precision5": 0.025,
+          "recall10": 0.09375
+        },
+        "healthy": {
+          "count": 20,
+          "ndcg10": 0.995439419493812,
+          "precision5": 0.34,
+          "recall10": 1.0
+        },
+        "overall": {
+          "count": 36,
+          "ndcg10": 0.5839426550733804,
+          "precision5": 0.2,
+          "recall10": 0.5972222222222222
+        }
+      },
+      "oracle_submitted_candidates_with_noop": {
+        "failure": {
+          "count": 16,
+          "ndcg10": 0.7570716995478411,
+          "precision5": 0.3125,
+          "recall10": 0.78125
+        },
+        "healthy": {
+          "count": 20,
+          "ndcg10": 0.995439419493812,
+          "precision5": 0.34,
+          "recall10": 1.0
+        },
+        "overall": {
+          "count": 36,
+          "ndcg10": 0.889498210628936,
+          "precision5": 0.3277777777777778,
+          "recall10": 0.9027777777777778
+        }
+      },
+      "saved_first_candidate": {
+        "failure": {
+          "count": 16,
+          "ndcg10": 0.6945716995478411,
+          "precision5": 0.28750000000000003,
+          "recall10": 0.71875
+        },
+        "healthy": {
+          "count": 20,
+          "ndcg10": 0.9729719466297941,
+          "precision5": 0.34,
+          "recall10": 1.0
+        },
+        "overall": {
+          "count": 36,
+          "ndcg10": 0.8492385034822596,
+          "precision5": 0.31666666666666665,
+          "recall10": 0.875
+        }
+      }
+    }
+  },
+  "costs": {
+    "api_calls": 0,
+    "api_cost_usd": 0.0,
+    "latency_ms": 10588.70922799997,
+    "reindexes": 16,
+    "search_calls": 576
+  },
+  "study_status": "new_retrospective_development_run_not_original_reproduction",
+  "limitations": [
+    "과거 저장 후보의 개발 진단이며 독립 평가가 아닙니다.",
+    "질의별 상세 데이터는 공개 승인 전까지 로컬 재현으로 제공합니다."
+  ],
+  "queries": []
+}

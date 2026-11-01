@@ -1,0 +1,69 @@
+.......FFFF....................F                                         [100%]
+=================================== FAILURES ===================================
+_______ test_nonzero_results_without_quality_signals_require_abstention ________
+
+    def test_nonzero_results_without_quality_signals_require_abstention():
+        from searchclinic.research.detector import RuleDetector
+        result = RuleDetector().detect(observation(result_count=2).policy_view())
+>       assert result.predicted_failure is None
+E       AssertionError: assert False is None
+E        +  where False = Detection(failure_probability=0.1, predicted_failure=False, failure_reason_codes=(), calibration_version='rule-v1-uncalibrated').predicted_failure
+
+tests/test_research_contracts.py:42: AssertionError
+__________________ test_cost_counts_must_be_integers[kwargs0] __________________
+
+kwargs = {'model_calls': 0.5}
+
+    @pytest.mark.parametrize("kwargs", [{"model_calls": 0.5}, {"input_tokens": True}])
+    def test_cost_counts_must_be_integers(kwargs):
+        from searchclinic.research.costs import CostRecord
+>       with pytest.raises(ValueError):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/test_research_contracts.py:48: Failed
+__________________ test_cost_counts_must_be_integers[kwargs1] __________________
+
+kwargs = {'input_tokens': True}
+
+    @pytest.mark.parametrize("kwargs", [{"model_calls": 0.5}, {"input_tokens": True}])
+    def test_cost_counts_must_be_integers(kwargs):
+        from searchclinic.research.costs import CostRecord
+>       with pytest.raises(ValueError):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/test_research_contracts.py:48: Failed
+_______________ test_unknown_api_cost_is_not_zero_cost_in_policy _______________
+
+    def test_unknown_api_cost_is_not_zero_cost_in_policy():
+        from searchclinic.research.costs import CostRecord, utility
+>       assert utility(1, 0, CostRecord(api_cost_usd=None)) is None
+E       AssertionError: assert 0.995 is None
+E        +  where 0.995 = <function utility at 0x7f900b7aac00>(1, 0, CostRecord(search_calls=0, reindexes=0, model_calls=0, input_tokens=0, output_tokens=0, latency_ms=0.0, api_cost_usd=None))
+E        +    where CostRecord(search_calls=0, reindexes=0, model_calls=0, input_tokens=0, output_tokens=0, latency_ms=0.0, api_cost_usd=None) = <class 'searchclinic.research.costs.CostRecord'>(api_cost_usd=None)
+
+tests/test_research_contracts.py:54: AssertionError
+___________ test_comparison_rejects_a_different_query_order_or_seed ____________
+
+    def test_comparison_rejects_a_different_query_order_or_seed():
+        from searchclinic.research.runner import run_experiment
+        from searchclinic.research.artifacts import compare_runs
+        from copy import deepcopy
+        a = run_experiment("no_repair")
+        a["policy"] = "always_typed_patch"
+        b = deepcopy(a)
+        b["policy"] = "selective_rule"
+        b["seed"] += 1
+>       with pytest.raises(ValueError, match="seed"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/test_research_artifacts.py:52: Failed
+=========================== short test summary info ============================
+FAILED tests/test_research_contracts.py::test_nonzero_results_without_quality_signals_require_abstention
+FAILED tests/test_research_contracts.py::test_cost_counts_must_be_integers[kwargs0]
+FAILED tests/test_research_contracts.py::test_cost_counts_must_be_integers[kwargs1]
+FAILED tests/test_research_contracts.py::test_unknown_api_cost_is_not_zero_cost_in_policy
+FAILED tests/test_research_artifacts.py::test_comparison_rejects_a_different_query_order_or_seed
+5 failed, 27 passed in 2.73s

@@ -1,0 +1,605 @@
+.FFFFFFFFFFFFFFF                                                         [100%]
+=================================== FAILURES ===================================
+_____ test_v2_same_expected_cost_keeps_action_despite_measured_latency[0] ______
+
+ms = 0
+
+    @pytest.mark.parametrize("ms", [0, 4249, 4250, 6000, 1_000_000])
+    def test_v2_same_expected_cost_keeps_action_despite_measured_latency(ms):
+        expected = CostRecord(latency_ms=None)
+>       c = replace(candidate(ms), expected_cost=expected)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_research_latency_reproducibility.py:36: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+obj = Candidate(action=<ActionKind.TYPED_PATCH: 'typed_patch'>, prescription=None, evidence=(EvidenceSpan(source_type='query...ostRecord(search_calls=0, reindexes=0, model_calls=0, input_tokens=0, output_tokens=0, latency_ms=0, api_cost_usd=0.0))
+changes = {'expected_cost': CostRecord(search_calls=0, reindexes=0, model_calls=0, input_tokens=0, output_tokens=0, latency_ms=N...scription': None, 'evidence': (EvidenceSpan(source_type='query', source_id='후라이팬', start=0, end=4, text='후라이팬'),), ...}
+
+    def replace(obj, /, **changes):
+        """Return a new object replacing specified fields with new values.
+    
+        This is especially useful for frozen classes.  Example usage::
+    
+          @dataclass(frozen=True)
+          class C:
+              x: int
+              y: int
+    
+          c = C(1, 2)
+          c1 = replace(c, x=3)
+          assert c1.x == 3 and c1.y == 2
+        """
+    
+        # We're going to mutate 'changes', but that's okay because it's a
+        # new dict, even if called with 'replace(obj, **my_changes)'.
+    
+        if not _is_dataclass_instance(obj):
+            raise TypeError("replace() should be called on dataclass instances")
+    
+        # It's an error to have init=False fields in 'changes'.
+        # If a field is not in 'changes', read its value from the provided obj.
+    
+        for f in getattr(obj, _FIELDS).values():
+            # Only consider normal fields or InitVars.
+            if f._field_type is _FIELD_CLASSVAR:
+                continue
+    
+            if not f.init:
+                # Error if this field is specified in changes.
+                if f.name in changes:
+                    raise ValueError(f'field {f.name} is declared with '
+                                     'init=False, it cannot be specified with '
+                                     'replace()')
+                continue
+    
+            if f.name not in changes:
+                if f._field_type is _FIELD_INITVAR and f.default is MISSING:
+                    raise ValueError(f"InitVar {f.name!r} "
+                                     'must be specified with replace()')
+                changes[f.name] = getattr(obj, f.name)
+    
+        # Create the new object, which calls __init__() and
+        # __post_init__() (if defined), using all of the init fields we've
+        # added and/or left in 'changes'.  If there are values supplied in
+        # changes that aren't fields, this will correctly raise a
+        # TypeError.
+>       return obj.__class__(**changes)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+E       TypeError: Candidate.__init__() got an unexpected keyword argument 'expected_cost'
+
+/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/dataclasses.py:1588: TypeError
+____ test_v2_same_expected_cost_keeps_action_despite_measured_latency[4249] ____
+
+ms = 4249
+
+    @pytest.mark.parametrize("ms", [0, 4249, 4250, 6000, 1_000_000])
+    def test_v2_same_expected_cost_keeps_action_despite_measured_latency(ms):
+        expected = CostRecord(latency_ms=None)
+>       c = replace(candidate(ms), expected_cost=expected)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_research_latency_reproducibility.py:36: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+obj = Candidate(action=<ActionKind.TYPED_PATCH: 'typed_patch'>, prescription=None, evidence=(EvidenceSpan(source_type='query...Record(search_calls=0, reindexes=0, model_calls=0, input_tokens=0, output_tokens=0, latency_ms=4249, api_cost_usd=0.0))
+changes = {'expected_cost': CostRecord(search_calls=0, reindexes=0, model_calls=0, input_tokens=0, output_tokens=0, latency_ms=N...scription': None, 'evidence': (EvidenceSpan(source_type='query', source_id='후라이팬', start=0, end=4, text='후라이팬'),), ...}
+
+    def replace(obj, /, **changes):
+        """Return a new object replacing specified fields with new values.
+    
+        This is especially useful for frozen classes.  Example usage::
+    
+          @dataclass(frozen=True)
+          class C:
+              x: int
+              y: int
+    
+          c = C(1, 2)
+          c1 = replace(c, x=3)
+          assert c1.x == 3 and c1.y == 2
+        """
+    
+        # We're going to mutate 'changes', but that's okay because it's a
+        # new dict, even if called with 'replace(obj, **my_changes)'.
+    
+        if not _is_dataclass_instance(obj):
+            raise TypeError("replace() should be called on dataclass instances")
+    
+        # It's an error to have init=False fields in 'changes'.
+        # If a field is not in 'changes', read its value from the provided obj.
+    
+        for f in getattr(obj, _FIELDS).values():
+            # Only consider normal fields or InitVars.
+            if f._field_type is _FIELD_CLASSVAR:
+                continue
+    
+            if not f.init:
+                # Error if this field is specified in changes.
+                if f.name in changes:
+                    raise ValueError(f'field {f.name} is declared with '
+                                     'init=False, it cannot be specified with '
+                                     'replace()')
+                continue
+    
+            if f.name not in changes:
+                if f._field_type is _FIELD_INITVAR and f.default is MISSING:
+                    raise ValueError(f"InitVar {f.name!r} "
+                                     'must be specified with replace()')
+                changes[f.name] = getattr(obj, f.name)
+    
+        # Create the new object, which calls __init__() and
+        # __post_init__() (if defined), using all of the init fields we've
+        # added and/or left in 'changes'.  If there are values supplied in
+        # changes that aren't fields, this will correctly raise a
+        # TypeError.
+>       return obj.__class__(**changes)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+E       TypeError: Candidate.__init__() got an unexpected keyword argument 'expected_cost'
+
+/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/dataclasses.py:1588: TypeError
+____ test_v2_same_expected_cost_keeps_action_despite_measured_latency[4250] ____
+
+ms = 4250
+
+    @pytest.mark.parametrize("ms", [0, 4249, 4250, 6000, 1_000_000])
+    def test_v2_same_expected_cost_keeps_action_despite_measured_latency(ms):
+        expected = CostRecord(latency_ms=None)
+>       c = replace(candidate(ms), expected_cost=expected)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_research_latency_reproducibility.py:36: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+obj = Candidate(action=<ActionKind.TYPED_PATCH: 'typed_patch'>, prescription=None, evidence=(EvidenceSpan(source_type='query...Record(search_calls=0, reindexes=0, model_calls=0, input_tokens=0, output_tokens=0, latency_ms=4250, api_cost_usd=0.0))
+changes = {'expected_cost': CostRecord(search_calls=0, reindexes=0, model_calls=0, input_tokens=0, output_tokens=0, latency_ms=N...scription': None, 'evidence': (EvidenceSpan(source_type='query', source_id='후라이팬', start=0, end=4, text='후라이팬'),), ...}
+
+    def replace(obj, /, **changes):
+        """Return a new object replacing specified fields with new values.
+    
+        This is especially useful for frozen classes.  Example usage::
+    
+          @dataclass(frozen=True)
+          class C:
+              x: int
+              y: int
+    
+          c = C(1, 2)
+          c1 = replace(c, x=3)
+          assert c1.x == 3 and c1.y == 2
+        """
+    
+        # We're going to mutate 'changes', but that's okay because it's a
+        # new dict, even if called with 'replace(obj, **my_changes)'.
+    
+        if not _is_dataclass_instance(obj):
+            raise TypeError("replace() should be called on dataclass instances")
+    
+        # It's an error to have init=False fields in 'changes'.
+        # If a field is not in 'changes', read its value from the provided obj.
+    
+        for f in getattr(obj, _FIELDS).values():
+            # Only consider normal fields or InitVars.
+            if f._field_type is _FIELD_CLASSVAR:
+                continue
+    
+            if not f.init:
+                # Error if this field is specified in changes.
+                if f.name in changes:
+                    raise ValueError(f'field {f.name} is declared with '
+                                     'init=False, it cannot be specified with '
+                                     'replace()')
+                continue
+    
+            if f.name not in changes:
+                if f._field_type is _FIELD_INITVAR and f.default is MISSING:
+                    raise ValueError(f"InitVar {f.name!r} "
+                                     'must be specified with replace()')
+                changes[f.name] = getattr(obj, f.name)
+    
+        # Create the new object, which calls __init__() and
+        # __post_init__() (if defined), using all of the init fields we've
+        # added and/or left in 'changes'.  If there are values supplied in
+        # changes that aren't fields, this will correctly raise a
+        # TypeError.
+>       return obj.__class__(**changes)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+E       TypeError: Candidate.__init__() got an unexpected keyword argument 'expected_cost'
+
+/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/dataclasses.py:1588: TypeError
+____ test_v2_same_expected_cost_keeps_action_despite_measured_latency[6000] ____
+
+ms = 6000
+
+    @pytest.mark.parametrize("ms", [0, 4249, 4250, 6000, 1_000_000])
+    def test_v2_same_expected_cost_keeps_action_despite_measured_latency(ms):
+        expected = CostRecord(latency_ms=None)
+>       c = replace(candidate(ms), expected_cost=expected)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_research_latency_reproducibility.py:36: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+obj = Candidate(action=<ActionKind.TYPED_PATCH: 'typed_patch'>, prescription=None, evidence=(EvidenceSpan(source_type='query...Record(search_calls=0, reindexes=0, model_calls=0, input_tokens=0, output_tokens=0, latency_ms=6000, api_cost_usd=0.0))
+changes = {'expected_cost': CostRecord(search_calls=0, reindexes=0, model_calls=0, input_tokens=0, output_tokens=0, latency_ms=N...scription': None, 'evidence': (EvidenceSpan(source_type='query', source_id='후라이팬', start=0, end=4, text='후라이팬'),), ...}
+
+    def replace(obj, /, **changes):
+        """Return a new object replacing specified fields with new values.
+    
+        This is especially useful for frozen classes.  Example usage::
+    
+          @dataclass(frozen=True)
+          class C:
+              x: int
+              y: int
+    
+          c = C(1, 2)
+          c1 = replace(c, x=3)
+          assert c1.x == 3 and c1.y == 2
+        """
+    
+        # We're going to mutate 'changes', but that's okay because it's a
+        # new dict, even if called with 'replace(obj, **my_changes)'.
+    
+        if not _is_dataclass_instance(obj):
+            raise TypeError("replace() should be called on dataclass instances")
+    
+        # It's an error to have init=False fields in 'changes'.
+        # If a field is not in 'changes', read its value from the provided obj.
+    
+        for f in getattr(obj, _FIELDS).values():
+            # Only consider normal fields or InitVars.
+            if f._field_type is _FIELD_CLASSVAR:
+                continue
+    
+            if not f.init:
+                # Error if this field is specified in changes.
+                if f.name in changes:
+                    raise ValueError(f'field {f.name} is declared with '
+                                     'init=False, it cannot be specified with '
+                                     'replace()')
+                continue
+    
+            if f.name not in changes:
+                if f._field_type is _FIELD_INITVAR and f.default is MISSING:
+                    raise ValueError(f"InitVar {f.name!r} "
+                                     'must be specified with replace()')
+                changes[f.name] = getattr(obj, f.name)
+    
+        # Create the new object, which calls __init__() and
+        # __post_init__() (if defined), using all of the init fields we've
+        # added and/or left in 'changes'.  If there are values supplied in
+        # changes that aren't fields, this will correctly raise a
+        # TypeError.
+>       return obj.__class__(**changes)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+E       TypeError: Candidate.__init__() got an unexpected keyword argument 'expected_cost'
+
+/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/dataclasses.py:1588: TypeError
+__ test_v2_same_expected_cost_keeps_action_despite_measured_latency[1000000] ___
+
+ms = 1000000
+
+    @pytest.mark.parametrize("ms", [0, 4249, 4250, 6000, 1_000_000])
+    def test_v2_same_expected_cost_keeps_action_despite_measured_latency(ms):
+        expected = CostRecord(latency_ms=None)
+>       c = replace(candidate(ms), expected_cost=expected)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_research_latency_reproducibility.py:36: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+obj = Candidate(action=<ActionKind.TYPED_PATCH: 'typed_patch'>, prescription=None, evidence=(EvidenceSpan(source_type='query...ord(search_calls=0, reindexes=0, model_calls=0, input_tokens=0, output_tokens=0, latency_ms=1000000, api_cost_usd=0.0))
+changes = {'expected_cost': CostRecord(search_calls=0, reindexes=0, model_calls=0, input_tokens=0, output_tokens=0, latency_ms=N...scription': None, 'evidence': (EvidenceSpan(source_type='query', source_id='후라이팬', start=0, end=4, text='후라이팬'),), ...}
+
+    def replace(obj, /, **changes):
+        """Return a new object replacing specified fields with new values.
+    
+        This is especially useful for frozen classes.  Example usage::
+    
+          @dataclass(frozen=True)
+          class C:
+              x: int
+              y: int
+    
+          c = C(1, 2)
+          c1 = replace(c, x=3)
+          assert c1.x == 3 and c1.y == 2
+        """
+    
+        # We're going to mutate 'changes', but that's okay because it's a
+        # new dict, even if called with 'replace(obj, **my_changes)'.
+    
+        if not _is_dataclass_instance(obj):
+            raise TypeError("replace() should be called on dataclass instances")
+    
+        # It's an error to have init=False fields in 'changes'.
+        # If a field is not in 'changes', read its value from the provided obj.
+    
+        for f in getattr(obj, _FIELDS).values():
+            # Only consider normal fields or InitVars.
+            if f._field_type is _FIELD_CLASSVAR:
+                continue
+    
+            if not f.init:
+                # Error if this field is specified in changes.
+                if f.name in changes:
+                    raise ValueError(f'field {f.name} is declared with '
+                                     'init=False, it cannot be specified with '
+                                     'replace()')
+                continue
+    
+            if f.name not in changes:
+                if f._field_type is _FIELD_INITVAR and f.default is MISSING:
+                    raise ValueError(f"InitVar {f.name!r} "
+                                     'must be specified with replace()')
+                changes[f.name] = getattr(obj, f.name)
+    
+        # Create the new object, which calls __init__() and
+        # __post_init__() (if defined), using all of the init fields we've
+        # added and/or left in 'changes'.  If there are values supplied in
+        # changes that aren't fields, this will correctly raise a
+        # TypeError.
+>       return obj.__class__(**changes)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+E       TypeError: Candidate.__init__() got an unexpected keyword argument 'expected_cost'
+
+/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/dataclasses.py:1588: TypeError
+___ test_zero_latency_weight_excludes_unknown_latency_without_fabricating_it ___
+
+    def test_zero_latency_weight_excludes_unknown_latency_without_fabricating_it():
+        cost = CostRecord(latency_ms=None)
+>       assert utility(1, 0, cost, weights={**DEFAULT_WEIGHTS, "latency_ms": 0.0}) == pytest.approx(0.995)
+E       assert None == 0.995 ± 1.0e-06
+E         
+E         comparison failed
+E         Obtained: None
+E         Expected: 0.995 ± 1.0e-06
+
+tests/test_research_latency_reproducibility.py:46: AssertionError
+_______ test_v2_high_expected_cost_abstains_while_detection_stays_failed _______
+
+    def test_v2_high_expected_cost_abstains_while_detection_stays_failed():
+        d = detection()
+>       c = replace(candidate(1), expected_cost=CostRecord(model_calls=100, latency_ms=None))
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_research_latency_reproducibility.py:53: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+obj = Candidate(action=<ActionKind.TYPED_PATCH: 'typed_patch'>, prescription=None, evidence=(EvidenceSpan(source_type='query...ostRecord(search_calls=0, reindexes=0, model_calls=0, input_tokens=0, output_tokens=0, latency_ms=1, api_cost_usd=0.0))
+changes = {'expected_cost': CostRecord(search_calls=0, reindexes=0, model_calls=100, input_tokens=0, output_tokens=0, latency_ms...scription': None, 'evidence': (EvidenceSpan(source_type='query', source_id='후라이팬', start=0, end=4, text='후라이팬'),), ...}
+
+    def replace(obj, /, **changes):
+        """Return a new object replacing specified fields with new values.
+    
+        This is especially useful for frozen classes.  Example usage::
+    
+          @dataclass(frozen=True)
+          class C:
+              x: int
+              y: int
+    
+          c = C(1, 2)
+          c1 = replace(c, x=3)
+          assert c1.x == 3 and c1.y == 2
+        """
+    
+        # We're going to mutate 'changes', but that's okay because it's a
+        # new dict, even if called with 'replace(obj, **my_changes)'.
+    
+        if not _is_dataclass_instance(obj):
+            raise TypeError("replace() should be called on dataclass instances")
+    
+        # It's an error to have init=False fields in 'changes'.
+        # If a field is not in 'changes', read its value from the provided obj.
+    
+        for f in getattr(obj, _FIELDS).values():
+            # Only consider normal fields or InitVars.
+            if f._field_type is _FIELD_CLASSVAR:
+                continue
+    
+            if not f.init:
+                # Error if this field is specified in changes.
+                if f.name in changes:
+                    raise ValueError(f'field {f.name} is declared with '
+                                     'init=False, it cannot be specified with '
+                                     'replace()')
+                continue
+    
+            if f.name not in changes:
+                if f._field_type is _FIELD_INITVAR and f.default is MISSING:
+                    raise ValueError(f"InitVar {f.name!r} "
+                                     'must be specified with replace()')
+                changes[f.name] = getattr(obj, f.name)
+    
+        # Create the new object, which calls __init__() and
+        # __post_init__() (if defined), using all of the init fields we've
+        # added and/or left in 'changes'.  If there are values supplied in
+        # changes that aren't fields, this will correctly raise a
+        # TypeError.
+>       return obj.__class__(**changes)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+E       TypeError: Candidate.__init__() got an unexpected keyword argument 'expected_cost'
+
+/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/dataclasses.py:1588: TypeError
+___ test_v2_missing_expected_cost_abstains_even_if_measurement_is_available ____
+
+    def test_v2_missing_expected_cost_abstains_even_if_measurement_is_available():
+>       result = select_action(detection(), [candidate(1)], Budget(),
+            weights={**DEFAULT_WEIGHTS, "latency_ms": 0.0}, cost_semantics="expected-v2")
+E       TypeError: select_action() got an unexpected keyword argument 'cost_semantics'
+
+tests/test_research_latency_reproducibility.py:60: TypeError
+_____ test_v2_unknown_external_usage_is_not_ignored_by_zero_latency_weight _____
+
+    def test_v2_unknown_external_usage_is_not_ignored_by_zero_latency_weight():
+>       c = replace(candidate(1), expected_cost=CostRecord(model_calls=None, latency_ms=None))
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_research_latency_reproducibility.py:66: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+obj = Candidate(action=<ActionKind.TYPED_PATCH: 'typed_patch'>, prescription=None, evidence=(EvidenceSpan(source_type='query...ostRecord(search_calls=0, reindexes=0, model_calls=0, input_tokens=0, output_tokens=0, latency_ms=1, api_cost_usd=0.0))
+changes = {'expected_cost': CostRecord(search_calls=0, reindexes=0, model_calls=None, input_tokens=0, output_tokens=0, latency_m...scription': None, 'evidence': (EvidenceSpan(source_type='query', source_id='후라이팬', start=0, end=4, text='후라이팬'),), ...}
+
+    def replace(obj, /, **changes):
+        """Return a new object replacing specified fields with new values.
+    
+        This is especially useful for frozen classes.  Example usage::
+    
+          @dataclass(frozen=True)
+          class C:
+              x: int
+              y: int
+    
+          c = C(1, 2)
+          c1 = replace(c, x=3)
+          assert c1.x == 3 and c1.y == 2
+        """
+    
+        # We're going to mutate 'changes', but that's okay because it's a
+        # new dict, even if called with 'replace(obj, **my_changes)'.
+    
+        if not _is_dataclass_instance(obj):
+            raise TypeError("replace() should be called on dataclass instances")
+    
+        # It's an error to have init=False fields in 'changes'.
+        # If a field is not in 'changes', read its value from the provided obj.
+    
+        for f in getattr(obj, _FIELDS).values():
+            # Only consider normal fields or InitVars.
+            if f._field_type is _FIELD_CLASSVAR:
+                continue
+    
+            if not f.init:
+                # Error if this field is specified in changes.
+                if f.name in changes:
+                    raise ValueError(f'field {f.name} is declared with '
+                                     'init=False, it cannot be specified with '
+                                     'replace()')
+                continue
+    
+            if f.name not in changes:
+                if f._field_type is _FIELD_INITVAR and f.default is MISSING:
+                    raise ValueError(f"InitVar {f.name!r} "
+                                     'must be specified with replace()')
+                changes[f.name] = getattr(obj, f.name)
+    
+        # Create the new object, which calls __init__() and
+        # __post_init__() (if defined), using all of the init fields we've
+        # added and/or left in 'changes'.  If there are values supplied in
+        # changes that aren't fields, this will correctly raise a
+        # TypeError.
+>       return obj.__class__(**changes)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+E       TypeError: Candidate.__init__() got an unexpected keyword argument 'expected_cost'
+
+/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/dataclasses.py:1588: TypeError
+___________________ test_unknown_cost_semantics_fails_closed ___________________
+
+    def test_unknown_cost_semantics_fails_closed():
+        with pytest.raises(ValueError, match="cost semantics"):
+>           select_action(detection(), [candidate(1)], Budget(), cost_semantics="invalid")
+E           TypeError: select_action() got an unexpected keyword argument 'cost_semantics'
+
+tests/test_research_latency_reproducibility.py:74: TypeError
+__ test_real_candidate_generator_separates_clock_measurement_from_fixed_cost ___
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7f41e05abe90>
+
+    def test_real_candidate_generator_separates_clock_measurement_from_fixed_cost(monkeypatch):
+        from searchclinic.corpus import load_catalog
+        from searchclinic.research.costs import MeasuredEngine
+        from searchclinic.research import runner
+        e = MeasuredEngine(load_catalog())
+        expected = CostRecord(latency_ms=None)
+        ticks = iter([0.0, 6.0])
+        monkeypatch.setattr(runner, "perf_counter", lambda: next(ticks))
+>       generated = runner.propose_candidates(e, "후라이팬", expected_cost=expected)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       TypeError: propose_candidates() got an unexpected keyword argument 'expected_cost'
+
+tests/test_research_latency_reproducibility.py:85: TypeError
+_____ test_v2_protocol_is_separate_and_leaves_detector_threshold_unchanged _____
+
+    def test_v2_protocol_is_separate_and_leaves_detector_threshold_unchanged():
+        from searchclinic.research.runner import load_protocol
+>       a, b = load_protocol(), load_protocol("phase01-v2")
+                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       TypeError: load_protocol() takes 0 positional arguments but 1 was given
+
+tests/test_research_latency_reproducibility.py:93: TypeError
+___________ test_v2_runner_records_both_cost_scopes_and_new_protocol ___________
+
+    def test_v2_runner_records_both_cost_scopes_and_new_protocol():
+        from searchclinic.research.runner import run_experiment
+>       run = run_experiment("selective_rule", protocol_version="phase01-v2")
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       TypeError: run_experiment() got an unexpected keyword argument 'protocol_version'
+
+tests/test_research_latency_reproducibility.py:103: TypeError
+___________ test_cli_v2_evaluation_uses_a_separate_root_and_protocol ___________
+
+tmp_path = PosixPath('/tmp/pytest-of-agent/pytest-13/test_cli_v2_evaluation_uses_a_0')
+
+    def test_cli_v2_evaluation_uses_a_separate_root_and_protocol(tmp_path):
+        import json
+        from searchclinic.cli import main
+        root = str(tmp_path)
+>       assert main(["research", "prepare", "--root", root, "--protocol-version", "phase01-v2"]) == 0
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_research_latency_reproducibility.py:115: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+src/searchclinic/cli.py:721: in main
+    args = parser.parse_args(argv)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/argparse.py:1908: in parse_args
+    self.error(msg)
+/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/argparse.py:2650: in error
+    self.exit(2, _('%(prog)s: error: %(message)s\n') % args)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = ArgumentParser(prog='clinic', usage=None, description='ko-search-clinic — 한국어 검색 품질 자가 치유', formatter_class=<class 'argparse.HelpFormatter'>, conflict_handler='error', add_help=True)
+status = 2
+message = 'clinic: error: unrecognized arguments: --protocol-version phase01-v2\n'
+
+    def exit(self, status=0, message=None):
+        if message:
+            self._print_message(message, _sys.stderr)
+>       _sys.exit(status)
+E       SystemExit: 2
+
+/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/argparse.py:2637: SystemExit
+----------------------------- Captured stderr call -----------------------------
+usage: clinic [-h]
+              {research,analyze,search,evaluate,diagnose,heal,demo-trap,export-es,build-vectors,build-lake,mine-logs,scale-bench,rag-eval,baseline,vector-probe,es-verify}
+              ...
+clinic: error: unrecognized arguments: --protocol-version phase01-v2
+_________ test_run_cannot_select_a_protocol_outside_supported_versions _________
+
+    def test_run_cannot_select_a_protocol_outside_supported_versions():
+        from searchclinic.research.runner import run_experiment
+        with pytest.raises(ValueError, match="protocol"):
+>           run_experiment("no_repair", protocol_version="not-a-version")
+E           TypeError: run_experiment() got an unexpected keyword argument 'protocol_version'
+
+tests/test_research_latency_reproducibility.py:125: TypeError
+=========================== short test summary info ============================
+FAILED tests/test_research_latency_reproducibility.py::test_v2_same_expected_cost_keeps_action_despite_measured_latency[0]
+FAILED tests/test_research_latency_reproducibility.py::test_v2_same_expected_cost_keeps_action_despite_measured_latency[4249]
+FAILED tests/test_research_latency_reproducibility.py::test_v2_same_expected_cost_keeps_action_despite_measured_latency[4250]
+FAILED tests/test_research_latency_reproducibility.py::test_v2_same_expected_cost_keeps_action_despite_measured_latency[6000]
+FAILED tests/test_research_latency_reproducibility.py::test_v2_same_expected_cost_keeps_action_despite_measured_latency[1000000]
+FAILED tests/test_research_latency_reproducibility.py::test_zero_latency_weight_excludes_unknown_latency_without_fabricating_it
+FAILED tests/test_research_latency_reproducibility.py::test_v2_high_expected_cost_abstains_while_detection_stays_failed
+FAILED tests/test_research_latency_reproducibility.py::test_v2_missing_expected_cost_abstains_even_if_measurement_is_available
+FAILED tests/test_research_latency_reproducibility.py::test_v2_unknown_external_usage_is_not_ignored_by_zero_latency_weight
+FAILED tests/test_research_latency_reproducibility.py::test_unknown_cost_semantics_fails_closed
+FAILED tests/test_research_latency_reproducibility.py::test_real_candidate_generator_separates_clock_measurement_from_fixed_cost
+FAILED tests/test_research_latency_reproducibility.py::test_v2_protocol_is_separate_and_leaves_detector_threshold_unchanged
+FAILED tests/test_research_latency_reproducibility.py::test_v2_runner_records_both_cost_scopes_and_new_protocol
+FAILED tests/test_research_latency_reproducibility.py::test_cli_v2_evaluation_uses_a_separate_root_and_protocol
+FAILED tests/test_research_latency_reproducibility.py::test_run_cannot_select_a_protocol_outside_supported_versions
+15 failed, 1 passed in 2.83s
