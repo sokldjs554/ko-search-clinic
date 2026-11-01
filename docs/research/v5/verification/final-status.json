@@ -23,15 +23,15 @@
     "page_errors": []
   },
   "remote_ci": {
-    "source_commit": "e730426fa2444c0b72f423fcd667f64ff33a1638",
-    "run_id": 41287766465,
-    "url": "https://github.com/sokldjs554/ko-search-clinic/actions/runs/41287766465",
+    "source_commit": "ed5817f735aa156faedd9d6bede2a0730b960414",
+    "run_id": 41290153700,
+    "url": "https://github.com/sokldjs554/ko-search-clinic/actions/runs/41290153700",
     "status": "completed",
     "conclusion": "success",
-    "ubuntu": "694 passed, 2 skipped in 87.79s",
-    "windows": "694 passed, 2 skipped in 136.76s",
+    "ubuntu": "694 passed, 2 skipped in 49.19s",
+    "windows": "694 passed, 2 skipped in 157.84s",
     "baseline": "success",
-    "note": "Latest verified prior head; documentation follow-up CI recorded in PR3."
+    "note": "Latest verified prior head; follow-up documentation CI is recorded in PR3."
   },
   "paid_api_calls": 90,
   "review": {
@@ -1481,5 +1481,81 @@
         "missing": 2016
       }
     }
+  },
+  "remote_ci_before_calibration_intake": {
+    "source_commit": "e730426fa2444c0b72f423fcd667f64ff33a1638",
+    "run_id": 41287766465,
+    "url": "https://github.com/sokldjs554/ko-search-clinic/actions/runs/41287766465",
+    "status": "completed",
+    "conclusion": "success",
+    "ubuntu": "694 passed, 2 skipped in 87.79s",
+    "windows": "694 passed, 2 skipped in 136.76s",
+    "baseline": "success",
+    "note": "Latest verified prior head; documentation follow-up CI recorded in PR3."
+  },
+  "calibration_intake": {
+    "accepted_relevance_labels": 0,
+    "agreement": null,
+    "agreement_reason": "no shared query-document pairs and confirmed non-relevance construct",
+    "automatic_grade_conversion": false,
+    "batch_time_missing": true,
+    "common_query_followup": {
+      "calibration_only": true,
+      "documents": 56,
+      "initial_rows_per_reviewer": 5,
+      "queries": 1,
+      "question_choice": "first d Q01, independent of relevance grades or search outcomes",
+      "same_order_for_both": true,
+      "workbooks": [
+        {
+          "alias": "d",
+          "blank_judgments": 56,
+          "bytes": 69867,
+          "file": "검수자_d_질문답근거_공통질문.xlsx",
+          "initial_requested_rows": 5,
+          "pairs": 56,
+          "sha256": "9acef1fabde18b83d764607fc5e7123a5e607a6a310b8e972dd6c6ce73e6d9b4"
+        },
+        {
+          "alias": "e",
+          "blank_judgments": 56,
+          "bytes": 69867,
+          "file": "검수자_e_질문답근거_공통질문.xlsx",
+          "initial_requested_rows": 5,
+          "pairs": 56,
+          "sha256": "eb28ca434587e236897d5e6b825f974583eb5b2fc5c055128920e129b5fd0049"
+        }
+      ]
+    },
+    "final_evaluation_ready": false,
+    "formula_cells": 0,
+    "human_new_relevance_complete": false,
+    "immutable_question_document_changes": 0,
+    "initial_same_sheet_different_queries": true,
+    "kappa": null,
+    "new_provider_calls": 0,
+    "new_retrieval_scores": 0,
+    "original_file_sha256": {
+      "d": "ec0fcbde1db86da33ff82358ed261b4d7437e7f69e8d4fc6c7c6763634078167",
+      "e": "907f23f36782102933e79da0232a2fbe701adcefc5c12cdac1ec55684f9473b7"
+    },
+    "paired_original_query_document_judgments": 0,
+    "prior_semantic_15_review_unchanged": true,
+    "raw_grade_zero_count": 112,
+    "received_rows_per_reviewer": {
+      "d": 56,
+      "e": 56
+    },
+    "received_workbooks": 2,
+    "remaining_unentered_per_reviewer": {
+      "d": 1960,
+      "e": 1960
+    },
+    "research_complete": false,
+    "script_sha256": "1131f96a60824db3291c21084ad89bb60331386f102c0e1b5ca127f7de57dbe6",
+    "timestamp_inferred": false,
+    "unexpected_cell_changes": 0,
+    "user_confirmed_construct": "output correctness, not query-document relevance",
+    "version": "calibration-intake-construct-clarification-20261101"
   }
 }
