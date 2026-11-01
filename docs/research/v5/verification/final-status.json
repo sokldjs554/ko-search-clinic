@@ -1,13 +1,16 @@
 {
   "local": {
-    "pytest": "694 passed, 2 skipped in 86.71s",
-    "command": "python -m pytest -q -rs --junitxml=work/v5-research-closeout-20261101/tests-final.xml",
-    "python": "Python 3.12.14",
-    "private_log": "work/v5-research-closeout-20261101/pytest-final.log",
+    "pytest": "706 passed, 2 skipped in 118.49s",
+    "passed": 706,
+    "skipped": 2,
+    "failed": 0,
+    "command": "python -m pytest -q -rs --junitxml=work/v5-generated-live-41333892182/final-tests.xml",
+    "private_log": "work/v5-generated-live-41333892182/final-tests.log",
+    "junit_sha256": "52654ade4e0cd67bb89f9a981f1ba6af4d32340bbd3c289ba42ddafa42181209",
     "baseline": "passed; nDCG10 0.5839426550733804",
     "diff_check": "passed",
-    "one_off_analysis_pyflakes": "passed",
-    "environment_note": "Initial default-sandbox run blocked socketpair.send with EPERM, also reproduced without project code using AnyIO portal. Network-enabled sandbox permission resolved it; no product change or test exclusion. Interrupted logs preserved."
+    "exporter_pyflakes": "passed",
+    "loopback_access_enabled": true
   },
   "browser": {
     "research_queries": 36,
@@ -43,15 +46,21 @@
     "baseline": "success",
     "note": "Verified implementation commit; subsequent aggregate-only documentation commit does not alter execution code."
   },
-  "paid_api_calls": 90,
+  "paid_api_calls": 150,
   "review": {
-    "type": "independent AI code review, not relevance adjudication",
-    "findings_fixed": [
-      "generation_error preservation in diagnostic and request exports",
-      "full precision metrics for mean gate"
+    "type": "independent AI code and result review, not human relevance or semantic evaluation",
+    "critical_findings": 0,
+    "important_unresolved_findings": 0,
+    "minor_deferred": [
+      "Defensive numeric-key whitelist for future zero-hit export input: current exported aggregate verified private-data-free",
+      "all-oversize-generation and all-withheld-judges combination tests"
     ],
-    "minor_deferred": [],
-    "scope": "Historical integration review; new post-hoc modules had local self-review and CI, not human research adjudication"
+    "verified": [
+      "raw usage and scores",
+      "CI intervals and candidate rejection counts",
+      "public/private output separation",
+      "historical/new evidence separation"
+    ]
   },
   "browser_public": {
     "research_queries": 0,
@@ -75,7 +84,7 @@
     "draft": true,
     "merged": false,
     "mergeable_at_code_check": true,
-    "status": "c decision content received and development analysis updated; independent evaluation pending"
+    "status": "actual generated development comparison and failure analysis complete; final result CI pending; independent final evaluation incomplete"
   },
   "previous_verified_ci": {
     "source_commit": "fd073c5efd48ea94ab290ae1439b8e99155f133c",
@@ -252,7 +261,7 @@
     "note": "Verified implementation commit; this record is updated in a subsequent documentation-only commit whose CI is linked from PR checks."
   },
   "actual_charge_usd": null,
-  "usage_cost_estimate_usd": 0.0580032,
+  "usage_cost_estimate_usd": 0.1229208,
   "research_complete": false,
   "superiority_claim": false,
   "live_experiment": {
@@ -2181,7 +2190,8 @@
       "study_hash_matches_local": true,
       "paid_step": "skipped_no_new_approval",
       "provider_calls_executed": 0
-    }
+    },
+    "snapshot": "Historical preapproval snapshot; superseded for actual execution by generated_comparison_result"
   },
   "remote_ci_before_generated_implementation": {
     "source_commit": "031effc8201a4c74a5e274f3bec95757b7466a3b",
@@ -2193,5 +2203,152 @@
     "windows": "success",
     "baseline": "success",
     "note": "Verified prior head before new generation implementation; newer implementation CI tracked separately."
-  }
+  },
+  "before_generated_result": {
+    "local": {
+      "pytest": "694 passed, 2 skipped in 86.71s",
+      "command": "python -m pytest -q -rs --junitxml=work/v5-research-closeout-20261101/tests-final.xml",
+      "python": "Python 3.12.14",
+      "private_log": "work/v5-research-closeout-20261101/pytest-final.log",
+      "baseline": "passed; nDCG10 0.5839426550733804",
+      "diff_check": "passed",
+      "one_off_analysis_pyflakes": "passed",
+      "environment_note": "Initial default-sandbox run blocked socketpair.send with EPERM, also reproduced without project code using AnyIO portal. Network-enabled sandbox permission resolved it; no product change or test exclusion. Interrupted logs preserved."
+    },
+    "browser": {
+      "research_queries": 36,
+      "live_queries": 36,
+      "summary_arms": 3,
+      "live_summary_arms": 9,
+      "viewports": [
+        1440,
+        320,
+        390
+      ],
+      "rag_replay_loaded": true,
+      "page_errors": []
+    },
+    "browser_public": {
+      "research_queries": 0,
+      "live_queries": 0,
+      "summary_arms": 3,
+      "live_summary_arms": 9,
+      "viewports": [
+        1440,
+        320,
+        390
+      ],
+      "rag_replay_loaded": true,
+      "page_errors": []
+    },
+    "paid_api_calls": 90,
+    "usage_cost_estimate_usd": 0.0580032,
+    "publication": {
+      "pull_request": "https://github.com/sokldjs554/ko-search-clinic/pull/3",
+      "source_commit": "897a68dd0374b35667b0d0cf524d300275769179",
+      "test_import_fix": "fd073c5efd48ea94ab290ae1439b8e99155f133c",
+      "detailed_outputs": "excluded pending explicit publication approval",
+      "initial_source_commit": "1055e2dcdd3563518edb210cfd38cbe2de43f62e",
+      "draft": true,
+      "merged": false,
+      "mergeable_at_code_check": true,
+      "status": "actual generated development comparison and failure analysis complete; final result CI pending; independent final evaluation incomplete"
+    },
+    "review": {
+      "type": "independent AI code review, not relevance adjudication",
+      "findings_fixed": [
+        "generation_error preservation in diagnostic and request exports",
+        "full precision metrics for mean gate"
+      ],
+      "minor_deferred": [],
+      "scope": "Historical integration review; new post-hoc modules had local self-review and CI, not human research adjudication"
+    }
+  },
+  "browser_generated": [
+    {
+      "mode": "public",
+      "summary_arms": 9,
+      "queries": 0,
+      "failed_generation_visible": 0,
+      "private_data_http_status": 404,
+      "viewports": [
+        1440,
+        320,
+        390
+      ],
+      "page_errors": []
+    },
+    {
+      "mode": "private",
+      "summary_arms": 9,
+      "queries": 36,
+      "failed_generation_visible": 32,
+      "private_data_http_status": 200,
+      "viewports": [
+        1440,
+        320,
+        390
+      ],
+      "page_errors": []
+    }
+  ],
+  "browser_legacy_regression": {
+    "public_queries": 0,
+    "summary_arms": 3,
+    "live_summary_arms": 9,
+    "viewports": [
+      1440,
+      320,
+      390
+    ],
+    "rag_replay_loaded": true,
+    "page_errors": []
+  },
+  "browser_visual_inspection": "public generated result viewport inspected",
+  "generated_comparison_result": {
+    "date_kst": "2026-11-02",
+    "scope": "completed development comparison, not independent final evaluation",
+    "run_id": 41333892182,
+    "run_url": "https://github.com/sokldjs554/ko-search-clinic/actions/runs/41333892182",
+    "approval_commit": "6b5dcc2fcd8bcae882c7aa2a5fdf0e412e04f231",
+    "model": "gpt-4.1-mini-2025-04-14",
+    "plan_hash": "c7dbbe5f59c9106ab8386f5cb05be5bec673f4bd4d03c413a3fc71c538028563",
+    "provider_calls": 60,
+    "generation_calls": 36,
+    "judgment_calls": 24,
+    "input_tokens": 117558,
+    "output_tokens": 11184,
+    "usage_cost_estimate_usd": 0.0649176,
+    "actual_invoice_usd": null,
+    "api_errors": 0,
+    "unknown_usage": 0,
+    "automatic_retries": 0,
+    "submitted_candidates": 50,
+    "rejected_candidates": 46,
+    "valid_candidates": 4,
+    "retrieval_useful_valid_candidates": 1,
+    "valid_pool_oracle_ndcg10": 0.6117204328511582,
+    "rules_plus_ndcg10": 0.8594904547719413,
+    "additional_human_review_assigned": false,
+    "new_semantic_human_labels_available": false,
+    "independent_evaluation_complete": false,
+    "superiority_claim": false,
+    "public_summary": "generated-comparison-result-20261102.json",
+    "public_summary_sha256": "b7475a37e581cb9aaa5f4cdc0378038f679ef2a735ff3bfbbe90860d4f6b8052",
+    "replay": {
+      "additional_provider_calls": 0,
+      "assembly_equal_excluding_sha256_and_latency": true,
+      "scores_paired_intervals_random_repeats_equal": true,
+      "original_assembly_hash": "1c42457741fd102c5002a8167d04761d66afdb687b148b9840b25a0e90221cd3",
+      "replayed_assembly_hash": "8c7b75b08921f4b10f981302957fb584b88d15db157d7de3191eb0cf4469a5b7"
+    },
+    "raw_evidence": "265 encrypted archive files retained privately; no detail publication",
+    "artifact_id": 13094771030,
+    "artifact_zip_sha256": "0404fae912b1d2fea7a9ce853f4680aa73a415ec74f34be693bee1e279a9c87c",
+    "report": "../GENERATED_COMPARISON_RESULT_20261102.md"
+  },
+  "cost_scope": "historical 90-call study plus new 60-call study; invoice unknown",
+  "development_comparison_complete": true,
+  "independent_evaluation_complete": false,
+  "original_independent_superiority_goal_met": false
 }

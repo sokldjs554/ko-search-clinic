@@ -22,3 +22,4 @@ src/searchclinic/web/research-replay.json
 
 # Detailed live LLM evidence is local only pending publication approval.
 src/searchclinic/web/research-v5-live-details.json
+src/searchclinic/web/research-v5-generated-details.json

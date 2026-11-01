@@ -8,10 +8,11 @@
     context_support_not_confirmed:'문맥 근거 확인 부족', low_confidence:'고정 confidence 기준 미달'};
   const fmt = x => typeof x === 'number' ? x.toFixed(6) : '—';
   try {
-    const response = await fetch('research-v5-live-summary.json');
+    const response = await fetch(document.body.dataset.liveSummary || 'research-v5-live-summary.json');
     if (!response.ok) throw Error('실제 LLM 집계 기록을 읽을 수 없습니다.');
     const data = await response.json();
     if (data.version !== 'v5-live-public-summary-1') throw Error('지원하지 않는 집계 형식입니다.');
+    if (data.candidate_source === 'gpt_generated') names.first_valid = '새 GPT · 첫 유효 후보';
     for (const [name, title] of Object.entries(names)) {
       const a = data.arms[name]; const row = node('tr',''); row.append(node('td',title));
       for (const metric of ['ndcg10','recall10','precision5']) row.append(node('td',fmt(a.metrics.overall[metric])));
@@ -33,7 +34,7 @@
       human_semantic_review:data.semantic_human_review_complete, independent_evaluation:data.independent_evaluation_complete},null,2);
     document.querySelector('#live-report').hidden = false;
     document.querySelector('#live-load').textContent = '실제 저장 응답의 집계입니다. 이 화면은 API를 호출하지 않습니다.';
-    const privateResponse = await fetch('research-v5-live-details.json');
+    const privateResponse = await fetch(document.body.dataset.liveDetails || 'research-v5-live-details.json');
     if (!privateResponse.ok) return;
     const details = await privateResponse.json();
     if (details.assembly_hash !== data.assembly_hash) throw Error('상세 기록과 집계의 실행 해시가 다릅니다.');
@@ -45,7 +46,9 @@
       const panel=document.querySelector('#live-detail');panel.replaceChildren();
       panel.append(node('h3',q.query),node('p',`수정 전 nDCG@10 ${fmt(q.before.metrics.ndcg10)} → 선택 적용 후 ${fmt(trial.metrics.ndcg10)}`),
         node('p',`수정 전 순위: ${q.before.ranking.join(' → ') || '결과 없음'}`),node('p',`적용 후 순위: ${trial.ranking.join(' → ') || '결과 없음'}`));
-      if (!q.candidates.length) panel.append(node('p','이 질의에는 저장된 후보가 없습니다.'));
+      if (!q.candidates.length) panel.append(node('p',trial.decision.generation_error
+        ? '생성 또는 유효성 검사에서 사용 가능한 후보를 얻지 못했습니다. 모델의 자발적 보류와 구분합니다.'
+        : '이 질의에는 저장된 후보가 없습니다.'));
       q.candidates.forEach((candidate,index)=>{
         const decision=trial.decision.candidate_decisions[index]; const verdict=trial.verdicts[index]; const card=node('article','');
         card.append(node('h3',`후보 ${index+1} · ${trial.decision.candidate_index===index ? '적용' : '미선택/보류'}`),

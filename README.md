@@ -2,13 +2,42 @@
 
 한국어 검색 수정 후보를 **생성 → 형식 검사 → 의미 검증 → 선택·보류 → 검색 적용 → 별도 채점**하는 연구 프로젝트입니다. 연구 질문은 “LLM이 만든 수정 후보 중 의미를 보존하고 실제 검색을 개선하는 후보를 어떻게 고를 것인가?”입니다.
 
-**2026-10-31 실제 LLM 90회 판정을 완료했습니다. RulesPlus 대비 성능 우위는 입증하지 못했습니다.** 기존36질의·저장 scripted 후보15개의 개발 실험이며 새 GPT 후보 생성이나 독립 최종 평가 결과가 아닙니다. v3·v4 결과는 보존했습니다.
+**2026-11-02 새 GPT 생성·비교를 실제 실행했습니다. RulesPlus 대비 우위는 입증하지 못했습니다.** 생성36회와 Pair/Context/Rubric 판정24회, 총60회를 완료했고 API 오류0·사용량 기준 비용 추정$0.0649176입니다. 실제 청구액은 미확인입니다.
 
-[현재 연구 결론과 사람 판정](docs/research/v5/RESEARCH_CONCLUSION_20261101.md) · [실제 실험·실패 분석](docs/research/v5/LIVE_EXPERIMENT_20261031.md) · [실제 API 실행](https://github.com/sokldjs554/ko-search-clinic/actions/runs/41198330827) · [검증 상태](docs/research/v5/verification/final-status.json) · [Draft PR #3](https://github.com/sokldjs554/ko-search-clinic/pull/3) · [최신 Ubuntu·Windows 검사](https://github.com/sokldjs554/ko-search-clinic/pull/3/checks)
+## 연구 문제 → 방법 → 실제 결과
 
-**2026-11-02 후속 범위:** 추가 사람 검수는 보류하고 기존36질의에서 새 GPT 후보 생성·선택기 비교를 준비했습니다. 새 유료 호출은 아직0회이며 별도 승인을 기다립니다. 독립 평가 우위는 미검증으로 남깁니다. [실행 범위·예산·검증](docs/research/v5/GENERATED_COMPARISON_PREFLIGHT_20261102.md).
+한국어 검색 수정을 생성한 뒤 형식·원문 근거를 확인하고, 표현 쌍(Pair)·질문과 문맥(Context)·명시적 판단 기준(Rubric)으로 선택·보류합니다. 같은 후보의 선택기 비교와 자체 후보를 만드는 RulesPlus의 전체 시스템 비교를 구분했습니다. 정답은 검색 순위를 봉인한 뒤 별도 프로세스에서 읽었습니다.
 
-## 제안 방법과 실제 비교
+| 방식 | 개발36질의 nDCG@10 | 적용/36 | 정상 악화/20 |
+|---|---:|---:|---:|
+| No Repair | 0.583943 | 0 | 0 |
+| RulesPlus | 0.859490 | 13 | 1 |
+| 새 GPT 기본 | 0.611720 | 4 | 0 |
+| Pair 두 반복 각각 | 0.611720 | 2 / 2 | 0 / 0 |
+| Context 반복 평균 | 0.597832 | 0 / 1 | 0 / 0 |
+| Rubric 반복 평균 | 0.597832 | 0 / 1 | 0 / 0 |
+| Pair와 적용2건을 맞춘 Random100회 평균 | 0.598943 | 2 | 0 |
+
+Context/Rubric의 실제 반복별 점수는0.583943/0.611720입니다. 사전 고정한 Rubric−RulesPlus 차이는−0.261659, 보정97.5%구간[−0.385503,−0.112903]으로 최소 개선폭+0.01 조건을 만족하지 못했습니다. 주조건을 유리한 결과에 맞춰 바꾸지 않았습니다.
+
+## 개선·실패 사례와 한계
+
+- GPT가 생성한50후보 중46개가 처방 제약·대상 질의·원문 근거 검사에서 제외됐습니다. API 구조화 출력 성공과 실제 사용 가능한 수정은 달랐습니다.
+- 유효4후보 중 검색 효용이 있는1개를 Pair가 두 반복 모두 선택했습니다. GPT 기본과 같은 점수를 적용4건 대신2건으로 냈지만, 의미 정오의 사람 검증은 아닙니다.
+- 유효 후보 Oracle 상한도0.611720으로 RulesPlus보다 낮았습니다. 이번 실행의 우선 병목은 후보 생성이며, 선택기만 개선해서는 이 후보 풀의 한계를 넘을 수 없었습니다.
+- Context/Rubric은 동일한 유용 후보를 첫 반복에서는 보류하고 두 번째에서는 선택했습니다. confidence가 같아도 판단이 달라졌고, 기존 인용 위치 보정·zero-hit 규칙도 이번 점수를 높이지 못했습니다.
+
+이 결과는 **기존 개발36질의**입니다. 추가 검수는 중단했고, KLUE 관련성 검수51쌍은 질문1개이므로 새 독립 평가가 아닙니다. 성공v4 노출 감사도 미완료입니다. 따라서 현재 범위의 비교·분석을 마쳤지만 **독립 최종 성능 우위는 미검증**으로 남깁니다. 기존0.849239와 Oracle0.889498을 새 방법의 성과로 사용하지 않았습니다.
+
+[새 실제 결과·통계·재현](docs/research/v5/GENERATED_COMPARISON_RESULT_20261102.md) · [실제60회 실행](https://github.com/sokldjs554/ko-search-clinic/actions/runs/41333892182) · [집계·해시](docs/research/v5/verification/generated-comparison-result-20261102.json) · [검증 상태](docs/research/v5/verification/final-status.json) · [PR #3](https://github.com/sokldjs554/ko-search-clinic/pull/3)
+
+데모는 `clinic-api` 실행 후 `/demo/research-generated.html`에서 새 비교를 확인합니다. 자세한 실행 방법은 아래 **실행과 재현**에 있으며, 원시 응답을 이용한 무료 재분석 명령은 새 결과 보고서에 있습니다. 이전 실험은 다음 절과 `/demo/research.html`에 그대로 보존했습니다.
+
+**보존된 이전 실험(2026-10-31): 실제 LLM 90회 판정을 완료했으며 RulesPlus 대비 성능 우위는 입증하지 못했습니다.** 기존36질의·저장 scripted 후보15개의 개발 실험이며 새 GPT 후보 생성이나 독립 최종 평가 결과가 아닙니다. v3·v4 결과는 보존했습니다.
+
+[현재 연구 결론과 사람 판정](docs/research/v5/RESEARCH_CONCLUSION_20261101.md) · [실제 실험·실패 분석](docs/research/v5/LIVE_EXPERIMENT_20261031.md) · [실제 API 실행](https://github.com/sokldjs554/ko-search-clinic/actions/runs/41198330827) · [검증 상태](docs/research/v5/verification/final-status.json) · [PR #3](https://github.com/sokldjs554/ko-search-clinic/pull/3) · [최신 Ubuntu·Windows 검사](https://github.com/sokldjs554/ko-search-clinic/pull/3/checks)
+
+## 이전15후보90회 실험 · 보존 기록
 
 같은 후보를 **Pair(표현 쌍), Context(질문·검색 문맥), Rubric(명시적 판단 기준)**으로 각각2회 판단했습니다. 동의 관계, 같은 대상, 의미 범위, 인용 원문을 검사하고 후보별 검색을 원래 엔진에서 독립 적용합니다. 최종 정답은 순위 봉인 후 별도 채점 프로세스에서만 읽습니다. 모델 confidence는 보정된 검색 개선 확률로 취급하지 않습니다.
 
@@ -44,7 +73,7 @@ v4 첫 중단 실행의 동결120질의·3,367문서와 HTTP429 잔액 부족 �
 
 d·e의 제출112행은 사용자 확인에 따라 출력 정상 여부의 판정으로 보존했습니다. 이를 검색 관련성 grade0/2로 바꾸지 않았습니다. 후속 공통 질문10건은 제목·본문 일치 판단으로 보존했습니다. 이후6–56번의 관련성 제출을 수령했습니다. 재제출에서 생긴6쌍의 불일치를 c가 모두 근거 없음으로 조정했습니다. 제출된51쌍의 조정 후 판정은 근거 없음48·부분 근거3이며, 조정 전 일치율과 원본·수정 이력은 유지합니다. 초안 미참고 사용자 확인도 보존했습니다. 전체 정답 확정은 아닙니다. [조정 수령과 완료 범위](docs/research/v5/RELEVANCE_ADJUDICATION_INTAKE_20261102.md). [수령과 안내 수정](docs/research/v5/CALIBRATION_INTAKE_20261101.md). 개발·보정 전체는36질의·56문서입니다. 최종 후보153질의·233문서는 별도로 보관합니다. [현재 검수 준비와 v4 복원 한계](docs/research/v5/CONTINUATION_WITHOUT_V4_RAW_20261101.md).
 
-재현은 아래 **실행과 재현**, 실제 저장 응답의 무료 재분석은 [실험 보고서의 명령](docs/research/v5/LIVE_EXPERIMENT_20261031.md#무료-재현데모)을 따릅니다. API 재호출·독립 평가·main 병합은 완료하지 않았습니다.
+재현은 아래 **실행과 재현**, 실제 저장 응답의 무료 재분석은 [실험 보고서의 명령](docs/research/v5/LIVE_EXPERIMENT_20261031.md#무료-재현데모)을 따릅니다. 새 GPT 생성·개발 비교는 완료했으며, 독립 최종 평가와 main 병합은 완료하지 않았습니다.
 
 ## 기존 제출 결과: 120질의
 
@@ -105,6 +134,7 @@ python -m searchclinic.api.explanation_api
 ```
 
 - `http://127.0.0.1:8000/demo/`: 기존 RAG 응답 24건의 저장 기록. 새 API 호출 없이 검색어·토큰·후보·원문 인용·회귀 검사 결과를 확인합니다.
+- `http://127.0.0.1:8000/demo/research-generated.html`: 새 GPT 생성·의미 판정60회의 실제 비교. 로컬 exporter의 상세 파일을 무시 목록의 `src/searchclinic/web/research-v5-generated-details.json`에 연결하면 선택·보류 근거와 검색 전후를 확인할 수 있습니다.
 - `http://127.0.0.1:8000/demo/research.html`: 실제90회 의미 판정의 집계·비용·실패 원인과 사후 개발 분석. 로컬 exporter의 `demo-details.json`을 무시 목록의 `src/searchclinic/web/research-v5-live-details.json`에 두면 질의별 실제 판정·인용·선택·검색 전후가 표시됩니다. 기존 저장 후보 재생도 별도로 유지합니다.
 
 RAG24는 별도 모델·과제의 사후 인용 검증입니다. 지원 6·보류 12·차단 6, 후보 채택 4·기각 2는 [기존 기록](docs/verification/alba-20261027/README.md)입니다. 검색 성능 우위와 합산하지 않습니다. 기본 서버에서 유료 생성은 비활성화됩니다.
