@@ -23,9 +23,9 @@
     "page_errors": []
   },
   "remote_ci": {
-    "source_commit": "8bce8463e0a531d65899693a356e9cb8c3279781",
-    "run_id": 41325794820,
-    "url": "https://github.com/sokldjs554/ko-search-clinic/actions/runs/41325794820",
+    "source_commit": "ee6a64230a8303fac07f305781ba417ef85135ba",
+    "run_id": 41326780755,
+    "url": "https://github.com/sokldjs554/ko-search-clinic/actions/runs/41326780755",
     "status": "completed",
     "conclusion": "success",
     "note": "Latest verified prior head; subsequent documentation CI recorded in PR3.",
@@ -1970,5 +1970,66 @@
     "new_retrieval_scores": 0,
     "research_complete": false,
     "script_sha256": "62ef895ff54d020194c58bcf7f0f43797d32a1a73251a5e35d8603ac07d68080"
+  },
+  "remote_ci_before_adjudication_intake": {
+    "source_commit": "8bce8463e0a531d65899693a356e9cb8c3279781",
+    "run_id": 41325794820,
+    "url": "https://github.com/sokldjs554/ko-search-clinic/actions/runs/41325794820",
+    "status": "completed",
+    "conclusion": "success",
+    "note": "Latest verified prior head; subsequent documentation CI recorded in PR3.",
+    "ubuntu": "success",
+    "windows": "success",
+    "baseline": "success"
+  },
+  "relevance_adjudication_intake": {
+    "version": "relevance-adjudication-intake-20261102",
+    "received_files": 1,
+    "adjudicator_alias": "c",
+    "adjudicator_distinct_from_initial_aliases": true,
+    "identity_status": "self_reported_not_independently_authenticated",
+    "completed_adjudications": 6,
+    "adjudication_grade_counts": {
+      "0": 6
+    },
+    "remaining_disagreements_in_submitted_pairs": 0,
+    "unique_submitted_pairs": 51,
+    "reported_resolved_pairs": 51,
+    "reported_resolved_grade_counts": {
+      "0": 48,
+      "1": 3
+    },
+    "remaining_partial_grade_boundary_cases": 3,
+    "pre_adjudication_agreement_unchanged": {
+      "paired_graded": 51,
+      "total_items": 51,
+      "weighting": "quadratic",
+      "observed_agreement": 0.8823529411764706,
+      "kappa": 0.4516129032258065,
+      "kappa_status": "defined"
+    },
+    "full_calibration_pairs": 2016,
+    "calibration_pairs_without_two_submissions": 1965,
+    "final_candidate_queries": 153,
+    "final_candidate_documents": 233,
+    "final_candidate_pairs": 35649,
+    "final_candidate_human_judgments_completed": 0,
+    "source_sha256": "dab57abcaa703cd2f8a78488d7c58c244a4a52def1f870c79adfebeeac03e486",
+    "source_bytes": 26475,
+    "changed_allowed_cells": 14,
+    "unexpected_value_changes": 0,
+    "formula_cells": 0,
+    "external_links": 0,
+    "reported_batch_time_kst": "2026-11-02 01:55",
+    "batch_time_utc": "2026-11-01T16:55:00Z",
+    "individual_times_inferred": false,
+    "user_no_draft_reference_attestation_retained": true,
+    "all_previous_versions_retained": true,
+    "new_provider_calls": 0,
+    "new_retrieval_scores": 0,
+    "labels_complete": false,
+    "final_evaluation_ready": false,
+    "research_complete": false,
+    "script_sha256": "b636e0213d2fe076ec8ba4942fdfcc6c2147c57d79dc1229e53a573cebde0334"
   }
 }
