@@ -23,33 +23,15 @@
     "page_errors": []
   },
   "remote_ci": {
-    "source_commit": "897a68dd0374b35667b0d0cf524d300275769179",
-    "run_id": 41279099947,
-    "url": "https://github.com/sokldjs554/ko-search-clinic/actions/runs/41279099947",
+    "source_commit": "54ab2a385f320da95889f0ee66be8abacfb2b34b",
+    "run_id": 41279415616,
+    "url": "https://github.com/sokldjs554/ko-search-clinic/actions/runs/41279415616",
     "status": "completed",
     "conclusion": "success",
-    "ubuntu": "694 passed, 2 skipped in 53.89s",
-    "windows": "694 passed, 2 skipped in 135.39s",
+    "ubuntu": "694 passed, 2 skipped in 91.57s",
+    "windows": "694 passed, 2 skipped in 119.66s",
     "baseline": "success",
-    "jobs": [
-      {
-        "id": 124767155018,
-        "name": "검색 품질 게이트",
-        "conclusion": "success"
-      },
-      {
-        "id": 124767155202,
-        "name": "테스트 (windows-latest)",
-        "conclusion": "success"
-      },
-      {
-        "id": 124767155285,
-        "name": "테스트 (ubuntu-latest)",
-        "conclusion": "success"
-      }
-    ],
-    "latest_branch_checks_url": "https://github.com/sokldjs554/ko-search-clinic/pull/3/checks",
-    "note": "Verified research report/demo commit; subsequent documentation-only commit records these results. Its exact-head CI is recorded in PR3 to avoid a self-referential commit hash."
+    "note": "Previous exact head verified; c follow-up head CI is recorded in PR3 after completion."
   },
   "paid_api_calls": 90,
   "review": {
@@ -83,7 +65,7 @@
     "draft": true,
     "merged": false,
     "mergeable_at_code_check": true,
-    "status": "research conclusions and human reconciliation recorded; c and independent evaluation pending"
+    "status": "c decision content received and development analysis updated; independent evaluation pending"
   },
   "previous_verified_ci": {
     "source_commit": "fd073c5efd48ea94ab290ae1439b8e99155f133c",
@@ -631,20 +613,251 @@
     "snapshot": "Historical handoff before actual submissions; current status is human_review_current."
   },
   "previous_verified_remote_ci": {
-    "source_commit": "deb9f6d38d6cfc91cd209530c337bdb807c7204b",
-    "run_id": 41206143286,
-    "url": "https://github.com/sokldjs554/ko-search-clinic/actions/runs/41206143286",
+    "source_commit": "897a68dd0374b35667b0d0cf524d300275769179",
+    "run_id": 41279099947,
+    "url": "https://github.com/sokldjs554/ko-search-clinic/actions/runs/41279099947",
     "status": "completed",
     "conclusion": "success",
-    "ubuntu": "694 passed, 2 skipped in 87.00s",
-    "windows": "694 passed, 2 skipped in 106.29s",
+    "ubuntu": "694 passed, 2 skipped in 53.89s",
+    "windows": "694 passed, 2 skipped in 135.39s",
     "baseline": "success",
-    "pr_run_id": 41206146210,
-    "pr_checks": "success",
-    "rechecked_at": "2026-11-01",
-    "note": "Most recently verified branch head before this research report update; new head CI is tracked on PR3."
+    "jobs": [
+      {
+        "id": 124767155018,
+        "name": "검색 품질 게이트",
+        "conclusion": "success"
+      },
+      {
+        "id": 124767155202,
+        "name": "테스트 (windows-latest)",
+        "conclusion": "success"
+      },
+      {
+        "id": 124767155285,
+        "name": "테스트 (ubuntu-latest)",
+        "conclusion": "success"
+      }
+    ],
+    "latest_branch_checks_url": "https://github.com/sokldjs554/ko-search-clinic/pull/3/checks",
+    "note": "Verified research report/demo commit; subsequent documentation-only commit records these results. Its exact-head CI is recorded in PR3 to avoid a self-referential commit hash."
   },
   "human_review_current": {
+    "version": "v5-adjudication-content-summary-20261101",
+    "source_sha256": "3fddea79a762d5064aea422cbadf8f8b63e691a8724fece313811e5d2431ffc6",
+    "content_receipt_sha256": "5c98217622417eb9ba50bf878fe6ed3a6796c4075b06ca31173d841d08eb35b3",
+    "adjudicator": "c",
+    "submitted_decisions": 12,
+    "coverage_matches_pending_queue": true,
+    "adjudicated_true": 12,
+    "adjudicated_false": 0,
+    "preserved_initial_agreements": 3,
+    "candidate_total": 15,
+    "reported_true": 12,
+    "reported_false": 3,
+    "pending_decision_content": 0,
+    "decision_content_complete": true,
+    "timestamp_metadata_complete": false,
+    "official_reconcile_receipt_created": false,
+    "missing_metadata": "review calendar date; UTC instant not inferred",
+    "reason_quality": "generic agreement wording; not source-grounded error-type review",
+    "initial_agreement": {
+      "kappa": -0.25,
+      "kappa_status": "defined",
+      "observed_agreement": 0.6,
+      "paired_graded": 5,
+      "total_items": 15,
+      "weighting": "unweighted"
+    },
+    "independent_final_evaluation_ready": false,
+    "additional_provider_calls": 0,
+    "selector_diagnostic": {
+      "first_valid": {
+        "selected": 14,
+        "selected_reported_true": 11,
+        "selected_reported_false": 3,
+        "selected_unknown": 0,
+        "reported_true_not_selected": 1,
+        "ndcg10": 0.8492385034822596
+      },
+      "pair:1": {
+        "selected": 9,
+        "selected_reported_true": 8,
+        "selected_reported_false": 1,
+        "selected_unknown": 0,
+        "reported_true_not_selected": 4,
+        "ndcg10": 0.8061648772956027
+      },
+      "pair:2": {
+        "selected": 10,
+        "selected_reported_true": 9,
+        "selected_reported_false": 1,
+        "selected_unknown": 0,
+        "reported_true_not_selected": 3,
+        "ndcg10": 0.8061648772956027
+      },
+      "context:1": {
+        "selected": 0,
+        "selected_reported_true": 0,
+        "selected_reported_false": 0,
+        "selected_unknown": 0,
+        "reported_true_not_selected": 12,
+        "ndcg10": 0.5839426550733804
+      },
+      "context:2": {
+        "selected": 0,
+        "selected_reported_true": 0,
+        "selected_reported_false": 0,
+        "selected_unknown": 0,
+        "reported_true_not_selected": 12,
+        "ndcg10": 0.5839426550733804
+      },
+      "rubric:1": {
+        "selected": 0,
+        "selected_reported_true": 0,
+        "selected_reported_false": 0,
+        "selected_unknown": 0,
+        "reported_true_not_selected": 12,
+        "ndcg10": 0.5839426550733804
+      },
+      "rubric:2": {
+        "selected": 0,
+        "selected_reported_true": 0,
+        "selected_reported_false": 0,
+        "selected_unknown": 0,
+        "reported_true_not_selected": 12,
+        "ndcg10": 0.5839426550733804
+      }
+    },
+    "retrieval_results_unchanged": true,
+    "protocol_hash": "13d32338ace8822fbd7dc7d219bd3118810a2b85d3752d5bf0dca8f667d1b2d5",
+    "assembly_hash": "b2711259419bff8f435af89c57a19aa89f1f022f339423fd7638d3bb4dfcc6d6"
+  },
+  "closeout_20261101": {
+    "scope": "completed available development analysis; external final evaluation incomplete",
+    "additional_provider_calls": 0,
+    "research_complete": false,
+    "superiority_claim": false,
+    "reproduction": {
+      "replayed_reports_equal": {
+        "scores": true,
+        "arms": true,
+        "paired_primary": true,
+        "paired_conditions": true,
+        "repeat_variability": true,
+        "matched_random": true,
+        "threshold_diagnostic": true,
+        "numerical_criteria_met": true,
+        "superiority_claim": true
+      },
+      "independent_dataset_manifest_files_verified": 12,
+      "independent_manifest_sha256": "12d67332ff6af6ef6e1bcfffbe8dc2e5a05ae98bc2aee61784e2dd35650c9afe",
+      "final_evaluation_ready": false,
+      "new_provider_calls": 0,
+      "original_protocol_sha256": "13d32338ace8822fbd7dc7d219bd3118810a2b85d3752d5bf0dca8f667d1b2d5",
+      "application_replay": {
+        "context:1": {
+          "full_application_equal": true,
+          "rankings_equal": true,
+          "decisions_equal": true
+        },
+        "context:2": {
+          "full_application_equal": true,
+          "rankings_equal": true,
+          "decisions_equal": true
+        },
+        "first_valid": {
+          "full_application_equal": true,
+          "rankings_equal": true,
+          "decisions_equal": true
+        },
+        "pair:1": {
+          "full_application_equal": true,
+          "rankings_equal": true,
+          "decisions_equal": true
+        },
+        "pair:2": {
+          "full_application_equal": true,
+          "rankings_equal": true,
+          "decisions_equal": true
+        },
+        "rubric:1": {
+          "full_application_equal": true,
+          "rankings_equal": true,
+          "decisions_equal": true
+        },
+        "rubric:2": {
+          "full_application_equal": true,
+          "rankings_equal": true,
+          "decisions_equal": true
+        },
+        "rules_plus": {
+          "full_application_equal": false,
+          "rankings_equal": true,
+          "decisions_equal": true
+        }
+      }
+    },
+    "report": "../RESEARCH_CONCLUSION_20261101.md",
+    "adjudication_packet_created": true,
+    "remaining_external_inputs": [
+      "independent retrieval relevance/concept/exposure review",
+      "separately approved new GPT generation and final model judgments",
+      "authorized v3/v4 decryption path"
+    ],
+    "local_verification": "passed",
+    "browser_human": {
+      "research_human_section": true,
+      "adjudication_items": 12,
+      "viewports": [
+        1440,
+        390,
+        320
+      ],
+      "page_errors": []
+    },
+    "c_packet_sha256": "2d2fa13c332fa74ee5cdc5b3b52686dec3bb62be648aec6984b3f688c39245e5",
+    "c_adjudication_content_received": 12,
+    "c_metadata_limitations": "calendar date absent; no UTC instant fabricated; strict receipt not created"
+  },
+  "previous_before_closeout_20261101": {
+    "local": {
+      "pytest": "694 passed, 2 skipped in 103.40s",
+      "command": "pytest -q -rs --junitxml=work/v5-review-next/local-tests-final.xml",
+      "python": "Python 3.12.14",
+      "private_log": "work/v5-review-next/pytest-final.log",
+      "focused_review_and_portability": "30 passed in 2.73s",
+      "baseline": "passed; nDCG10 0.5839426550733804",
+      "pyflakes": "passed for review module, CLI and tests",
+      "diff_check": "passed"
+    },
+    "browser": {
+      "research_queries": 36,
+      "live_queries": 36,
+      "summary_arms": 3,
+      "live_summary_arms": 9,
+      "viewports": [
+        1440,
+        320,
+        390
+      ],
+      "rag_replay_loaded": true,
+      "page_errors": []
+    },
+    "browser_public": {
+      "research_queries": 0,
+      "live_queries": 0,
+      "summary_arms": 3,
+      "live_summary_arms": 9,
+      "viewports": [
+        1440,
+        320,
+        390
+      ],
+      "rag_replay_loaded": true,
+      "page_errors": []
+    }
+  },
+  "human_review_before_c": {
     "version": "v5-human-intake-summary-20261101",
     "scope": "development candidate judgments; coordinator-assisted normalization; exploratory",
     "reviewers": 2,
@@ -852,104 +1065,114 @@
       }
     }
   },
-  "closeout_20261101": {
-    "scope": "completed available development analysis; external final evaluation incomplete",
+  "adjudication_current": {
+    "version": "v5-adjudication-content-summary-20261101",
+    "source_sha256": "3fddea79a762d5064aea422cbadf8f8b63e691a8724fece313811e5d2431ffc6",
+    "content_receipt_sha256": "5c98217622417eb9ba50bf878fe6ed3a6796c4075b06ca31173d841d08eb35b3",
+    "adjudicator": "c",
+    "submitted_decisions": 12,
+    "coverage_matches_pending_queue": true,
+    "adjudicated_true": 12,
+    "adjudicated_false": 0,
+    "preserved_initial_agreements": 3,
+    "candidate_total": 15,
+    "reported_true": 12,
+    "reported_false": 3,
+    "pending_decision_content": 0,
+    "decision_content_complete": true,
+    "timestamp_metadata_complete": false,
+    "official_reconcile_receipt_created": false,
+    "missing_metadata": "review calendar date; UTC instant not inferred",
+    "reason_quality": "generic agreement wording; not source-grounded error-type review",
+    "initial_agreement": {
+      "kappa": -0.25,
+      "kappa_status": "defined",
+      "observed_agreement": 0.6,
+      "paired_graded": 5,
+      "total_items": 15,
+      "weighting": "unweighted"
+    },
+    "independent_final_evaluation_ready": false,
     "additional_provider_calls": 0,
-    "research_complete": false,
-    "superiority_claim": false,
-    "reproduction": {
-      "replayed_reports_equal": {
-        "scores": true,
-        "arms": true,
-        "paired_primary": true,
-        "paired_conditions": true,
-        "repeat_variability": true,
-        "matched_random": true,
-        "threshold_diagnostic": true,
-        "numerical_criteria_met": true,
-        "superiority_claim": true
+    "selector_diagnostic": {
+      "first_valid": {
+        "selected": 14,
+        "selected_reported_true": 11,
+        "selected_reported_false": 3,
+        "selected_unknown": 0,
+        "reported_true_not_selected": 1,
+        "ndcg10": 0.8492385034822596
       },
-      "independent_dataset_manifest_files_verified": 12,
-      "independent_manifest_sha256": "12d67332ff6af6ef6e1bcfffbe8dc2e5a05ae98bc2aee61784e2dd35650c9afe",
-      "final_evaluation_ready": false,
-      "new_provider_calls": 0,
-      "original_protocol_sha256": "13d32338ace8822fbd7dc7d219bd3118810a2b85d3752d5bf0dca8f667d1b2d5",
-      "application_replay": {
-        "context:1": {
-          "full_application_equal": true,
-          "rankings_equal": true,
-          "decisions_equal": true
-        },
-        "context:2": {
-          "full_application_equal": true,
-          "rankings_equal": true,
-          "decisions_equal": true
-        },
-        "first_valid": {
-          "full_application_equal": true,
-          "rankings_equal": true,
-          "decisions_equal": true
-        },
-        "pair:1": {
-          "full_application_equal": true,
-          "rankings_equal": true,
-          "decisions_equal": true
-        },
-        "pair:2": {
-          "full_application_equal": true,
-          "rankings_equal": true,
-          "decisions_equal": true
-        },
-        "rubric:1": {
-          "full_application_equal": true,
-          "rankings_equal": true,
-          "decisions_equal": true
-        },
-        "rubric:2": {
-          "full_application_equal": true,
-          "rankings_equal": true,
-          "decisions_equal": true
-        },
-        "rules_plus": {
-          "full_application_equal": false,
-          "rankings_equal": true,
-          "decisions_equal": true
-        }
+      "pair:1": {
+        "selected": 9,
+        "selected_reported_true": 8,
+        "selected_reported_false": 1,
+        "selected_unknown": 0,
+        "reported_true_not_selected": 4,
+        "ndcg10": 0.8061648772956027
+      },
+      "pair:2": {
+        "selected": 10,
+        "selected_reported_true": 9,
+        "selected_reported_false": 1,
+        "selected_unknown": 0,
+        "reported_true_not_selected": 3,
+        "ndcg10": 0.8061648772956027
+      },
+      "context:1": {
+        "selected": 0,
+        "selected_reported_true": 0,
+        "selected_reported_false": 0,
+        "selected_unknown": 0,
+        "reported_true_not_selected": 12,
+        "ndcg10": 0.5839426550733804
+      },
+      "context:2": {
+        "selected": 0,
+        "selected_reported_true": 0,
+        "selected_reported_false": 0,
+        "selected_unknown": 0,
+        "reported_true_not_selected": 12,
+        "ndcg10": 0.5839426550733804
+      },
+      "rubric:1": {
+        "selected": 0,
+        "selected_reported_true": 0,
+        "selected_reported_false": 0,
+        "selected_unknown": 0,
+        "reported_true_not_selected": 12,
+        "ndcg10": 0.5839426550733804
+      },
+      "rubric:2": {
+        "selected": 0,
+        "selected_reported_true": 0,
+        "selected_reported_false": 0,
+        "selected_unknown": 0,
+        "reported_true_not_selected": 12,
+        "ndcg10": 0.5839426550733804
       }
     },
-    "report": "../RESEARCH_CONCLUSION_20261101.md",
-    "adjudication_packet_created": true,
-    "remaining_external_inputs": [
-      "c adjudication for 12 items",
-      "independent retrieval relevance/concept/exposure review",
-      "separately approved new GPT generation and final model judgments",
-      "authorized v3/v4 decryption path"
-    ],
-    "local_verification": "passed",
-    "browser_human": {
-      "research_human_section": true,
-      "adjudication_items": 12,
+    "retrieval_results_unchanged": true,
+    "protocol_hash": "13d32338ace8822fbd7dc7d219bd3118810a2b85d3752d5bf0dca8f667d1b2d5",
+    "assembly_hash": "b2711259419bff8f435af89c57a19aa89f1f022f339423fd7638d3bb4dfcc6d6"
+  },
+  "c_followup_validation": {
+    "focused_tests": "59 passed in 11.80s",
+    "command": "pytest -q -rs tests/test_v5_human_review.py tests/test_v5_review_regressions.py tests/test_v5_comparison.py",
+    "public_browser": {
+      "research_queries": 0,
+      "live_queries": 0,
+      "summary_arms": 3,
+      "live_summary_arms": 9,
       "viewports": [
         1440,
-        390,
-        320
+        320,
+        390
       ],
+      "rag_replay_loaded": true,
       "page_errors": []
     },
-    "c_packet_sha256": "2d2fa13c332fa74ee5cdc5b3b52686dec3bb62be648aec6984b3f688c39245e5"
-  },
-  "previous_before_closeout_20261101": {
-    "local": {
-      "pytest": "694 passed, 2 skipped in 103.40s",
-      "command": "pytest -q -rs --junitxml=work/v5-review-next/local-tests-final.xml",
-      "python": "Python 3.12.14",
-      "private_log": "work/v5-review-next/pytest-final.log",
-      "focused_review_and_portability": "30 passed in 2.73s",
-      "baseline": "passed; nDCG10 0.5839426550733804",
-      "pyflakes": "passed for review module, CLI and tests",
-      "diff_check": "passed"
-    },
-    "browser": {
+    "detail_browser": {
       "research_queries": 36,
       "live_queries": 36,
       "summary_arms": 3,
@@ -962,18 +1185,8 @@
       "rag_replay_loaded": true,
       "page_errors": []
     },
-    "browser_public": {
-      "research_queries": 0,
-      "live_queries": 0,
-      "summary_arms": 3,
-      "live_summary_arms": 9,
-      "viewports": [
-        1440,
-        320,
-        390
-      ],
-      "rag_replay_loaded": true,
-      "page_errors": []
-    }
+    "source_validation": "12 unique pending identities, valid c alias and boolean decisions; UTC date absent; strict receipt not created",
+    "score_invariance": "scores, paired intervals, random comparisons, repeat and threshold diagnostics unchanged",
+    "new_provider_calls": 0
   }
 }
