@@ -9,7 +9,8 @@
 <div class="scroll"><table><thead><tr><th>조건 / 반복</th><th>nDCG@10</th><th>Recall@10</th><th>P@5</th><th>적용/보류</th><th>정상 악화</th><th>유용 후보 미선택</th></tr></thead><tbody id="live-summary"></tbody></table></div>
 <p id="live-random"></p><p id="live-grounding"></p>
 <p id="live-zero-hit"></p>
-<p>confidence 0.8은 고정 기준이며 보정된 개선 확률이나 최적 임계값이 아닙니다. 의미의 정오에 대한 독립 사람 검수는 아직 없으며, 검색 효용과 구별합니다.</p>
+<p>confidence 0.8은 고정 기준이며 보정된 개선 확률이나 최적 임계값이 아닙니다. 사람2인의 최초 판정은 수령했으며, 조정 전 탐색 자료로 검색 효용과 구별합니다.</p>
+<section id="human-review-summary"><h2>사람 판정 후속 · 2026-11-01</h2><p>15후보에 대한 2인 제출30행을 수령했습니다. 두 사람 모두 확정한5건 중3건 일치(60%, κ−0.25), 불일치2건과 한 명 이상 보류10건은 c의 조정 대기입니다. 수치는 적은 표본의 탐색 결과이며 최종 의미 정답·독립 평가가 아닙니다.</p><p>Pair는 두 사람이 모두 FALSE로 판정한 후보1개를 두 반복 모두 선택했습니다. 입력 정규화는 사용자 확인에 근거했고, 구체적 원문 인용과 세부 오류 유형 검수는 미완료입니다. 기존 검색 성능 결론은 바뀌지 않았습니다.</p><p><a href="https://github.com/sokldjs554/ko-search-clinic/blob/feat/research-verification-v5-20261030/docs/research/v5/RESEARCH_CONCLUSION_20261101.md">연구 결론과 사람 판정 분석</a></p></section>
 <section id="live-query-section" hidden><h2>실제 판정의 선택·보류 사유와 검색 전후</h2>
 <label for="live-queries">질의</label> <select id="live-queries"></select>
 <label for="live-condition">조건 / 반복</label> <select id="live-condition"></select><div id="live-detail"></div></section>

@@ -4,7 +4,7 @@
 
 **2026-10-31 실제 LLM 90회 판정을 완료했습니다. RulesPlus 대비 성능 우위는 입증하지 못했습니다.** 기존36질의·저장 scripted 후보15개의 개발 실험이며 새 GPT 후보 생성이나 독립 최종 평가 결과가 아닙니다. v3·v4 결과는 보존했습니다.
 
-[실제 실험·실패 분석](docs/research/v5/LIVE_EXPERIMENT_20261031.md) · [실제 API 실행](https://github.com/sokldjs554/ko-search-clinic/actions/runs/41198330827) · [검증 상태](docs/research/v5/verification/final-status.json) · [Draft PR #3](https://github.com/sokldjs554/ko-search-clinic/pull/3) · [최신 Ubuntu·Windows 검사](https://github.com/sokldjs554/ko-search-clinic/pull/3/checks)
+[현재 연구 결론과 사람 판정](docs/research/v5/RESEARCH_CONCLUSION_20261101.md) · [실제 실험·실패 분석](docs/research/v5/LIVE_EXPERIMENT_20261031.md) · [실제 API 실행](https://github.com/sokldjs554/ko-search-clinic/actions/runs/41198330827) · [검증 상태](docs/research/v5/verification/final-status.json) · [Draft PR #3](https://github.com/sokldjs554/ko-search-clinic/pull/3) · [최신 Ubuntu·Windows 검사](https://github.com/sokldjs554/ko-search-clinic/pull/3/checks)
 
 ## 제안 방법과 실제 비교
 
@@ -33,6 +33,8 @@
 - **추가 호출 없는 사후 개발 규칙을 분리 평가했습니다.** 원문에 유일하게 존재하는 인용의 위치만 복원하면 Rubric 평균은0.639498이었습니다. 원래 검색이0건일 때 의미 기준을 통과하고 결과를 만든 후보를 우선하면 Pair는 두 반복 모두0.833943으로 높아졌습니다. 정상 악화0건이지만 RulesPlus보다 낮고 독립 검증 전입니다. 원래 실험을 이 결과로 대체하지 않았습니다.
 
 ## 연구의 한계와 다음 조건
+
+**2026-11-01 사람 판정 후속:** 기존15후보에 대해 a·b가 각각15행을 제출했습니다. 일치3건·불일치2건·한 명 이상 보류10건이며 c용 조정자료를 준비했습니다. Pair는 두 사람이 모두 FALSE로 판정한 후보1개를 두 반복 모두 선택했습니다. 조정 전 탐색 결과이므로 확정 의미 오류율로 부르지 않습니다. [분석과 한계](docs/research/v5/RESEARCH_CONCLUSION_20261101.md#실제-사람-판정-수령과-조정).
 
 새 KLUE MRC 자료 후보200질의·300문서를 확보하고 분할·해시·중복 검사·검수표를 준비했습니다. MRC 정답 연결은 검색 관련성 정답이 아니며 **사람 검수0건**, 의미 중복·과거120질의 전체 노출 감사도 미완료입니다. 기존 개발 점수로 최종 독립 우위를 주장하지 않습니다. [검수 지침](docs/research/v5/HUMAN_REVIEW.md) · [비공개 전달물·제출본 검증](docs/research/v5/REVIEW_INTAKE.md).
 
@@ -106,7 +108,7 @@ RAG24는 별도 모델·과제의 사후 인용 검증입니다. 지원 6·보�
 ## 아직 확인하지 못한 것
 
 - v3·v4 암호화 원시 결과의 질의별 퍼널·전체 후보 Oracle: 복호화 자료 없음.
-- 실제90회 판단의 독립 의미 정오 검수: 아직0건. 모델 출력 빈도와 검색 효용을 의미 정확도로 대체하지 않음.
+- 실제90회 판단의 의미 정오 검수: 사람2인 최초 제출30행 수령, 확정/보류19/11. 공통 확정5건 중3건 일치(60%, κ−0.25), 조정12건 대기. 일반적인 출력 정오 근거와 안내 혼선이 있어 탐색 자료로만 사용하며 최종 의미 정답은 미완성.
 - 새 최종 평가: KLUE200질의·300문서 후보 확보, 독립 관련성·개념 검수와 완전 노출 감사 미완료. 기존 120질의를 새 맹검 자료로 재사용하지 않음.
 - 새 방법 대 RulesPlus·GPT의 독립 성능: 미측정. 기존 후보 선택기의 개발 성능·지연·비용·2회 반복은 위 실험에 기록.
 - RFL 학습: 검수된 충분한 후보 판정 자료가 없어 수행하지 않음. [논문 검토와 후속 실험 조건](docs/research/v5/PROTOCOL.md).

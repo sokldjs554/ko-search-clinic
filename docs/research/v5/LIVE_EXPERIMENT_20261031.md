@@ -1,5 +1,7 @@
 # 실제 LLM 의미 판정 실험 — 2026-10-31
 
+후속 사람 판정 수령과 재현 결과는 [2026-11-01 연구 결론](RESEARCH_CONCLUSION_20261101.md)을 참조한다. 아래 사람 검수 미완료 표현은 원래 실험 시점의 기록이다.
+
 **90회 실제 호출을 완료했다. 새 방법의 RulesPlus 대비 우위는 입증되지 않았다.** 사전 고정한 주조건 Rubric은 모든 후보를 보류했다. Pair는 무수정보다 개선됐지만 RulesPlus보다 낮았다. 아래 결과는 이미 관측한 36질의·저장 scripted 후보15개의 **개발용 선택기 실험**이며 독립 최종 평가가 아니다. GPT 후보 생성 성능은 측정하지 않았다.
 
 [실제 실행](https://github.com/sokldjs554/ko-search-clinic/actions/runs/41198330827) · [기계 판독 집계](../../../src/searchclinic/web/research-v5-live-summary.json) · [PR #3](https://github.com/sokldjs554/ko-search-clinic/pull/3) · [코드 검증 상태](verification/final-status.json)
