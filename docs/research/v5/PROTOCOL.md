@@ -2,7 +2,7 @@
 
 ## 현재 단계와 실행 순서
 
-현재 구현·실행된 것은 무료 코드 검증과 **이미 관측한 개발 자료의 사후 진단**이다. 새 독립 최종 평가와 LLM 판단 비교는 미실행이다. 이 파일은 사후 개발 분석과 앞으로의 확증 실험을 구분한다. 기록 날짜: 2026-10-30.
+이 파일의 최초 제안은2026-10-30 기록이다. 이후2026-10-31에 승인된 개발 LLM 판단90회를 실행했고 a·b·c의 기존15후보 제출도 수령했다. [실제 결과](LIVE_EXPERIMENT_20261031.md)와 [현재 연구 결론](RESEARCH_CONCLUSION_20261101.md)을 따른다. 새 독립 최종 평가는 미실행이다. 과거 제안·사후 개발 분석·미실행 확증 계획을 구별하며 이번 문서 갱신으로 기존 봉인 프로토콜을 변경하지 않는다.
 
 1. 원자료·문서·질의·후보·코드·모델·입력 조건·임계값·예산을 고정한다.
 2. 공개 입력에는 질의와 원문 근거, 고정 후보만 넣는다. 정답, healthy/failure, 최종 점수, gate 채택 피드백은 넣지 않는다.
@@ -25,7 +25,7 @@ python -m searchclinic.research_v5 score work/v5-prepared/empty-verdict-applicat
   --out work/v5-prepared/empty-verdict-scores.json
 ```
 
-빈 판정 파일은 **누락 판정을 보류하는 안전 동작 검사**다. 모델 실험이나 보류 정책의 성능 우위가 아니다. 실제 외부 판정 파일을 넣을 때는 `SemanticVerdict`의 조건·해시·모델과 모든 patch의 assessment를 충족해야 한다. `requests` 명령으로 조건별 요청을 내보낼 수 있지만 네트워크 호출은 구현에 포함하지 않는다.
+빈 판정 파일은 **누락 판정을 보류하는 안전 동작 검사**다. 모델 실험이나 보류 정책의 성능 우위가 아니다. 실제 외부 판정 파일을 넣을 때는 `SemanticVerdict`의 조건·해시·모델과 모든 patch의 assessment를 충족해야 한다. `requests` 명령 자체는 조건별 요청만 내보낸다. 후속 실제 transport는 별도 구현·실행됐으며 [원격 실행 문서](REMOTE_EXECUTION.md)를 따른다.
 
 `--policy first_valid`는 의미 검증을 제거한 구성요소 제거 조건이다. `--condition pair`는 근거 문맥을 제공하지 않는 약한 조건이며 `context_supported=null`과 인용 없음으로 명시한다. 문맥/rubric 조건은 각 patch의 exact quote와 Unicode code-point 위치를 확인한다. 인용의 존재·판정 schema는 실제 의미 판단의 정확성을 보증하지 않는다. 후보를 점수순으로 선택할 때는 모든 수정 요소 confidence의 최솟값을 사용하며 동률은 원래 후보 순서를 따른다. 0.8 임계값은 현재 공학적 기본값이며 보정된 개선확률이 아니다.
 

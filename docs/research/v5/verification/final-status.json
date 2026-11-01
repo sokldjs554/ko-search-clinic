@@ -23,15 +23,15 @@
     "page_errors": []
   },
   "remote_ci": {
-    "source_commit": "8a63e60a826304eb9f69c9465da6b14ca61816e4",
-    "run_id": 41286470279,
-    "url": "https://github.com/sokldjs554/ko-search-clinic/actions/runs/41286470279",
+    "source_commit": "e730426fa2444c0b72f423fcd667f64ff33a1638",
+    "run_id": 41287766465,
+    "url": "https://github.com/sokldjs554/ko-search-clinic/actions/runs/41287766465",
     "status": "completed",
     "conclusion": "success",
-    "ubuntu": "694 passed, 2 skipped in 89.64s",
-    "windows": "694 passed, 2 skipped in 109.42s",
+    "ubuntu": "694 passed, 2 skipped in 87.79s",
+    "windows": "694 passed, 2 skipped in 136.76s",
     "baseline": "success",
-    "note": "Latest verified prior head; subsequent documentation CI recorded in PR3."
+    "note": "Latest verified prior head; documentation follow-up CI recorded in PR3."
   },
   "paid_api_calls": 90,
   "review": {
@@ -1367,5 +1367,119 @@
     "v3_shared_document_ids": 0,
     "v3_shared_query_texts": 0,
     "version": "v4-quota-intake-20261101"
+  },
+  "remote_ci_before_continuation": {
+    "source_commit": "8a63e60a826304eb9f69c9465da6b14ca61816e4",
+    "run_id": 41286470279,
+    "url": "https://github.com/sokldjs554/ko-search-clinic/actions/runs/41286470279",
+    "status": "completed",
+    "conclusion": "success",
+    "ubuntu": "694 passed, 2 skipped in 89.64s",
+    "windows": "694 passed, 2 skipped in 109.42s",
+    "baseline": "success",
+    "note": "Latest verified prior head; subsequent documentation CI recorded in PR3."
+  },
+  "continuation_without_v4_raw": {
+    "existing_15_candidate_human_submission": "received a/b/c; no redo requested",
+    "final_evaluation_ready": false,
+    "historical_failed_run_inputs_verified": true,
+    "new_provider_calls": 0,
+    "new_relevance_human_reviews_completed": 0,
+    "new_retrieval_scores": 0,
+    "overall_independence_verified": false,
+    "pair_counts_by_role_and_split": {
+      "a": {
+        "calibration": 2016,
+        "candidate_final": 35649
+      },
+      "b": {
+        "calibration": 2016,
+        "candidate_final": 35649
+      }
+    },
+    "pairs_per_reviewer": 37665,
+    "preparation_script_sha256": "aea8573da4a4cc78f78be5261bd1c829a696a4eba75421554f2bcc6f42ec8cf6",
+    "recovery_input_requested_again": false,
+    "research_complete": false,
+    "source_documents": 289,
+    "source_manifest_sha256": "60e8e8dded52183f73796153c5fea44cb2e48593d1479666b7e22723ce04f077",
+    "source_queries": 189,
+    "statement_scope": "v4 successful run39044121771 decrypted result ZIP unavailable to user",
+    "successful_v4_input_identity_verified": false,
+    "v4_raw_recovery_status": "incomplete; no repeated request for same file or key",
+    "new_reviewers_available_per_user": 2,
+    "new_review_aliases": [
+      "d",
+      "e"
+    ],
+    "human_reviews_completed": 0,
+    "handoff_strategy": "calibration first; candidate_final input files kept separate; no final labels read for method calibration",
+    "calibration_queries": 36,
+    "calibration_documents": 56,
+    "calibration_pairs_per_reviewer": 2016,
+    "candidate_final_queries": 153,
+    "candidate_final_documents": 233,
+    "candidate_final_pairs_per_reviewer": 35649,
+    "initial_submission_instructions": "Q01 only (56 rows per reviewer) may be submitted first; unmatched/missing judgments remain pending",
+    "workbooks": [
+      {
+        "alias": "d",
+        "packet_role": "a",
+        "file": "새검수자_d_개발보정_36질의.xlsx",
+        "sha256": "1ae7364bd63346bb15d41b1cc78703dc42694abf2370791e3820c46658073621",
+        "bytes": 2271416,
+        "queries": 36,
+        "documents": 56,
+        "pairs": 2016,
+        "blank_values_verified": 2016,
+        "sheets": 37,
+        "human_completed": 0,
+        "final_split_included": false
+      },
+      {
+        "alias": "e",
+        "packet_role": "b",
+        "file": "새검수자_e_개발보정_36질의.xlsx",
+        "sha256": "0664e0847c1c6a7eae90e8998dcf33e4b407f12ab08d591a17ff2ecd73110d50",
+        "bytes": 2269339,
+        "queries": 36,
+        "documents": 56,
+        "pairs": 2016,
+        "blank_values_verified": 2016,
+        "sheets": 37,
+        "human_completed": 0,
+        "final_split_included": false
+      }
+    ],
+    "blank_handoff_check": {
+      "kind": "relevance",
+      "pending_count": 37665,
+      "resolved_count": 0,
+      "labels_complete": false,
+      "agreement": {
+        "kappa": null,
+        "kappa_status": "no_paired_definite_judgments",
+        "observed_agreement": null,
+        "paired_graded": 0,
+        "total_items": 37665,
+        "weighting": "quadratic"
+      },
+      "provider_calls_executed": 0,
+      "final_evaluation_ready": false
+    },
+    "blank_calibration_check": {
+      "d": {
+        "ambiguous": 0,
+        "expected": 2016,
+        "graded": 0,
+        "missing": 2016
+      },
+      "e": {
+        "ambiguous": 0,
+        "expected": 2016,
+        "graded": 0,
+        "missing": 2016
+      }
+    }
   }
 }
