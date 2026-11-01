@@ -23,18 +23,33 @@
     "page_errors": []
   },
   "remote_ci": {
-    "source_commit": "deb9f6d38d6cfc91cd209530c337bdb807c7204b",
-    "run_id": 41206143286,
-    "url": "https://github.com/sokldjs554/ko-search-clinic/actions/runs/41206143286",
+    "source_commit": "897a68dd0374b35667b0d0cf524d300275769179",
+    "run_id": 41279099947,
+    "url": "https://github.com/sokldjs554/ko-search-clinic/actions/runs/41279099947",
     "status": "completed",
     "conclusion": "success",
-    "ubuntu": "694 passed, 2 skipped in 87.00s",
-    "windows": "694 passed, 2 skipped in 106.29s",
+    "ubuntu": "694 passed, 2 skipped in 53.89s",
+    "windows": "694 passed, 2 skipped in 135.39s",
     "baseline": "success",
-    "pr_run_id": 41206146210,
-    "pr_checks": "success",
-    "rechecked_at": "2026-11-01",
-    "note": "Most recently verified branch head before this research report update; new head CI is tracked on PR3."
+    "jobs": [
+      {
+        "id": 124767155018,
+        "name": "검색 품질 게이트",
+        "conclusion": "success"
+      },
+      {
+        "id": 124767155202,
+        "name": "테스트 (windows-latest)",
+        "conclusion": "success"
+      },
+      {
+        "id": 124767155285,
+        "name": "테스트 (ubuntu-latest)",
+        "conclusion": "success"
+      }
+    ],
+    "latest_branch_checks_url": "https://github.com/sokldjs554/ko-search-clinic/pull/3/checks",
+    "note": "Verified research report/demo commit; subsequent documentation-only commit records these results. Its exact-head CI is recorded in PR3 to avoid a self-referential commit hash."
   },
   "paid_api_calls": 90,
   "review": {
@@ -61,14 +76,14 @@
   },
   "publication": {
     "pull_request": "https://github.com/sokldjs554/ko-search-clinic/pull/3",
-    "source_commit": "af7da2a16d6e4e1456400c1c8c278555ff29c13d",
+    "source_commit": "897a68dd0374b35667b0d0cf524d300275769179",
     "test_import_fix": "fd073c5efd48ea94ab290ae1439b8e99155f133c",
     "detailed_outputs": "excluded pending explicit publication approval",
     "initial_source_commit": "1055e2dcdd3563518edb210cfd38cbe2de43f62e",
     "draft": true,
     "merged": false,
     "mergeable_at_code_check": true,
-    "status": "human first submissions received; reconciliation and research conclusions prepared; final evaluation pending"
+    "status": "research conclusions and human reconciliation recorded; c and independent evaluation pending"
   },
   "previous_verified_ci": {
     "source_commit": "fd073c5efd48ea94ab290ae1439b8e99155f133c",
@@ -616,41 +631,18 @@
     "snapshot": "Historical handoff before actual submissions; current status is human_review_current."
   },
   "previous_verified_remote_ci": {
-    "source_commit": "af7da2a16d6e4e1456400c1c8c278555ff29c13d",
-    "run_id": 41205762770,
-    "url": "https://github.com/sokldjs554/ko-search-clinic/actions/runs/41205762770",
+    "source_commit": "deb9f6d38d6cfc91cd209530c337bdb807c7204b",
+    "run_id": 41206143286,
+    "url": "https://github.com/sokldjs554/ko-search-clinic/actions/runs/41206143286",
     "status": "completed",
     "conclusion": "success",
-    "ubuntu": "694 passed, 2 skipped in 60.98s",
-    "windows": "694 passed, 2 skipped in 134.78s",
+    "ubuntu": "694 passed, 2 skipped in 87.00s",
+    "windows": "694 passed, 2 skipped in 106.29s",
     "baseline": "success",
-    "pr_run_id": 41205768145,
+    "pr_run_id": 41206146210,
     "pr_checks": "success",
-    "jobs": [
-      {
-        "id": 124550411670,
-        "name": "테스트 (windows-latest)",
-        "status": "completed",
-        "conclusion": "success",
-        "url": "https://github.com/sokldjs554/ko-search-clinic/actions/runs/41205762770/job/124550411670"
-      },
-      {
-        "id": 124550411793,
-        "name": "검색 품질 게이트",
-        "status": "completed",
-        "conclusion": "success",
-        "url": "https://github.com/sokldjs554/ko-search-clinic/actions/runs/41205762770/job/124550411793"
-      },
-      {
-        "id": 124550411851,
-        "name": "테스트 (ubuntu-latest)",
-        "status": "completed",
-        "conclusion": "success",
-        "url": "https://github.com/sokldjs554/ko-search-clinic/actions/runs/41205762770/job/124550411851"
-      }
-    ],
-    "latest_branch_checks_url": "https://github.com/sokldjs554/ko-search-clinic/pull/3/checks",
-    "note": "Verified review-intake implementation. A subsequent documentation-only commit records this result; that final head CI is recorded in PR3 to avoid self-referential commit hashes."
+    "rechecked_at": "2026-11-01",
+    "note": "Most recently verified branch head before this research report update; new head CI is tracked on PR3."
   },
   "human_review_current": {
     "version": "v5-human-intake-summary-20261101",

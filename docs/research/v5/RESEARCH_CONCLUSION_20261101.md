@@ -32,7 +32,7 @@
 
 Pair의 두 반복 점수는 같지만 1질의의 선택이 달랐다. 두 반복으로 결정성이나 일반적 안정성을 주장하지 않는다. 같은 후보 풀·적용 수를 맞춘 Matched Random100회 평균 nDCG는 적용9건0.761850, 적용10건0.780368이었다. Pair가 이 평균보다 각각0.044315/0.025796 높았으나 이것은 개발 자료의 무작위 적용 분포 비교다.
 
-사전 주조건 Rubric, 최소 실용 개선폭+0.01, 정상 악화0건, 두 기준선 대비 개념군 bootstrap2000회/각97.5% 구간 하한+0.01 이상을 요구했다. Rubric−No Repair는0, Rubric−RulesPlus는−0.275548(97.5% [−0.397430,−0.129032])로 실패했다. 탐색 Pair−RulesPlus는−0.053326(95% [−0.140994,+0.004117]). **통계적·실용적 우위가 없다.** Pair−No Repair의 개발 개선은+0.222222(95% [+0.088235,+0.348837])다. 독립 일반화의 증거는 아니다.
+사전 주조건 Rubric, 최소 실용 개선폭+0.01, 정상 악화0건, 두 기준선 대비 개념군 bootstrap2000회/각97.5% 구간 하한+0.01 이상을 요구했다. Rubric−No Repair는0, Rubric−RulesPlus는−0.275548(97.5% [−0.397430,−0.129032])로 실패했다. 탐색 Pair−RulesPlus는−0.053326(95% [−0.140994,+0.004117]). **통계적·실용적 우위는 입증되지 않았다.** Pair−No Repair의 개발 개선은+0.222222(95% [+0.088235,+0.348837])다. 독립 일반화의 증거는 아니다.
 
 ## 실패 원인과 과도한 보류
 
@@ -97,7 +97,7 @@ clinic baseline
 python -m searchclinic.api.explanation_api
 ```
 
-이번 로컬 전체 pytest는 **694 passed, 2 skipped (86.71초)**이며 제외는 선택 의존성 PostgreSQL/scale뿐이다. Kiwi baseline nDCG10 0.5839426550733804가 유지됐다. 공개/상세 데모를1440/390/320px에서 실제 브라우저로 검사해 페이지 오류0, 상세36질의×6조건·집계9개 arm을 확인했다. c용12건 화면도 검사했다. Ubuntu/Windows CI의 검증된 커밋과 마지막 head 결과는 [final-status.json](verification/final-status.json) 및 PR Checks에 기록한다. 기존 정답 격리, 원시 보존, 모델/후보/프롬프트 결합, 개발/최종 실행 분리 검사를 유지한다. 질의별 상세 정답·응답·사람 판정은 공개하지 않는다.
+이번 로컬 전체 pytest는 **694 passed, 2 skipped (86.71초)**이며 제외는 선택 의존성 PostgreSQL/scale뿐이다. Kiwi baseline nDCG10 0.5839426550733804가 유지됐다. 공개/상세 데모를1440/390/320px에서 실제 브라우저로 검사해 페이지 오류0, 상세36질의×6조건·집계9개 arm을 확인했다. c용12건 화면도 검사했다. 연구 결과 커밋 `897a68d`의 [CI41279099947](https://github.com/sokldjs554/ko-search-clinic/actions/runs/41279099947)는 Ubuntu694통과/2skip(53.89초), Windows694통과/2skip(135.39초), 검색 품질 gate 통과다. Ubuntu/Windows CI의 검증된 커밋과 마지막 head 결과는 [final-status.json](verification/final-status.json) 및 PR Checks에 기록한다. 기존 정답 격리, 원시 보존, 모델/후보/프롬프트 결합, 개발/최종 실행 분리 검사를 유지한다. 질의별 상세 정답·응답·사람 판정은 공개하지 않는다.
 
 ## 해결된 범위와 외부 입력
 
