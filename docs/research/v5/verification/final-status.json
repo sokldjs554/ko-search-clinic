@@ -23,15 +23,15 @@
     "page_errors": []
   },
   "remote_ci": {
-    "source_commit": "10a09d4f1c2085a6cc70546b5273e7993097b99f",
-    "run_id": 41282781054,
-    "url": "https://github.com/sokldjs554/ko-search-clinic/actions/runs/41282781054",
+    "source_commit": "2bdb6bacd20b78913253e3c5129edaec40186a14",
+    "run_id": 41283694305,
+    "url": "https://github.com/sokldjs554/ko-search-clinic/actions/runs/41283694305",
     "status": "completed",
     "conclusion": "success",
-    "ubuntu": "694 passed, 2 skipped in 50.95s",
-    "windows": "694 passed, 2 skipped in 134.53s",
+    "ubuntu": "694 passed, 2 skipped in 74.38s",
+    "windows": "694 passed, 2 skipped in 135.01s",
     "baseline": "success",
-    "note": "Exact latest code-and-demo head validated; subsequent source-audit documentation CI is recorded in PR3."
+    "note": "Last verified head; v3 audit documentation head CI is recorded in PR3."
   },
   "paid_api_calls": 90,
   "review": {
@@ -1210,5 +1210,35 @@
     "final_evaluation_ready": false,
     "existing_15_candidate_submission_complete": true,
     "new_human_reviews_claimed": false
+  },
+  "remote_ci_before_v3_exposure_audit": {
+    "source_commit": "10a09d4f1c2085a6cc70546b5273e7993097b99f",
+    "run_id": 41282781054,
+    "url": "https://github.com/sokldjs554/ko-search-clinic/actions/runs/41282781054",
+    "status": "completed",
+    "conclusion": "success",
+    "ubuntu": "694 passed, 2 skipped in 50.95s",
+    "windows": "694 passed, 2 skipped in 134.53s",
+    "baseline": "success",
+    "note": "Exact latest code-and-demo head validated; subsequent source-audit documentation CI is recorded in PR3."
+  },
+  "current_exposure_audit": {
+    "summary": "v3-exposure-audit-20261101.json",
+    "v3_inventory_received": true,
+    "v3_source_queries_verified": 120,
+    "v3_source_documents_verified": 2455,
+    "klue_exact_query_duplicates": 0,
+    "klue_exact_document_duplicates": 0,
+    "held_concept_groups": 4,
+    "held_queries": 4,
+    "held_documents": 4,
+    "provisional_queries": 196,
+    "provisional_documents": 296,
+    "v4_inventory_received": false,
+    "complete_semantic_independence_verified": false,
+    "overall_independence_verified": false,
+    "final_evaluation_ready": false,
+    "paid_calls": 0,
+    "detailed_inputs_published": false
   }
 }

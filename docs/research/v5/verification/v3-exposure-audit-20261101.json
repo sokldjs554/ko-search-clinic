@@ -1,0 +1,125 @@
+{
+  "annotation_script_sha256": "8bfe59adc3330eca215d3c22b33a3a405a81bd39bfe75c100184f0c3b278b1af",
+  "cohort_labels_crosscheck": "user-provided provenance claim; original COHORT120/LABELS120 not supplied or reread",
+  "containment_matches": 0,
+  "exact_match_counts": {
+    "document_normalized": 0,
+    "document_punctuation_space_removed": 0,
+    "query_normalized": 0,
+    "query_punctuation_space_removed": 0,
+    "title_normalized": 4,
+    "title_punctuation_space_removed": 4
+  },
+  "klue_documents": 300,
+  "klue_inputs_sha256": "bd746a88a743e9d0188f4bd874d73d21ad1fa4448e5bbca9a01c2e3a4bba6134",
+  "klue_queries": 200,
+  "nearest_neighbour_rows": 1000,
+  "new_provider_calls": 0,
+  "overall_independence_verified": false,
+  "private_audit_script_sha256": "c7c3f4f898b6c23ba54692aecfb71dbb236be6910e24be57d63452a125cc0bb7",
+  "screen_counts_at_0_25": {
+    "document_document": 1,
+    "query_document": 0,
+    "query_query": 0,
+    "title_title": 16
+  },
+  "screen_method": "char2-5 TFIDF cosine, top3 per item, no performance outcomes; lexical screening not semantic certification",
+  "semantic_review_status": "assistant lexical-and-meaning screening recorded; not independent human or exhaustive semantic clearance",
+  "semantic_screen": {
+    "assistant_document_items_examined": 23,
+    "assistant_query_pairs_examined": 25,
+    "complete_semantic_certification": false,
+    "held_concept_groups": 4,
+    "held_documents": 4,
+    "held_queries": 4,
+    "held_query_splits": {
+      "calibration": 1,
+      "candidate_final": 3
+    },
+    "human_review": false,
+    "other_items_are_not_cleared": true,
+    "relation_counts": {
+      "broad_topic_distinct_event": 1,
+      "different_question_intent_in_inspected_pair": 25,
+      "distinct_entity": 3,
+      "hierarchical_not_synonym": 3,
+      "overlapping_historical_event": 4,
+      "related_non_equivalent_concepts": 5,
+      "same_entity_or_event_article": 4,
+      "shared_entity_different_scope": 1,
+      "surface_overlap_not_same_concept": 2
+    },
+    "replacement_after_scores": false
+  },
+  "source_member_checksums_verified": 5,
+  "source_zip_sha256": "9270179a154c9e938d6909706bb09236b4d2ec2b4a54a9d1556293fa16b3649a",
+  "v3_context_links": 480,
+  "v3_document_texts_match_official_corpus": 2455,
+  "v3_documents": 2455,
+  "v3_queries": 120,
+  "v3_query_texts_match_official_dev": 120,
+  "v4_access": {
+    "artifact_digest": "sha256:fb7ff1e144f1272fc515297884d67a4afe780f29f27cc9453070d52ef1cb58ba",
+    "artifact_expired": false,
+    "artifact_expires_at": "2027-01-15T15:13:47Z",
+    "artifact_id": 12105496253,
+    "branch": "ops/v4-gpt-20261017",
+    "decrypted_v4_cohort_found": false,
+    "decryption_attempted": false,
+    "known_v5_public_recipient_matches_v4": false,
+    "limitation": "Filename/path inventory and configured bindings only; no claim about external machines or arbitrarily named undisclosed files.",
+    "matching_v4_private_key_path_found": false,
+    "private_key_contents_read": false,
+    "run_id": 39044121771,
+    "runtime_secret_bindings": 0,
+    "search_exclusions": [
+      "venv",
+      "site-packages",
+      "node_modules",
+      ".git",
+      "pytest-of-agent",
+      "cache"
+    ],
+    "search_roots": [
+      "/workspace/work",
+      "/workspace/attachments",
+      "/tmp"
+    ],
+    "v3_assumed_equal_to_v4": false,
+    "v4_exposure_audit_complete": false,
+    "v4_public_recipient_sha256": "4fc2f4f093caa69ac83cc075804e5409d09f5a9f4090ffbd6f8dfbff77b267e1",
+    "workflow_commit": "73f8edc422dd3b463c3b79f5a18f9b1a58befe0b"
+  },
+  "v4_exposure_verified": false,
+  "version": "v3-klue-exposure-audit-20261101",
+  "preparation_validation": {
+    "original_preparation_manifest_sha256": "b70ef584531476488eaaaa9a432e3898866db153c2ae5bde54cfdb802f1d68e1",
+    "verified_manifest_files": 12,
+    "original_inputs_preserved": true,
+    "original_inputs_equal_previous": true,
+    "effective_exposure_status": {
+      "v3_inventory_received": true,
+      "v3_official_source_texts_verified": true,
+      "v4_inventory_received": false,
+      "full_semantic_independence_certified": false
+    },
+    "legacy_manifest_caveat": "The reused preparer has static missing120/pilot-corpus text. This bound receipt supersedes that status only; all original bytes and hashes are preserved. v3 inventory and official full corpus are available; v4 remains unavailable.",
+    "candidate_subset_sha256": "5ad0c7282f445a0c236505bff70cd170734f3e0d89099cd7708363a9336aa088",
+    "candidate_queries": 196,
+    "candidate_documents": 296,
+    "candidate_split_counts": {
+      "calibration": {
+        "queries": 39,
+        "documents": 59
+      },
+      "candidate_final": {
+        "queries": 157,
+        "documents": 237
+      }
+    },
+    "final_evaluation_ready": false,
+    "score_or_method_tuning": false,
+    "replacement_selected": false,
+    "paid_calls": 0
+  }
+}
