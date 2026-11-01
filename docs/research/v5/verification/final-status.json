@@ -23,12 +23,12 @@
     "page_errors": []
   },
   "remote_ci": {
-    "source_commit": "277043ef4cef14e0492d367a0753773ffb5dc5e6",
-    "run_id": 41322021792,
-    "url": "https://github.com/sokldjs554/ko-search-clinic/actions/runs/41322021792",
+    "source_commit": "3ff7a63a2374b3a58eefff5946e185e6ef7949ab",
+    "run_id": 41324340667,
+    "url": "https://github.com/sokldjs554/ko-search-clinic/actions/runs/41324340667",
     "status": "completed",
     "conclusion": "success",
-    "note": "Latest verified prior head; later documentation checks recorded in PR3.",
+    "note": "Latest verified prior head; subsequent documentation CI recorded in PR3.",
     "ubuntu": "success",
     "windows": "success",
     "baseline": "success"
@@ -1842,5 +1842,93 @@
     "labels_complete": false,
     "new_bulk_handoff_issued": false,
     "script_sha256": "2f0a1d60f0cc17955c6ab68e852903405fd0266fdff87354892c6dccb1658c8f"
+  },
+  "remote_ci_before_revision_intake": {
+    "source_commit": "277043ef4cef14e0492d367a0753773ffb5dc5e6",
+    "run_id": 41322021792,
+    "url": "https://github.com/sokldjs554/ko-search-clinic/actions/runs/41322021792",
+    "status": "completed",
+    "conclusion": "success",
+    "note": "Latest verified prior head; later documentation checks recorded in PR3.",
+    "ubuntu": "success",
+    "windows": "success",
+    "baseline": "success"
+  },
+  "relevance_revision_intake": {
+    "version": "relevance-revision-intake-20261102",
+    "revision": 1,
+    "submitted_files": 2,
+    "resubmitted_cases_per_reviewer": 46,
+    "additional_unique_pairs": 0,
+    "cumulative_unique_pairs": 51,
+    "latest_unique_judgments": 102,
+    "prior_versions_retained": true,
+    "files": {
+      "d": {
+        "sha256": "8283315346fb2e0608d631741d9687f15e59223ec025fe60c9837aaaadadd13d",
+        "bytes": 147019,
+        "supersedes_sha256": "9d876fd72d366a1b13338b899a0872eb6df4ffa68fb9bdf34b58d261979a7ab6",
+        "changed_evidence_cells": 46,
+        "changed_grade_cells": 0,
+        "unexpected_value_changes": 0,
+        "formula_cells": 0,
+        "external_links": 0,
+        "reported_grade_counts": {
+          "0": 37,
+          "1": 9
+        },
+        "batch_time_retained_from_previous": true
+      },
+      "e": {
+        "sha256": "19ead8e59715f9f5c9e9aa1bc34e869d6012782f8d104e2cbd09cfcad7de383e",
+        "bytes": 147017,
+        "supersedes_sha256": "149e2bbcb28c8e4813244c5e66f1ed546d4206d2fd3966740b583ba01890aa86",
+        "changed_evidence_cells": 46,
+        "changed_grade_cells": 6,
+        "unexpected_value_changes": 0,
+        "formula_cells": 0,
+        "external_links": 0,
+        "reported_grade_counts": {
+          "0": 43,
+          "1": 3
+        },
+        "batch_time_retained_from_previous": true
+      }
+    },
+    "current_agreement": {
+      "paired_graded": 46,
+      "total_items": 46,
+      "weighting": "quadratic",
+      "observed_agreement": 0.8695652173913043,
+      "kappa": 0.4457831325301205,
+      "kappa_status": "defined"
+    },
+    "cumulative_agreement": {
+      "paired_graded": 51,
+      "total_items": 51,
+      "weighting": "quadratic",
+      "observed_agreement": 0.8823529411764706,
+      "kappa": 0.4516129032258065,
+      "kappa_status": "defined"
+    },
+    "current_agreed_pairs": 40,
+    "cumulative_agreed_pairs": 45,
+    "disagreements": 6,
+    "adjudications_completed": 0,
+    "prior_explanation_containment_pairs": 9,
+    "current_full_explanation_containment_pairs": 0,
+    "independence_attestation_received": false,
+    "independence_confirmation_pending": true,
+    "independence_violation_proven": false,
+    "revision_after_feedback": true,
+    "original_blind_review_status_reestablished": false,
+    "revision_time_inferred": false,
+    "source_choices_automatically_overridden": false,
+    "labels_complete": false,
+    "final_evaluation_ready": false,
+    "new_provider_calls": 0,
+    "new_retrieval_scores": 0,
+    "research_complete": false,
+    "script_sha256": "617411c0ff4372a7e910fbd9e12a5cde65f841b27db3f13cb73d9326510e29ca"
   }
 }
