@@ -2372,5 +2372,13 @@
     },
     "baseline": "success",
     "note": "Verified implementation commit; subsequent aggregate-only documentation commit does not alter execution code."
+  },
+  "browser_actual_server": {
+    "server": "python -m searchclinic.api.explanation_api",
+    "page_status": 200,
+    "summary_arms": 9,
+    "private_detail_status": 404,
+    "page_errors": [],
+    "documentation_fix": "README lead command corrected from REST-only clinic-api (404 for /demo) to python -m searchclinic.api.explanation_api; actual route browser verified"
   }
 }

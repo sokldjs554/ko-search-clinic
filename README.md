@@ -31,7 +31,7 @@ Context/Rubric의 실제 반복별 점수는0.583943/0.611720입니다. 사전 �
 
 [새 실제 결과·통계·재현](docs/research/v5/GENERATED_COMPARISON_RESULT_20261102.md) · [실제60회 실행](https://github.com/sokldjs554/ko-search-clinic/actions/runs/41333892182) · [집계·해시](docs/research/v5/verification/generated-comparison-result-20261102.json) · [검증 상태](docs/research/v5/verification/final-status.json) · [PR #3](https://github.com/sokldjs554/ko-search-clinic/pull/3)
 
-데모는 `clinic-api` 실행 후 `/demo/research-generated.html`에서 새 비교를 확인합니다. 자세한 실행 방법은 아래 **실행과 재현**에 있으며, 원시 응답을 이용한 무료 재분석 명령은 새 결과 보고서에 있습니다. 이전 실험은 다음 절과 `/demo/research.html`에 그대로 보존했습니다.
+데모는 `python -m searchclinic.api.explanation_api` 실행 후 `/demo/research-generated.html`에서 새 비교를 확인합니다. 자세한 실행 방법은 아래 **실행과 재현**에 있으며, 원시 응답을 이용한 무료 재분석 명령은 새 결과 보고서에 있습니다. 이전 실험은 다음 절과 `/demo/research.html`에 그대로 보존했습니다.
 
 **보존된 이전 실험(2026-10-31): 실제 LLM 90회 판정을 완료했으며 RulesPlus 대비 성능 우위는 입증하지 못했습니다.** 기존36질의·저장 scripted 후보15개의 개발 실험이며 새 GPT 후보 생성이나 독립 최종 평가 결과가 아닙니다. v3·v4 결과는 보존했습니다.
 
