@@ -23,13 +23,13 @@
     "page_errors": []
   },
   "remote_ci": {
-    "source_commit": "e9432a96b2bada120dfbfdb1d556efc7c590fed5",
-    "run_id": 41293118332,
-    "url": "https://github.com/sokldjs554/ko-search-clinic/actions/runs/41293118332",
+    "source_commit": "b82a907d941814149e439d1e96f6b3cca6954ee0",
+    "run_id": 41295416592,
+    "url": "https://github.com/sokldjs554/ko-search-clinic/actions/runs/41295416592",
     "status": "completed",
     "conclusion": "success",
-    "ubuntu": "694 passed, 2 skipped in 76.74s",
-    "windows": "694 passed, 2 skipped in 138.09s",
+    "ubuntu": "success",
+    "windows": "success",
     "baseline": "success",
     "note": "Latest verified prior head; subsequent documentation CI recorded in PR3."
   },
@@ -1656,6 +1656,97 @@
       "visually_inspected": "document06, v2",
       "all_five_full_question_body_title_texts_in_pdf": true,
       "native_microsoft_excel_inspected": false
+    }
+  },
+  "remote_ci_before_relevance_pilot_intake": {
+    "source_commit": "e9432a96b2bada120dfbfdb1d556efc7c590fed5",
+    "run_id": 41293118332,
+    "url": "https://github.com/sokldjs554/ko-search-clinic/actions/runs/41293118332",
+    "status": "completed",
+    "conclusion": "success",
+    "ubuntu": "694 passed, 2 skipped in 76.74s",
+    "windows": "694 passed, 2 skipped in 138.09s",
+    "baseline": "success",
+    "note": "Latest verified prior head; subsequent documentation CI recorded in PR3."
+  },
+  "relevance_pilot_intake": {
+    "version": "relevance-pilot-intake-20261102",
+    "received_files": 2,
+    "new_rows_per_reviewer": 5,
+    "new_relevance_judgments": 10,
+    "paired_query_document_items": 5,
+    "reported_grades": {
+      "0": 10
+    },
+    "agreement": {
+      "paired_graded": 5,
+      "total_items": 5,
+      "weighting": "quadratic",
+      "observed_agreement": 1.0,
+      "kappa": null,
+      "kappa_status": "undefined_constant_marginals"
+    },
+    "disagreements": 0,
+    "reconciled_calibration_pairs": 5,
+    "full_calibration_pairs": 2016,
+    "remaining_calibration_pairs": 2011,
+    "final_candidate_pairs": 35649,
+    "final_labels_complete": false,
+    "final_evaluation_ready": false,
+    "research_complete": false,
+    "old_e_rows_1_to_5_excluded_from_relevance": true,
+    "old_submissions_overwritten": false,
+    "files": {
+      "d": {
+        "source_sha256": "e239642f8b36fee4d35b96e95a01e41fb528bfc872cd407b231d43e424c7f844",
+        "source_bytes": 20016,
+        "changed_allowed_cells": 16,
+        "unexpected_value_changes": 0,
+        "formula_cells": 0,
+        "external_links": 0,
+        "retained_previous_rows": 0
+      },
+      "e": {
+        "source_sha256": "3d143a0cb9223be4dd9cd5137707c4c82f507a318dd6201e5b7c976a5db8781a",
+        "source_bytes": 72751,
+        "changed_allowed_cells": 11,
+        "unexpected_value_changes": 0,
+        "formula_cells": 0,
+        "external_links": 0,
+        "retained_previous_rows": 5
+      }
+    },
+    "completion_time_scope": "reported batch; no individual judgment times inferred",
+    "individual_timestamp_csv_receipts_created": false,
+    "paired_choices_are_not_accuracy_estimate": true,
+    "reviewer_identity_and_independence": "self_reported_not_independently_authenticated",
+    "new_provider_calls": 0,
+    "new_retrieval_scores": 0,
+    "script_sha256": "2f133e43ce8f0e33a2587ce6347a88f65a0410f2a54d6888c1dc0320c16804cd",
+    "next_handoff": {
+      "source_numbers": "11-56",
+      "selection": "remaining consecutive documents for same calibration query; no score-based selection",
+      "documents": 46,
+      "queries": 1,
+      "same_order": true,
+      "new_final_data_included": false,
+      "workbooks": [
+        {
+          "alias": "d",
+          "filename": "검수자_d_질문먼저_11-56번.xlsx",
+          "sha256": "7c6aa6265e87cdff7c67639fb9c84efcf8e27614068ea3a6ae39c45b8362b8da",
+          "bytes": 142514,
+          "blank_cases": 46
+        },
+        {
+          "alias": "e",
+          "filename": "검수자_e_질문먼저_11-56번.xlsx",
+          "sha256": "c553a70a0d5bdfe7118873d0838676ecad66da1ee0b90832005b05721e7f44c4",
+          "bytes": 142513,
+          "blank_cases": 46
+        }
+      ],
+      "script_sha256": "25122302da3c0ead3a775166a128c63ae56b78afbf005ae59eaf6f5aa22ef0b0"
     }
   }
 }
